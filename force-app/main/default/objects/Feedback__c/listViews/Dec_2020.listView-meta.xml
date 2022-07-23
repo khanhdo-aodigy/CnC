@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Dec_2020</fullName>
+    <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
+    <columns>App_Type__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>NAME</columns>
+    <columns>Name__c</columns>
+    <columns>Mobile__c</columns>
+    <columns>Email__c</columns>
+    <columns>Category__c</columns>
+    <columns>Registration_Number__c</columns>
+    <columns>Last_Visited_Service_Cent__c</columns>
+    <columns>Message__c</columns>
+    <columns>Contact__c</columns>
+    <columns>Lead__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>greaterOrEqual</operation>
+        <value>12/1/2020 12:00 AM</value>
+    </filters>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>lessOrEqual</operation>
+        <value>12/31/2020 12:00 AM</value>
+    </filters>
+    <filters>
+        <field>Email__c</field>
+        <operation>notContain</operation>
+        <value>test</value>
+    </filters>
+    <filters>
+        <field>App_Type__c</field>
+        <operation>contains</operation>
+        <value>C&amp;C,myMB</value>
+    </filters>
+    <label>Dec 2020</label>
+</ListView>

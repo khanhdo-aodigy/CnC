@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Required_Compliment_Fields_Case_Close</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+ISCHANGED(Status),
+ISPICKVAL(Status, &apos;Closed&apos;),
+RecordType.DeveloperName = &apos;Compliment&apos;,
+ISBLANK(TEXT(Case_Type__c)), ISNULL(TEXT(Case_Type__c)))
+&amp;&amp; NOT( $Setup.Bypass_Automation_Settings__c.Bypass_Validation_Rules__c )</errorConditionFormula>
+    <errorMessage>Please fill the required fields before closing the case.</errorMessage>
+</ValidationRule>

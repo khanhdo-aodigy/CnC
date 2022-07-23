@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Vehicle_Credit_Sync_From__c</fullName>
+    <description>From Date to sync the Vehicle Credit from DWH</description>
+    <externalId>false</externalId>
+    <inlineHelpText>From Date to sync the Vehicle Credit from DWH</inlineHelpText>
+    <label>Vehicle Credit  Sync From</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

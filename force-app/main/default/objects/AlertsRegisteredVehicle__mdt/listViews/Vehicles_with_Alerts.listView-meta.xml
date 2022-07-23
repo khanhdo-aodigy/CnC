@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Vehicles_with_Alerts</fullName>
+    <columns>MasterLabel</columns>
+    <columns>DeveloperName</columns>
+    <columns>VehicleRegistrationNumber__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>Vehicles with Alerts</label>
+</ListView>

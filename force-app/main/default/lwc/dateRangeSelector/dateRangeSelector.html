@@ -1,0 +1,57 @@
+<template>
+    <template if:true={isDraggedDropped}>
+        <lightning-card title={label}>
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col slds-m-left_large">
+                    <lightning-input    type="date" 
+                                        name="startdate" 
+                                        class="startdate" 
+                                        label="From" 
+                                        value={start_date}
+                                        min={from_date_min} 
+                                        max={from_date_max}  
+                                        onchange={handleDateChange} >
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-m-right_large">
+                    <lightning-input    type="date" 
+                                        name="enddate" 
+                                        class="enddate" 
+                                        label="To" 
+                                        value={end_date}
+                                        min={to_date_min} 
+                                        max={to_date_max} 
+                                        onchange={handleDateChange} >
+                    </lightning-input>
+                </div>
+            </div>
+        </lightning-card>
+    </template>
+    <template if:false={isDraggedDropped}>
+        <div class="slds-form-element__label slds-form-element__legend slds-m-left_xxx-small">{label}</div>
+        <div class="slds-grid slds-gutters slds-form-element__control">
+            <div class="slds-col slds-m-left_xxx-small">
+                <lightning-input    type="date" 
+                                    name="startdate" 
+                                    class="startdate" 
+                                    label="From" 
+                                    value={start_date}
+                                    min={from_date_min} 
+                                    max={from_date_max}  
+                                    onchange={handleDateChange} >
+                </lightning-input>
+            </div>
+            <div class="slds-col slds-m-right_xxx-small">
+                <lightning-input    type="date" 
+                                    name="enddate" 
+                                    class="enddate" 
+                                    label="To" 
+                                    value={end_date}
+                                    min={to_date_min} 
+                                    max={to_date_max} 
+                                    onchange={handleDateChange} >
+                </lightning-input>
+            </div>
+        </div>
+    </template>
+</template>

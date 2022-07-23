@@ -1,0 +1,140 @@
+<!--
+  @File Name          : dsp_reviewContainer.cmp
+  @Description        : 
+  @Author             : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Group              : 
+  @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Last Modified On   : 1/7/2020, 11:46:53 AM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    1/6/2020   ChangeMeIn@UserSettingsUnder.SFDoc     Initial Version
+-->
+<aura:component controller="EnvelopeSendController" access="global"
+    implements="lightning:isUrlAddressable,lightning:hasPageReference,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId">
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="templateID" type="String" />
+    <aura:attribute name="recipientEmail" type="String" />
+    <aura:attribute name="recipientEmailForUCA" type="String" />
+
+    <aura:attribute name="salesAgreementRecord" type="Sales_Agreement__c" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="requestGenerateDocuUrl" type="boolean" default="false" />
+    <aura:attribute name="finishedGenerating" type="Boolean" default="false" />
+    <aura:attribute name="openComissionPopUp" type="Boolean" default="false" />
+
+    <aura:attribute name="signingURL" type="String" />
+    <aura:attribute name="isSignUpCalled" type="Boolean" default="false" />
+    <aura:attribute name="signViaEmail" type="Boolean" default="false" />
+    <aura:attribute name="finishedText" type="String" />
+     
+    <aura:attribute name="isUsedCarAgmnt" type="Boolean" default="false" />
+    <aura:attribute name="templateIDForUCA" type="String" />
+    <aura:attribute name="requestGenerateDocuUrlForUCA" type="boolean" default="false" />
+    <aura:handler name="change" value="{!v.isUsedCarAgmnt}" action="{!c.handleTextDisplay}" />
+    <aura:attribute name="finishedGeneratingForUCA" type="Boolean" default="false" />
+    <aura:handler name="change" value="{!v.finishedGeneratingForUCA}" action="{!c.generateDocuSignForUCA}" />
+
+    <aura:handler name="change" value="{!v.finishedGenerating}" action="{!c.generateDocuSign}" />
+    <aura:attribute name="spinner" type="Boolean" default="false" />
+
+    <aura:attribute name="isError" type="Boolean" default="false" />
+    <aura:attribute name="errorMsg" type="String" default="" />
+    <aura:registerEvent name="navigationEvent" type="c:dsp_navigationEvent" />
+
+
+    <aura:if isTrue="{!v.spinner}">
+        <button class="btn btn-primary btn-submit" type="button" disabled="true">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Generating Docs
+        </button>
+        <aura:set attribute="else">
+            <!-- <aura:if isTrue="{!v.finishedGenerating}"> -->
+                <div class="container">
+                    <p style="text-align:center;padding-bottom:10px;"> {!v.finishedText} </p>
+                    <!-- <button type="button" class="btn btn-primary btn-submit" onclick="{!c.closeSalesAgreement}">Close
+                        Sales Agreement</button> -->
+                </div> 
+            <!-- </aura:if> -->
+            <div class="container">
+                <button aura:id="docuButton" type="button" class="btn btn-primary btn-submit"
+                        onclick="{!c.onGenerateDocuSign}">Generate PDF
+                </button>
+                
+                <aura:if isTrue="{!v.isUsedCarAgmnt}">
+                    <button aura:id="docuButton" type="button" class="btn btn-primary btn-submit"
+                            onclick="{!c.onGenerateDocuSignViaEmail}"
+                            style="background-color: #fff;border: 1px;color: #0a9cfb;border-style: solid;">Email to
+                            {!v.recipientEmailForUCA}
+                    </button>
+                    <aura:set attribute="else">
+                        <button aura:id="docuButton" type="button" class="btn btn-primary btn-submit"
+                                onclick="{!c.onGenerateDocuSignViaEmail}"
+                                style="background-color: #fff;border: 1px;color: #0a9cfb;border-style: solid;">Email to
+                                {!v.recipientEmail}
+                        </button>  
+                    </aura:set>
+                </aura:if>                     
+                <!-- <button aura:id="docuButton" type="button" class="btn btn-primary btn-submit"
+                onclick="{!c.summonGEN118}">Summon GEN 1.18</button>
+                <button aura:id="docuButton" type="button" class="btn btn-primary btn-submit"
+                onclick="{!c.summonGEN211}">Summon GEN 2.11</button> -->
+            </div>
+        </aura:set>
+    </aura:if>
+
+
+    <aura:if isTrue="{!v.requestGenerateDocuUrl}">
+        <div style="display:none;">
+            <dsgen:generator templateId="{!v.templateID}" recordId="{!v.recordId}"
+                                finishedGenerating="{!v.finishedGenerating}" />
+        </div>
+    </aura:if>
+    <aura:if isTrue="{!v.requestGenerateDocuUrlForUCA}">
+            <div style="display:none;">
+                <dsgen:generator templateId="{!v.templateIDForUCA}" recordId="{!v.recordId}"
+                                 finishedGenerating="{!v.finishedGeneratingForUCA}" />
+            </div>            
+    </aura:if>
+    
+    <!-- <div style="font-size: bold; float:middle">
+    {!v.body}
+</div> -->
+
+
+    <aura:if isTrue="{!v.isError}">
+        <div data-name="ErrorHeaderOffsetSticky" class="header-snap scroller sticky"
+            style="top: 20px; background:#fc6c6c">
+            <div class="container">
+                <div class="row justify-content-md-center">
+                    <span>{!v.errorMsg}</span>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+    <br />
+
+    <aura:if isTrue="{!v.openComissionPopUp}">
+        <c:dsp_CommissionPopUp CurrentRecordId="{!v.recordId}" coeCategory="{!v.salesAgreementRecord.COECategory__c}"
+            defaultCommission="{!v.salesAgreementRecord.Default_Commission__c}"
+            onsubmitcommission="{!c.continueToDocuSign}" oncancelSubmission="{!c.closeCommissionPopUp}">
+        </c:dsp_CommissionPopUp>
+        <!--
+        <div data-id="DefectsModal"></div>
+        <div class="modal-dialog">
+            <div class="modal-content additionalModalCSS">
+                <div>
+                    <h3 style="text-align:center">Commission</h3>
+                    <br />
+                    akdjsflkjasdflkj
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-custom btn-xs"
+                            style="width:40%;border-color:#2196f3;border-radius:20px;border-width:thin;border-style:solid;font-weight:bold"
+                            onclick="{!c.commissionPopUpGenerateDocusign}">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    -->
+    </aura:if>
+</aura:component>

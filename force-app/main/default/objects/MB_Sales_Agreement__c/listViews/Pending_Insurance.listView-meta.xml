@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pending_Insurance</fullName>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>Customer_Full_Name__c</columns>
+    <columns>OWNER.FIRST_NAME</columns>
+    <columns>OWNER.LAST_NAME</columns>
+    <columns>New_Insurance_Company__c</columns>
+    <columns>DocStatusCoverNote__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>DocStatusCoverNote__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Cancelled,Draft,Waiting for Confirmation,Booked,Car Collected</value>
+    </filters>
+    <label>Pending Insurance</label>
+    <sharedTo>
+        <role>BSD</role>
+    </sharedTo>
+</ListView>

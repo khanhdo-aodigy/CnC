@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Branch_Code__c</columns>
+    <columns>Franchise_Code__c</columns>
+    <columns>Model_Description__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>Active__c</columns>
+    <columns>Commission__c</columns>
+    <columns>Decomission__c</columns>
+    <columns>Model_Group__c</columns>
+    <columns>Model_Type__c</columns>
+    <columns>VITAS_Code__c</columns>
+    <columns>Major_Group_Code__c</columns>
+    <columns>Warranty_Months__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Active__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>NAME</field>
+        <operation>contains</operation>
+        <value>EV6</value>
+    </filters>
+    <label>All</label>
+</ListView>

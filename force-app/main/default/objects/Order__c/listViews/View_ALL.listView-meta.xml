@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>View_ALL</fullName>
+    <columns>UPDATEDBY_USER</columns>
+    <columns>Shop__c</columns>
+    <columns>Account__c</columns>
+    <columns>Grand_Total__c</columns>
+    <columns>E_shop_Order_Number__c</columns>
+    <columns>NAME</columns>
+    <columns>OrderID__c</columns>
+    <columns>Status__c</columns>
+    <columns>eInvoice__c</columns>
+    <columns>eInvoice_URL__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Completed</value>
+    </filters>
+    <label>View ALL</label>
+</ListView>

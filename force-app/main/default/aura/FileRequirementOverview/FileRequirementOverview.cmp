@@ -1,0 +1,57 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId" controller="FileRequirementUploadController">
+    <aura:attribute name="record" type="Object"/>
+    <aura:attribute name="associatedCheckboxFields" type="String[]"/>
+    <aura:attribute name="userIsSysAdmin" type="String"/>
+    <aura:attribute name="isInit" type="Boolean"/>
+    
+    <aura:attribute name="sectionedFilesPerRequirements" type="List"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:handler event="c:FileUploadEvent" action="{!c.handleFileUploadEvent}"/>
+    
+    <c:ToastHandler aura:id="toastHandler" /> 
+    <c:ServerActionService aura:id="serverService"/>
+    
+    <aura:if isTrue="{!not(empty(v.associatedCheckboxFields))}">
+        <force:recordData aura:id="recordHandler"
+                          recordId="{!v.recordId}"
+                          fields="{!v.associatedCheckboxFields}"
+                          targetFields="{!v.record}"
+                          mode="EDIT"
+                          recordUpdated="{!c.doInit}"
+                          />  
+        <aura:set attribute="else">
+            <force:recordData aura:id="recordHandler"
+                              recordId="{!v.recordId}"
+                              layoutType="FULL"
+                              targetFields="{!v.record}"
+                              mode="EDIT"
+                              recordUpdated="{!c.doInit}"
+                              />              
+        </aura:set>
+    </aura:if>
+    
+    <div class="slds-box">
+        <div class="slds-m-bottom_medium">
+            <lightning:icon iconName="doctype:attachment" alternativeText="Attachment" size="small"/>
+            <span class="slds-card__header-title slds-p-around_small"><b>Document Overview</b></span>
+		</div>
+        
+        <aura:if isTrue="{!v.isInit}">
+            <aura:if isTrue="{!not(empty(v.sectionedFilesPerRequirements))}">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <aura:iteration items="{!v.sectionedFilesPerRequirements}" var="sectionedFilesPerReq">
+                        <c:FileRequirementSection header="{#sectionedFilesPerReq.sectionName}"
+                                                  filesPerRequirements="{!sectionedFilesPerReq.filesPerReqs}"
+                                                  recordId="{!v.recordId}"
+                                                  userIsSysAdmin="{!v.userIsSysAdmin}"/>
+                    </aura:iteration>
+                </table>
+                <aura:set attribute="else">
+                    No files required to be uploaded
+                </aura:set>
+            </aura:if>
+        </aura:if>
+    </div>
+    
+</aura:component>

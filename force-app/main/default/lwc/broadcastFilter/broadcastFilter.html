@@ -1,0 +1,148 @@
+<template>
+    <!-- FILTERS CARD -->
+    <lightning-card title="Filters" icon-name="standard:calibration">
+        <div class="slds-m-horizontal_medium slds-m-bottom--x-large">
+            <!-- BUTTONS -->
+            <div class="slds-form-element slds-form-element_stacked">
+                <div style="text-align: right;" >
+                    <lightning-button-group>
+                        <lightning-button 
+                            variant="brand" 
+                            label="Search" 
+                            title="Search" 
+                            disabled={isDisabled}
+                            onclick={handleSearch} 
+                        ></lightning-button>
+                        <lightning-button 
+                            label="Reset" 
+                            title="Reset"
+                            onclick={handleReset}
+                        ></lightning-button>
+                    </lightning-button-group>
+                </div>
+            </div>
+            <!-- END -->
+            <!-- REGISTERED VEHICLE FILTERS -->
+            <template if:true={isRegisteredVehicle}>
+                <!-- BRANCH -->
+                <div class="slds-form-element slds-form-element_stacked">
+                    <h1>Branch</h1>
+                    <template if:true={branches.data}>
+                        <div style="display: flex;">
+                        <template for:each={branches.data.values} for:item="branch">
+                            <lightning-input
+                                key={branch.value}
+                                label={branch.label}
+                                data-filter="branches"
+                                data-value={branch.value}
+                                type="checkbox"                                
+                                onchange={handleCheckboxChange}
+                                class="check-box-cls"
+                            ></lightning-input>
+                        </template>
+                        </div>
+                    </template>
+                    <template if:true={branches.error}>
+                        Error loading branches
+                    </template>
+                </div>
+                <!-- END -->
+                <!-- MODEL -->
+                <div class="slds-form-element slds-form-element_stacked">
+                    <template if:true={model_options} >
+                        <c-dual-list-as-cmp  class="model-cls" 
+                            duallist-api-field-name="Model__c"
+                            duallist-name="Model"
+                            duallist-label="Model" 
+                            duallist-source-label="Available"
+                            duallist-selected-label="Selected"
+                            duallist-field-level-help="Select your preferred Brands"
+                            duallist-size="4"
+                            duallist-options={model_options}
+                            onvaluechanged={onValueChanged}         
+                        ></c-dual-list-as-cmp>
+                    </template>
+                </div>
+                <!-- END -->
+                <!-- VARIANT -->
+                <div class="slds-form-element slds-form-element_stacked">
+                    <template if:true={variant_options} >
+                        <c-dual-list-as-cmp class="variant-cls" 
+                            duallist-api-field-name="Variant__c"
+                            duallist-name="Variant"
+                            duallist-label="Variant" 
+                            duallist-source-label="Available"
+                            duallist-selected-label="Selected"
+                            duallist-field-level-help="Select your preferred Variants"
+                            duallist-size="4"
+                            duallist-options={variant_options}
+                            onvaluechanged={onValueChanged}         
+                        ></c-dual-list-as-cmp>
+                    </template>
+                </div>
+                <!-- END -->
+                <!-- UPCOMING SERVICE -->
+                <div class="slds-form-element slds-form-element_stacked">
+                    <c-date-range-selector  label="Upcoming Service" 
+                                            filter-name="Upcoming_Service_Date"
+                                            start_date_min="0"
+                                            start_date_max="1"
+                                            end_date_min="0"
+                                            end_date_max="1">                
+                    </c-date-range-selector>   
+                </div>
+                <!-- END  --> 
+            </template>
+            <!-- END OF REGISTERED VEHICLE FILTERS -->
+            <template if:false={isRegisteredVehicle}>
+                <!-- REGISTRATION DATE -->
+                <div class="slds-form-element slds-form-element_stacked">
+                    <c-date-range-selector  label="Registration Date" 
+                                            filter-name="Registration_Date"
+                                            is-normal-date=true>                
+                    </c-date-range-selector>  
+                </div>
+                <!-- END -->
+                <!-- MILEAGE -->
+                <div class="slds-form-element slds-form-element_stacked">
+                    <c-number-range-selector  label="Mileage" 
+                                              filter-name="Mileage"
+                                              is-input-field=true>                
+                    </c-number-range-selector>  
+                </div>
+                <!-- END -->
+            </template>
+            <template if:false={isUsedCar}>
+                <!-- LAST SERVICE -->
+                <div class="slds-form-element slds-form-element_stacked">
+                    <c-date-range-selector  label="Last Visit" 
+                                            filter-name="Last_Service_Date"
+                                            start_date_max="0"
+                                            end_date_max="0">                
+                    </c-date-range-selector>  
+                </div>
+                <!-- END -->
+            </template>
+            <!-- BIRTHDAY MONTH -->
+            <div class="slds-form-element slds-form-element_stacked">
+                <c-number-range-selector label="Birthday Month"
+                                        filter-name="Contact__r.BirthDate"
+                                        filter-option="Calendar Month">
+                </c-number-range-selector>
+            </div> 
+            <!-- END -->
+            <!-- VEHICLE AGE -->
+            <template if:false={isNonCC}>
+                <div class="slds-form-element slds-form-element_stacked">
+                    <c-number-range-selector label="Vehicle Age (yrs)"
+                                            filter-name="Vehicle_Age__c"
+                                            filter-option="Numeric Number"
+                                            max-numeric-number="15">
+                    </c-number-range-selector>
+                </div>
+            </template>
+            <!-- END -->
+        </div>
+    </lightning-card>
+    <!-- END OF FILTERS CARD -->
+</template>

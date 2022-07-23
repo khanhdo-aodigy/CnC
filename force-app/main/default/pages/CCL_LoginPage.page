@@ -1,0 +1,89 @@
+<apex:page id="loginPage" showHeader="false" standardStylesheets="false" docType="html-5.0" applyHtmlTag="false" applyBodyTag="false"
+    title="Login - Landing | Cycle & Carriage Singapore" cache="false" controller="CCL_LoginPageController">
+    <link REL="icon" HREF="{!URLFOR($Resource.CCL_assets, '/img/favicon.ico')}" type="img/x-icon"/>
+
+    <apex:includeLightning />
+    <html>
+
+    <head>
+        <title>myCarriage | Sign In</title>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff" />
+        <style>
+            .slds-scope {
+                font-size: 1rem !important;
+                font-family: "Alegreya Sans" !important;
+                background-color: #F7F6F3 !important;
+                color: #212529;
+            }
+
+            .slds-scope h1,
+            .slds-scope h2,
+            .slds-scope h3,
+            .slds-scope h4,
+            .slds-scope h5,
+            .slds-scope h6,
+            .slds-scope th,
+            .slds-scope td {
+                font-family: "Alegreya Sans" !important;
+            }
+        </style>
+    </head>
+
+    <body  onload="init()">
+        <!--  LOGIN FORM -->
+        <div class="bg-container">
+            <div class="mod-login bg-container__content">
+                <apex:form id="loginForm" forceSSL="false" styleClass="">
+                    <div id="spinner" class="slds-spinner_container">
+                        <div role="status" class="slds-spinner slds-spinner_small">
+                            <div class="slds-spinner__dot-a"></div>
+                            <div class="slds-spinner__dot-b"></div>
+                        </div>
+                    </div>
+                    <apex:outputPanel layout="block" id="someId">
+                        <div id="login">
+                            <script>
+                                $Lightning.use("c:CCL_App", function () {
+                                    $Lightning.createComponent("c:ccl_loginForm",
+                                        {
+                                            startURL: "{!JSENCODE($CurrentPage.parameters.startURL)}"
+                                        },
+                                        "login", function (component) { });
+                                });
+
+                                document.addEventListener("loginSuccess", function (event) {
+                                    console.log('Login success:: ' + event.detail.data);
+                                    eventAction("login", event.detail.data);
+                                });
+
+                                setTimeout(function () { document.getElementById('spinner').className += ' slds-hide' }, 1000);
+                            </script>
+                            <apex:actionFunction action="{!eventAction}" name="eventAction" reRender="someId">
+                                <apex:param name="eventName" value="" />
+                                <apex:param name="pageRef" value="" />
+                            </apex:actionFunction>
+                        </div>
+                    </apex:outputPanel>
+                </apex:form>
+            </div>
+        </div>
+        <!-- END -->
+    </body>
+
+    </html>
+
+    <script>       
+        function init(){
+            const urlParams = window.location.search;
+            if(urlParams === ''){                
+               window.location.href = '{!$Label.CCL_RedirectURL}';
+            }
+        }
+    </script>
+
+</apex:page>

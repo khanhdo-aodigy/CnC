@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service_Centre__c</fullName>
+    <externalId>false</externalId>
+    <label>Service Centre</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Alexandra/Leng Kee</fullName>
+                <default>false</default>
+                <label>Alexandra/Leng Kee</label>
+            </value>
+            <value>
+                <fullName>Pandan Garden</fullName>
+                <default>false</default>
+                <label>Pandan Garden</label>
+            </value>
+            <value>
+                <fullName>Pandan Loop</fullName>
+                <default>false</default>
+                <label>Pandan Loop</label>
+            </value>
+            <value>
+                <fullName>Pandan Loop Body and Paint</fullName>
+                <default>false</default>
+                <label>Pandan Loop Body and Paint</label>
+            </value>
+            <value>
+                <fullName>Eunos</fullName>
+                <default>false</default>
+                <label>Eunos</label>
+            </value>
+            <value>
+                <fullName>Sin Ming</fullName>
+                <default>false</default>
+                <label>Sin Ming</label>
+            </value>
+            <value>
+                <fullName>FULCO</fullName>
+                <default>false</default>
+                <label>FULCO</label>
+            </value>
+            <value>
+                <fullName>Mercedes-Benz Center</fullName>
+                <default>false</default>
+                <label>Mercedes-Benz Center</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

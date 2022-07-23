@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Generate_Sale_Agreement</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Generate Sale Agreement</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/apex/dsgen__documentGenerator?templateId={!IF(TEXT(Sales_Agreement__c.Branch_Code__c) == &apos;CCK&apos;, &apos;a2M2x0000000UCqEAM&apos;, IF(TEXT(Sales_Agreement__c.Branch_Code__c) == &apos;CCA&apos;, &apos;a2M2x0000000UnEEAU&apos;, IF(AND(TEXT(Sales_Agreement__c.Branch_Code__c) == &apos;CCF&apos;, Sales_Agreement__c.DS_Model__c), &apos;a2M2x0000000UwUEAU&apos;, &apos;a2M2x0000000UnJEAU&apos;)))}&amp;recordId={!Sales_Agreement__c.Id}&amp;recordName={!Sales_Agreement__c.Name}&amp;title=Preview Sales Agreement</url>
+</WebLink>

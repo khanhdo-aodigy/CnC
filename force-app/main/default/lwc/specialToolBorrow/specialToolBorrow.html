@@ -1,0 +1,119 @@
+<template>
+    <template if:true={spinner} >
+        <lightning-spinner variant="brand" size="large"></lightning-spinner>
+    </template>
+
+    <div data-id="MainContainer">
+        <div class="slds-col slds-size_3-of-3">                
+                <lightning-layout vertical-align="center">
+                    <lightning-layout-item padding="around-small" size="12">
+                                <div class="slds-m-around_medium" style="font-weight: 450;">
+                                    <template if:true={runningUser} >
+                                        <div class="tag-box-wrapper"> 
+                                            <div class="tag-box">                
+                                                <div class="slds-p-around_x-small tag-header" >
+                                                    <p class="slds-text-heading_small">Administrator Information</p>
+                                                </div>
+                                                <div class="slds-p-around_x-small">
+                                                    <div class="slds-grid">
+                                                        <div class="slds-col slds-size_1-of-12 tag-infor__label">Name:</div>
+                                                        <div class="slds-col slds-size_2-of-12 tag-infor__value"><span if:true={runningUser.Name}>{runningUser.Name}</span></div>
+                                                        <div class="slds-col slds-size_1-of-12 tag-infor__label">Role:</div>
+                                                        <div class="slds-col slds-size_2-of-12 tag-infor__value"><span if:true={runningUser.UserRole}>{runningUser.UserRole.Name}</span></div>
+                                                    </div>
+                                                </div> 
+                                            </div> 
+                                        </div>                 
+                                    </template>
+                                    <div class="tag-box-wrapper"> 
+                                        <div class="tag-box">
+                                            <div class="slds-p-around_x-small tag-header" >
+                                                <p class="slds-text-heading_small">Technician Information</p>
+                                            </div>
+                                            <div class="slds-p-around_x-small">
+                                                <div class="slds-grid">
+                                                    <div class="slds-col slds-size_1-of-12 tag-infor__label">Access code:</div>
+                                                    <div class="slds-col slds-size_4-of-12 ">
+                                                        <!-- <lightning-input type="text" value={userInfo_AccessCode} name="AccessCode" class="AccessCode" onchange={scanBarCode}></lightning-input> -->
+                                                        <lightning-input type="password" value={userInfo_AccessCode} name="AccessCode" class="AccessCode" onchange={scanBarCode} onkeyup={handleKeyUp}></lightning-input>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-grid" if:true={userInfo_Name}>
+                                                    <div class="slds-col slds-size_1-of-12 tag-infor__label">Name:</div>
+                                                    <div class="slds-col slds-size_2-of-12 tag-infor__value"><span if:true={userInfo_Name}>{userInfo_Name}</span></div>
+                                                    <div class="slds-col slds-size_1-of-12 tag-infor__label">Department:</div>
+                                                    <div class="slds-col slds-size_2-of-12 tag-infor__value"><span if:true={userInfo_Department}>{userInfo_Department}</span></div>
+                                                    <div class="slds-col slds-size_1-of-12 tag-infor__label">Location:</div>
+                                                    <div class="slds-col slds-size_5-of-12 tag-infor__value"><span if:true={userInfo_Location}>{userInfo_Location}</span></div>
+                                                </div>  
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div if:true={userInfo_Name} class="tag-box-wrapper"> 
+                                    <div  class="tag-box">
+                                        <div class="slds-p-around_x-small tag-header" >
+                                            <p class="slds-text-heading_small">Tool Information</p>
+                                        </div>
+                                        <div class="slds-p-around_x-small">
+                                            <div class="slds-grid">
+                                                <div class="slds-col slds-size_1-of-12 tag-infor__label">Enter Part No:</div>
+                                                <div class="slds-col slds-size_4-of-12 "><lightning-input type="text" value={partNo} name="PartNo" class="PartNo" onchange={scanBarCode} onkeyup={handleKeyUp}>
+                                                </lightning-input></div>
+                                            </div>
+                                            <template if:true={displayToolList}>
+                                                <div class="slds-grid">
+                                                    <div class="slds-col slds-size_1-of-12 tag-infor__label">Special Tools:</div>
+                                                    <div class="slds-col slds-size_4-of-12 ">
+                                                        <lightning-combobox
+                                                                            name="tool_options"
+                                                                            placeholder="Select Special Tool"
+                                                                            options={toolOptions}
+                                                                            value={toolVal}
+                                                                            onchange={handleSelectTool}
+                                                                            data-id="tool_options"></lightning-combobox>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
+
+                                        <div class="slds-m-around_xx-large">
+                                            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                                                <thead >
+                                                    <th class="tag-header-table" style="border-left: 1px solid #E3E1E0">Tool Name</th>
+                                                    <th class="tag-header-table">Tool Part No.</th>
+                                                    <th class="tag-header-table">Tool Description</th>
+                                                    <th class="tag-header-table" style="border-right: 1px solid #E3E1E0;border-left: 0px solid; padding-right:1rem; "></th>
+                                                </thead>
+                                                <tbody>
+                                                    <template for:each={tools} for:item="item" if:true={tools} for:index="index">
+                                                        <tr key={item.Id} >
+                                                            <td style="border-left: 1px solid #E3E1E0"><span if:true={item.Name} class="tool-id" onclick={showDetail} data-index={index}>{item.Name}</span></td> 
+                                                            <td><span if:true={item.Part_Number__c}>{item.Part_Number__c}</span></td> 
+                                                            <td><span if:true={item.Remarks__c}>{item.Remarks__c}</span></td>
+                                                            <td style="border-right: 1px solid #E3E1E0; width: 20px; border-left: 0px solid; padding-right:1rem;"> <lightning-button-icon icon-name="utility:delete" alternative-text="Delete" 
+                                                                    class="slds-m-around_small" title="Delete" onclick={handleDeleteTool}
+                                                                    data-row-index={index}> 
+                                                                </lightning-button-icon></td>
+                                                        </tr>
+                                                    </template>
+                                                </tbody>   
+                                            </table>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+
+                                
+                    </lightning-layout-item>
+                </lightning-layout>
+        </div>
+
+        <div class="slds-align_absolute-center slds-p-vertical_large" >
+                <button type="button" class="slds-button slds-button_neutral" onclick={submitToBorrow} disabled={buttonDisable} style="font-weight: 700;">SUBMIT</button>
+        </div>
+    </div>
+    
+    <template if:true={toolsBorrowed}>
+        <c-special-tools-borrowed-by-user tools-borrowed={toolsBorrowed} total-tool={totalTool}  onclose={closeToolsBorrowedPopup}></c-special-tools-borrowed-by-user>
+    </template>
+</template>

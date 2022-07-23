@@ -1,0 +1,1663 @@
+<apex:page cache="true" controller="StockReservationCon" docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false" lightningStylesheets="false">
+<style type="text/css">
+    @media all and (orientation:portrait) {
+        .divname {margin-top: 0px !important;
+        }
+    }
+    @media all and (orientation:landscape) {
+        .divname {margin-top: 12px;
+        }
+    }
+    .lookupInput a {
+    display:block;
+    position:absolute;
+    top:0px;
+    }
+    .looupInput img {
+        float:right;
+        }
+    .span.lookupInput {
+        position :relative;
+        display:inherit;
+        }
+    .lookupInput a, .lookupInput a{
+        border:none !important;
+        background:none !important;
+        box-shadow:none !important;
+    }
+    .btn-primary{
+        text-align: center;
+        vertical-align:center;
+    }
+    .btn{
+        padding: 4px 8px !important;
+    }
+    .h3 {
+    
+    }
+    .tablesorter thead tr th{
+        background-color: #3090C7 !important;
+        border: 1px solid #FFF;
+        font-size: 11pt;
+        color: #FFF;
+        padding:10px !important;
+    }
+    .tablesorter tbody tr td{
+        border: 1px solid #e6e6e6;
+        background-color:#fcfcfc;
+        padding-left:10px !important;
+        padding-right:10px !important;
+        word-wrap: break-word;
+        white-space: normal;
+    }
+    .tablesorter-childRow tr th{
+        background-color:#ccccb3 !important;
+        vertical-align: center;
+    }
+     .tablesorter2 thead tr th{
+        background-color: #F78E49 !important;
+        border: 1px solid #FFF;
+        font-size: 11pt;
+        color: #FFF;
+        padding:10px !important;
+    }
+    .tablesorter2 tbody tr td{
+        border: 1px solid #e6e6e6;
+        background-color:#fcfcfc;
+        padding-left:10px !important;
+        padding-right:10px !important;
+    }
+    
+    }
+    .tablesorter2-childRow tr th{
+        background-color:#ccccb3 !important;
+        vertical-align: cente
+    }
+     .tablesorter3 thead tr th{
+        background-color: #FF3838 !important;
+        border: 1px solid #FFF;
+        font-size: 11pt;
+        color: #FFF;
+        padding:10px !important;
+    }
+    .tablesorter3 tbody tr td{
+        border: 1px solid #e6e6e6;
+        background-color:#fcfcfc;
+        padding-left:10px !important;
+        padding-right:10px !important;
+    }
+    
+    }
+    .tablesorter3-childRow tr th{
+        background-color:#ccccb3 !important;
+        vertical-align: cente
+    }
+    .control-label{
+        font-weight:light !important;
+        text-align:right;
+    }
+    .fortextarea{
+    height: 250px ; 
+    overflow-y: scroll;
+    background-color: #eee !important;
+    opacity: 1;
+    display: block;
+    width: 100%;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+
+    }
+   .sub1{
+        border-radius:4px;
+        background-color: #ccddff;
+        font-weight:bold;
+        padding: 2px 20px 2px 20px;
+    }
+   .sub2{
+        border-radius:4px;
+        background-color: #FFA56B;
+        font-weight:bold;
+        padding: 2px 20px 2px 20px;
+    }   
+   .sub3{
+        border-radius:4px;
+        background-color: #FF7979;
+        font-weight:bold;
+        padding: 2px 20px 2px 20px;
+    }           
+    .redmark {border : 1px solid red; border-radius:4px;}
+    .bluetable {background-color:#0489B1 !important;}
+    .canvas2 {
+            margin: 1px;
+            margin-left: 0px;
+            border: 1px solid #C1C1C1 !important;
+    }
+    .canvasEror {
+            margin: 1px;
+            margin-left: 0px;
+            border: 1px solid #C1C1C1 !important;
+            border-color : red !important;
+    }
+    a.clearSign, a.clearSign:visited{
+            text-decoration: none;
+            cursor: pointer; 
+            font-size: 28px; 
+            color: #333;
+    }
+        
+    a.clearSign:hover{ 
+            text-decoration: none;
+            filter: alpha(opacity=70);
+            -ms-filter: "alpha(Opacity=70)";
+            -moz-opacity: .7;
+            -khtml-opacity: .7;
+            opacity: .7;
+    }
+    input[type=radio] { margin-left: 50px;}
+    .radioClass { margin-left: -50px;}
+    
+    input[type=radio1] { margin-left: 50px;}
+    .radioClass { margin-left: -50px;}
+    
+    .centerize {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .loading{
+           display: inline-block;
+           position: fixed;
+           top: 0;
+           bottom: 0;
+           left: 0;
+           right: 0;
+           height: 100px;
+           width: 400px;
+           margin: auto;
+           padding-left: 10px;
+           padding-right: 10px;
+           text-align: center;
+     }
+     .erorPanel {
+        color: #a94442 !important;
+        background-color: #f2dede !important;
+        border-color: #ebccd1 !important;
+        padding: 15px !important;
+        margin-bottom: 20px !important;
+        border: 1px solid !important;
+        border-radius: 4px !important;
+    }
+    .custPopup{
+            background-color: white;
+            border-width: 2px;
+            border-radius:3px;
+            z-index: 9999;
+            left: 40%;
+            padding:40px;
+            padding-top:30px;
+            padding-bottom:20px;
+            position: absolute;
+            width: 800px;
+            margin-left: -250px;
+            height:300px;
+            border: 1px solid #4a4a56;
+            top:25%;
+        }
+        .popupBackground{
+            background-color:black;
+            opacity: 0.70;
+            filter: alpha(opacity = 20);
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+        }
+        .txtsize{
+            font-size:20px;
+        }
+        @media (max-width: 768px) {
+            .stylemargin{
+                margin-bottom:5px;
+            }
+        }
+    /* .logo {
+        max-height: 79px;
+        max-width: 135px;
+    }*/
+</style>
+
+<apex:stylesheet value="{!URLFOR($Resource.cssjsTestDriveIpad, 'bootstrap.min.css')}" />
+<apex:stylesheet value="{!URLFOR($Resource.cssjsTestDriveIpad, 'bootstrap-glyphicons.css')}" />
+<apex:stylesheet value="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap-glyphicons.css"/>
+
+
+<apex:includeScript value="{!URLFOR($Resource.cssjsTestDriveIpad, 'jquery.min.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.cssjsTestDriveIpad, 'bootstrap.min.js')}"/>
+<apex:includeScript value="{!$Resource.DigitalSIgnature }"/>
+
+<link href="{!URLFOR($Resource.plugIn, 'PlugIn/overlayLoading/style.css')}" rel="stylesheet" media="screen"/>
+<apex:includeScript value="{!URLFOR($Resource.plugIn, 'PlugIn/jquery.min.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.plugIn, 'PlugIn/overlayLoading/jquery-loader.js')}"/>
+
+
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</head>
+    <img src="{!logo1}" align='Left'/>
+    <img src="{!logo2}" align='right' class="logo" style="width:75px; height:60px; margin-right: 20px; margin-top: 20px;"/>
+<body>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <apex:form styleClass="form-control" rendered="{!showError}">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4>Stock Reservations</h4>
+            </div>
+            <div class="panel-body">       
+                <div class="alert alert-info">
+                <strong>Your Branch and Franchise settings have not been setup.Please Contact your System Administrator.</strong>
+                </div>
+                <apex:commandButton action="{!doCancel}" value="Cancel" styleclass="btn btn-primary"/>
+            </div>
+        </div>
+    </apex:form>
+             
+    <apex:form Styleclass="container-fluid" id="formBook" rendered="{!NOT(showError)}">
+        <apex:actionFunction name="refresh_Color_Trim_Option" action="{!refresh_Color_Trim_Option}" reRender="SearchParameter2ID,SearchParameter3ID" status="processStatusLoad" />
+        
+        <apex:actionFunction name="refresh_Color_Option" action="{!refresh_Color_Option}" reRender="SearchParameter2ID,SearchParameter3ID" status="processStatusLoad"  />
+        <apex:actionFunction name="refresh_Trim_Option" action="{!refresh_Trim_Option}" reRender="SearchParameter2ID,SearchParameter3ID" status="processStatusLoad1" />
+        
+        <apex:actionFunction name="searchCustNric" action="{!SearchCustomer}" reRender="page2" oncomplete="stopLoading();chooseFocus();"/>
+        <!-- changes to NRIC, autop-populate using mobllePhone number -->
+        <apex:actionFunction name="searchMobileNum" action="{!SearchCustomer}" reRender="page2" oncomplete="stopLoading();chooseFocus();"/>
+        
+        <apex:pageMessages />
+        
+        <apex:outputPanel id="MasterPageID">
+            <apex:outputPanel id="page1" rendered="{!IF(showPage=1,TRUE,FALSE)}">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4>Stock Reservations</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="container-fluid">
+                            <div class="sub1" >
+                                <h5>Search Parameters</h5>                       
+                            </div>
+                            <br/>
+                            <div class="row">
+                            <apex:outputPanel id="SearchParameterID">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            <label class="control-label col-md-4">Model:</label>
+                                            <div class="col-md-8">
+                                                <apex:selectList value="{!selectedModel}" size="1" onchange="refresh_Color_Trim_Option();" styleClass="form-control">
+                                                    <apex:selectOptions value="{!ListOptions_Model}"/>
+                                                </apex:selectList>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            <label class="control-label col-md-4">Color:</label>
+                                            <div class="col-md-8">
+                                                <apex:selectList value="{!selectedColor}" size="1" id="SearchParameter2ID" onchange="refresh_Trim_Option();" styleClass="form-control">
+                                                    <apex:selectoptions value="{!ListOptions_Color}"/>
+                                                        <apex:actionStatus startText="Loading..." id="processStatusLoad"> 
+                                                        <apex:facet name="start">
+                                                            <img src="/apexpages/devmode/img/saveStatus.gif" />
+                                                        </apex:facet> 
+                                                    </apex:actionStatus>
+                                                </apex:selectList>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="control-label col-md-4">Trim:</label>
+                                            <div class="col-md-8">
+                                                <apex:selectList id="SearchParameter3ID" value="{!selectedTrim}" size="1" onchange="refresh_Color_Option();" styleClass="form-control">
+                                                    <apex:actionStatus startText="Loading..." id="processStatusLoad1"> 
+                                                        <apex:facet name="start">
+                                                            <img src="/apexpages/devmode/img/saveStatus.gif" />
+                                                        </apex:facet> 
+                                                    </apex:actionStatus>
+                                                <apex:selectOptions value="{!ListOptions_Trim}"/></apex:selectList>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br/>
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0"> 
+                                <tr>
+                                    <td width="40%" align="right">
+                                        <button id="saveForm2" class="btn btn-primary"  onclick="startLoading();SearchVehicle1();return false;">Search</button>
+                                        <apex:actionFunction name="SearchVehicle2" action="{!SearchVehicle}" reRender="MasterPageID, PromotionStockID, ExistingStockID, IncomingStockID, IndentStockID" oncomplete="stopLoading();window.scrollTo(0,0);" />
+                                    </td>
+                                    <td width="20%">&nbsp;</td>
+                                    <td width="40%" align="left"><apex:commandLink styleClass="btn btn-primary" action="{!ClearParameter}" value="Clear" reRender="SearchParameterID" /></td>
+                                </tr>
+                                </table>
+                            </apex:outputPanel>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        
+                        <!--Promo Stock -->
+                        <apex:outputPanel >
+                        <div class="container-fluid">
+                            <div class="sub1" >
+                                <h5>Vehicle Inventory (Promotion Stock)</h5>                       
+                            </div>
+                            <div class="row">
+                                <div class="form-horizontal">
+                                    <div class="col-md-12">
+                                        <apex:outputPanel id="PromotionStockID">
+                                            <table class="tablesorter" cellpadding="5" cellspacing="0" border="1" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th width="20%">Model</th>
+                                                    <th width="20%">Color</th>
+                                                    <th width="20%">Trim</th>
+                                                    <th width="10%">Production Month</th>
+                                                    <th width="10%">Remarks</th>
+                                                    <th width="20%">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <apex:repeat value="{!ListwrapperPromotionStock}" var="PS">
+                                            <tbody>
+                                                <tr>
+                                                    <td>{!PS.Model}</td>
+                                                    <td>{!PS.Color}</td>
+                                                    <td>{!PS.Trim}</td>
+                                                    <td>{!PS.ProductMonth}</td>
+                                                    <td>{!PS.Remarks}</td>
+                                                    <td align="center" style="vertical-align:center"><apex:commandLink styleClass="btn btn-info" value="Reserve" action="{!AddReservation}" >
+                                                         <apex:param name="RunNo" value="{!PS.wID}" assignTo="{!ReserveSelectedVehicle}"/></apex:commandLink> </td>
+                                                </tr>
+                                            </tbody>
+                                            </apex:repeat>
+                                            </table>
+                                        </apex:outputPanel>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        </apex:outputPanel>
+                        <!--Promo Stock -->
+                        
+                        <div class="container-fluid">
+                            <div class="sub1" >
+                                <h5>Vehicle Inventory (Existing Stock)</h5>                       
+                            </div>
+                            <div class="row">
+                                <div class="form-horizontal">
+                                    <div class="col-md-12">
+                                        <apex:outputPanel id="ExistingStockID">
+                                            <table class="tablesorter" cellpadding="5" cellspacing="0" border="1" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th width="20%">Model</th>
+                                                    <th width="20%">Color</th>
+                                                    <th width="20%">Trim</th>
+                                                    <th width="10%">Quantity</th>
+                                                    <th width="10%">Production Month</th>
+                                                    <th width="20%">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <apex:repeat value="{!ListwrapperExistingStock}" var="PS">
+                                            <tbody>
+                                                <tr>
+                                                    <td>{!PS.Model}</td>
+                                                    <td>{!PS.Color}</td>
+                                                    <td>{!PS.Trim}</td>
+                                                    <td><apex:outputText escape="false" value="{!PS.Quantity}" /></td>
+                                                    <td>{!PS.ProductMonth}</td>
+                                                    <td align="center" style="vertical-align:center"><apex:commandLink styleClass="btn btn-info" value="Reserve" action="{!AddReservation}" >
+                                                         <apex:param name="RunNo" value="{!PS.wID}" assignTo="{!ReserveSelectedVehicle}"/></apex:commandLink> </td>
+                                                </tr>
+                                            </tbody>
+                                            </apex:repeat>
+                                            </table>
+                                        </apex:outputPanel>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        
+                        <div class="container-fluid">
+                            <div class="sub2" >
+                                <h5>Vehicle Inventory (Incoming Stock)</h5>                       
+                            </div>
+                            <div class="row">
+                                <div class="form-horizontal">
+                                    <div class="col-md-12">                             
+                                        <apex:outputPanel id="IncomingStockID">
+                                            <table class="tablesorter2" cellpadding="5" cellspacing="0" border="1" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th width="20%">Model</th>
+                                                    <th width="20%">Color</th>
+                                                    <th width="20%">Trim</th>
+                                                    <th width="10%">Quantity</th>
+                                                    <th width="10%">Production Month</th>
+                                                    <th width="20%">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <apex:repeat value="{!ListwrapperIncomingStock}" var="PS">
+                                            <tbody>
+                                                <tr>
+                                                    <td>{!PS.Model}</td>
+                                                    <td>{!PS.Color}</td>
+                                                    <td>{!PS.Trim}</td>
+                                                    <td><apex:outputText escape="false" value="{!PS.Quantity}" /></td>
+                                                    <td>{!PS.ProductMonth}</td>
+                                                    <td align="center" style="vertical-align:center"><apex:commandLink styleClass="btn btn-info" value="Reserve Incoming" action="{!AddReservation}" >
+                                                         <apex:param name="RunNo" value="{!PS.wID}" assignTo="{!ReserveSelectedVehicle}"/></apex:commandLink> </td>
+                                                </tr>
+                                            </tbody>
+                                            </apex:repeat>
+                                            </table>
+                                        </apex:outputPanel>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        
+                        <div class="container-fluid">
+                            <div class="sub3" >
+                                <h5>Vehicle Inventory (Stock to Indent)</h5>                       
+                            </div>
+                            <div class="row">
+                                <div class="form-horizontal">
+                                    <div class="col-md-12">
+                                        <apex:outputPanel id="IndentStockID">
+                                            <table class="tablesorter3" cellpadding="5" cellspacing="0" border="1" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th width="30%">Model</th>
+                                                    <th width="25%">Color</th>
+                                                    <th width="25%">Trim</th>
+                                                    <th width="20%">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <apex:repeat value="{!ListwrapperStock2Indent}" var="PS">
+                                            <tbody>
+                                                <tr>
+                                                    <td>{!PS.Model}</td>
+                                                    <td>{!PS.Color}</td>
+                                                    <td>{!PS.Trim}</td>
+                                                    <td align="center" style="vertical-align:center">
+                                                        <apex:commandLink styleClass="btn btn-info" value="Indent" action="{!AddReservation}" >
+                                                            <apex:param name="RunNo" value="{!PS.wID}" assignTo="{!ReserveSelectedVehicle}"/>
+                                                        </apex:commandLink>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            </apex:repeat>
+                                            </table>
+                                        </apex:outputPanel>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        
+                        <div class="container-fluid">
+                            <div class="sub1" >
+                                <h5>My Reservation</h5>                       
+                            </div>
+                            <div class="row">
+                                <div class="form-horizontal">
+                                    <div class="col-md-12">
+                                        <table class="tablesorter" cellpadding="5" cellspacing="0" border="1" width="100%" style="table-layout:fixed;">
+                                        <thead>
+                                            <tr>
+                                                <th width="12%">Reservation Date</th>
+                                                <th width="10%">Reservation No</th>
+                                                <th width="10%">Model</th>
+                                                <th width="10%">Color</th>
+                                                <th width="11%">Trim</th>
+                                                <th width="12%">Customer Name</th>
+                                                <th width="11%">Vehicle Location</th>
+                                                <th width="11%">Vehicle Condition</th>
+                                                <!-- Promo Code Deal Web -->    
+                                                <th width="11%">Comments</th>   
+                                                <!-- End -->                                                
+                                                <th width="13%">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <apex:repeat value="{!ListReservation}" var="PS">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <apex:outputText value="{0,date, dd-MM-yyyy hh:mm a}"><apex:param value="{!PS.CreatedDate+offset}"/></apex:outputText>
+                                                </td>
+                                                <td>{!PS.Name}</td>
+                                                <td>{!PS.Model_Code__r.Model_Description__c}</td>
+                                                <td>{!PS.Color_Code__r.Color_Description__c}</td>
+                                                <td>{!PS.Trim_Code__r.Trim_Description__c}</td>
+                                                <td>{!PS.Customer_Name__c}</td>
+                                                <td>{!PS.Vehicle_Location__c}</td>
+                                                <td>{!PS.Vehicle_Condition__c}</td>
+                                                <!-- Promo Code Deal Web --> 
+                                                <td>{!PS.Comment__c}</td>   
+                                                <!-- End -->                                                
+                                                <td align="center" style="vertical-align:center; padding:8px 3px !important;">
+                                                    <apex:commandLink styleClass="btn btn-info stylemargin" style="margin-right:5px; display: block; width:100%; white-space: normal;" value="Update NRIC" action="{!enableNRIC}" >
+                                                        <apex:param name="RunNo" value="{!PS.Id}" assignTo="{!ReservationId}"/>
+                                                    </apex:commandLink>
+                                                    <apex:commandLink styleClass="btn btn-info" style="margin-right:5px; margin-top:5px; display: block; width:100%; white-space: normal;" value="Cancel" action="{!Reservation_Cancellation}" >
+                                                        <apex:param name="RunNo" value="{!PS.Id}" assignTo="{!ReservationId}"/>
+                                                    </apex:commandLink>
+                                                    <!--Start of DSA-Project 
+                                                    Author: JMT on 27072019: 
+                                                    Changes: Add DSA button--> 
+
+                                                    <apex:commandLink styleClass="btn btn-info stylemargin" style="margin-right:5px; margin-top:5px; display: block; width:100%; white-space: normal;" value="Create Sales Agreement" action="{!navigateToDSA}"  target="_blank" rendered="{!IF(ISNULL(PS.Customer_Social_ID__c) , false , true)}">
+                                                        <apex:param name="RunNo" value="{!PS.Id}" assignTo="{!ReservationId}"/>
+                                                    </apex:commandLink>
+                                                    <!--End of DSA-Project 
+                                                    Author: JMT on 27072019: 
+                                                    Changes: Add DSA button-->
+                                                </td>
+                                            </tr>
+                                        </tbody> 
+                                        </apex:repeat>
+                                        </table> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </apex:outputPanel>
+            
+            
+            
+            
+            
+            
+            
+            
+            <apex:outputPanel id="page2" rendered="{!IF(showPage=2,TRUE,FALSE)}">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4>Stock Reservations</h4>
+                        <h6>Please complete the form. <font color="red">*</font> denotes a required field.</h6>
+                    </div>
+                    <div class="panel-body">
+                        <div class="container-fluid">
+                            <div id="errNRIC1" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer&rsquo;s NRIC is mandatory.</font>
+                            </div>
+                            <div id="errInvalidNRIC1" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Invalid NRIC.</font>
+                            </div>
+                            <div id="errInvalidNRIC21" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> The first three characters must be digits.</font>
+                            </div>
+                            <div id="errInvalidNRIC31" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> The fourth character must be letter.</font>
+                            </div>
+                            <div id="errName1" style="display:none">
+                                <font style="color:red;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer's Name is mandatory.</font>
+                            </div>
+                            <div id="errcustFirstName1" style="display:none">
+                                <font style="color:red;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer's First  Name is mandatory.</font>
+                            </div>
+                            <div id="errcustLastName1" style="display:none">
+                                <font style="color:red;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer's Last Name is mandatory.</font>
+                            </div>
+                            <div id="errMobile1" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer's Mobile Number is mandatory.</font>
+                            </div>
+                            <div id="errNumberMobile1" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Mobile Number can only contain Numbers.</font>
+                            </div>
+                            <div id="errNumberMobile21" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Mobile Number must begin with an 8 or 9.</font>
+                            </div>
+                            <div id="errNumberMobile31" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Mobile Number length must be 8 digits.</font>
+                            </div>
+                            <div id="errCancellation1" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Cancellation Reason is mandatory.</font>
+                            </div>
+                            <!-- Added by Vu 06/07/2022 - Error messages for Date of Birth input - START -->
+                            <div id="errDateofBirth1" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Date of birth cannot be greater than today.</font>
+                            </div>
+                            <div id="errInvalidDateofBirth1" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Invalid Date of birth.</font>
+                            </div>
+                            <div id="errNoDateofBirth1" class="" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Date of Birth is mandatory.</font>
+                            </div>
+                            <!-- Added by Vu 06/07/2022 - Error messages for Date of Birth input - END -->
+                            <apex:outputPanel id="errorOnExistingOpp" rendered="{!promtErrorOnSR}">
+                                <div id="errExistingOpportunity" style="visible:">
+                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {!printErrorOnSR}</font>
+                                </div>
+                            </apex:outputPanel>
+                        </div>
+                        <br/>
+                        
+                        <div class="container-fluid">
+                            <div class="sub1" >
+                                <h5>Sales Consultant Details</h5>        
+                            </div>
+                            <br/>        
+
+                            <div class="row">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            <label class="control-label col-md-6">Sales Rep:</label>
+                                            <div class="col-md-6">
+                                                <apex:outputText value="{!SalesUser.Name}" styleClass="form-control disable"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <br/>
+                        <div class="container-fluid">
+                            <div class="sub1" >
+                                <h5>Vehicle Details</h5>                     
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="form-horizontal">
+                                    <div class="col-md-12">
+                                        <apex:outputPanel rendered="{!IF(VehicleMaster.Remarks__c='Stock To Indent',TRUE,FALSE)}">
+                                            <table class="tablesorter" width="100%" border="0" cellspacing="0" cellpadding="0"> 
+                                            <thead style="text-align: center;">
+                                              <tr>
+                                                <th width="30%">Model</th>
+                                                <th width="20%">Color</th>
+                                                <th width="20%">Trim</th>
+                                                <th width="20%">Production Month</th>
+                                                <th width="10%">Remarks</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr>
+                                                <td>{!VehicleMaster.Dummy_Model__c}</td>
+                                                <td>{!VehicleMaster.Dummy_Color__c}</td>
+                                                <td>{!VehicleMaster.Dummy_Trim__c}</td>
+                                                <td>{!VehicleMaster.Production_Month__c}</td>
+                                                <td>{!VehicleMaster.Remarks__c}</td>
+                                              </tr>
+                                            </tbody>
+                                            </table>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!IF(VehicleMaster.Remarks__c='Stock To Indent',FALSE,TRUE)}">
+                                            <table class="tablesorter" width="100%" border="0" cellspacing="0" cellpadding="0"> 
+                                            <thead style="text-align: center;">
+                                              <tr>
+                                                <th width="30%">Model</th>
+                                                <th width="20%">Color</th>
+                                                <th width="20%">Trim</th>
+                                                <th width="20%">Production Month</th>
+                                                <th width="10%">Remarks</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr>
+                                                <td>{!VehicleMaster.Model_Code__r.Model_Description__c}</td>
+                                                <td>{!VehicleMaster.Color_Code__r.Color_Description__c}</td>
+                                                <td>{!VehicleMaster.Trim_Code__r.Trim_Description__c}</td>
+                                                <td>{!VehicleMaster.Production_Month__c}</td>
+                                                <td>{!VehicleMaster.Remarks__c}</td>
+                                              </tr>
+                                            </tbody>
+                                            </table>
+
+                                            <!-- Vehicle Condition table -->
+                                            <table class="tablesorter" width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 50px;">
+                                                <thead style="text-align: center;">
+                                                    <tr>
+                                                        <th width="25%">Stock Name</th>
+                                                        <th width="25%">Vehicle Condition</th>
+                                                        <th width="25%">Mileage</th>
+                                                        <th width="25%">Location</th>
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <apex:outputLink value="/{!VehicleMaster.Id}" target="_blank">
+                                                                {!VehicleMaster.Name}
+                                                            </apex:outputLink>
+                                                        </td>
+                                                        <td>{!VehicleMaster.Vehicle_Condition__c}</td>
+                                                        <td>
+                                                            <apex:outputText value="{0, number, ###,##0}">
+                                                                <apex:param value="{!VehicleMaster.Mileage__c}"/>
+                                                            </apex:outputText>
+                                                        </td>
+                                                        <td>{!VehicleMaster.Location__c}</td>
+                                                    </tr>
+                                                  </tbody>
+                                            </table>
+                                            <!-- END Vehicle Condition table -->
+                                        </apex:outputPanel>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <br/><br/>
+                        <div class="container-fluid">
+                            <div class="sub1" >
+                                <h5>Customer Details</h5>                       
+                            </div>
+                            <br/>
+                            
+                            <div class="row">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <!-- <div class="col-md-6"> -->
+                                            <!-- <label class="control-label col-md-6">Registration Type <font color="red">*</font>:</label>
+                                            <div class="col-md-6">
+                                                <apex:selectList id="regtype" onchange="labelSwitch()" value="{!Reservation.Registration_Type__c}" size="1" multiselect="false" styleClass="redmark form-control"> -->
+                                                    <!--apex:selectOption itemValue="O" itemLabel="Offpeak"></apex:selectOption-->
+                                                    <!-- <apex:selectOption itemValue="P" itemLabel="Private"></apex:selectOption>
+                                                    <apex:selectOption itemValue="C" itemLabel="Company"></apex:selectOption>
+                                                </apex:selectList>
+                                            </div> -->
+                                        <!-- </div> -->
+                                        <div class="col-md-6">
+                                            <label id="emailLabel" class="control-label col-md-6">Customer Email<font color="red">*</font>:</label>
+                                            <div class="col-md-6">
+                                                <apex:inputText id="email1" value="{!Reservation.Customer_Email__c}" label="Email." onblur="custemailenter();" styleClass="redmark nric form-control" tabindex="6"/>
+                                                <div id="errEmail" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer&rsquo;s Email is mandatory.</font>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            <label class="control-label col-md-6">Mobile <font color="red">*</font>:</label>
+                                            <div class=" col-md-6">
+                                                <apex:inputText maxlength="8" id="mobile1" onblur="checkMobile()" value="{!Reservation.Customer_Mobile_Number__c}" label="Mobile" tabindex="1" styleClass="mobilenum redmark form-control" />
+                                                <div id="errMobile" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer&rsquo;s Mobile Number is mandatory.</font>
+                                                </div>
+                                                <div id="errNumberMobile" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Mobile Number can only contain Numbers.</font>
+                                                </div>
+                                                <div id="errNumberMobile2" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Mobile Number must begin with an 8 or 9.</font>
+                                                </div>
+                                                <div id="errNumberMobile3" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Mobile Number length must be 8 digits.</font>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label id="nameLabel" class="control-label col-md-6">Full Name (per NRIC/FIN) / Company Name <font color="red">*</font>:</label>
+                                            <div class="col-md-6">
+                                                <apex:inputText value="{!Reservation.Customer_Name__c}" id="name1" label="Name" onblur="checkName()" styleClass="redmark name form-control" tabindex="2" maxlength="80"/>
+                                                <div id="errName" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer&rsquo;s Name is mandatory.</font>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            <label id="idLabel" class="control-label col-md-6">NRIC or FIN / ARCA Number <font color="red">*</font>:</label>
+                                            <div class="col-md-6">
+                                                <apex:inputText id="nric1" value="{!Reservation.Customer_Social_ID__c}" label="NRIC/Passport No." onblur="checkNric();" styleClass="redmark nric form-control" tabindex="1" maxlength="15"/>
+                                                <div id="errNRIC" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer&rsquo;s NRIC is mandatory.</font>
+                                                </div>
+                                                <div id="errInvalidNRIC" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Invalid NRIC. </font>
+                                                </div>
+                                                <div id="errInvalidNRIC2" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> The first three characters must be digits.</font>
+                                                </div>
+                                                <div id="errInvalidNRIC3" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> The fourth character must be letter.</font>
+                                                </div>
+                                                <div id="warNRIC" style="display:none">
+                                                    <font style="color:brown;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Please enter full NRIC of Customer.</font>
+                                                </div>
+                                            </div>
+                                            <!-- Added by Vu - 05/07/2022 - Add Date of Birth input - START -->
+                                            <label id="idLabel" class="control-label col-md-6" style="margin-top:15px;">Date of Birth<font color="red">*</font>:</label>
+                                            <div class="col-md-6" style="margin-top:15px;">
+                                                <!--<apex:inputField required="false" type="date" onchange="" onblur="" style="cursor: pointer"
+                                                                id="dateInput" styleClass="form-control cinfo" showDatePicker="false" value="{!custBirthDate}"
+                                                                taborderhint="6" html-placeholder="DD/MM/YYYY" />-->
+                                                <apex:input id="dateInput" type="date" value="{!custBirthDate}" onchange="checkDateofBirth()" onblur="checkDateofBirth()"
+                                                            styleClass="redmark form-control" style="cursor: pointer"/>
+                                                <div id="errDateofBirth" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;">
+                                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Date cannot be greater than today.</font>
+                                                </div>
+                                                <div id="errNoDateofBirth" style="display:none">
+                                                    <font style="color:red;font-weight:bold;">
+                                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Date of Birth is mandatory.</font>
+                                                </div>
+                                                <div id="errInvalidDateofBirth" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;">
+                                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Invalid Date of Birth.</font>
+                                                </div>
+                                            </div>
+                                            <!-- END -->
+                                            <label id="firstNameLabel" class="control-label col-md-6" style="margin-top:15px;">Customer First Name<font color="red">*</font>:</label>
+                                            <div class="col-md-6" style="margin-top:15px;">
+                                                <apex:inputText value="{!custFirstName}"  maxlength="40" id="firstName1" tabindex="4" onblur="checkFirstName()" styleClass="redmark name form-control"/>
+                                                <div id="errcustFirstName" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer&rsquo;s First Name is mandatory.</font>
+                                                </div>
+                                            </div>
+                                            <label id="lastNameLabel" class="control-label col-md-6" style="margin-top:15px;">Customer Last Name<font color="red">*</font>:</label>
+                                            <div class="col-md-6" style="margin-top:15px;">
+                                                <apex:inputText value="{!custLastName}" maxlength="40" tabindex="5" id="lastName1" onblur="checkLastName()" styleClass="redmark name form-control"/>
+                                                <div id="errcustLastName" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer&rsquo;s Last Name is mandatory.</font>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="control-label col-md-6">Comments:</label>
+                                            <div class="col-md-6">
+                                                <apex:inputTextarea value="{!Reservation.Comment__c}" styleClass="form-control" tabindex="7" style="height:100px;" html-maxlength="255"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-6">                                   
+                                        <div>
+                                            <label class="control-label col-md-6">Deposit Number:</label>
+                                            <div class="col-md-6">
+                                                <apex:inputText value="{!Reservation.Downpayment_No__c}" styleClass="form-control" tabindex="6"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0"> 
+                        <tr>
+                            <td width="40%" align="right">
+                                <button id="saveForm1" class="btn btn-primary"  onclick="startLoading();submit1();return false;">Submit</button>
+                                <apex:actionFunction name="save1" action="{!SaveReservation}" reRender="MasterPageID,errorOnExistingOpp" oncomplete="stopLoading();window.scrollTo(0,0);" />
+                                <!-- apex:actionFunction name="save1" action="{!SaveReservation}" reRender="MasterPageID,errorOnExistingOpp" oncomplete="window.location.href = 'https://test.salesforce.com/apex/StockReservation';" / -->
+                            </td>
+                            <td width="20%">&nbsp;</td>
+                            <td width="40%" align="left"><apex:commandButton styleclass="btn btn-primary" value="Cancel" action="{!CancelReservation}" reRender="MasterPageID"/></td>
+                        </tr>
+                        </table>
+                    </div>
+                </div>
+            </apex:outputPanel>
+            
+            
+            <apex:outputPanel id="page3" rendered="{!IF(showPage=3,TRUE,FALSE)}">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4>Stock Reservations</h4>
+                        <h6>Please complete the form. <font color="red">*</font> denotes a required field.</h6>
+                    </div>
+                    <div class="panel-body">
+                        <div class="container-fluid">
+                            <div class="sub1" >
+                                <h5>Sales Consultant Details</h5>                       
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            <label class="control-label col-md-6">Sales Rep:</label>
+                                            <div class="col-md-6">
+                                                <apex:outputText value="{!SalesUser.Name}" styleClass="form-control disable"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <br/>
+                        <div class="container-fluid">
+                            <div class="sub1" >
+                                <h5>Vehicle Details</h5>                     
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="form-horizontal">
+                                    <div class="col-md-12">
+                                        <apex:outputPanel rendered="{!IF(VehicleMaster.Remarks__c='Stock To Indent',TRUE,FALSE)}">
+                                            <table class="tablesorter" width="100%" border="0" cellspacing="0" cellpadding="0"> 
+                                            <thead>
+                                              <tr>
+                                                <th width="30%">Model</th>
+                                                <th width="20%">Color</th>
+                                                <th width="20%">Trim</th>
+                                                <th width="20%">Production Month</th>
+                                                <th width="10%">Remarks</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr>
+                                                <td>{!VehicleMaster.Dummy_Model__c}</td>
+                                                <td>{!VehicleMaster.Dummy_Color__c}</td>
+                                                <td>{!VehicleMaster.Dummy_Trim__c}</td>
+                                                <td>{!VehicleMaster.Production_Month__c}</td>
+                                                <td>{!VehicleMaster.Remarks__c}</td>
+                                              </tr>
+                                            </tbody>
+                                            </table>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!IF(VehicleMaster.Remarks__c='Stock To Indent',FALSE,TRUE)}">
+                                            <table class="tablesorter" width="100%" border="0" cellspacing="0" cellpadding="0"> 
+                                            <thead>
+                                              <tr>
+                                                <th width="30%">Model</th>
+                                                <th width="20%">Color</th>
+                                                <th width="20%">Trim</th>
+                                                <th width="20%">Production Month</th>
+                                                <th width="10%">Remarks</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr>
+                                                <td>{!VehicleMaster.Model_Code__r.Model_Description__c}</td>
+                                                <td>{!VehicleMaster.Color_Code__r.Color_Description__c}</td>
+                                                <td>{!VehicleMaster.Trim_Code__r.Trim_Description__c}</td>
+                                                <td>{!VehicleMaster.Production_Month__c}</td>
+                                                <td>{!VehicleMaster.Remarks__c}</td>
+                                              </tr>
+                                            </tbody>
+                                            </table>
+                                        </apex:outputPanel>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <br/><br/>
+                        <div class="container-fluid">
+                            <div class="sub1" >
+                                <h5>Customer Details</h5>                       
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            <label class="control-label col-md-6">Customer ID (NRIC/FIN) <font color="red">*</font>:</label>
+                                            <div class="col-md-6">
+                                                <apex:outputText value="{!Reservation.Customer_Social_ID__c}" label="NRIC/Passport No." styleClass="form-control disable"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="control-label col-md-6">Full Name (per NRIC/FIN) <font color="red">*</font>:</label>
+                                            <div class="col-md-6">
+                                                <apex:outputText value="{!Reservation.Customer_Name__c}" label="Name" styleClass="form-control disable"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <div class="col-md-6" >
+                                            <label class="control-label col-md-6">Mobile <font color="red">*</font>:</label>
+                                            <div class=" col-md-6">
+                                                  <apex:outputText value="{!Reservation.Customer_Mobile_Number__c}" label="Mobile" styleClass="form-control disable" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="control-label col-md-6">Deposit Number:</label>
+                                            <div class="col-md-6">
+                                                <apex:outputText value="{!Reservation.Downpayment_No__c}" styleClass="form-control disable"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            <label class="control-label col-md-6">Comments:</label>
+                                            <div class="col-md-6">
+                                                <apex:inputTextarea value="{!Reservation.Comment__c}" styleClass="form-control disable" style="height:100px;"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        
+                        <div class="container-fluid">
+                            <div class="sub1" >
+                                <h5>Reservation Details</h5>                       
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="form-horizontal">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-6">Reservation Status:</label>
+                                            <div class="col-md-6">
+                                                <apex:outputText value="{!Reservation.Reservation_Status__c}" styleClass="form-control disable"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-6">Cancellation Reason <font color="red">*</font>:</label>
+                                            <div class="col-md-6">
+                                                <apex:inputText id="cancellation1" onblur="checkCancelReason()" value="{!Reservation.Cancellation_Reason__c}" label="Cancellation Reason" tabindex="1" styleClass="cancelreason redmark form-control" />
+                                                <div id="errCancellation" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Cancellation Reason is mandatory.</font>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0"> 
+                        <tr>
+                            <td width="40%" align="right">
+                                <button id="saveForm2" class="btn btn-primary"  onclick="startLoading();submit2();return false;">Submit</button>
+                                <apex:actionFunction name="save2" action="{!UpdateReservation}" reRender="MasterPageID" oncomplete="stopLoading();window.scrollTo(0,0);" />
+                                <!--<apex:actionFunction name="save2" action="{!UpdateReservation}" reRender="MasterPageID" oncomplete="window.location.href = 'https://login.salesforce.com/apex/StockReservation';" /> -->
+                            </td>
+                            <td width="20%">&nbsp;</td>
+                            <!--<td width="40%" align="left"><apex:commandButton styleclass="btn btn-primary" value="Update NRIC" action="{!enableNRIC}" rendered="{!(if())}" reRender="MasterPageID"/></td>-->
+                            <td width="40%" align="left">
+                                <apex:commandButton styleclass="btn btn-primary" value="Cancel" action="{!CancelReservation}" reRender="MasterPageID"/>
+                            </td>
+                        </tr>
+                    
+                        
+                        </table>
+                    </div>
+                </div>
+            </apex:outputPanel>
+        </apex:outputPanel>
+        <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!showPopUp}"></apex:outputPanel>
+        <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!showPopUp}">
+            <div class="modal-header" style="padding-left:0px">
+                <div class = "txtsize">NRIC Update FORM</div>
+            </div>
+            <div style="padding-top:10px; padding-bottom:10px;">
+                <b> Please enter your NRIC number</b>
+            </div> 
+            <apex:inputText value="{!nricfield}" html-placeholder="Enter your NRIC..." style="height: 35px; padding: 10px; width: 100%;border: 1px solid rgb(221, 219, 218);border-radius: .25rem;"/> 
+            <apex:actionStatus startText="Updating..." stopText="{!NRICSuccess+NRICErr}" id="loaderWait" StopStyle="{!if(NRICSuccess!=null && NRICSuccess!='','color:green','color:red')}"/>
+            <apex:outputpanel rendered="{!if(NRICSuccess!=null && NRICSuccess !='', true, false)}"/> 
+            <div class = "buttons">
+                <apex:commandButton value="Save" action="{!updateNRIC}" status="loaderWait" rerender="formBook" style="width:79.05px; margin-top:2%;" styleClass="btn btn-primary"/>
+                <apex:commandButton value="Close" action="{!cancelNRIC}" rerender="formBook" style="width:79.05px; margin-top:2%;margin-left:10px;" styleClass="btn btn-primary"/> 
+            </div>
+            <apex:outputText value="{!callfunc}" escape="false"/>
+            <apex:actionFunction name="CloseAndReWfresh" action="{!hidePopUp}" rerender="formBook"/>
+        </apex:outputPanel>
+    </apex:form>
+</body>
+</html>
+
+
+<script>
+    // label change for different registration type
+    function labelSwitch() {
+        var selectOption = event.target.value;
+        var nameElement = document.getElementById('nameLabel');
+        var emailElement = document.getElementById('emailLabel');
+        var idLabel = document.getElementById('idLabel');
+        var firstNameLabel = document.getElementById('firstNameLabel');
+        var lastNameLabel = document.getElementById('lastNameLabel');
+        if (selectOption !== null && selectOption !== "") {
+            if (selectOption === 'P') {
+                nameElement.innerText = 'Full Name (per NRIC/FIN)';
+                emailElement.innerText = 'Customer Email';
+                idLabel.innerText = 'Customer ID (NRIC/FIN)';
+                firstNameLabel.innerText = 'Customer First Name';
+                lastNameLabel.innerText = 'Customer Last Name';
+            } else if (selectOption === 'C') {
+                nameElement.innerText = 'Company Name (per UEN/ACRA)';
+                emailElement.innerText = 'Contact Person Email';
+                idLabel.innerText = 'Customer ID (UEN/ACRA)';
+                firstNameLabel.innerText = 'Contact Person First Name';
+                lastNameLabel.innerText = 'Contact Person Last Name';
+            }
+        }
+    }
+
+    //search cust nric
+    function custnricenter() {
+        var nric = document.getElementById('{!$Component.formBook.nric1}').value;
+        var nricT = nric.trim();        
+        if(nricT!=null && nricT != '' ){
+            //startLoading();
+            //searchCustNric();
+        }           
+    }
+    
+     function custemailenter() {
+        var nric = document.getElementById('{!$Component.formBook.nric1}').value;
+        var email = document.getElementById('{!$Component.formBook.email1}').value;
+        var name = document.getElementById('{!$Component.formBook.name1}').value;
+        
+        var emailT = email.trim();
+        var nricT = nric.trim();
+        var nameT = name.trim();
+        
+        if(emailT && emailT!='noemail@noemail.com' && emailT!='noemail@email.com')
+        {
+            if(nameT==''){
+                startLoading();
+                searchCustNric();
+            }
+        }       
+    }
+        
+    
+    function postalOnChange(){
+        postalChange();
+    }
+    
+    //choose focus after postalchange based on orientation window
+    function rendCont(){
+        // when orientation potrait
+        if(window.innerHeight > window.innerWidth){
+        $('.nofloor').focus();
+        window.scrollTo(0,1000);
+        }else{
+        $('.nofloor').focus();
+        window.scrollTo(0,500);
+        }
+    }
+    function setFocus(id){
+        $('.'+id).focus();
+        $('.'+id).select();
+    }
+    
+    //choose focus after search nric
+    function chooseFocus(){
+        var nric = document.getElementById('{!$Component.formBook.nric1}').value;
+        var name3 = document.getElementById('{!$Component.formBook.name1}').value;
+        var email3 = document.getElementById('{!$Component.formBook.email1}').value;
+        var dob = document.getElementById('{!$Component.formBook.dateInput}').value;
+        if(nric.length != 0){
+            if(email3.length != 0){
+            $('.name').focus();
+            $('.cinfo').attr("disabled", false);
+            }
+            else{
+            $('.email').focus();
+            }
+            
+            }else{
+            $('.nonCon').blur();
+            }
+        if(nric.length == 0){
+            $('.cinfo').attr("disabled", true);
+        }
+
+        /*if (nric && nric.length == 12) {
+            document.getElementById('{!$Component.formBook.nric1}').disabled = true;
+            document.getElementById('{!$Component.formBook.dateInput}').disabled = true;
+        } else {
+            document.getElementById('{!$Component.formBook.nric1}').disabled = false;
+            document.getElementById('{!$Component.formBook.dateInput}').disabled = false;
+        }*/
+
+        // document.getElementById('{!$Component.formBook.dateInput}').disabled = dob ? true : false;
+        if (dob) {
+            document.getElementById('{!$Component.formBook.dateInput}').disabled = true;
+            $('#warNRIC').show();
+        } else {
+            document.getElementById('{!$Component.formBook.dateInput}').disabled = false;
+            $('#warNRIC').hide();
+        }
+     }
+    
+    //document ready
+    $('.disable').attr("disabled", true);
+    
+    //validation onblur nric
+    function checkNric(){
+        $('#warNRIC').hide();
+        $('#errNRIC').hide();
+        $('#errNRIC1').hide();
+        // Added by Vu 18/07/2022 - Validation for NRIC input
+        $('#errInvalidNRIC').hide();
+        $('#errInvalidNRIC1').hide();
+
+        $('#errInvalidNRIC2').hide();
+        $('#errInvalidNRIC21').hide();
+
+        $('#errInvalidNRIC3').hide();
+        $('#errInvalidNRIC31').hide();
+
+        $('#errEmail').hide();
+        var nricT = document.getElementById('{!$Component.formBook.nric1}').value;
+        var nric = nricT.trim();
+        var emailT = document.getElementById('{!$Component.formBook.email1}').value;
+        var email = emailT.trim();
+        if (nric==null || nric=='' ){
+            $('#errNRIC').show();
+            $('#errNRIC1').show();
+        } else if (nric.length == 9 && !validNRIC(nric) || (nric.length != 12 && nric.length != 9)) {
+            $('#errInvalidNRIC').show();
+            $('#errInvalidNRIC1').show();
+        }
+        /*else if (nric.length == 12) {
+            var nricThreeChars = nric.substr(0, 3);
+            var nricFourthChar = nric.substr(3, 1);
+            if (isNaN(nricThreeChars)) {
+                $('#errInvalidNRIC2, #errInvalidNRIC21').show();
+            }
+            if ((nricFourthChar.charCodeAt(0) >= 32 && nricFourthChar.charCodeAt(0) <= 64) ||
+                (nricFourthChar.charCodeAt(0) >= 91 && nricFourthChar.charCodeAt(0) <= 96) ||
+                (nricFourthChar.charCodeAt(0) >= 123 && nricFourthChar.charCodeAt(0) <= 126)) {
+                    $('#errInvalidNRIC3, #errInvalidNRIC31').show();
+            }
+        }*/
+
+        if (email==null || email==''){
+            $('#errEmail').show();           
+        }
+
+        $('#errName').hide();
+        $('#errName1').hide();
+        $('#errMobile1').hide();
+        $('#errNumberMobile1').hide();
+        $('#errNumberMobile21').hide();
+        $('#errNumberMobile31').hide();
+        $('#errExistingOpportunity').hide();
+        $('#errcustFirstName,#errcustFirstName1,#errcustLastName,#errcustLastName1').hide();
+        $('#errDateofBirth1').hide();
+        $('#errInvalidDateofBirth1').hide();
+        $('#errNoDateofBirth1').hide();
+        $('#errInvalidDateofBirth1').hide();
+    }
+    
+    //validation onblur name
+    function checkName(){
+        $('#errName').hide();
+        $('#errName1').hide();
+        var name3 = document.getElementById('{!$Component.formBook.name1}').value;
+        if (name3==null || name3=='') {
+            $('#errName').show();
+            $('#errName1').show();
+        }
+    }
+    
+    function checkFirstName(){
+        $('#errcustFirstName,#errcustFirstName1').hide();
+        var firstName = document.getElementById('{!$Component.formBook.firstName1}').value;
+        if (firstName==null || firstName=='') {
+            $('#errcustFirstName,#errcustFirstName1').show();
+        }
+    }
+    function checkLastName(){
+        $('#errcustLastName,#errcustLastName1').hide();
+        var lastname = document.getElementById('{!$Component.formBook.lastName1}').value;
+        if (lastname==null || lastname=='') {
+            $('#errcustLastName,#errcustLastName1').show();
+        }
+    }
+    
+    function checkCancelReason(){
+        $('#errCancellation').hide();
+        $('#errCancellation1').hide();
+        var cancelReason = document.getElementById('{!$Component.formBook.name1}').value;
+        if (cancelReason==null || cancelReason=='') {
+            $('#errCancellation').show();
+            $('#errCancellation1').show();
+        }
+    }
+    
+    //validation onblur mobile
+    function checkMobile(){
+        $('#errMobile').hide();
+        $('#errNumberMobile').hide();
+        $('#errNumberMobile2').hide();
+        $('#errNumberMobile3').hide();
+        //top panel
+        $('#errMobile1').hide();
+        $('#errNumberMobile1').hide();
+        $('#errNumberMobile21').hide();
+        $('#errNumberMobile31').hide();
+        
+        var mobilee = document.getElementById('{!$Component.formBook.mobile1}').value;
+        var hasMobileErr = false;
+        var mobLength = mobilee.length;
+        if(mobLength == 0){
+            $('#errMobile').show();
+            $('#errMobile1').show();
+            hasMobileErr = true;
+        }
+        var noNumeric = isNaN(mobilee);
+        if(noNumeric==true){
+            $('#errNumberMobile').show();
+            $('#errNumberMobile1').show();
+            hasMobileErr = true;
+        }
+        var firstNum = mobilee.substring(0, 1);
+        if(mobLength != 0 && firstNum !='8' && firstNum !='9'){
+            $('#errNumberMobile2').show();
+            $('#errNumberMobile21').show();
+            hasMobileErr = true;
+        }
+        if (mobilee != '' && mobLength !=8){
+            $('#errNumberMobile3').show();
+            $('#errNumberMobile31').show();
+            hasMobileErr = true;
+        }
+        
+        if(mobilee && !hasMobileErr){
+            startLoading();
+            searchMobileNum();
+        }   
+    }
+
+    // Added by Vu 06/07/2022 - Add validation for NRIC input
+    function validateNRIC(nric) {
+        var isValidated = true;
+
+        if (nric.length == 9 && !validNRIC(nric) || (nric.length != 12 && nric.length != 9)) {
+            $('#errInvalidNRIC').show();
+            $('#errInvalidNRIC1').show();
+
+            isValidated = false;
+        }
+        /*else if (nric.length == 12) {
+            var nricThreeChars = nric.substr(0, 3);
+            var nricFourthChar = nric.substr(3, 1);
+
+            if (isNaN(nricThreeChars)) {
+                $('#errInvalidNRIC2, #errInvalidNRIC21').show();
+ 
+                isValidated = false;
+            }
+            if ((nricFourthChar.charCodeAt(0) >= 32 && nricFourthChar.charCodeAt(0) <= 64) ||
+                (nricFourthChar.charCodeAt(0) >= 91 && nricFourthChar.charCodeAt(0) <= 96) ||
+                (nricFourthChar.charCodeAt(0) >= 123 && nricFourthChar.charCodeAt(0) <= 126)) {
+                    $('#errInvalidNRIC3, #errInvalidNRIC31').show();
+ 
+                    isValidated = false;
+            }
+        }*/
+
+        return isValidated;
+    }
+
+    function validNRIC(nric) {
+        nric = nric.toUpperCase();
+
+        var i, 
+        icArray = [];
+        for (i = 0; i < 9; i++) {
+            icArray[i] = nric.charAt(i);
+        }
+
+        icArray[1] = parseInt(icArray[1], 10) * 2;
+        icArray[2] = parseInt(icArray[2], 10) * 7;
+        icArray[3] = parseInt(icArray[3], 10) * 6;
+        icArray[4] = parseInt(icArray[4], 10) * 5;
+        icArray[5] = parseInt(icArray[5], 10) * 4;
+        icArray[6] = parseInt(icArray[6], 10) * 3;
+        icArray[7] = parseInt(icArray[7], 10) * 2;
+
+        var weight = 0;
+        for (i = 1; i < 8; i++) {
+            weight += icArray[i];
+        }
+
+        var offset = (icArray[0] == "T" || icArray[0] == "G") ? 4 : (icArray[0] == "M") ? 3 : 0;
+        var temp   = (offset + weight) % 11;
+        if (icArray[0] == "M") temp = 10 - temp;
+
+        var st = ["J","Z","I","H","G","F","E","D","C","B","A"];
+        var fg = ["X","W","U","T","R","Q","P","N","M","L","K"];
+        var m  = ["K", "L", "J", "N", "P", "Q", "R", "T", "U", "W", "X"];
+
+        var theAlpha;
+        if (icArray[0] == "S" || icArray[0] == "T") { theAlpha = st[temp]; }
+        else if (icArray[0] == "F" || icArray[0] == "G") { theAlpha = fg[temp]; }
+        else if (icArray[0] == "M") { theAlpha = m[temp]; }
+
+        return (icArray[8] === theAlpha);
+    }
+
+    // Added by Vu - 06/07/2022 - Validation check for Date of Birth input
+    function checkDateofBirth() {
+        $('#errDateofBirth').hide();
+        $('#errDateofBirth1').hide();
+        $('#errNoDateofBirth1').hide();
+        $('#errNoDateofBirth').hide();
+        $('#errInvalidDateofBirth,#errInvalidDateofBirth1').hide();
+        var date = new Date();
+        date.setHours(0, 0, 0, 0);
+        var dateofbirth = document.getElementById('{!$Component.formBook.dateinput}').value;
+        if (dateofbirth != '') {
+            mydate = new Date(dateofbirth);
+            mydate.setHours(0, 0, 0, 0);
+            if (mydate > date) {
+                $('#errDateofBirth').show();
+                $('#errDateofBirth1').show();
+            }
+            else if (!isValidDate(mydate)) {
+                $('#errInvalidDateofBirth,#errInvalidDateofBirth1').show();
+            }
+        }
+        else {
+            $('#errInvalidDateofBirth,#errInvalidDateofBirth1').show();
+        }
+    }
+
+    function isValidDate(dateval) {
+        var dtMonth = dateval.getMonth() + 1;
+        var dtDay = dateval.getDate();
+        var dtYear = dateval.getFullYear();
+        var date = new Date();
+        if (dtYear < 1900 || dtMonth <= 0 || dtMonth > 12 || dtDay <= 0 || dtDay > 31)
+            return false;
+        else if ((dtMonth == 4 || dtMonth == 6 || dtMonth == 9 || dtMonth == 11) && dtDay == 31)
+            return false;
+        else if (dtMonth == 2) {
+            var isleap = (dtYear % 4 == 0 && (dtYear % 100 != 0 || dtYear % 400 == 0));
+            if (dtDay > 29 || (dtDay == 29 && !isleap))
+                return false;
+        }
+        else if (new Date(date.getFullYear() - 18, date.getMonth(), date.getDate()) < dateval) {
+            return false;
+        }
+        return true;
+    }
+
+    function submit1(){
+        $('#warNRIC').hide();
+        $('#errNRIC').hide();
+        $('#errNRIC1').hide();
+        $('#errName').hide();
+        $('#errName1').hide();
+        $('#errMobile').hide();
+        $('#errNumberMobile').hide();
+        $('#errNumberMobile2').hide();
+        $('#errNumberMobile3').hide();
+        $('#errMobile1').hide();
+        $('#errNumberMobile1').hide();
+        $('#errNumberMobile21').hide();
+        $('#errNumberMobile31').hide();
+        $('#errExistingOpportunity').hide();
+        $('#errEmail').hide();
+        $('#errDateofBirth').hide();
+        $('#errNoDateofBirth').hide();
+        $('#errInvalidDateofBirth').hide();
+        $('#errDateofBirth1').hide();
+        $('#errNoDateofBirth1').hide();
+        $('#errInvalidNRIC').hide();
+        $('#errInvalidNRIC1').hide();
+        // Added by Vu 18/07/2022 - Add validation for NRIC input
+        $('#errInvalidNRIC2').hide();
+        $('#errInvalidNRIC21').hide();
+        $('#errInvalidNRIC3').hide();
+        $('#errInvalidNRIC31').hide();
+        
+        var nricT = document.getElementById('{!$Component.formBook.nric1}').value;
+        var nric = nricT.trim();
+        var emailT = document.getElementById('{!$Component.formBook.email1}').value;
+        var email = emailT.trim();
+        if (nric==null || nric==''){
+            $('#errNRIC').show();
+            $('#errNRIC1').show();
+        }
+
+        if (email==null || email==''){
+            $('#errEmail').show();           
+        }
+        
+        var name3 = document.getElementById('{!$Component.formBook.name1}').value;
+        if (name3==null || name3=='') {
+            $('#errName').show();
+            $('#errName1').show();
+        }
+        checkFirstName();
+        checkLastName();
+        var mobilee = document.getElementById('{!$Component.formBook.mobile1}').value;
+        var mobLength = mobilee.length;
+        if(mobLength == 0){
+            $('#errMobile').show();
+            $('#errMobile1').show();
+        }
+        var noNumeric = isNaN(mobilee);
+        if(noNumeric==true){
+            $('#errNumberMobile').show();
+            $('#errNumberMobile1').show();
+        }
+        var firstNum = mobilee.substring(0, 1);
+        if(mobLength != 0 && firstNum !='8' && firstNum !='9'){
+            $('#errNumberMobile2').show();
+            $('#errNumberMobile21').show();
+        }
+        if (mobilee != '' && mobLength !=8){
+            $('#errNumberMobile3').show();
+            $('#errNumberMobile31').show();
+        }
+
+        // Added by Vu 06/07/2022 - Validation check for Date of Birth input
+        var date = new Date();
+        date.setHours(0, 0, 0, 0);
+        var dateofbirth = document.getElementById('{!$Component.formBook.dateinput}').value;
+        console.log('dateofbirth--->' + dateofbirth);
+        var dobTrue = true;
+        if (dateofbirth != '' && dateofbirth != null) {
+            mydate = new Date(dateofbirth);
+            mydate.setHours(0, 0, 0, 0);
+
+            if (mydate > date) {
+                $('#errDateofBirth').show();
+                $('#errDateofBirth1').show();
+                dobTrue = false;
+            }
+            else if (!isValidDate(mydate)) {
+                $('#errInvalidDateofBirth,#errInvalidDateofBirth1').show();
+                dobTrue = false;
+            }
+
+        } else {
+            $('#errNoDateofBirth1').show();
+            $('#errNoDateofBirth').show();
+            dobTrue = false;
+        }
+        
+        var validNRIC = validateNRIC(nric);
+
+        if ((nric==null || nric=='') || !validNRIC || (email==null || email=='') || (name3==null || name3=='') || mobLength == 0 || noNumeric==true || (mobLength != 0 && firstNum !='8' && firstNum !='9') || (mobilee != '' && mobLength !=8)) {
+            window.scrollTo(0,0);
+            stopLoading();
+            return false;
+        }
+
+        if (dobTrue == false) {
+            window.scrollTo(0, 0);
+            stopLoading();
+            return false;
+        }
+
+        save1();
+    }
+    
+    function checkOpportunity(){
+        checkOpp();
+    }
+    
+    function SearchVehicle1(){
+        SearchVehicle2();
+    }
+    
+    function submit2(){
+        $('#errCancellation').hide();
+        $('#errCancellation1').hide();
+        var cancelReason = document.getElementById('{!$Component.formBook.cancellation1}').value;
+        if (cancelReason==null || cancelReason=='') {
+            $('#errCancellation').show();
+            $('#errCancellation1').show();
+            
+            window.scrollTo(0,0);
+            stopLoading();
+            return false;
+        }
+        
+        save2();
+    }
+    
+    function startLoading(){
+        $.loader.open({imgUrl: "{!URLFOR($Resource.plugIn, 'PlugIn/overlayLoading/images/loading32x32.gif')}"});  
+    }
+    function stopLoading(){
+        $.loader.close();
+    }
+    
+    function navigateToDSAApp(){
+
+    }
+</script>
+</apex:page>

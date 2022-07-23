@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Warehouse_Validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF(TEXT(Promotion_Type__c) == &apos;KIA Warehouse&apos;, IF(OR(ISBLANK( TEXT(Vehicle_Type__c)), ISBLANK(TEXT(Vehicle_Sub_Type__c)), ISBLANK(Showroom__c), ISBLANK(Actual_Price__c), ISBLANK(Discounted_Price__c), ISBLANK(Mileage__c)), true, false), false) &amp;&amp; NOT( $Setup.Bypass_Automation_Settings__c.Bypass_Validation_Rules__c )</errorConditionFormula>
+    <errorMessage>Vehicle Type, Showroom, Actual Price, Discounted Price, and Mileage are required.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>P</fullName>
+        <default>true</default>
+        <label>Private</label>
+    </customValue>
+    <customValue>
+        <fullName>C</fullName>
+        <default>false</default>
+        <label>Company</label>
+    </customValue>
+    <customValue>
+        <fullName>O</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Offpeak</label>
+    </customValue>
+    <masterLabel>Registration Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

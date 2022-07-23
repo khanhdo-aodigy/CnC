@@ -1,0 +1,46 @@
+<aura:component access="global" controller="DWH_AftersalesAPIResyncController" implements="force:lightningQuickAction">
+
+    <aura:attribute name="spinner" type="Boolean" default="false" />
+    <aura:attribute name="errorfound" type="Boolean" default="false" />
+    <aura:attribute name="inputMode" type="Boolean" default="true" />
+    <aura:attribute name="disabledBtn" type="Boolean" default="true" />
+    <aura:attribute name="errorMsg" type="String" default="" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:if isTrue="{!v.inputMode}">
+        <div class="slds-grid">
+            <div class="slds-col slds-p-around_xx-small">
+                <lightning:input type="date" aura:id="fromDate" name="fromDate" label="From Date" onchange="{!c.handleDateChange}"/>
+            </div>
+            <div class="slds-col slds-p-around_xx-small">
+                <lightning:input type="date" aura:id="toDate" name="toDate" label="To Date" onchange="{!c.handleDateChange}"/>
+                <span style="color:red;">{!v.errorMsg}</span>
+            </div>
+        </div>
+       
+        <div style="text-align:center;padding:15px;">
+            <lightning:button label="Call API" onclick="{!c.callAPI}" disabled="{!v.disabledBtn}"/>
+        </div>
+        <aura:set attribute="else">
+            <aura:if isTrue="{!v.spinner}">
+                <div style="text-align:center">
+                    <lightning:spinner alternativeText="Loading" size="small" />
+                    Attempting the API Call
+                </div>
+                <aura:set attribute="else">
+                    <aura:if isTrue="{!v.errorfound}">
+                        <p style="text-align:center">
+                            Error in API Callout! Please check Service Data Pool object!
+                        </p>
+                        <aura:set attribute="else">
+                            <p style="text-align:center">
+                                API Callout is done! Please refresh the list view page to get the latest information!
+                            </p>
+                        </aura:set>
+                    </aura:if>
+                </aura:set>
+            </aura:if>
+        </aura:set>
+    </aura:if>
+</aura:component>

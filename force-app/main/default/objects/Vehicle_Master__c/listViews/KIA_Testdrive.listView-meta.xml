@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>KIA_Testdrive</fullName>
+    <columns>NAME</columns>
+    <columns>Franchise_Code__c</columns>
+    <columns>Type__c</columns>
+    <columns>Status__c</columns>
+    <columns>Model_Group__c</columns>
+    <columns>Model__c</columns>
+    <columns>Variant__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Franchise_Code__c</field>
+        <operation>equals</operation>
+        <value>KIAPC</value>
+    </filters>
+    <label>KIA Testdrive</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>KIAPC_Sales_Manager</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

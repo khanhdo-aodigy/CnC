@@ -1,0 +1,52 @@
+<template>
+
+    <!-- 
+        <lightning-layout vertical-align="center" class="slds-p-horizontal_x-small">
+        <lightning-layout-item size="2">
+            <template if:false={isFirstPage}>
+                <lightning-button-icon
+                    icon-name="utility:chevronleft"
+                    onclick={handlePrevious}
+                ></lightning-button-icon>
+            </template>
+        </lightning-layout-item>
+        
+        <lightning-layout-item size="8" class="nav-info">
+            {totalItemCount} items • page {currentPageNumber} of {totalPages}
+        </lightning-layout-item>
+        
+        <lightning-layout-item size="2" class="nav-next">
+            <template if:false={isLastPage}>
+                <lightning-button-icon
+                    icon-name="utility:chevronright"
+                    onclick={handleNext}
+                ></lightning-button-icon>
+            </template>
+        </lightning-layout-item>
+        
+    </lightning-layout> -->
+
+    <div class="container">
+        <div class="left">
+            <template if:false={isFirstPage}>
+                <lightning-button-icon
+                    icon-name="utility:left"
+                    variant="border-filled"
+                    onclick={handlePrevious}
+                ></lightning-button-icon>
+            </template>
+        </div>
+        <div class="centered">
+            {totalItemCount}&nbsp; items • Page {currentPageNumber} of {totalPages}
+        </div>
+        <div class="right">
+            <template if:false={isLastPage}>
+                <lightning-button-icon
+                    icon-name="utility:right"
+                    variant="border-filled"
+                    onclick={handleNext}
+                ></lightning-button-icon>
+            </template>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opening_and_Closing_By_Specific_Date</fullName>
+    <columns>NAME</columns>
+    <columns>Courtesy_Vehicle__c</columns>
+    <columns>Comm_No__c</columns>
+    <columns>Opening_Mileage__c</columns>
+    <columns>Closing_Mileage__c</columns>
+    <columns>Remarks__c</columns>
+    <columns>Status__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>7/12/2022 12:00 AM</value>
+    </filters>
+    <filters>
+        <field>Comm_No__c</field>
+        <operation>equals</operation>
+        <value>0287520168</value>
+    </filters>
+    <label>Opening and Closing By Specific Date</label>
+</ListView>

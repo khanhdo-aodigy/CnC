@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Price_Check_API</fullName>
+    <booleanFilter>1 OR 2 OR 3</booleanFilter>
+    <columns>NAME</columns>
+    <columns>Instance__c</columns>
+    <columns>Message__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Instance__c</field>
+        <operation>equals</operation>
+        <value>CampaignPriceService</value>
+    </filters>
+    <filters>
+        <field>Instance__c</field>
+        <operation>equals</operation>
+        <value>CheckCampaignInvoice_API</value>
+    </filters>
+    <filters>
+        <field>Instance__c</field>
+        <operation>equals</operation>
+        <value>CheckCampaignPayment_API</value>
+    </filters>
+    <label>Price Check API</label>
+    <sharedTo>
+        <role>Management</role>
+    </sharedTo>
+</ListView>

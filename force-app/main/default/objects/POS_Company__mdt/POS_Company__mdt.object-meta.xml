@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Used for Aftersales Service POS Company</description>
+    <label>POS Company</label>
+    <pluralLabel>POS Companies</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

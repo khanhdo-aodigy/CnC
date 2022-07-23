@@ -1,0 +1,50 @@
+<template>
+  <template if:true={processSteps}>
+  <header id="mainHeader" class="sticky">
+    <div class="d-flex align-items-center justify-content-between">
+      <a class="btn-back" href="javascript:void(1)" onclick={onSelectBack}>
+        <c-svg-cmp url-to-resource='/BootStrap/images/icons/icons.svg#icon-arrow-prev' svg-class="icon icon-arrow-prev "
+          svg-role="img" svg-aria-hidden="true">
+        </c-svg-cmp>
+      </a>
+      <div class="steps">
+        <ul>
+          <template if:false={processSteps}>
+            No data
+          </template>
+          <template if:true={processSteps}>
+
+            <template for:each={processSteps} for:item="eachStep">
+              <li  key={eachStep.DeveloperName}>
+                <a name={eachStep.Process_Path_Label__c} href="javascript:void(0)" onclick={onSelectStep}>
+                    <div class="steps--icon" name={eachStep.Process_Path_Label__c}>
+                      <small name="tickIcon">
+                        <c-svg-cmp url-to-resource='/BootStrap/images/icons/icons.svg#icon-tick'
+                          svg-class="icon icon-tick " svg-role="img" svg-aria-hidden="true">
+                        </c-svg-cmp>
+                      </small>
+                      <big name="activeIcon">
+                        <c-svg-cmp url-to-resource='/BootStrap/images/icons/icons.svg#icon-stepper-active'
+                          svg-class="icon icon-stepper-active " svg-role="img" svg-aria-hidden="true">
+                          <span name="step" >{eachStep.Process_Sequence_Number__c}</span>
+                        </c-svg-cmp>
+                      </big>  
+                      <span name="step" >{eachStep.Process_Sequence_Number__c}</span>
+                    </div>
+                    <div name={eachStep.Process_Path_Label__c} class="steps--text">{eachStep.displayLabel__c }</div>
+                  </a>
+              </li>
+            </template>
+          </template>
+
+          <template if:true={error}>
+            There is an error
+          </template>
+        </ul>
+        <div class="bg-line"></div>
+      </div>
+      <a href="#" class="btn-save" onclick={onSaveExit}>Save &amp; Exit</a>
+    </div>
+  </header>
+</template>
+</template>

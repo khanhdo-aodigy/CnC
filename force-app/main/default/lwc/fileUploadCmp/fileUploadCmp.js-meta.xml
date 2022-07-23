@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata" fqn="dsp_customerDetails">
+    <apiVersion>46.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>File Upload</masterLabel>
+    <description>This is the file upload component for digitial sales form </description>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__AppPage, lightning__RecordPage, lightning__HomePage">
+            <property name="objectName" type="String" label="Object which the file will attached to."/>
+            <property name="recordId" type="String" label="Record which the file will attached to."/>
+            <property name="recordName" type="String" label="apiName of the file"/>
+            <property name="fileNameFormat" type="String" label="FileName Format"/>
+            <property name="supportedFileType" type="String" label="Supported file type"/>
+            <property name="label" type="String" label="label of the file"/>
+            <property name="apiName" type="String" label="apiName of the file"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

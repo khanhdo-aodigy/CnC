@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Default_Commission__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(AND(TEXT(Branch_Code__c) = &quot;CCF&quot;, DS_Model__c = true), &quot;1900&quot;,
+IF(AND(TEXT(Branch_Code__c) = &quot;CCF&quot;, DS_Model__c = false), &quot;720&quot;,
+IF(AND(Stock_Reservation__r.Model_Code__r.Engine_Capacity__c &lt;1601,Stock_Reservation__r.Model_Code__r.BHP__c &lt; 131),&quot;600&quot;,
+&quot;900&quot;
+)))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Default Commission</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

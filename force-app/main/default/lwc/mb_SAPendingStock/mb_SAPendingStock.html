@@ -1,0 +1,26 @@
+<template>
+    <lightning-quick-action-panel header="">
+        <template if:true={spinner}>
+            <div class="slds-is-relative slds-align_absolute-center slds-text-heading_medium slds-p-bottom_medium slds-border_bottom">
+                <b style="color: #00529B;">We're updating all necessary information.</b>
+            </div>
+            <div class="slds-is-relative slds-align_absolute-center slds-p-top_small">
+                This may take a moment or two. Thanks for waiting.
+            </div>
+            <div class="slds-is-relative slds-align_absolute-center">
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                <br/><br/>
+            </div>
+        </template>
+        <template if:false={spinner}>
+            <template if:true={isError}>
+                <div class="slds-is-relative slds-align_absolute-center slds-text-heading_medium slds-p-bottom_medium slds-border_bottom">
+                    <b style="color: #D8000C;">ERROR</b>
+                </div>
+                <div class="slds-is-relative slds-align_absolute-center slds-p-top_small">
+                    <p style="color: #D8000C;">{errorMsg}</p>
+                </div>
+            </template>
+        </template>
+    </lightning-quick-action-panel>
+</template>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CIT_TestDrive</fullName>
+    <columns>NAME</columns>
+    <columns>Comm_No__c</columns>
+    <columns>Franchise_Code__c</columns>
+    <columns>Branch_Code__c</columns>
+    <columns>Status__c</columns>
+    <columns>Type__c</columns>
+    <columns>Variant__c</columns>
+    <columns>Model__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Type__c</field>
+        <operation>equals</operation>
+        <value>Test Drive</value>
+    </filters>
+    <filters>
+        <field>Franchise_Code__c</field>
+        <operation>equals</operation>
+        <value>CITPC</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Sold,Sent Back to PG</value>
+    </filters>
+    <label>CIT Test Drive</label>
+    <sharedTo>
+        <role>CITPC_Sales_Manager</role>
+    </sharedTo>
+</ListView>

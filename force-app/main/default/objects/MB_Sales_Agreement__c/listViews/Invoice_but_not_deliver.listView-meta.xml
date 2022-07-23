@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Invoice_but_not_deliver</fullName>
+    <columns>NAME</columns>
+    <columns>Stock_Number__c</columns>
+    <columns>Comm__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status_Autoline__c</field>
+        <operation>equals</operation>
+        <value>I</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Waiting for Confirmation,Booked,Reserved,Allocated,Balance Payment</value>
+    </filters>
+    <label>Invoice but not deliver</label>
+</ListView>

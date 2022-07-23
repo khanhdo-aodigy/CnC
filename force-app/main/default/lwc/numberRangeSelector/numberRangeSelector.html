@@ -1,0 +1,77 @@
+<template>
+    <template if:true={isDraggedDropped}>
+        <lightning-card  title={label}>
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col slds-m-left_large">
+                    <lightning-combobox name="c_picklistFrom" 
+                                        label="From"
+                                        onchange={handleValueChange} 
+                                        value={sFrom}
+                                        options={options} 
+                                        placeholder="--None--" 
+                                        dropdown-alignment="bottom-left"
+                                    ></lightning-combobox>
+                </div>
+                <div class="slds-col slds-m-right_large">
+                    <lightning-combobox name="c_picklistTo" 
+                                        label="To"
+                                        onchange={handleValueChange} 
+                                        value={sTo}
+                                        options={options} 
+                                        placeholder="--None--" 
+                                        dropdown-alignment="bottom-left"
+                                    ></lightning-combobox>
+                </div>
+            </div>   
+        </lightning-card>
+    </template>
+    <template if:false={isDraggedDropped}>
+        <div class="slds-form-element__label slds-form-element__legend slds-m-left_xxx-small">{label}</div>
+        <div class="slds-grid slds-gutters slds-form-element__control">
+            <template if:false={isInputField}>
+                <div class="slds-col slds-m-left_xxx-small">
+                    <lightning-combobox name="c_picklistFrom" 
+                                        label="From"
+                                        onchange={handleValueChange} 
+                                        value={sFrom}
+                                        options={options} 
+                                        placeholder="--None--" 
+                                        dropdown-alignment="bottom-left"
+                    ></lightning-combobox>
+                </div>
+                <div class="slds-col slds-m-right_xxx-small">
+                    <lightning-combobox name="c_picklistTo" 
+                                        label="To"
+                                        onchange={handleValueChange} 
+                                        value={sTo}
+                                        options={options} 
+                                        placeholder="--None--" 
+                                        dropdown-alignment="bottom-left"
+                    ></lightning-combobox>
+                </div>
+            </template>
+            <template if:true={isInputField}>
+                <div class="slds-col slds-m-left_xxx-small">
+                    <lightning-input    name="c_inputFrom" 
+                                        label="From"
+                                        onchange={handleValueChange} 
+                                        value={sFrom}
+                                        type="number"
+                                        min=0
+                                        message-when-bad-input = 'Please enter a number.'
+                    ></lightning-input>
+                </div>
+                <div class="slds-col slds-m-right_xxx-small">
+                    <lightning-input    name="c_inputTo" 
+                                        class="c_inputTo"
+                                        label="To"
+                                        onchange={handleValueChange} 
+                                        value={sTo}
+                                        type="number"
+                                        message-when-bad-input = 'Please enter a number.'
+                    ></lightning-input>
+                </div>
+            </template>
+        </div>   
+    </template>
+</template>

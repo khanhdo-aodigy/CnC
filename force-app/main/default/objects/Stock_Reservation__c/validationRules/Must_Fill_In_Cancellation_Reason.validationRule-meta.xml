@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Must_Fill_In_Cancellation_Reason</fullName>
+    <active>true</active>
+    <description>Must fill in cancellation reason if reservation status changed to cancel</description>
+    <errorConditionFormula>AND(Cancellation_Reason__c =&quot;&quot;, TEXT(Reservation_Status__c) = &quot;Cancel&quot;) &amp;&amp; NOT( $Setup.Bypass_Automation_Settings__c.Bypass_Validation_Rules__c )</errorConditionFormula>
+    <errorDisplayField>Cancellation_Reason__c</errorDisplayField>
+    <errorMessage>Please fill in the cancellation reason</errorMessage>
+</ValidationRule>

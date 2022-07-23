@@ -1,0 +1,52 @@
+<template>
+    <template if:true={stockReservationRec}>
+        <main role="main" style={containerStyle}>
+            <section class="section-wrapper"> 
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <form id="depositForm" class="form-init" novalidate>
+                                <div class="slds-m-around_medium top-title">
+                                    <img src={cncLogoUrl}>
+                                </div>
+                                <div class="page-title top-title">
+                                <h1>Sales Agreement</h1>
+                                </div>
+                                <h2>Vehicle Type</h2>
+                                <div class="form-group">
+                                    <template if:true={registrationTypeOptions}>
+                                        <c-pick-list-as-record-list-cmp field-label="Registration Type" obj-name="Registration_Type__c" placeholder="Choose Registration Type"
+                                                                        field-style="form-control select" pick-list-value={registrationTypeOptions}
+                                                                        onvaluechanged={onValueChanged} existing-value={stockReservationRec.Registration_Type__c}>
+                                        </c-pick-list-as-record-list-cmp>
+                                    </template>
+                                </div>   
+                                <div class="form-group">
+                                    <template if:true={packageOptions}>
+                                        <c-pick-list-as-record-list-cmp field-label="Package" obj-name="Package_Header_From_PickList__c" placeholder="Choose Package"
+                                                                        field-style="form-control select" pick-list-value={packageOptions}
+                                                                        onvaluechanged={onValueChanged}>
+                                        </c-pick-list-as-record-list-cmp>
+                                    </template>
+                                </div>                          
+                                <template if:false={isModal}>
+                                        <button type="button" class="btn btn-primary btn-submit bottom-button" onclick={onSaveRecordNext} disabled>Launch Sales Agreement</button>                                   
+                                </template>
+                                <slot name="additionalButtonSlot"></slot> 
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <template if:true={isError}>
+                <div data-name="ErrorHeaderOffsetSticky" class="header-snap scroller sticky" style="top: 0px; margin-top: 0; background:#fc6c6c">
+                    <div class="container">
+                        <div class="row justify-content-md-center">
+                            <span>{errorMsg}</span>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </main>
+    </template>
+ </template>

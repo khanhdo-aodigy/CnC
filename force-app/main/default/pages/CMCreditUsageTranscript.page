@@ -1,0 +1,120 @@
+<apex:page controller="CMCreditUsageTranscriptController" sidebar="false" showHeader="false" standardStylesheets="false" renderAs="pdf">     
+    <html>
+        <head>
+            <style type="text/css">          
+            </style>
+        </head>
+        <body>
+            <h3 style="text-align:center; padding-bottom: 30px">
+                CREDIT REWARD USAGE
+            </h3>
+            <apex:form >
+                <apex:pageBlock >
+                    <div id="detail">
+                        <table style="MARGIN: 0 1em 0 9em; BORDER-SPACING: 0px; WIDTH: 100%; BORDER-COLLAPSE: collapse; FONT-SIZE: 13px">
+                            <tr>
+                                <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">
+                                    <label class="slds-form-element__label" for="select-01">Reward Profile ID</label>
+                                </td>
+                                <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">
+                                    <apex:outputText value="{!rewardProfileRec.Name}"></apex:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">
+                                    <label class="slds-form-element__label" for="select-01">Contact</label>
+                                </td>
+                                <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">
+                                    <apex:outputText value="{!rewardProfileRec.Contact__r.Name}"></apex:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">
+                                    <label class="slds-form-element__label" for="select-01">Brand</label>
+                                </td>
+                                <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">
+                                    <apex:outputText value="{!rewardProfileRec.Brand__c}"></apex:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">
+                                    <label class="slds-form-element__label" for="select-01">Type</label>
+                                </td>
+                                <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">
+                                    <apex:outputText value="{!rewardProfileRec.Type__c}"></apex:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">
+                                    <label class="slds-form-element__label" for="select-01">Issued Date</label>
+                                </td>
+                                <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">
+                                    <apex:outputText value="{0,date,dd-MMM-yyyy}">
+                                        <apex:param value="{!issuedDate}"></apex:param>
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">
+                                    <label class="slds-form-element__label" for="select-01">Previous Invoice</label>
+                                </td>
+                                <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">
+                                    <apex:outputText value="{!invoiceNumber}"></apex:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">
+                                    <label class="slds-form-element__label" for="select-01">Credit Note Number</label>
+                                </td>
+                                <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">
+                                    <apex:outputText value="{!creditNoteNumber}"></apex:outputText>
+                                </td>
+                            </tr>       
+                            <tr>
+                                <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">
+                                    <label class="slds-form-element__label" for="select-01">Total Credit Usage</label>
+                                </td>
+                                <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">
+                                    <!-- <apex:outputText value="{!rewardProfileRec.Total_Credited_Usage__c}"></apex:outputText> -->
+                                    <apex:outputText value="{0, number, ###,##0.00}">
+                                        <apex:param value="{!totalCreditedUsage}"/>
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">
+                                    <label class="slds-form-element__label" for="select-01">Refund Amount</label>
+                                </td>
+                                <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">
+                                    <!-- <apex:outputText value="{!refundAmount}"></apex:outputText> -->
+                                    <apex:outputText value="{0, number, ###,##0.00}">
+                                        <apex:param value="{!refundAmount}"/>
+                                    </apex:outputText>
+                                </td>
+                            </tr>     
+                            <tr>
+                                <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">
+                                    <label class="slds-form-element__label" for="select-01">Total Remainder</label>
+                                </td>
+                                <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">
+                                    <!-- <apex:outputText value="{!rewardProfileRec.Total_Remainder__c}"></apex:outputText> -->
+                                    <apex:outputText value="{0, number, ###,##0.00}">
+                                        <apex:param value="{!totalRemainderAfter}"/>
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">
+                                    <label class="slds-form-element__label" for="select-01">Refund Reason</label>
+                                </td>
+                                <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">
+                                    <apex:outputText value="{!refundReason}"></apex:outputText>
+                                </td>
+                            </tr>
+                        </table> 
+                    </div>
+                </apex:pageBlock>
+            </apex:form>   
+        </body>
+    </html>
+</apex:page>

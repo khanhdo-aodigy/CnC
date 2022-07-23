@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COH_STATUS__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( AND(NOT(ISBLANK(Debit_No__c)),NOT(ISBLANK(Debit_Date__c))), &apos;Sold&apos;, IF( AND(ISBLANK(Sales_Agreement__c),ISBLANK(MB_Sales_Agreement__c)), &apos;Unused&apos;, &apos;Assigned&apos; ))</formula>
+    <label>Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

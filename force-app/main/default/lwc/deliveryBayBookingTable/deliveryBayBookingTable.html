@@ -1,0 +1,110 @@
+<template>
+    <!-- Start: Loading Screen -->
+    <template if:true={spinner}>
+        <lightning-spinner variant="brand" size="large"></lightning-spinner>
+    </template>
+    <!-- End: Loading Screen -->
+
+    <template if:false={spinner}>
+        <div class="slds-var-p-around_small">
+            <!-- Start: Header Portion-->
+            <div class="slds-grid slds-wrap slds-border_bottom slds-border_top slds-grid_vertical-stretch">
+                <div class="slds-col slds-size_1-of-6 slds-border_bottom slds-theme_shade"
+                    style="text-align:center;font-weight:bold;padding-top:10px;padding-bottom:10px">
+                    <span>
+                        Slot Interval/Date
+                    </span>
+                </div>
+                <template for:each={timeSlotsMatrix} for:item="daily" if:true={timeSlotsMatrix}>
+                    <div key={daily.date} class="slds-col slds-size_1-of-6 slds-border_bottom slds-theme_shade"
+                        style="text-align:center;font-weight:bold;padding-top:10px;padding-bottom:10px">
+                        <span>
+                            <lightning-formatted-date-time value={daily.date} month="short" day="2-digit"
+                                weekday="long">
+                            </lightning-formatted-date-time>
+                        </span>
+                    </div>
+                </template>
+            </div>
+            <!-- End: Header Portion-->
+
+            <!-- Start: Body Portion-->
+            <div class="slds-grid slds-wrap slds-border_bottom slds-border_top slds-grid_vertical-stretch">
+                <div class="slds-col slds-size_1-of-6">
+                    <span>
+                        <template for:each={timeslotFormat} for:item="slot" if:true={timeslotFormat}>
+                            <div key={slot.startTime} class="slds-var-p-around_medium slds-border_bottom"
+                                style="text-align:center;font-weight:bold;height:50px">
+                                <span>
+                                    {slot.startTime}
+                                </span>
+                            </div>
+                        </template>
+                    </span>
+                </div>
+                <template for:each={timeSlotsMatrix} for:item="daily" if:true={timeSlotsMatrix}>
+                    <div key={daily.date} class="slds-col slds-size_1-of-6">
+                        <span>
+                            <template for:each={daily.timeSlot} for:item="record" if:true={daily.timeSlot}>
+                                <div key={record.startTime} class="slds-var-p-around_x-small slds-border_bottom"
+                                    style="text-align:center;height:50px">
+                                    <span>
+                                        <lightning-button label={record.slotAvailable} onclick={handleOnClick}
+                                            value={record.startTime} name={daily.date} disabled={record.disableButton}>
+                                        </lightning-button>
+                                    </span>
+                                </div>
+                            </template>
+                        </span>
+                    </div>
+                </template>
+            </div>
+            <!-- End: Header Portion-->
+        </div>
+
+        <template if:true={modalPopup}>
+            <!-- Modal/Popup Box LWC starts here -->
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <!-- Modal/Popup Box LWC header here -->
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={handleClosePopup}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{modalTitle}</h2>
+                    </header>
+
+                    <!-- Modal/Popup Box LWC body starts here -->
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <div style="text-align:center">
+                            You are selecting an available room at {serviceCategoryRecord.Service_Centre_Description__c}
+                        </div>
+                        <br/>
+                        <div class="slds-grid slds-gutters" style="text-align:center">
+                            <template for:each={selectedTimeslotMatrix.room} for:item="eachRoom"
+                                if:true={selectedTimeslotMatrix.room}>
+                                <div key={eachRoom.roomNo} class="slds-col">
+                                    <span>
+                                        <lightning-button label={eachRoom.roomNo} variant="brand" onclick={handleConfirmBooking}
+                                            value={eachRoom.roomNo} name={eachRoom.roomNo} disabled={eachRoom.quantity}>
+                                        </lightning-button>
+                                    </span>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Modal/Popup Box LWC footer starts here -->
+                    <footer class="slds-modal__footer" style="text-align:center">
+                        <lightning-button onclick={handleClosePopup} label="Cancel"></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    </template>
+</template>

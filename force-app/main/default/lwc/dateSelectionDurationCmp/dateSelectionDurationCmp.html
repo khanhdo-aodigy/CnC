@@ -1,0 +1,40 @@
+<template>
+    <template if:true={startDatePicklist}>
+        <div id={startDateApiName} class="form-group radio-group innerStyle">
+            <label>{startLabel}</label>
+            <div class="btn-group-toggle d-flex" data-toggle="buttons">
+            <template for:each={startDatePicklist} for:item="item">
+                    <label key={item.key} class={item.fieldStyle}>
+                        <input data-item={item} type="radio" name={item} value={item.apiValue} 
+                        id={item.apiValue} onclick={onSelectStartDate}> 
+                        {item.displayValue}
+                        </label> 
+                </template>
+            </div>
+            <template if:true={isError}>
+                <label style="color:red;">{errorMsg}</label>
+            </template>
+        </div>
+    </template>
+
+    <template if:false = {hideEndDatePicklist}>
+        <template if:true={endDatePicklist}>
+            <div id={endDateApiName} class="form-group radio-group innerStyle">
+                <label>{endLabel}</label>
+                <div class="btn-group-toggle d-flex" data-toggle="buttons">
+                <template for:each={endDatePicklist} for:item="item">
+                        <label key={item.key} class={item.fieldStyle}>
+                            <input data-item={item} type="radio" name={item} value={item.apiValue} 
+                            id={item.apiValue} onclick={onSelectEndDate}> 
+                            {item.displayValue}
+                            </label> 
+                    </template>
+                </div>
+                <template if:true={isError}>
+                    <label style="color:red;">{errorMsg}</label>
+                </template>
+            </div>
+        </template>
+    </template>
+
+</template>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>Credit Management System</description>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <label>Credit Management App Lightning</label>
+    <navType>Standard</navType>
+    <tabs>Credit_POS</tabs>
+    <tabs>standard-Account</tabs>
+    <tabs>standard-Contact</tabs>
+    <tabs>standard-report</tabs>
+    <tabs>standard-Dashboard</tabs>
+    <tabs>Transaction__c</tabs>
+    <tabs>Reward_Profile__c</tabs>
+    <tabs>Reward__c</tabs>
+    <tabs>Reward_Usage__c</tabs>
+    <tabs>Master_Approval__c</tabs>
+    <tabs>GFB_CNC_Aftersales_Survey__c</tabs>
+    <tabs>GFB_Kia_DCSI_Service_Survey__c</tabs>
+    <tabs>GFB_MMC_Service_Quality_Survey__c</tabs>
+    <tabs>Post_Service_Header__c</tabs>
+    <tabs>Package_Additional_Charges__c</tabs>
+    <tabs>MB_SVM_Spec__c</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>Credit_Management_App_Lightning_UtilityBar</utilityBar>
+</CustomApplication>

@@ -1,0 +1,44 @@
+<template>
+    <div data-id="overlord-container">
+        <header>
+            <div class="d-flex align-items-center justify-content-between standard-font">
+                <a></a>
+                <p style="font-size:x-large;font-weight:bold">{formNm}</p>
+                <a href="javascript:void(0)" onclick={closePage} class="white-text bold-text">Cancel</a>
+            </div>
+        </header>
+        <div class="container standard-font container-extra-padding">
+            <div class="container normal-text">
+                <div>
+                    <p class="pad-top-normal mouse-fur-text bold-text big-text" style="text-align: center;">{formTitle}</p>
+                </div>
+                <div class="custom-control custom-checkbox pad-top-normal">
+                    <p class="big-text"> 
+                        <lightning-formatted-rich-text value={formBody}></lightning-formatted-rich-text>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="pad-top-large">
+            <c-sdp_-vehicle-delivery-certificate_-sign-pad data-id="sign_pad"></c-sdp_-vehicle-delivery-certificate_-sign-pad>
+        </div>
+        <!-- toast panel -->
+        <div data-id="toast-panel" class="margin-top-normal alert-success alert-dismissible stickyToast invisible-element">
+            <a href="#" class="close close-button-toast " aria-label="close" onclick={hideToast}>&times;</a>
+            <strong>{toastVariant}! </strong> {toastMessage}
+            <template if:true={showAttachmentLink}>
+                Please check the <a href="#" onclick={openGeneratedAttachment}>Generated Attachment</a> carefully before closing this form.
+            </template>
+        </div>
+        <!-- buttons -->
+        <div class="container pad-top-large">
+            <div class="row justify-content-md-center">
+                <div class="col">
+                    <button type="button" class="btn btn-primary" onclick={handleGeneratePDF} disabled={buttonDisable}>
+                        Generate PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

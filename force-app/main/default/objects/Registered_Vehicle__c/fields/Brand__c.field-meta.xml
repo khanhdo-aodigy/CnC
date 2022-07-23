@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Brand__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL(Branch__c, &apos;CCI&apos;) , &apos;MB&apos;,
+    IF(ISPICKVAL(Branch__c, &apos;CCK&apos;), &apos;KIA&apos;,
+        IF(ISPICKVAL(Branch__c, &apos;CCA&apos;), &apos;MIT&apos;,
+            IF(ISPICKVAL(Branch__c, &apos;CCF&apos;), IF(AND(NOT(ISBLANK(Variant__r.Model_ID__r.Model_Display_Name__c)),BEGINS(Variant__r.Model_ID__r.Model_Display_Name__c,&apos;DS&apos;)), &apos;DS&apos;,&apos;CIT&apos;),&apos;&apos;))))</formula>
+    <label>Brand</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

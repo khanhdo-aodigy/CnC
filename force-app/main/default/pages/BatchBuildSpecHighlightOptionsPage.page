@@ -1,0 +1,14 @@
+<apex:page standardController="MB_Build_Spec__c" extensions="MBHighlightOptionsCtrl" action="{!executeBatchBuilSpecHLOs}">
+    <script>
+    	displayToast('Processing Batch now', 'You\'\ll be directed to Build Spec Page. Please wait for a while and refresh the page to obtain the latest updates. This process may take up to several minutes.', 'success');
+		window.setTimeout(function() {var url = location.href; console.log(url); window.location.replace(url.substring(0, url.indexOf('/', 14)) + '/lightning/o/MB_Build_Spec__c/home');}, 5000);
+
+    	function displayToast(title, message, type) {
+            sforce.one.showToast({
+                "title": title,
+                "message": message,
+                "type": type
+            });
+        }
+    </script>
+</apex:page>

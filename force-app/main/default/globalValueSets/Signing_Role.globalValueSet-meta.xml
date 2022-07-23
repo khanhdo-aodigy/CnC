@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Endorser</fullName>
+        <default>false</default>
+        <label>Endorser</label>
+    </customValue>
+    <customValue>
+        <fullName>Approver</fullName>
+        <default>false</default>
+        <label>Approver</label>
+    </customValue>
+    <customValue>
+        <fullName>blank</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>None</label>
+    </customValue>
+    <masterLabel>Signing Role</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

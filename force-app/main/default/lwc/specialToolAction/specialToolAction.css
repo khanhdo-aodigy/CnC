@@ -1,0 +1,26 @@
+.wrapper{
+    background-color: white;
+    border: 1px solid transparent;
+    /* border-radius: 0.2rem; */
+    border-color: #bce8f1;
+    border-radius: 4px;
+}
+
+.slds-tabs_scoped__link{
+    padding: 0rem 3rem;
+    font-weight: 500;
+    font-size: 1.2rem;
+    height: 2.5rem;
+    border-top-right-radius: 0.2rem !important;
+    border-top-left-radius: 0.2rem !important;
+}
+
+
+.slds-tabs_scoped__link:hover{
+    font-weight: 550;
+}
+
+.slds-tabs_scoped__nav{
+    background-color: #d9edf7;
+    /* height: 3rem; */
+}

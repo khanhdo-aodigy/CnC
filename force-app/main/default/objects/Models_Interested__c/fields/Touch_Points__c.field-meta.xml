@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Touch_Points__c</fullName>
+    <externalId>false</externalId>
+    <label>Touch Points</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Price Alert</fullName>
+                <default>false</default>
+                <label>Price Alert</label>
+            </value>
+            <value>
+                <fullName>Custom Quote</fullName>
+                <default>false</default>
+                <label>Custom Quote</label>
+            </value>
+            <value>
+                <fullName>Test Drive (Web)</fullName>
+                <default>false</default>
+                <label>Test Drive (Web)</label>
+            </value>
+            <value>
+                <fullName>Test Drive (Walk-In)</fullName>
+                <default>false</default>
+                <label>Test Drive (Walk-In)</label>
+            </value>
+            <value>
+                <fullName>Stock Reserved</fullName>
+                <default>false</default>
+                <label>Stock Reserved</label>
+            </value>
+            <value>
+                <fullName>Quick Contact</fullName>
+                <default>false</default>
+                <label>Quick Contact</label>
+            </value>
+            <value>
+                <fullName>Event Registration</fullName>
+                <default>false</default>
+                <label>Event Registration</label>
+            </value>
+            <value>
+                <fullName>Warehouse</fullName>
+                <default>false</default>
+                <label>Warehouse</label>
+            </value>
+            <value>
+                <fullName>Registered Interest</fullName>
+                <default>false</default>
+                <label>Registered Interest</label>
+            </value>
+            <value>
+                <fullName>Facebook</fullName>
+                <default>false</default>
+                <label>Facebook</label>
+            </value>
+            <value>
+                <fullName>Instagram</fullName>
+                <default>false</default>
+                <label>Instagram</label>
+            </value>
+            <value>
+                <fullName>Chat</fullName>
+                <default>false</default>
+                <label>Chat</label>
+            </value>
+            <value>
+                <fullName>Offline Events</fullName>
+                <default>false</default>
+                <label>Offline Events</label>
+            </value>
+            <value>
+                <fullName>Principal Leads</fullName>
+                <default>false</default>
+                <label>Principal Leads</label>
+            </value>
+            <value>
+                <fullName>Digital (Others)</fullName>
+                <default>false</default>
+                <label>Digital (Others)</label>
+            </value>
+            <value>
+                <fullName>Ref-it-up</fullName>
+                <default>false</default>
+                <label>Ref-it-up</label>
+            </value>
+            <value>
+                <fullName>Saleswhale</fullName>
+                <default>false</default>
+                <label>Saleswhale</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

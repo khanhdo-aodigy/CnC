@@ -1,0 +1,18 @@
+<apex:page standardController="Reward_Usage__c" extensions="CMWriteBackController" action="{!writeBack}">
+    <script>
+    	if({!isError}){
+            showErrorToast();
+            window.history.back();  
+            isError = false;
+        }
+    
+    	function showErrorToast() {
+            sforce.one.showToast({
+                "title": "FAILED!",
+                "message": "{!errorMessage}",
+                "type": "error"
+            });
+        }
+	</script>
+    
+</apex:page>

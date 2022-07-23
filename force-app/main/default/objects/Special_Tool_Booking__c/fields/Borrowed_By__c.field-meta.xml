@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Borrowed_By__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Borrowed By</label>
+    <referenceTo>Workshop_Technician__c</referenceTo>
+    <relationshipLabel>Special Tool Bookings</relationshipLabel>
+    <relationshipName>Special_Tool_Bookings</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,11 @@
+<design:component>
+    
+    <design:attribute name="objectApiName" label="Object Api Name"/>
+    <design:attribute name="controllingFieldApiName" label="Controlling Picklist Api Name"/>
+    <design:attribute name="dependentFieldApiName" label="Dependent Picklist Api Name"/>
+    <design:attribute name="selectedRecordTypeId" label="Selected RecordType Id"/>
+    <design:attribute name="selectedControllingPicklistValue" label="Selected Controlling Picklist Value"/>
+	<design:attribute name="selectedDependentPicklistValue" label="Selected Dependent Picklist Value"/>
+	<design:attribute name="controllingPicklistLabel" label="Controlling Picklist Label"/>
+    <design:attribute name="dependentPicklistLabel" label="Dependent Picklist Label"/>
+</design:component>

@@ -1,0 +1,27 @@
+<template>
+    <template if:true={spinner}>
+        <lightning-spinner variant="brand" size="large"></lightning-spinner>
+    </template>
+
+    <template if:false={spinner}>
+        <template if:true={displayCheckbox}>
+            <div class="slds-grid" style={styleCSS}>
+                <div class="slds-col slds-size_1-of-12" style="text-align:center">
+                    <!--<lightning-input type="checkbox-button" name="checkbox" checked={checkboxValue} onchange={updateRecord}></lightning-input>!-->
+                    <lightning-button-icon-stateful name="checkbox" icon-name="utility:check" selected={checkboxValue} size={buttonSize}
+                        onclick={updateRecord}></lightning-button-icon-stateful>
+                </div>
+                <div class="slds-col slds-size_11-of-12" style="text-align:justify">
+                    <lightning-formatted-text value={displayText} linkify></lightning-formatted-text>
+                </div>
+            </div>
+        </template>
+        <template if:false={displayCheckbox}>
+            <div style={styleCSS}>
+                <div style="text-align:justify">
+                    <lightning-formatted-text value={displayText} linkify></lightning-formatted-text>
+                </div>
+            </div>
+        </template>
+    </template>
+</template>

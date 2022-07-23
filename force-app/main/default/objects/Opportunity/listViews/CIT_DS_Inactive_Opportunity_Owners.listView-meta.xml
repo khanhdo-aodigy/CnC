@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CIT_DS_Inactive_Opportunity_Owners</fullName>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>CORE.USERS.FULL_NAME</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <columns>Model_c__c</columns>
+    <columns>Account_Record_Type__c</columns>
+    <columns>Branch_Code__c</columns>
+    <columns>OPPORTUNITY.LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Branch_Code__c</field>
+        <operation>equals</operation>
+        <value>CCK</value>
+    </filters>
+    <filters>
+        <field>CORE.USERS.FULL_NAME</field>
+        <operation>contains</operation>
+        <value>Alicia Nguan</value>
+    </filters>
+    <label>CIT/DS Inactive Opportunity Owners</label>
+</ListView>

@@ -1,0 +1,276 @@
+<apex:page Controller="AccountActivate" action="{!activationLinkValidity}" showHeader="false" standardStylesheets="false" docType="html-5.0" applyHtmlTag="false" applyBodyTag="false"
+ title="Account Activation Success | Cycle &amp; Carriage Singapore" cache="false">
+    <html>
+        <head>
+            <link href="{!URLFOR($Resource.Favicon,'favicon.png')}" rel="shortcut icon"/>
+             <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-W4TR3HV');</script>
+ 
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="manifest" href="/images/favicon/manifest.json"/>
+        <meta name="msapplication-TileColor" content="#ffffff"/>
+        <meta name="msapplication-TileImage" content="/images/favicon/ms-icon-144x144.png"/>
+        <meta name="theme-color" content="#ffffff"/>
+        <apex:stylesheet value="{!URLFOR($Resource.Jcc_assets,'global-footer.css')}" />
+        <link href="https://www.cyclecarriage.com/styles/style.min.css?cache=false&time={!timestamp}" rel="stylesheet"/>
+        </head>
+<body class="standalone">
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-ND3Z4RG" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <apex:outputText value="{!header}" escape="false"/>
+<div class="bg-container bg-default">
+<div class="bg-container__content">
+<apex:form >        
+    <div class="container">
+<apex:outputPanel layout="block" rendered="{!isError}">
+<div class="row">
+  <div class="col s12 m8 offset-m2">
+   <div class="form-bg text-center">
+    <div class="row margin-bottom--1 error">
+          <div class="col s12 l10 offset-l1">
+            <div class="icon-holder text-center">
+              <svg class="icon icon-exclamation " role="img" aria-hidden="true">
+                <use
+                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Resource.icons,'#icon-exclamation')}">
+                </use>
+              </svg>
+                <h4>no account is associated with the entered email</h4>
+              </div>
+            </div>
+    </div>
+      </div>
+    </div>
+    </div>
+</apex:outputPanel>
+<apex:outputPanel layout="block" rendered="{!unauthorized}">
+          <div class="row">
+      <div class="col s12 m8 offset-m2">
+      <div class="form-bg text-center">
+    <div class="row margin-bottom--1 error">
+          <div class="col s12 l10 offset-l1">
+            <div class="icon-holder text-center">
+              <svg class="icon icon-exclamation padding" role="img" aria-hidden="true">
+                <use
+                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Resource.icons,'#icon-exclamation')}">
+                </use>
+              </svg>
+        </div>
+        </div>
+        </div>
+        <div class="row margin-bottom--6">
+            <div class="col s12 l10 offset-l1">
+               <p>Yor are not authorized to use this link.</p>
+             </div>
+        </div>
+          </div>
+              </div>
+    </div>
+</apex:outputPanel>
+<apex:outputPanel layout="block" rendered="{!elapsedHourExceeded}">
+          <div class="row">
+      <div class="col s12 m8 offset-m2">
+      <div class="form-bg text-center">
+    <div class="row margin-bottom--1 error">
+          <div class="col s12 l10 offset-l1">
+            <div class="icon-holder text-center">
+              <svg class="icon icon-exclamation padding" role="img" aria-hidden="true">
+                <use
+                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Resource.icons,'#icon-exclamation')}">
+                </use>
+              </svg>
+        </div>
+        </div>
+        </div>
+        <div class="row margin-bottom--6">
+            <div class="col s12 l10 offset-l1">
+               <p>We’ll need to send you a new account activation link.</p>
+             </div>
+        </div>
+        <div class="row">
+        <div class="col s12 l10 offset-l1">
+            <apex:commandButton styleClass="btn btn-primary" value="RESEND ACTIVATION EMAIL" id="continue" action="{!resendActivationLink}"/>
+        </div>
+        </div>
+          </div>
+              </div>
+    </div>
+    
+</apex:outputPanel>
+<apex:outputPanel layout="block" rendered="{!IsLinkActive}" id="accountActivated">
+          <div class="row">
+      <div class="col s12 m8 offset-m2">
+      <div class="form-bg text-center">
+    <div class="row margin-bottom--1">
+          <div class="col s12 l10 offset-l1">
+            <div class="icon-holder text-center">
+             <div class="icon-circular-base-48 success padding"> 
+              <svg class="icon icon-tick" role="img" aria-hidden="true">
+                <use xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Resource.icons,'#icon-tick')}">
+                </use>
+              </svg>
+                </div>
+        <h4>Account activated!</h4>
+        </div>
+        <div class="row margin-bottom--6">
+           <div class="col s12 l10 offset-l1">
+                    <p>You can log in to your C&amp;C Account now.</p>
+           </div>
+     </div>
+        <div class="row">
+        <div class="col push-m3 s12 m6 hide-on-small-only">
+            <apex:commandButton styleClass="btn btn-primary btn-return-login" action="{!forwardRequest}" value="CONTINUE TO LOGIN"/> 
+         </div>
+        </div>
+            <div class="row">
+          <div class="col s12 l10 offset-l1 hide hide-on-large-only">
+
+        <a href="#" class="btn btn-primary launch-appp">OPEN THE <span style="text-transform: lowercase;">my</span>C&amp;C APP</a> <br/>
+          <a href="#" class="btn btn-primary launch-mbb" style="background-color: #000;">OPEN THE <span style="text-transform: lowercase;">my</span>MB APP</a>
+              </div>
+              <div class="col s12 l10 offset-l1 hide hide-on-large-only">
+        <a href="#" class="launch-app col s6">
+            <img src="https://www.cyclecarriage.com/sg/-/media/JCCL/Images/app-acc-icons/cC2x.jpeg" style="width:100%;" /><br />
+            <span style="color: #545e75;font-size:17px;"><br />myC&amp;C</span>
+        </a>
+        <a href="#" class="launch-mb col s6">
+            <img src="https://www.cyclecarriage.com/sg/-/media/JCCL/Images/app-acc-icons/mb2x.jpeg" style="width:100%;" /><br />
+            <span style="color: #545e75;font-size:17px;"><br />myMB</span>
+        </a>             
+            </div>
+        </div>
+     </div>
+     </div>
+          </div>
+              </div>
+    </div>
+    
+</apex:outputPanel>
+<apex:outputPanel layout="block" rendered="{!IsLinkInActive}" id="accountActivation">
+          <div class="row">
+      <div class="col s12 m8 offset-m2">
+      <div class="form-bg text-center">
+    <div class="row margin-bottom--1 error">
+          <div class="col s12 l10 offset-l1">
+            <div class="icon-holder text-center">
+              <svg class="icon icon-exclamation padding" role="img" aria-hidden="true">
+                <use
+                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Resource.icons,'#icon-exclamation')}">
+                </use>
+              </svg>
+        <h4>Your account has already been activated.</h4>
+        </div>
+        </div>
+        </div>
+     <div class="row margin-bottom--6">
+           <div class="col s12 l10 offset-l1">
+                    <p>Please proceed to log in to your C&amp;C account.</p>
+           </div>
+     </div>
+            <div class="row">
+        <div class="col s12 l10 offset-l1 hide-on-small-only">
+            <apex:commandButton styleClass="btn btn-primary btn-return-login" action="{!forwardRequest}" value="CONTINUE TO LOGIN"/>
+         </div>
+        </div>
+        <div class="row">
+          <div class="col s12 l10 offset-l1 hide hide-on-large-only">
+        <a href="#" class="btn btn-primary launch-appp">OPEN THE <span style="text-transform: lowercase;">my</span>C&amp;C APP</a> <br/>
+          <a href="#" class="btn btn-primary launch-mbb" style="background-color: #000;">OPEN THE <span style="text-transform: lowercase;">my</span>MB APP</a>
+              </div>
+         <div class="col s12 l10 offset-l1 hide hide-on-large-only">
+        <a href="#" class="launch-app col s6">
+            <img src="https://www.cyclecarriage.com/sg/-/media/JCCL/Images/app-acc-icons/cC2x.jpeg" style="width:100%;" /><br />
+            <span style="color: #545e75;font-size:17px;"><br />myC&amp;C</span>
+        </a>
+        <a href="#" class="launch-mb col s6">
+            <img src="https://www.cyclecarriage.com/sg/-/media/JCCL/Images/app-acc-icons/mb2x.jpeg" style="width:100%;" /><br />
+            <span style="color: #545e75;font-size:17px;"><br />myMB</span>
+        </a>             
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+</apex:outputPanel>
+    </div>
+</apex:form>
+   </div>
+   </div>
+            <apex:outputText value="{!footer}" escape="false"/>
+            <div id="signup--modal-account-error" class="modal mfp-hide text-center">
+                        <div class="modal__header">
+                            <svg class="icon icon-exclamation text-center" role="img" aria-hidden="true">
+                                <use xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Resource.icons,'#icon-exclamation')}">
+                                </use>
+                            </svg>
+                        </div>
+                        <div class="modal__content">
+                                <p class='large'>Unable to detect app</p>
+                                <p>Please install the latest version of our app to continue.</p>
+                        </div>
+                        <div class="modal__footer">
+                            <a href="javascript:void(0)" class="btn btn-primary btn-close">OK</a>
+                        </div>
+                    </div>
+            <script type="text/javascript" src="https://www.cyclecarriage.com/scripts/libs.js?cache=false&time={!timestamp}"></script>
+            <script type="text/javascript" src="https://www.cyclecarriage.com/scripts/main.min.js?cache=false&time={!timestamp}"></script>
+    <script>
+    var isMobile = {
+        Android: function() {
+            return navigator.userAgent.match(/Android/i);
+        },
+        iOS: function() {
+            return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+        }
+    };
+    if(isMobile.iOS()){
+        $(".launch-app").click(function(){
+           //location.href = "https://qa.cyclecarriage.com/sg/mycnc";
+           location.href = "https://www.cyclecarriage.com/sg/launchapp";
+            setInterval(function () {
+              window.location.replace("https://apps.apple.com/sg/app/myc-c/id1418558967");
+            }, 1000);            
+            }); 
+        $(".launch-mb").click(function(){
+            //location.href = "https://qa.cyclecarriage.com/sg/mycnc";
+            location.href = "https://www.cyclecarriage.com/sg/mb/launchapp";
+            setInterval(function () {
+              window.location.replace("https://apps.apple.com/sg/app/mymb/id1062246696");
+            }, 1000);            
+            }); 
+            //break;
+    }
+    else if (isMobile.Android()){
+        $(".launch-app").click(function(){
+            //location.href = "https://qa.cyclecarriage.com/sg/mycnc";
+            location.href = "https://www.cyclecarriage.com/sg/launchapp";
+            setInterval(function () {
+              window.location.replace("https://play.google.com/store/apps/details?id=sg.com.cyclecarriage.mycnc");
+            }, 1000);            
+            });             
+            
+        $(".launch-mb").click(function(){
+            //location.href = "android-app://com.appvantage.ServicesBooking";
+            window.open("android-app://com.appvantage.ServicesBooking","_self");
+            //location.href = "https://www.cyclecarriage.com/sg/mb/launchapp";
+            setInterval(function () {
+              window.location.replace("https://play.google.com/store/apps/details?id=com.appvantage.ServicesBooking");
+            }, 1000);            
+            }); 
+            //break;           
+    }
+    else{
+    $(".launch-app").prop("type", "button");
+    $(".launch-mb").prop("type", "button");
+    $(".launch-app" ).click(function() {modModal.open('#signup--modal-account-error'); });
+    $(".launch-mb" ).click(function() {modModal.open('#signup--modal-account-error'); });
+}
+    </script>        
+</body>
+    </html>
+</apex:page>

@@ -1,0 +1,45 @@
+<apex:page controller="ReCaptchaController" showHeader="false" sidebar="false">
+    <head>
+        <title>reCAPTCHA demo</title>
+        <script type="text/javascript">
+            var lexOrigin = window.parent.location.protocol + '//' + window.parent.location.hostname;
+            // this function checks if captcha is active and send post message to parent to increse heigh of iframe
+            var observer = new MutationObserver(function (mutations) {
+                console.log('start to observeeeee');
+                if (document.getElementById('recaptcha') && document.getElementById('recaptcha').nextSibling && document.getElementById('recaptcha').nextSibling.nextSibling) {
+                    let reCaptchaChallengeEl = document.getElementById('recaptcha').nextSibling.nextSibling;
+                    const isCaptchaVisible = reCaptchaChallengeEl.style.visibility;
+                    if (isCaptchaVisible) {
+                        parent.postMessage({ type: 'dynamic_heigh', 'captchaVisible': isCaptchaVisible }, lexOrigin);
+                    }
+                }
+            });
+            var config = { subtree: true, childList: true, attributes: true };
+            observer.observe(document.body, config);
+            var verifyCallback = function(response) {
+                parent.postMessage({ type: 'verify_captcha', status: 'success', secret_key: '{!secretKey}', g_response: response}, lexOrigin);
+            }
+            var captchaExpired = function(response) {
+                parent.postMessage({ type: 'captcha_expired', status: 'expired'}, lexOrigin);
+            }
+            // // Get screen width
+            // var screenWidth = screen.width;
+            // var captchaSize = screenWidth > 320 ? 'normal' : 'compact';
+            var onloadCallback = function() {
+                grecaptcha.render('recaptcha', {
+                    'sitekey' : '{!siteKey}',
+                    'size' : 'normal',
+                    'callback' : verifyCallback,
+                    'expired-callback': captchaExpired
+                });
+            };
+        </script>
+        <style type="text/css">
+            body {background: none transparent;}
+        </style>
+    </head>
+    <body>
+        <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&amp;render=explicit" async="" defer=""></script>
+        <div id="recaptcha" style="margin: 0;position: absolute;top: 50%;left: 50%;-ms-transform: translate(-50%, -50%);transform: translate(-50%, -50%);"></div>
+    </body>
+</apex:page>

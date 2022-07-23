@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DWHPackageId_Historical__c</fullName>
+    <description>Historical Package Id (due to Autoline Split)</description>
+    <externalId>false</externalId>
+    <label>DWH PACKAGE ID (Historical)</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,78 @@
+<template>
+    <template if:true={spinner}>
+        <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+    </template>
+
+    <c-ccl_form-header></c-ccl_form-header>
+
+    <div class="body">
+        <div class="vertical-center relative-position">
+            <div class="login-container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form action="customerinfo.html" class="" method="post">
+                            <div class="login-form-container">
+                                <h4>Sign In</h4>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <table width="100%" class="forgot-pwd">
+                                    <tr>
+                                        <td>
+                                            <label for="email">Email</label><br>
+                                            <input class="cus-info-text" name="email" data-id="email"
+                                                placeholder="Enter your email" onchange={onValueChanged}
+                                                onblur={checkEmailPattern} />
+                                        </td>
+                                    </tr>
+                                </table>
+                                <p class="text-danger" data-id="email" style="display:none;"></p>
+                            </div>
+                            <div class="form-group">
+
+                                <table width="100%" class="forgot-pwd">
+                                    <tr>
+                                        <td>
+                                            <label for="password">Password</label><br>
+                                            <input class="cus-info-text" type="password" name="password"
+                                                data-id="password" placeholder="Enter your password"
+                                                onchange={onValueChanged} onblur={validatePassword} />
+                                        </td>
+                                        <td width="110" align="right" valign="bottom" class="forgot-pwd">
+                                            <span><a href={forgotPwdUrl}>Forgot Password?</a></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <p class="text-danger" data-id="password" style="display:none;"></p>
+                            </div>
+                            <div class="form-group">
+                                <p class="text-danger" data-id="errMsg" style="display:none;"></p>
+                                <template if:false={disableButton}>
+                                    <button class="get-started-btn" type="button"
+                                        style="border: none;width: 100%;" onclick={login}>
+                                        Sign In
+                                    </button>
+                                </template>
+                                <template if:true={disableButton}>
+                                    <button class="get-started-btn disabled-btn" type="button"
+                                        style="border: none;width: 100%;" onclick={login} disabled>
+                                        Sign In
+                                    </button>
+                                </template>
+
+
+
+                            </div>
+                        </form>
+                        <div style="text-align:center;">
+                            <span>Not a member yet or do not have an existing myC&amp;C/myMB account?<a href={startURL}>
+                                    Sign Up </a>now!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <c-ccl_form-footer></c-ccl_form-footer>
+</template>

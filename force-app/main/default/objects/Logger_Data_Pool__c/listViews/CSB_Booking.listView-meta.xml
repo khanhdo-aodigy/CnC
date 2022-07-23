@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CSB_Booking</fullName>
+    <columns>NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>Instance__c</columns>
+    <columns>Line_Number__c</columns>
+    <columns>Message__c</columns>
+    <columns>Stack_Trace__c</columns>
+    <columns>Type__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Instance__c</field>
+        <operation>equals</operation>
+        <value>CancelCBSUpdQueuable,UpdateCBSQueuable,CancelCBSQueuable</value>
+    </filters>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>THIS_MONTH</value>
+    </filters>
+    <label>CSB Booking</label>
+</ListView>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Branch__c</fullName>
+    <externalId>false</externalId>
+    <label>Branch</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>CCA</fullName>
+                <default>false</default>
+                <label>CCA</label>
+            </value>
+            <value>
+                <fullName>CCI</fullName>
+                <default>false</default>
+                <label>CCI</label>
+            </value>
+            <value>
+                <fullName>CCK</fullName>
+                <default>false</default>
+                <label>CCK</label>
+            </value>
+            <value>
+                <fullName>CCF</fullName>
+                <default>false</default>
+                <label>CCF</label>
+            </value>
+            <value>
+                <fullName>Maxus</fullName>
+                <default>false</default>
+                <label>Maxus</label>
+            </value>
+            <value>
+                <fullName>BYD</fullName>
+                <default>false</default>
+                <label>BYD</label>
+            </value>
+            <value>
+                <fullName>MB Sales PC</fullName>
+                <default>false</default>
+                <label>MB Sales PC</label>
+            </value>
+            <value>
+                <fullName>MB Sales CV</fullName>
+                <default>false</default>
+                <label>MB Sales CV</label>
+            </value>
+            <value>
+                <fullName>Kia Sales PC</fullName>
+                <default>false</default>
+                <label>Kia Sales PC</label>
+            </value>
+            <value>
+                <fullName>Kia Sales CV</fullName>
+                <default>false</default>
+                <label>Kia Sales CV</label>
+            </value>
+            <value>
+                <fullName>Mit Sales PC</fullName>
+                <default>false</default>
+                <label>Mit Sales PC</label>
+            </value>
+            <value>
+                <fullName>Mit Sales CV</fullName>
+                <default>false</default>
+                <label>Mit Sales CV</label>
+            </value>
+            <value>
+                <fullName>Cit PC</fullName>
+                <default>false</default>
+                <label>Cit PC</label>
+            </value>
+            <value>
+                <fullName>Cit CV</fullName>
+                <default>false</default>
+                <label>Cit CV</label>
+            </value>
+            <value>
+                <fullName>DS</fullName>
+                <default>false</default>
+                <label>DS</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

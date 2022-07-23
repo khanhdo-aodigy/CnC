@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ready_for_Allocation_Sales_Admin</fullName>
+    <columns>NAME</columns>
+    <columns>Booking_Date__c</columns>
+    <columns>Customer_Full_Name__c</columns>
+    <columns>Status__c</columns>
+    <columns>Variant__c</columns>
+    <columns>JIT_Date__c</columns>
+    <columns>Production_Month_YYYYMM__c</columns>
+    <columns>COE_Premium__c</columns>
+    <columns>Chassis_Number__c</columns>
+    <columns>Autoline_Magic__c</columns>
+    <columns>STKNUM__c</columns>
+    <columns>Processed_by_Sales_Admin__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Reserved,Allocated</value>
+    </filters>
+    <label>Ready for Allocation (Sales Admin)</label>
+    <sharedTo>
+        <role>MB_Sales</role>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,29 @@
+<aura:component controller="EmailNotificationsService" access="global" implements="lightning:isUrlAddressable,lightning:hasPageReference,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="isSuccess" type="Boolean" default="false"/>
+    <aura:attribute name="hideSpinner" type="Boolean" default="false"/>
+    <aura:attribute name="isError" type="Boolean" default="false"/>
+    <aura:attribute name="errorMsg" type="String" default=""/>
+    
+    <aura:if isTrue="{!v.hideSpinner}">
+        <aura:if isTrue="{!v.isError}">
+            <div class="slds-align_absolute-center">
+                <b style="color:maroon">Failed to send email! Please contact your Administrator.</b><br/>
+            </div>
+            <div class="slds-align_absolute-center">
+                {!v.errorMsg}
+            </div>
+            <aura:set attribute="else">
+                <div class="slds-align_absolute-center">
+                    <b>Send email successfully! Please refresh the page.</b><br/>
+                </div>
+            </aura:set>
+        </aura:if>
+        <aura:set attribute="else">
+            <div class="slds-is-relative slds-align_absolute-center">
+                <lightning:spinner class="spins" alternativeText="Sending email..." size="medium"/>
+                <br/><br/>
+            </div>
+        </aura:set>
+    </aura:if>
+</aura:component>

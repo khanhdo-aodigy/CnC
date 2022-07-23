@@ -1,0 +1,22 @@
+@import 'c/ccl_style';
+
+.form-group {
+    margin-bottom: 1.5rem !important;
+}
+.cus-info-text  {
+    font-family:"Alegreya Sans";
+    background-color:#F7F6F3 !important;
+    padding: 0; border:none; 
+    border-radius:0 !important; 
+    line-height: 2.3 !important
+    ;width: 100%;
+}	
+
+.forgot-pwd{
+    border-color: #F7F6F3 !important; 
+    border-bottom: 1px solid rgba(0,0,0,.1) !important;
+}
+
+.disabled-btn {
+    background-color: #ddcfa5 !important;
+}

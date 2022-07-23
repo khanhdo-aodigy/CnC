@@ -1,0 +1,18 @@
+<template>
+    <div class="form-group relative">
+        <label for={apiFieldName}>{fieldLabel}</label>
+            <input type="text" class={fieldStyle} name={apiFieldName} 
+                    id={apiFieldName} autocomplete="on" placeholder={placeholder} 
+                    value={selectedValue} onchange={onValueChanged}
+                    list="valueList">
+                
+            <datalist id="valueList" >
+                <template for:each={displayPickListValue} for:item="item">
+                    <option key={item.value} value={item.value}>{item.value}</option>
+                </template>
+            </datalist>
+
+
+    </div>
+         
+</template>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cannot_Change_Registration_Type</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+				NOT(ISNEW()),ISCHANGED( Registration_Type__c ), $Profile.Name &lt;&gt; &apos;System Administrator&apos;
+)
+&amp;&amp; NOT( $Setup.Bypass_Automation_Settings__c.Bypass_Validation_Rules__c )</errorConditionFormula>
+    <errorDisplayField>Registration_Type__c</errorDisplayField>
+    <errorMessage>You are not allowed to change Registration Type</errorMessage>
+</ValidationRule>

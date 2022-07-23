@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Blacklist__c</fullName>
+    <description>To blacklist the customer</description>
+    <externalId>false</externalId>
+    <inlineHelpText>1 - Sensitive Customer (No action needed. Handle customers with care.)
+2 - Difficult Customer (No invitations to all sales, marketing and after sales events)
+3 - Blacklisted Customer (Same as Level 2 and No sale of new cars by Sales till further notice)</inlineHelpText>
+    <label>Blacklist</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1 - Sensitive</fullName>
+                <default>false</default>
+                <label>1 - Sensitive</label>
+            </value>
+            <value>
+                <fullName>2 - Difficult</fullName>
+                <default>false</default>
+                <label>2 - Difficult</label>
+            </value>
+            <value>
+                <fullName>3 - Blacklisted</fullName>
+                <default>false</default>
+                <label>3 - Blacklisted</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

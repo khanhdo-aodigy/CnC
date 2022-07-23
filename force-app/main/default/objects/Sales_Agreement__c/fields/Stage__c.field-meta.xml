@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Stage__c</fullName>
+    <externalId>false</externalId>
+    <label>Stage</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+                <label>Cancelled</label>
+            </value>
+            <value>
+                <fullName>Draft</fullName>
+                <default>true</default>
+                <label>Draft</label>
+            </value>
+            <value>
+                <fullName>Booking</fullName>
+                <default>false</default>
+                <label>Booking</label>
+            </value>
+            <value>
+                <fullName>Confirmation of Sale</fullName>
+                <default>false</default>
+                <label>Pending COE &amp; Stock Allocation</label>
+            </value>
+            <value>
+                <fullName>Request Registration</fullName>
+                <default>false</default>
+                <label>Request Registration</label>
+            </value>
+            <value>
+                <fullName>Pending Registration</fullName>
+                <default>false</default>
+                <label>Pending Registration</label>
+            </value>
+            <value>
+                <fullName>Ready for Registration</fullName>
+                <default>false</default>
+                <label>Ready for Delivery</label>
+            </value>
+            <value>
+                <fullName>Car Collected</fullName>
+                <default>false</default>
+                <label>Car Collected</label>
+            </value>
+            <value>
+                <fullName>Balance Payment</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Balance Payment</label>
+            </value>
+            <value>
+                <fullName>Bank Loan Application</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Bank Loan Application</label>
+            </value>
+            <value>
+                <fullName>COE Bidding</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>COE Bidding</label>
+            </value>
+            <value>
+                <fullName>Car Allocation</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Car Allocation</label>
+            </value>
+            <value>
+                <fullName>Finance  &amp; Insurance</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Finance  &amp; Insurance</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

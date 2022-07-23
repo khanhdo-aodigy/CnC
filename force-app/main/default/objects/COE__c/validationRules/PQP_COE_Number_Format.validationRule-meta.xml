@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PQP_COE_Number_Format</fullName>
+    <active>false</active>
+    <errorConditionFormula>AND( PQP__c == false, !REGEX( COH_COENO__c , &quot;\\d{16}[A-Z]$&quot;) )
+&amp;&amp;  NOT($Setup.Bypass_Automation_Settings__c.Bypass_Validation_Rules__c)</errorConditionFormula>
+    <errorDisplayField>COH_COENO__c</errorDisplayField>
+    <errorMessage>COE Number must be 17 digits followed by 1 alphabet</errorMessage>
+</ValidationRule>

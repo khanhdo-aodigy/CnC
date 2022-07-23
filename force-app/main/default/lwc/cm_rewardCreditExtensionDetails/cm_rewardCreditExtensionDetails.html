@@ -1,0 +1,74 @@
+<template>
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-2">
+            <template if:true={rewardRec}>
+                <lightning-input type="text"
+                                label="Credit Amount"
+                                required
+                                variant="label-inline"
+                                name="creditAmount"
+                                value={rewardRec.Expired_Credit__c}
+                                read-only="true">
+                </lightning-input>
+                <lightning-input type="date"
+                                label="New Expiry Date"
+                                required
+                                variant="label-inline"
+                                name="newExpiryDate"
+                                onchange={onValueChanged}
+                                value={newExpiryDate}
+                                read-only={isEdit}
+                                class = "newExpiryDate">                
+                </lightning-input>
+                <lightning-input type="text"
+                                label="Extension Reason"
+                                required
+                                variant="label-inline"
+                                name="extensionReason"
+                                onchange={onValueChanged}
+                                value={extensionReason}
+                                read-only={isEdit}
+                                class = "extensionReason">
+                </lightning-input>
+                <lightning-input type="date"
+                                label="Transaction Date"
+                                required
+                                variant="label-inline"
+                                name="transactionDate"
+                                value={transactionDate}
+                                read-only="true">
+                </lightning-input>
+            </template>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <div class="form-style">
+                <template if:true={rewardRec}>
+                    <!-- <lightning-input type="text" label="Reward ID" variant="label-inline" value={rewardRec.Name} read-only="true"></lightning-input>
+                    <lightning-input type="text" label="Contact" variant="label-inline" value={contactName} read-only="true"></lightning-input>
+                    <lightning-input type="text" label="Brand" variant="label-inline" value={rewardRec.Brand__c} read-only="true"></lightning-input>
+                    <lightning-input type="text" label="Reward Type" variant="label-inline" value={rewardRec.Type__c} read-only="true"></lightning-input>
+                    <lightning-input type="text" label="Total Credit" variant="label-inline" value={rewardRec.Credit__c} read-only="true"></lightning-input>
+                    <lightning-input type="text" label="Expired Credit" variant="label-inline" value={rewardRec.Expired_Credit__c} read-only="true"></lightning-input>
+                    <lightning-input type="date" label="Expired Date" variant="label-inline" value={rewardRec.Expiry__c} read-only="true"></lightning-input>
+                    <lightning-input type="text" label="Status" variant="label-inline" value={rewardRec.Status__c} read-only="true"></lightning-input> -->
+                    <lightning-record-view-form record-id={recordId} object-api-name="Reward__c"
+                        density="compact">
+                        <div class="slds-form-element slds-form-element_horizontal">
+                            <label class="slds-form-element__label" for="issuedDate">Reward ID</label>
+                            <div class="slds-form-element__control">
+                                <lightning-output-field field-name="Name" variant="label-hidden"> </lightning-output-field>
+                            </div>
+                        </div>                                            
+                        <lightning-output-field field-name="Contact__c"></lightning-output-field>
+                        <lightning-output-field field-name="Brand__c"></lightning-output-field>
+                        <lightning-output-field field-name="Type__c"></lightning-output-field>
+                        <lightning-output-field field-name="Credit__c"></lightning-output-field>
+                        <lightning-output-field field-name="Expired_Credit__c"></lightning-output-field>
+                        <lightning-output-field field-name="Expiry__c"></lightning-output-field>
+                        <lightning-output-field field-name="Status__c"></lightning-output-field>
+                    </lightning-record-view-form>
+                </template>               
+            </div>   
+        </div>
+    </div>            
+</template>

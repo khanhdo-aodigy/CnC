@@ -1,0 +1,129 @@
+<template>
+    <template if:true={ready}>
+        <article class="slds-card">
+            <div class="slds-card__header slds-grid" style="background-color: #A7B8D1;">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate slds-var-p-bottom_small">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container">
+                            <lightning-icon icon-name="standard:data_model" size="medium" variant="slds-icon-inverse"></lightning-icon>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <a href="javascript:void(0);" class="slds-card__header-link slds-truncate">
+                                <span>Search Result</span>
+                            </a>
+                        </h2>
+                    </div>
+                </header>
+            </div>
+            
+            <!-- MAIN CONTENT -->
+            <div class="slds-card__body slds-card__body_inner">
+
+                <!-- header -->
+                <div class="slds-grid slds-wrap slds-grid_vertical-stretch">
+                    
+                    <template for:each={headers} for:item="h">
+                        <div if:false={h.hidden} key={h.api} class="slds-col slds-size_1-of-8 slds-var-p-around_medium slds-border_bottom slds-theme_shade" style="font-weight: bold;">{h.label}</div>
+                    </template>
+                    <div class="slds-col slds-size_1-of-8 slds-var-p-around_medium slds-border_bottom slds-theme_shade" style="text-align: center; font-weight: bold;">&nbsp;</div>
+                    
+                </div>
+                <!-- end of header -->
+
+                <!-- vehicles data -->
+                <template for:each={vehicles} for:item="vehicle">
+
+                    <!-- main table -->
+                    <div key={vehicle.Id} class="slds-grid slds-wrap slds-grid_vertical-stretch">
+                        <template for:each={vehicle.props} for:item="prop">
+
+                            <div key={prop.api} class="slds-col slds-size_1-of-8 slds-var-p-around_medium slds-border_top">
+                                <template if:false={prop.hidden}>
+                                    
+                                    <!-- promo information -->
+                                    <template if:true={prop.isPromo}>
+                                        <template for:each={prop.promotions} for:item="promo">
+                                            <div style="padding-bottom: 0.2rem;" key={promo.id}>
+                                                <lightning-helptext icon-variant="warning" icon-name="action:share_thanks" content={promo.tooltip}></lightning-helptext>
+                                                <span class="slds-var-p-top_x-small">&nbsp;{promo.name}</span>
+                                            </div>
+                                        </template>
+                                    </template>
+
+                                    <!-- HLO information -->
+                                    <template if:true={prop.isHLO}>
+                                        <template for:each={prop.HLOs} for:item="HLO">
+                                            <div style="padding-bottom: 0.2rem;" key={HLO.value}>
+                                                <lightning-helptext icon-variant="warning" icon-name="action:add_relationship" content={HLO.label}></lightning-helptext>
+                                                <span class="slds-var-p-top_x-small">&nbsp;{HLO.code}</span>
+                                            </div>
+                                        </template>
+                                    </template>
+
+                                    <!-- non promo & HLO information -->
+                                    <template if:false={prop.isPromo}>
+                                        <span style="word-break: break-all;">{prop.value}</span>
+                                    </template>
+
+                                </template>
+
+                                <!-- button cells -->
+                                <template if:true={prop.hidden}>
+                                    <div class="slds-grid slds-wrap">
+                                        <div class="slds-col slds-size_1-of-1 slds-var-m-bottom_small">
+                                            <lightning-button data-vid={prop.value} variant="brand" label="Reserve" onclick={reserveStock}></lightning-button>
+                                        </div>
+                                        <!-- <div class="slds-col slds-size_1-of-1 slds-var-m-top_small">
+                                            <lightning-button data-vid={prop.value} variant="brand-outline" label="Show Specs" onclick={showSpecs}></lightning-button>
+                                        </div> -->
+                                    </div>
+                                </template>
+
+                            </div>
+                        </template>
+                    </div>
+                    
+                    <!-- specs sub table -->
+                    <div key={vehicle.Id} class="slds-col slds-size_1-of-1 slds-var-p-around_medium" style="display: none;" data-subid={vehicle.Id}>
+                        
+                        <!-- fixed headers -->
+                        <div class="slds-grid slds-wrap slds-grid_vertical-stretch" style="font-weight: bold; border: groove 1px;">
+                            <div class="slds-col slds-size_1-of-3 slds-var-p-around_medium slds-theme_shade slds-theme_alert-texture">
+                                Option Description
+                            </div>
+                            <div class="slds-col slds-size_1-of-3 slds-var-p-around_medium slds-theme_shade slds-theme_alert-texture">
+                                Option Type
+                            </div>
+                            <div class="slds-col slds-size_1-of-3 slds-var-p-around_medium slds-theme_shade slds-theme_alert-texture">
+                                Option Value
+                            </div>
+                        </div>
+
+                        <!-- scrollable data -->
+                        <div class="slds-col slds-size_1-of-1" style="border: groove 1px;">
+                            <div class="slds-scrollable" style="height: 200px;">
+                                <div class="slds-grid slds-wrap slds-grid_vertical-stretch">
+                                    <template for:each={vehicle.specs} for:item="spec">
+                                        <div key={spec.Id} class="slds-col slds-size_1-of-3 slds-var-p-around_medium" style="color : #5679C0">
+                                            {spec.Description__c}
+                                        </div>
+                                        <div key={spec.Id} class="slds-col slds-size_1-of-3 slds-var-p-around_medium" style="color : #5679C0">
+                                            {spec.OType__c}
+                                        </div>
+                                        <div key={spec.Id} class="slds-col slds-size_1-of-3 slds-var-p-around_medium" style="color : #5679C0">
+                                            <lightning-formatted-number format-style="currency" currency-code="USD" value={spec.Invoice_Value__c}></lightning-formatted-number>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </template>
+            </div>
+        </article>
+    </template>
+</template>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Created_This_Month__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( 
+				
+					(MONTH(DATEVALUE(Opportunity__r.CreatedDate )) = MONTH(TODAY())	&amp;&amp;  YEAR(DATEVALUE(Opportunity__r.CreatedDate )) = YEAR(TODAY()) )
+				    ||
+				 (MONTH(DATEVALUE(CreatedDate )) = MONTH(TODAY())) 	&amp;&amp;  YEAR(DATEVALUE(CreatedDate )) = YEAR(TODAY())
+						, TRUE
+						,	FALSE
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Created This Month?</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

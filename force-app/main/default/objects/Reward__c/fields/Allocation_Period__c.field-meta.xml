@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Allocation_Period__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(NOT(ISBLANK(Posting_Date__c)), TEXT(YEAR( Posting_Date__c ))+&apos;Q&apos;+TEXT(CEILING( MONTH ( Posting_Date__c ) / 3 )), &apos;&apos;)</formula>
+    <label>Allocation Period</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

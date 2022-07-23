@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>QRCodeURL__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( NOT(ISNULL(Registered_Vehicle__c)), &quot;https://jccl-community.force.com/mymb/QRCodeMyMB?serviceappid=&quot; + Registered_Vehicle__r.Id, &quot;&quot; )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>QRCodeURL</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

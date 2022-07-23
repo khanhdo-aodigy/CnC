@@ -1,0 +1,47 @@
+<apex:component >
+    <footer class="global-footer-mobile" role="contentinfo">
+        <div class="container">
+          <div class="row flex-row">
+            <div class="col s12 l6 global-footer-mobile__info">
+                <!--When page is authenticated-->
+                <p class="authenticated"><a href="http://www.cyclecarriage.com.sg/about-us.html#about-us">Cycle &amp; Carriage</a> is the authorirised dealer of
+                  <a href="https://www.mercedes-benz.com.sg/">Mercedes-Benz</a>, <a href="http://www.mitsubishicars.com.sg/">Mitsubishi</a>, <a href="https://www.kiabeyond.sg/">Kia</a>, <a href="http://www.citroen.com.sg/">Citroen</a> and <a href="http://www.dsautomobiles.sg/">DS</a>.
+                </p>
+            </div>
+            <div class="col s12 l6 global-footer-mobile__links">
+                <div class="footer-cycle-carriage"><img src="{!URLFOR($Resource.cc_brandsite,'cc-brandsite.png')}" width="36" alt="Cycle & Carriage"/></div>
+              Download the C&amp;C app:
+              <nav class="app-links">
+                <ul role="menu">
+                  <li role="menuitem">
+                    <a href="https://itunes.apple.com/sg/app/myC&C-sg/id1418558967?mt=8" aria-label="link" title="App Store" role="link">App Store</a>
+                  </li>
+                  <li role="menuitem">
+                    <a href="https://play.google.com/store/apps/details?id=sg.com.cyclecarriage.mycnc&hl=en_IN" aria-label="link" title="App Store" role="link">Google Play</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="row flex-row global-footer-mobile--content">
+            <div class="footer-member-group col s12 l3">
+                <img src="{!URLFOR($Resource.jardine_logo,'jardine-logo-extended.svg')}" class="" alt="jardine-logo-extended" aria-label="icon"/>
+            </div>
+            <nav class="col s12 l9 nav">
+              <ul class="nav--wrapper" role="menu">
+                <li role="menuitem">
+                  <a href="http://www.cyclecarriage.com.sg/privacy-statement.html" aria-label="link" title="Privacy Policy" role="link">Privacy Policy</a>
+                </li>
+                <li role="menuitem">
+                  <a href="http://www.cyclecarriage.com.sg/disclaimer.html" aria-label="link" title="Disclaimer" role="link">Disclaimer</a>
+                </li>
+                <li>
+                    <span>&copy; 2018 Jardine Cycle &amp; Carriage Limited. All rights reserved.</span>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </footer>
+</apex:component>

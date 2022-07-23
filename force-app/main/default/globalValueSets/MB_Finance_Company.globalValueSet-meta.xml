@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Citibank Singapore Limited</fullName>
+        <default>false</default>
+        <label>Citibank Singapore Limited</label>
+    </customValue>
+    <customValue>
+        <fullName>ADF</fullName>
+        <default>false</default>
+        <label>Daimler Financial Services Africa&amp;Asia Pacific Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>Daimler Fleet Management</fullName>
+        <default>false</default>
+        <label>Daimler Fleet Management</label>
+    </customValue>
+    <customValue>
+        <fullName>ADB</fullName>
+        <default>false</default>
+        <label>DBS - Credit Operation</label>
+    </customValue>
+    <customValue>
+        <fullName>Dickson Capital Pte Ltd</fullName>
+        <default>false</default>
+        <label>Dickson Capital Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>GBF</fullName>
+        <default>false</default>
+        <label>Goldbell Financial Services Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>GV Credit Pte Ltd</fullName>
+        <default>false</default>
+        <label>GV Credit Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>Hing Lung Auto Pte Ltd</fullName>
+        <default>false</default>
+        <label>Hing Lung Auto Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>HCS</fullName>
+        <default>false</default>
+        <label>Hitachi Capital Singapore Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>HL</fullName>
+        <default>false</default>
+        <label>HL Bank</label>
+    </customValue>
+    <customValue>
+        <fullName>HLB</fullName>
+        <default>false</default>
+        <label>Hong Leong Finance Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>Index Credit Pte Ltd</fullName>
+        <default>false</default>
+        <label>Index Credit Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>Kenso Leasing Pte Ltd</fullName>
+        <default>false</default>
+        <label>Kenso Leasing Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>MBB</fullName>
+        <default>false</default>
+        <label>Malayan Banking Berhad</label>
+    </customValue>
+    <customValue>
+        <fullName>AMB</fullName>
+        <default>false</default>
+        <label>Maybank Singapore Limited</label>
+    </customValue>
+    <customValue>
+        <fullName>Mitsubishi HC Capital Asia Pacific</fullName>
+        <default>false</default>
+        <label>Mitsubishi HC Capital Asia Pacific</label>
+    </customValue>
+    <customValue>
+        <fullName>Mitsubishi HC Capital Asia Pacific Pte Ltd</fullName>
+        <default>false</default>
+        <label>Mitsubishi HC Capital Asia Pacific Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>Mitsubishi HC Capital Singapore Pte Ltd</fullName>
+        <default>false</default>
+        <label>Mitsubishi HC Capital Singapore Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>MIT</fullName>
+        <default>false</default>
+        <label>Mitsubishi Ufj Lease (Singapore) Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>Motor-Way Credit Pte Ltd</fullName>
+        <default>false</default>
+        <label>Motor-Way Credit Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>No Loan</fullName>
+        <default>false</default>
+        <label>No Loan</label>
+    </customValue>
+    <customValue>
+        <fullName>OBK</fullName>
+        <default>false</default>
+        <label>OCBC Bank Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>ORF</fullName>
+        <default>false</default>
+        <label>Orix Fleet Management Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>ORI</fullName>
+        <default>false</default>
+        <label>Orix Leasing Singapore Limited</label>
+    </customValue>
+    <customValue>
+        <fullName>Quan Feng Investments (S) Pte Ltd</fullName>
+        <default>false</default>
+        <label>Quan Feng Investments (S) Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>SFL</fullName>
+        <default>false</default>
+        <label>Singapura Finance Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>SIF</fullName>
+        <default>false</default>
+        <label>Sing Investments &amp; Finance Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>Skyway Credit &amp; Leasing Pte Ltd</fullName>
+        <default>false</default>
+        <label>Skyway Credit &amp; Leasing Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>Speed Credit Pte Ltd</fullName>
+        <default>false</default>
+        <label>Speed Credit Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>ASC</fullName>
+        <default>false</default>
+        <label>Standard Chartered Bank Singapore Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>SMF</fullName>
+        <default>false</default>
+        <label>Sumitomo Mitsui Finance And Leasing (Singapore) Pt</label>
+    </customValue>
+    <customValue>
+        <fullName>Swee Seng Credit</fullName>
+        <default>false</default>
+        <label>Swee Seng Credit</label>
+    </customValue>
+    <customValue>
+        <fullName>Tai Thong Lee Trading Pte Ltd</fullName>
+        <default>false</default>
+        <label>Tai Thong Lee Trading Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>Tokyo Century Leasing (S) Pte Ltd</fullName>
+        <default>false</default>
+        <label>Tokyo Century Leasing (S) Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>Toyota Financial Services Singapore</fullName>
+        <default>false</default>
+        <label>Toyota Financial Services Singapore</label>
+    </customValue>
+    <customValue>
+        <fullName>AUO</fullName>
+        <default>false</default>
+        <label>United Overseas Bank Limited</label>
+    </customValue>
+    <customValue>
+        <fullName>LHP</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Lian Hong Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>KOK</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Kok Kim Chuan Co. Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>HSB</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>The Hongkong And Shanghai Banking C</label>
+    </customValue>
+    <customValue>
+        <fullName>GE</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>GE Money</label>
+    </customValue>
+    <customValue>
+        <fullName>CIT</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Citibank Singapore Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>DBL</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>DBS Bank Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>SCB</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Standard Chartered Bank</label>
+    </customValue>
+    <customValue>
+        <fullName>UOB</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>United Overseas Bank</label>
+    </customValue>
+    <customValue>
+        <fullName>UMF</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Mercedes-Benz Financial Services Singapore Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>SSC</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Swee Seng Credit Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>TBA</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>TBA</label>
+    </customValue>
+    <masterLabel>MB Finance Company</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

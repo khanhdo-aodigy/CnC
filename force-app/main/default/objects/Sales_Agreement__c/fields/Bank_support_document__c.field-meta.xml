@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bank_support_document__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Bank supporting document  - Cover note, Tax Invoice, LTA log car(Acknowledgment Page)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Bank supporting document  - Cover note, Tax Invoice, LTA log car(Acknowledgment Page)</inlineHelpText>
+    <label>Bank support document</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

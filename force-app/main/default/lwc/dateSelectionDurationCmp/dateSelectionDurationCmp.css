@@ -1,0 +1,8 @@
+.innerStyle{
+    padding : 1em;
+}
+
+.errorStyle{
+    border-color: red;
+    color: red;
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>48.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="componentTitle" type="String" label="Title of Component"/>
+            <property name="componentIcon" type="String" label="Icon of Component"/>
+            <property name="firstLevelObject" type="String" label="Related Object API Name"/>
+            <property name="firstLevelRelationshipField" type="String" label="Relationship Field API Name of Related Object" description="The field in the related object that has relationship with the current object"/>
+            <property name="firstLevelDisplayField" type="String" label="List of Fields to Display on Related List" description="Please separate with ';'. Example: 'Name;Amount__c'"/>
+            <property name="secondLevelObject" type="String" label="Second Level Related Object API Name"/>
+            <property name="secondLevelRelationshipField" type="String" label="Relationship Field API Name of Second Related Object" description="The field in the second related object that has relationship with the first related object"/>
+            <property name="secondLevelDisplayField" type="String" label="List of Fields to Display on Second Related List" description="Please separate with ';'. Example: 'Name;Amount__c'"/>
+            <property name="defaultExpandAll" type="Boolean" label="Default Expand All"/>
+            <property name="platformEventChannel" type="String" label="Platform Event Channel (If Any)" description="/event/"/>
+            <property name="firstTierOrderBy" type="String" label="First Tier Order By"/>
+            <property name="secondTierOrderBy" type="String" label="Second Tier Order By"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

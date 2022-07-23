@@ -1,0 +1,194 @@
+<template>
+    <div data-id="MainContainer" style="background:#F0EEEE">
+        <header id="mainHeader" style="text-align:center;font-size:x-large;font-weight:bold" class="fixbar">
+            <div class="d-flex align-items-center justify-content-between">
+                <a class="btn-back" href="javascript:void(1)" onclick={CancelCommit}>
+                    <c-svg-cmp url-to-resource='/BootStrap/images/icons/icons.svg#icon-arrow-prev'
+                        svg-class="icon icon-arrow-prev " svg-role="img">
+                    </c-svg-cmp>
+                </a>
+                Defects &amp; Outstanding Accessories
+                <a href="#Cancel" class="btn-save" style="float:right" onclick={CancelCommit}>Cancel</a>
+            </div>
+        </header>
+
+        <main role="main">
+            <section class="section-wrapper" style="margin-top:80px;margin-bottom:0px">
+                <div class="container">
+                    <div class="row justify-content-md-center">
+                        <div class="col-12 col-md-11">
+                            <form id="customerDetailsForm" class="form-init">
+                                <div class="customCollapsible" onclick={ChangeCollapseStatus}>
+                                    {HeaderTitle}
+                                    <div style="float:right">
+                                        <template if:false={isCollapse}>
+                                            <c-svg-cmp
+                                                url-to-resource='/BootStrap/images/icons/icons.svg#icon-chevron-down'
+                                                svg-class="icon icon-add" svg-role="img" svg-aria-hidden="true">
+                                            </c-svg-cmp>
+                                        </template>
+                                        <template if:true={isCollapse}>
+                                            <c-svg-cmp
+                                                url-to-resource='/BootStrap/images/icons/icons.svg#icon-chevron-up'
+                                                svg-class="icon icon-add" svg-role="img" svg-aria-hidden="true">
+                                            </c-svg-cmp>
+                                        </template>
+                                    </div>
+                                </div>
+
+                                <template if:false={isCollapse}>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div style="color:lightslategray">
+                                                    Sales Consultant
+                                                </div>
+                                                <div style="font-size:x-large">
+                                                    {salesAgreementObj.Sales_Consultant__c}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div style="color:lightslategray">
+                                                    First Name
+                                                </div>
+                                                <div style="font-size:x-large">
+                                                    {salesAgreementObj.FirstName__c}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div style="color:lightslategray">
+                                                    Surname
+                                                </div>
+                                                <div style="font-size:x-large">
+                                                    {salesAgreementObj.Surname__c}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div style="color:lightslategray">
+                                                    Mobile Number
+                                                </div>
+                                                <div style="font-size:x-large">
+                                                    {salesAgreementObj.MobileSA__c}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div style="color:lightslategray">
+                                                    Email
+                                                </div>
+                                                <div style="font-size:x-large">
+                                                    {salesAgreementObj.emailaddress__c}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="customHeader">
+                                        Vehicle Details
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div style="color:lightslategray">
+                                                    Model
+                                                </div>
+                                                <div style="font-size:x-large">
+                                                    {salesAgreementObj.Model__c}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div style="color:lightslategray">
+                                                    Colour
+                                                </div>
+                                                <div style="font-size:x-large">
+                                                    {salesAgreementObj.Color__c}
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div style="color:lightslategray">
+                                                    Vehicle Number
+                                                </div>
+                                                <div style="font-size:x-large">
+                                                    {salesAgreementObj.SOH_REGNO__c}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="padding-bottom:3%;">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div style="color:lightslategray">
+                                                    Registration Date
+                                                </div>
+                                                <div style="font-size:x-large">
+                                                    {salesAgreementObj.RegistrationDate__c}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div style="color:lightslategray">
+                                                    Delivery Date
+                                                </div>
+                                                <div style="font-size:x-large">
+                                                    {salesAgreementObj.DeliveryDate__c}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <div onclick={CollapseStatusOn}>
+            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                <li class="nav-item ">
+                    <a class="nav-link active chosenTabs" data-id="defects-tab" data-toggle="tab" href="#home"
+                        role="tab" data-target-id="Defects" onclick={SwitchWindow}>Defects</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link notchosenTabs" data-id="accessories-tab" data-toggle="tab" href="#profile"
+                        role="tab" data-target-id="OutstandingAccessories" onclick={SwitchWindow}>Outstanding
+                        Accessories</a>
+                </li>
+            </ul>
+            <div id="myTabContent" style="background-color:white;">
+                <template if:true={DefectTrueOutstandingFalse}>
+                    <c-sdp_defectform-defects device-type={deviceType} onchangestage={MoveServiceCentrePage}
+                        sales-agreement-id={recordId} edit-mode={editMode}></c-sdp_defectform-defects>
+                </template>
+                <template if:false={DefectTrueOutstandingFalse}>
+                    <c-sdp_defectform-Outstanding-Accessories device-type={deviceType}
+                        onchangestage={MoveServiceCentrePage} sales-agreement-id={recordId} edit-mode={editMode}>
+                    </c-sdp_defectform-Outstanding-Accessories>
+                </template>
+            </div>
+        </div>
+    </div>
+</template>

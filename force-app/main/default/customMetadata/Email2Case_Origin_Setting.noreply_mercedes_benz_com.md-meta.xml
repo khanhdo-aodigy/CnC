@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>noreply@mercedes-benz.com</label>
+    <protected>false</protected>
+    <values>
+        <field>Case_Origin__c</field>
+        <value xsi:type="xsd:string">OAB</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Bookings made by cust using Mercedes me service appt scheduling – app, MMC or website (https://www.mercedes-benz.com.sg/passengercars/being-an-owner/service-booking.html#/dealer)</value>
+    </values>
+    <values>
+        <field>Franchise__c</field>
+        <value xsi:type="xsd:string">MB</value>
+    </values>
+</CustomMetadata>

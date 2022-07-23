@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SendPostTestDrive__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Hidden Field to trigger Post test drive email asking for Feedback.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Hidden Field to trigger Post test drive email asking for Feedback.</inlineHelpText>
+    <label>Send Post Test Drive Email (Hidden)</label>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

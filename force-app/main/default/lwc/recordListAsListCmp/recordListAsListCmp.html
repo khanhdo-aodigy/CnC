@@ -1,0 +1,11 @@
+<template>
+        <template if:true={listItems}>
+                <ul class="list-default">
+                        <template for:each={listItems} for:item="item">
+                                <li key={item.id}>      
+                                        {item.Description__c}
+                                </li>
+                        </template>
+                </ul>
+        </template>
+</template>

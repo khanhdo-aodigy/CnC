@@ -1,0 +1,9 @@
+.THIS .slds-form-element__control {
+   display: inline-flex;
+
+}
+
+.THIS.slds-spinner_container {  
+  z-index: 10000;
+  position: fixed;   
+}

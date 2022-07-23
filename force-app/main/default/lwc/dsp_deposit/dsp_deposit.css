@@ -1,0 +1,20 @@
+.top-error {
+    width: 100vw;
+    height: 0px;
+    font-size: 1.5rem;
+    font-weight: 300;
+    background-color: #fc6c6c;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: inherit;
+    top: 0;
+    opacity: 0;
+    transition: opacity 0.3s, height 0.3s ease-out;
+    z-index: 999;
+  }
+
+.top-title{
+  padding-top:1em;
+}

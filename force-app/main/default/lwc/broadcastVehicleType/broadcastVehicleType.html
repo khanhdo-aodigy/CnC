@@ -1,0 +1,12 @@
+<template>
+    <lightning-card>       
+        <div class="slds-form-element radio-group">
+            <template for:each={options} for:item="option">
+                <div key={option.value} class="slds-form-element__control radio-element">
+                      <input type="radio" data-id={option.value} key={option.value} id={option.value} name="vehicle-type" value={option.value} onchange={handleChange}>
+                      <label for={option.value} key={option.value}>{option.label}</label>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

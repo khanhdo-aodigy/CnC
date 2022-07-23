@@ -1,0 +1,72 @@
+.top-title{
+    padding-top:1em;
+}
+
+.email-title
+{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 26px;
+    color: #314959;
+    padding-bottom: 10px;
+}
+
+.email-action
+{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 26px;
+    color: #0A9CFB;
+}
+
+.modal-backdrop 
+{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0.8;
+    widows: 100%;
+    height: 100%;
+    z-index: 1040;
+    background-color: #001C2D;
+}
+  
+.modal-dialog 
+{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 700px;
+    min-height: 400px;
+    z-index: 1050;
+    border-radius: 8px;
+}
+
+.modal-content
+{
+    border-radius: 8px;
+    width: 624px;
+    height: 328px;
+}
+
+.modal-body
+{
+    font-size: 22px;
+    line-height: 26px;
+    text-align: center;
+    font-style: normal;
+    font-weight: normal;
+    padding: 45px 45px 0 45px;
+}
+
+.modal-footer
+{
+    border-top:0;
+    justify-content: center;
+    padding: 15px 45px 45px 45px;
+}

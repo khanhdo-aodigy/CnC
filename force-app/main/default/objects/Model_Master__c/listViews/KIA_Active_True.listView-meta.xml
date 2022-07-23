@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>KIA_Active_True</fullName>
+    <columns>BHP__c</columns>
+    <columns>Engine_Capacity__c</columns>
+    <columns>NAME</columns>
+    <columns>Branch_Code__c</columns>
+    <columns>Franchise_Code__c</columns>
+    <columns>Model_Description__c</columns>
+    <columns>Model_Group__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>Major_Group_Code__c</columns>
+    <columns>COE_Category__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Active__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>KIA Active True</label>
+</ListView>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cover_Note_Cannot_be_Unticked</fullName>
+    <active>true</active>
+    <description>Only SM can untick the cover note</description>
+    <errorConditionFormula>AND(
+    $Profile.Name &lt;&gt; &quot;System Administrator&quot;,
+    ISCHANGED(DocStatusCoverNote__c),
+    PRIORVALUE(DocStatusCoverNote__c) = true
+)
+&amp;&amp; NOT( $Setup.Bypass_Automation_Settings__c.Bypass_Validation_Rules__c )</errorConditionFormula>
+    <errorMessage>Only System Administrator can untick the Cover Note checkbox</errorMessage>
+</ValidationRule>

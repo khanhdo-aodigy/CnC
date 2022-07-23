@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Required_Case_Type_field_for_Case_Close</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+ISCHANGED(Status),
+ISPICKVAL(Status, &apos;Closed&apos;),
+OR(RecordType.DeveloperName=&apos;Complaint&apos;, RecordType.DeveloperName=&apos;Compliment&apos;, RecordType.DeveloperName=&apos;Enquiry_and_Request&apos;, RecordType.DeveloperName=&apos;Digital&apos;),
+OR( ISBLANK(TEXT(Case_Type__c)), ISNULL(TEXT(Case_Type__c)) )
+)
+&amp;&amp; NOT( $Setup.Bypass_Automation_Settings__c.Bypass_Validation_Rules__c )</errorConditionFormula>
+    <errorMessage>Please select Case Type before closing the case.</errorMessage>
+</ValidationRule>

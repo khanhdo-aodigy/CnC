@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BusinessProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Client Engagement Status</fullName>
+    <description>To process calls for Service/Recalls Bookings/Enquiries/Complaints/Compliments/Surveys</description>
+    <isActive>true</isActive>
+    <values>
+        <fullName>Assigned</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Documents Received</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Escalated</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Interim Call Made</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Interim Reply Sent</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>New</fullName>
+        <default>true</default>
+    </values>
+    <values>
+        <fullName>On Hold</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Pending Cust Reply</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Pending Internal Input</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Pending Review by Mgr</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Pending System Sync</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Pending for Documents</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Reassign %28Call Made%29</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Reassign %28Email Sent%29</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Reassign %28In Progress%29</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Reassigned</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Resolved</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Reviewed by Mgr</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>To Follow Up W%2F Cust</fullName>
+        <default>false</default>
+    </values>
+</BusinessProcess>

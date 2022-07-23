@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Purchaser_Code_is_required_for_Purchaser</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( 
+				(Profile.Name == &apos;MB Purchaser&apos; ||  Profile.Name == &apos;MF Purchaser&apos;)
+				, ISBLANK( Purchaser_Code__c )
+)</errorConditionFormula>
+    <errorDisplayField>EmailPreferences</errorDisplayField>
+    <errorMessage>Purchaser Code is required for Purchaser users</errorMessage>
+</ValidationRule>

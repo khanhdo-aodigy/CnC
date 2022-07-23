@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Indented_Stocks_by_SE</fullName>
+    <columns>NAME</columns>
+    <columns>Variant__c</columns>
+    <columns>Colour__c</columns>
+    <columns>Trim__c</columns>
+    <columns>Status__c</columns>
+    <columns>Status_Autoline__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>MB_Stock_Vehicle_Master__c.Indent_Stock</value>
+    </filters>
+    <label>Indented Stocks by SE</label>
+</ListView>

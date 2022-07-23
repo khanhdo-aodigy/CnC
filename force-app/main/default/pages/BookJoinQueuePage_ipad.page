@@ -1,0 +1,2362 @@
+<apex:page docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false" cache="true" controller="BookJoinController_ipad"
+    lightningStylesheets="false">
+    <apex:includeLightning />
+    <apex:slds />
+    <style type="text/css">
+        @media all and (orientation:portrait) {
+            .divname {
+                margin-top: 0px !important;
+            }
+        }
+
+        @media all and (orientation:landscape) {
+            .divname {
+                margin-top: 12px;
+            }
+        }
+
+        .lookupInput a {
+            display: block;
+            position: absolute;
+            top: 0px;
+        }
+
+        .looupInput img {
+            float: right;
+        }
+
+        .span.lookupInput {
+            position: relative;
+            display: inherit;
+        }
+
+        .lookupInput a,
+        .lookupInput a {
+            border: none !important;
+            background: none !important;
+            box-shadow: none !important;
+        }
+
+        .btn-primary {
+            margin-right: 15px !important;
+            margin-top: 10px !important;
+            color: #fff !important;
+            background: #337ab7 !important;
+            border-color: #2e6da4 !important;
+        }
+
+        .control-label {
+            font-weight: light !important;
+            text-align: right;
+        }
+
+        .fortextarea {
+            height: 250px;
+            overflow-y: scroll;
+            background-color: #eee !important;
+            opacity: 1;
+            display: block;
+            width: 100%;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+
+        }
+
+        .sub1 {
+            border-radius: 4px;
+            background-color: #ccddff;
+            font-weight: bold;
+            padding: 2px 20px 2px 20px;
+        }
+
+        .redmark {
+            border: 1px solid red;
+            border-radius: 4px;
+        }
+
+        .bluetable {
+            background-color: #0489B1 !important;
+        }
+
+        .canvas2 {
+            margin: 1px;
+            margin-left: 0px;
+            border: 1px solid #C1C1C1 !important;
+        }
+
+        .canvasEror {
+            margin: 1px;
+            margin-left: 0px;
+            border: 1px solid #C1C1C1 !important;
+            border-color: red !important;
+        }
+
+        a.clearSign,
+        a.clearSign:visited {
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 28px;
+            color: #333;
+        }
+
+        a.clearSign:hover {
+            text-decoration: none;
+            filter: alpha(opacity=70);
+            -ms-filter: "alpha(Opacity=70)";
+            -moz-opacity: .7;
+            -khtml-opacity: .7;
+            opacity: .7;
+        }
+
+        input[type=radio] {
+            margin-left: 50px;
+        }
+
+        .radioClass {
+            margin-left: -50px;
+        }
+
+        input[type=date] {
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            /*-webkit-padding-before: 0;*/
+            line-height: normal !important;
+        }
+
+        /*input[type=date]::before {
+        content: attr(placeholder);
+    }*/
+
+        input[type=radio1] {
+            margin-left: 50px;
+        }
+
+        .radioClass {
+            margin-left: -50px;
+        }
+
+        .centerize {
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .loading {
+            display: inline-block;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            width: 400px;
+            margin: auto;
+            padding-left: 10px;
+            padding-right: 10px;
+            text-align: center;
+        }
+
+        .erorPanel {
+            color: #a94442 !important;
+            background-color: #f2dede !important;
+            border-color: #ebccd1 !important;
+            padding: 15px !important;
+            margin-bottom: 20px !important;
+            border: 1px solid !important;
+            border-radius: 4px !important;
+        }
+
+        html body.sfdcBody {
+            margin: 0;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 20px;
+            color: #333;
+            background-color: #fff
+        }
+
+        .btn {
+            padding: 6px 12px !important;
+            margin-bottom: 0 !important;
+            font-weight: 400 !important;
+            border: 1px solid transparent !important;
+            border-radius: 4px !important;
+        }
+
+        .form-control {
+            width: 100% !important;
+        }
+    </style>
+
+    <apex:stylesheet value="{!URLFOR($Resource.cssjsTestDriveIpad, 'bootstrap.min.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.cssjsTestDriveIpad, 'bootstrap-glyphicons.css')}" />
+    <apex:stylesheet value="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap-glyphicons.css" />
+
+
+    <apex:includeScript value="{!URLFOR($Resource.cssjsTestDriveIpad, 'jquery.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.cssjsTestDriveIpad, 'bootstrap.min.js')}" />
+    <apex:includeScript value="{!$Resource.DigitalSIgnature }" />
+
+    <link href="{!URLFOR($Resource.plugIn, 'PlugIn/overlayLoading/style.css')}" rel="stylesheet" media="screen" />
+    <apex:includeScript value="{!URLFOR($Resource.plugIn, 'PlugIn/jquery.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.plugIn, 'PlugIn/overlayLoading/jquery-loader.js')}" />
+
+    <apex:includeScript value="{!URLFOR($Resource.cssjsTestDriveIpad, 'watermark/js/jquery.watermark.min.js')}" />
+    <!--<apex:includeScript value="{!URLFOR($Resource.cssjsTestDriveIpad, 'watermark2/watermark.js')}"/>-->
+    <!--<apex:includeScript value="{!URLFOR($Resource.cssjsTestDriveIpad, 'watermarkjs-master/examples/scripts/watermark.js')}"/>-->
+    <html>
+
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+        <script>
+            var baseUrl = "{!baseUrl}";
+            var noImageUrl = baseUrl + "{!URLFOR($Resource.cssjsTestDriveIpad, 'no_image.png')}";
+            var watermarkImageUrl = "{!URLFOR($Resource.cssjsTestDriveIpad, 'watermark.png')}";
+            var isErrorWhenSave = false;
+            var photoChange1 = false;
+            var photoChange2 = false;
+        </script>
+    </head>
+    <img src="{!logo1}" align='Left' />
+    <img src="{!logo2}" align='right'/>
+
+    <body>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <apex:form Styleclass="container-fluid" id="formBook">
+            <apex:inputText value="{!photoUrl1}" style="display: none" styleClass="photoInputHidden1" />
+            <apex:inputText value="{!photoUrl2}" style="display: none" styleClass="photoInputHidden2" />
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4>Book/Join Queue</h4>
+                    <h6>Please complete the form.
+                        <font color="red">*</font> denotes a required field.</h6>
+                </div>
+                <div class="panel-body">
+                    <div class="container-fluid">
+                        <apex:outputPanel id="notif" styleClass="notifPanel">
+                            <script>
+                                isErrorWhenSave = {!isErrorWhenSave};
+                                console.log(isErrorWhenSave);
+                            </script>
+                            <apex:outputPanel rendered="{!beingOutErr}">
+                                <div class="alert alert-danger">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Another test drive is being checked out. Please try again later
+                                </div>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!errDoubleBook}">
+                                <div class="alert alert-danger">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> One Sales Rep can only make one active booking per vehicle. Please cancel your
+                                    existing booking in order to make a new booking.
+                                </div>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!errActiveTestdrive}">
+                                <div class="alert alert-danger">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> This customer already has an active Test Drive session. Please cancel the existing
+                                    session before making a new booking.
+                                </div>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!errTradePlate}">
+                                <div class="alert alert-danger">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> This vehicle requires a Trade Plate. Please select a Trade Plate.
+                                </div>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!errTP2}">
+                                <div class="alert alert-danger">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> This Trade Plate is already in use. Please select a different Trade Plate.
+                                </div>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!errModelRegist}">
+                                <div class="alert alert-danger">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> This vehicle does not require a Trade Plate. Please remove the selection.
+                                </div>
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                        <div id="alleror">
+                            <div id="errMobile1" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer's Mobile Number is mandatory.</font>
+                            </div>
+                            <div id="errNumberMobile1" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Mobile Number can only contain Numbers.</font>
+                            </div>
+                            <div id="errNumberMobile21" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Mobile Number must begin with an 8 or 9.</font>
+                            </div>
+                            <div id="errNumberMobile31" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Mobile Number length must be 8 digits.</font>
+                            </div>
+                            <div id="errDateofBirth1" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Date of birth cannot be greater than today.</font>
+                            </div>
+                            <div id="errInvalidDateofBirth1" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Invalid Date of birth.</font>
+                            </div>
+                            <div id="errNoDateofBirth1" class="" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Date of Birth is mandatory.</font>
+                            </div>
+                            <div id="errNRIC1" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer's NRIC is mandatory.</font>
+                            </div>
+                            <div id="errName1" style="display:none">
+                                <font style="color:red;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer's Name is mandatory.</font>
+                            </div>
+                            <div id="errcustFirstName1" style="display:none">
+                                <font style="color:red;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer's First Name is mandatory.</font>
+                            </div>
+                            <div id="errcustLastName1" style="display:none">
+                                <font style="color:red;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer's Last Name is mandatory.</font>
+                            </div>
+
+                            <div id="errEmail1" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> An Email address is required.</font>
+                            </div>
+                            <div id="errEmail21" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Email address does not have a valid format.</font>
+                            </div>
+
+                            <div id="errRegistration1" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Date of registration cannot be greater than today.</font>
+                            </div>
+                            <div id="errMktSource1" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Marketing Referral Source is mandatory.</font>
+                            </div>
+                            <div id="errAgree1" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> PDPA consent/non-consent is required.</font>
+                            </div>
+                            <div class="errorMessage" style="display:none" id="noSignError11">
+                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Please sign within the box provided.</font>
+                            </div>
+                            <div id="photoError" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Please upload NRIC photo(s).</font>
+                            </div>
+                            <!-- 06/07/2022 - error message for validating on NRIC/Passport No -->
+                            <div id="errNricValidate11" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> The first three characters must be digits.
+                                </font>
+                            </div>
+                            <div id="errNricValidate21" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> The fourth character must be letter.
+                                </font>
+                            </div>
+                            <div id="errNricValidate51" style="display:none">
+                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> NRIC does not have a valid format.
+                                </font>
+                            </div>
+                            
+                        </div>
+
+                        <br/>
+                        <div class="sub1">
+                            <font face="verdana" color="#003366">
+                                <h5>Sales Rep Details</h5>
+                            </font>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="form-horizontal">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Sales Rep:</label>
+                                        <!--<label class="control-label col-md-4">Sales Rep NRIC:</label>-->
+                                        <div class="col-md-8">
+                                            <apex:outputText value="{!salesName}" styleClass="form-control" />
+                                            <!--<apex:outputText value="{!salesNRIC}" id="salesnric" styleClass="form-control"/>-->
+                                            <!-- <div class="col-md-8" style="margin: 8px 0 8px 0">
+                                        <apex:outputText value="{!salesNRIC}" id="salesnric"/> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <!--<div class="form-group">
+                                    <label class="control-label col-md-4">Sales Rep:</label>
+                                    <div class="col-md-8">
+                                        <apex:outputText value="{!salesName}" styleClass="form-control"/>
+                                    </div>
+                                </div>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub1">
+                            <font face="verdana" color="#003366">
+                                <h5>Test Drive Vehicle Details</h5>
+                            </font>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="form-horizontal">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Model Name:</label>
+                                        <div class="col-md-8">
+                                            <apex:outputText value="{!vehicle.name}" styleClass="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Trade Plate:</label>
+                                        <div class="col-md-8">
+                                            <!-- <apex:inputField id="TradePlate" styleClass="form-control" value="{!test.Trade_Plate__c}"></apex:inputField>
+                                    <b><a href="#" onClick="clearValue()" > Clear </a> </b>
+                                    <br/> -->
+                                            <apex:selectList size="1" value="{!tpSelected}" styleClass="form-control nonCon cinfo">
+                                                <apex:selectOptions value="{!tradePlateLists}" />
+                                            </apex:selectList>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub1">
+                            <font face="verdana" color="#003366">
+                                <h5>Contact Details</h5>
+                            </font>
+                        </div>
+                        <br/>
+                        <apex:outputPanel id="ContInfo">
+                            <div class="row">
+                                <div class="form-horizontal">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">
+                                                <font color="red">*</font>Mobile:</label>
+                                            <div class=" col-md-8">
+                                                <!--<apex:inputText id="mobile1" maxlength="8" value="{!custPhone}" label="Mobile" onblur="mobileChange()" tabindex="21" styleClass="mobilenum redmark form-control cinfo" />
+                                                <input maxlength="8" value="{!custPhone}" label="Mobile" onblur="mobileChange()" tabindex="21" Class="mobilenum redmark form-control cinfo"/>
+                                                <apex:inputText id="mobile1" maxlength="8" onblur="checkMobile();" value="{!custPhone}" label="Mobile" tabindex="3" styleClass="mobilenum redmark form-control cinfo" />-->
+                                                <apex:inputText id="mobile1" maxlength="8" value="{!custPhone}" label="Mobile test" onfocus="nricFocus1();signatureName()"
+                                                    onblur="checkMobile();" styleClass="redmark nric form-control" tabindex="1"
+                                                />
+
+                                                <div id="errMobile" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;">
+                                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer's Mobile Number is mandatory.</font>
+                                                </div>
+                                                <div id="errNumberMobile" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;">
+                                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Mobile Number can only contain Numbers.</font>
+                                                </div>
+                                                <div id="errNumberMobile2" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;">
+                                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Mobile Number must begin with an 8 or 9.</font>
+                                                </div>
+                                                <div id="errNumberMobile3" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;">
+                                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Mobile Number length must be 8 digits.</font>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">
+                                                <font color="red">*</font>Email:</label>
+                                            <div class=" col-md-8">
+                                                <apex:inputText styleClass="redmark form-control name cusEmail" value="{!custEmail}" onblur="checkEmail()" id="cusEmail"
+                                                    required="false" tabindex="5" />
+                                                <!--<apex:inputField styleClass="form-control cusEmail cinfo" value="{!customer.Email}" taborderhint="3" id="cusEmail" required="false"/>
+                                                <input type="text" Class="form-control cusEmail cinfo" value="{!customer.Email}" taborderhint="3" id="cusEmail" required="false"/> -->
+                                                <div id="errEmail" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;">
+                                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> An Email address is required.</font>
+                                                </div>
+                                                <div id="errEmail2" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;">
+                                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Email address does not have a valid format.</font>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">
+                                                <font color="red">*</font>Date of Birth:</label>
+                                            <div class="col-md-8">
+
+                                                <apex:inputField required="false" type="date" onchange="checkDateofBirth()" onblur="checkDateofBirth()" style="cursor: pointer"
+                                                    id="dateInput" styleClass="cinfo1 form-control" showDatePicker="false" value="{!customer.Birthdate}" taborderhint="6" html-placeholder="DD/MM/YYYY">
+                                                </apex:inputField>
+
+                                                <!-- <apex:inputField required="false" type="date" style="cursor: pointer" id="dateInput1" styleClass="form-control cinfo" showDatePicker="false" taborderhint="6" value="{!customer.Birthdate}"
+                                                    rendered="{!isExisted == true}" html-disabled="true">
+                                                </apex:inputField> -->
+
+                                                <!--<input style="cursor: pointer" id="dateInput" type="date" class="form-control cinfo" placeholder="DD/MM/YYYY" value="{!customer.Birthdate}"/>-->
+                                                <div id="errDateofBirth" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;">
+                                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Date cannot be greater than today.</font>
+                                                </div>
+                                                <div id="errNoDateofBirth" style="display:none">
+                                                    <font style="color:red;font-weight:bold;">
+                                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Date of Birth is mandatory.</font>
+                                                </div>
+                                                <div id="errInvalidDateofBirth" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;">
+                                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Invalid Date of Birth.</font>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">
+                                                <font color="red">*</font>NRIC/Passport No.:</label>
+                                            <div class=" col-md-8">
+                                                <apex:inputText maxlength="15" id="nric1" value="{!custNric}" label="NRIC/Passport No." onblur="checkNric();" styleClass="redmark1 nric form-control"
+                                                    tabindex="1"/>
+                                                <!-- <div class="input-group">
+                                                    <apex:inputText id="nric1" value="{!custNric}" label="NRIC/Passport No." onfocus="nricFocus1();" onblur="nricFocus();signatureName()" styleClass="redmark nric form-control" tabindex="1"/>
+                                                    <span class="input-group-btn" >
+                                                        <button class="btn btn-default" onclick="startLoading();custnricenter();" type="button">Search</button>
+                                                    </span>
+                                                </div> -->
+                                                <div id="errNRIC" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;">
+                                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                                        <span id="errNRICMsg">Customer's NRIC is mandatory.</span>
+                                                    </font>
+                                                </div>
+                                                <!-- 06/07/2022 - error message for validating on NRIC/Passport No -->
+                                                <div id="errNricValidate1" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;">
+                                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> The first three characters must be digits.
+                                                    </font>
+                                                </div>
+                                                <div id="errNricValidate2" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;">
+                                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> The fourth character must be letter.
+                                                    </font>
+                                                </div>
+                                                <div id="errNricValidate5" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;">
+                                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> NRIC does not have a valid format.
+                                                    </font>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">
+                                                <font color="red">*</font>Name (as per NRIC/Passport):</label>
+                                            <div class="col-md-8 divname">
+                                                <apex:inputText id="name1" value="{!custFullName}" label="Name" required="false" tabindex="2" styleClass="redmark name form-control"
+                                                    onfocus="nricFocus();" onblur="checkName();signatureName()" maxlength="80"
+                                                />
+                                                <div id="errName" style="display:none">
+                                                    <font style="color:red;font-weight:bold;">
+                                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer's Name is mandatory.</font>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">
+                                                <font color="red">*</font>Customer First Name</label>
+                                            <div class="col-md-8 divname">
+                                                <apex:inputText id="firstName1" value="{!customer.FirstName}" label="Name" required="false" maxlength="40" tabindex="3" styleClass="redmark name form-control"
+                                                    onfocus="nricFocus();" onblur="checkFirstName()" />
+                                                <div id="errcustFirstName" style="display:none">
+                                                    <font style="color:red;font-weight:bold;">
+                                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer's First Name is mandatory.</font>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">
+                                                <font color="red">*</font>Customer Last Name</label>
+                                            <div class="col-md-8 divname">
+                                                <apex:inputText id="Lastname1" value="{!customer.LastName}" label="Name" required="false" maxlength="40" tabindex="4" styleClass="redmark name form-control"
+                                                    onfocus="nricFocus();" onblur="checkLastName()" />
+                                                <div id="errcustLastName" style="display:none">
+                                                    <font style="color:red;font-weight:bold;">
+                                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer's Last Name is mandatory.</font>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Receive Indemnity Form via email:
+                                                <br/>
+                                                <font style="color:gray;font-weight:light;font-size:9px">(Note: Email will be required)</font>
+                                            </label>
+                                            <div class="col-md-8">
+                                                <apex:selectRadio id="idRadio" value="{!RecEmail}" onchange="removeEmailErr()" layout="table" style="margin-top:10px" styleClass="cinfo">
+                                                    <apex:selectOptions value="{!items}" />
+                                                </apex:selectRadio>
+                                                <p/>
+                                                <!--<div id="errEmail3" style="display:none">
+                                                     <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Please select the option for receive indemnity form.</font>
+                                                </div>-->
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">
+                                                <font color="red">*</font>How did you learn about us?</label>
+                                            <div class="col-md-8" style="padding-bottom: 30px;">
+                                                <!-- <c:MultiselectPicklist leftLabel="You may select more than one"
+                                                                        leftOption="{!allTouchPoints}"
+                                                                        rightLabel="Selected Marketing Referral Sources"
+                                                                        rightOption="{!selectedTouchPoints}"
+                                                                        size="14"
+                                                                        width="200px"/> -->
+                                                <div id="mktReferralSource">
+                                                    <script>
+                                                        $Lightning.use("c:multiSelectPicklistApp", function () 
+                                                        {
+                                                            $Lightning.createComponent("c:dualListAsCmp", 
+                                                            {
+                                                                duallistSourceLabel: "You may select more than one",
+                                                                duallistSelectedLabel: "Selected Marketing Referral Sources",
+                                                                duallistOptions: "{!JSENCODE(allTouchPoints)}",
+                                                                duallistLabel: '',
+                                                                duallistApiFieldName: 'selectedTouchPoint',
+                                                                duallistFieldLevelHelp: '',
+                                                                duallistsize: "14",
+                                                                duallistVariant: "",
+                                                                addBtnLabel: "Add",
+                                                                removeBtnLabel: "Remove",
+                                                                upBtnLabel: "Up",
+                                                                downBtnLabel: "Down",
+                                                                duallistStyle: "font-size: small; color: black;"
+                                                            },
+                                                                "mktReferralSource", function(component){});
+                                                        }); 
+                                                    </script>
+                                                    <apex:inputText styleClass="mktSource" style="display:none" value="{!selectedTouchPoints}"/>
+                                                </div>
+                                                <div id="errMktSource" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;">
+                                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Marketing Referral Source is mandatory.</font>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Other Phone:</label>
+                                            <div class="col-md-8">
+                                                <apex:inputText value="{!customer.Phone}" styleClass="form-control cinfo" tabindex="5" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Gender:</label>
+                                            <div class="col-md-8">
+                                                <apex:inputField value="{!customer.Gender__c}" styleClass="form-control cinfo" taborderhint="7" id="item1" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <!-- <label class="control-label col-md-4">Postal Code:</label>
+                                            <div class="col-md-8">
+                                                <apex:inputText styleClass="form-control cinfo" value="{!custPost}" onblur="postalOnChange();" tabindex="7"/>
+                                            </div> -->
+                                            <label class="control-label col-md-4">Postal Code:</label>
+                                            <div class="col-md-8 ">
+                                                <apex:inputText styleClass="form-control cinfo" onblur="postalOnChange();" value="{!custPost}" tabindex="81" />
+                                                <!-- <div class="input-group">
+                                                    <apex:inputText styleClass="form-control cinfo" value="{!custPost}" tabindex="81"/>
+                                                    <span class="input-group-btn" >
+                                                        <button class="btn btn-default cinfo" onclick="postalOnChange();" type="button">Search</button>
+                                                    </span>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Unit/Floor no:</label>
+                                            <div class="col-md-8">
+                                                <apex:inputField value="{!customer.Unit_No_Floor__c}" taborderhint="9" html-placeholder="Eg.#xx-xxx" styleClass="nofloor form-control cinfo"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Address Line 1:</label>
+                                            <div class="col-md-8">
+                                                <apex:inputField styleClass="form-control cinfo" value="{!customer.Address_Line_1__c}" taborderhint="10" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Address Line 2:</label>
+                                            <div class="col-md-8">
+                                                <apex:inputField styleClass="form-control cinfo" value="{!customer.Address_Line_2__c}" taborderhint="11" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Address Line 3:</label>
+                                            <div class="col-md-8">
+                                                <apex:inputField styleClass="form-control cinfo" value="{!customer.Address_Line_3__c}" taborderhint="12" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Country:</label>
+                                            <div class="col-md-8">
+                                                <apex:inputField styleClass="form-control cinfo" value="{!customer.Country__c}" taborderhint="13" id="item2" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Contactless Test Drive:</label>
+                                            <div class="col-md-8">
+                                                <apex:selectRadio id="idRadio2" value="{!ContactLess}" layout="table" style="margin-top: 5px" styleClass="cinfo">
+                                                    <apex:selectOptions value="{!items}" />
+                                                </apex:selectRadio>
+                                                <p/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-horizontal">
+
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+                        <apex:outputPanel id="currentcarDetail">
+                            <div class="sub1">
+                                <font face="verdana" color="#003366">
+                                    <h5>Current Car Details</h5>
+                                </font>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="form-horizontal">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Make/Model:</label>
+                                            <div class="col-md-8">
+                                                <apex:inputField styleClass="form-control nonCon cinfo" value="{!opp.Make_Model__c}"
+                                                    taborderhint="14" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Current Car #:</label>
+                                            <div class="col-md-8">
+                                                <apex:inputField styleClass="form-control nonCon cinfo" value="{!opp.Old_Car_No__c}" taborderhint="15" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Date of Registration:</label>
+                                            <div class="col-md-8">
+                                                <apex:inputField type="date" onchange="checkDateofRegistration()" style="cursor: pointer" id="dateInput2" showDatePicker="false"
+                                                    value="{!opp.Date_of_Registration__c}" styleClass="form-control nonCon cinfo"
+                                                    html-placeholder="DD/MM/YYYY" taborderhint="16" />
+                                                <!-- <input style="cursor: pointer" id="dateInput2" type="date" class="form-control" placeholder="DD/MM/YYYY" value="{!opp.Date_of_Registration__c}"/> -->
+                                                <div id="errRegistration" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;">
+                                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Date cannot be greater than today.</font>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+                        <br/>
+                        <!-- Split PDPA as per customer request -->
+                        <div class="sub1">
+                            <font face="verdana" color="#003366">
+                                <!-- <h5>Personal Data Protection Agreement (PDPA)</h5> -->
+                                <h5>Privacy Statement</h5>
+                            </font>
+                        </div>
+                        <!-- <br/> -->
+                        <div class="row" style="margin-top: 0.2rem">
+                            <div class="col-md-12 form-group">
+                                <div class="fortextarea" style="height:auto">
+                                    <span>
+                                        I consent to the collection, use and disclosure of my personal data by Jardine Cycle &amp; Carriage Limited and its subsidiaries
+                                        and affiliates (“JCCL”), in accordance with the terms of JCCL’s Privacy Statement
+                                        , which can be found at
+                                        <a href="https://www.cyclecarriage.com/privacy-statement" target="_blank">www.cyclecarriage.com/privacy-statement</a>
+                                         and hard copies of which are available from JCCL upon request.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END Split PDPA as per customer request -->
+
+                        <div class="sub1" style="margin-top: 1rem">
+                            <font face="verdana" color="#003366">
+                                <!-- <h5>Personal Data Protection Agreement - Marketing Consent</h5> -->
+                                <h5>Consent to Marketing Purposes</h5>
+                            </font>
+                        </div>
+                        <!-- <br/> -->
+                        <div class="row" style="margin-top: 0.2rem">
+                            <div class="col-md-12 form-group">
+                                <div class="fortextarea" style="height:auto">
+                                    <!-- PDPA -->
+                                    <!--
+                                    {!if(or(branchCode == 'CCK', branchCode == 'CCA', branchCode == 'CCF'), 'I want to receive the latest news and promotions and hereby consent to
+                                    the collection, use and disclosure of my personal data by Jardine Cycle & Carriage Limited
+                                    and its subsidiaries and affiliates for such purpose.','')}
+                                    
+                                    <apex:outputPanel rendered="{!branchCode == 'CCK'}">
+                                        <br></br>
+                                        <br></br>
+                                    </apex:outputPanel>
+
+                                    <apex:outputPanel rendered="{!branchCode == 'CCA'}">
+                                        <br></br>
+                                        <br></br>
+                                    </apex:outputPanel>
+                                    -->
+                                    <!-- <span>
+                                        I consent to the collection, use and disclosure of my personal data by Jardine Cycle &amp; Carriage Limited and its subsidiaries
+                                        and affiliates (“JCCL”), in accordance with the terms of JCCL’s Privacy Statement
+                                        , which can be found at
+                                        <a href="https://www.cyclecarriage.com/privacy-statement" target="_blank">www.cyclecarriage.com/privacy-statement</a>
+                                         and hard copies of which are available from JCCL upon request.
+                                    </span> -->
+
+                                    <!-- <br/>
+                                    <br/> -->
+
+                                    <!-- <apex:outputPanel rendered="{!branchCode == 'CCF'}">
+                                        <br></br>
+                                        <br></br>
+                                    </apex:outputPanel> -->
+                                    <span>
+                                        I wish to receive information about promotions, events and products and services, and marketing-related customer surveys 
+                                        (“marketing and promotional information”) from JCCL. I consent to the collection, use and disclosure of my personal data 
+                                        for such marketing purposes by JCCL and its agents.
+                                    </span>
+                                    <br/>
+                                    <br/>
+                                    <!-- <apex:outputPanel rendered="{!branchCode == 'CCF'}">
+                                        <br></br>
+                                        <br></br>
+                                    </apex:outputPanel> -->
+                                    <span>
+                                        I understand that notwithstanding the above, marketing and promotional information may be sent to 
+                                        me by push and/or pop-up notifications through JCCL’s mobile application(s) should I install the 
+                                        application(s) on my mobile device. I agree that by enabling push and/or pop-up notifications in 
+                                        my device or mobile application settings, I consent to receiving such marketing and promotional 
+                                        information.
+                                    </span>
+                                    <br/>
+                                    <br/>
+                                    <!-- <apex:outputPanel rendered="{!branchCode == 'CCF'}">
+                                        <br></br>
+                                        <br></br>
+                                    </apex:outputPanel> -->
+                                    <span>
+                                        My consent above is voluntarily given and I am aware that I may withdraw my consent 
+                                        at any time by sending a notification to
+                                    </span>
+                                    <span>
+                                        {!if(branchCode == 'CCK','Kia Marketing at ','')} {!if(branchCode == 'CCA','Mitsubishi Marketing at ','')} {!if(and(branchCode
+                                        == 'CCF',not(contains(Vehicle.Name,'DS'))),'Citroën Marketing at ','')} {!if(and(branchCode
+                                        == 'CCF',contains(Vehicle.Name,'DS')),'DS Automobiles Marketing at ','')}
+                                    </span>
+
+                                    <apex:outputPanel rendered="{!branchCode == 'CCK'}">
+                                        <a href="mailto:kiamarketing@cyclecarriage.com.sg " target="_blank">kiamarketing@cyclecarriage.com.sg</a>
+                                    </apex:outputPanel>
+
+                                    <apex:outputPanel rendered="{!branchCode == 'CCA'}">
+                                        <a href="mailto:mitsubishimarketing@cyclecarriage.com.sg " target="_blank">mitsubishimarketing@cyclecarriage.com.sg</a>
+                                    </apex:outputPanel>
+
+                                    <apex:outputPanel rendered="{!and(branchCode == 'CCF',not(contains(Vehicle.Name,'DS')))}">
+                                        <a href="mailto:citroen@cyclecarriage.com.sg " target="_blank">citroen@cyclecarriage.com.sg</a>
+                                    </apex:outputPanel>
+
+                                    <apex:outputPanel rendered="{!and(branchCode == 'CCF',contains(Vehicle.Name,'DS'))}">
+                                        <a href="mailto:ds@cyclecarriage.com.sg " target="_blank">ds@cyclecarriage.com.sg</a>
+                                    </apex:outputPanel>
+
+                                    <span>
+                                        . I have read and understood the Privacy Statement and been acquainted 
+                                        with my right to access my personal data. I have checked and do confirm that the personal data I have provided is true, complete and accurate.
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label col-md-2" style="text-align:left;">I Agree </label>
+                                <apex:selectRadio id="idRadio1" value="{!Iagree}" onchange="checkPDPAagreement()" layout="table" styleClass="cinfo">
+                                    <apex:selectOptions value="{!Ops}" />
+                                </apex:selectRadio>
+                                <p/>
+                                <div id="errAgree" style="display:none">
+                                    <font style="color:red;margin-top:2px;font-weight:bold;padding-left: 12px;">
+                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> PDPA consent/non-consent is required.</font>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="sub1">
+                            <font face="verdana" color="#003366">
+                                <h5>Test Drive Indemnity Form</h5>
+                            </font>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <div class="fortextarea">
+                                    
+                                        <apex:outputPanel rendered="{!branchCode=='CCA'}">
+<div style="padding-top:5mm;TEXT-ALIGN: center; WIDTH: 100%; FONT-WEIGHT: bold; TEXT-DECORATION: underline">WAIVER/RELEASE OF LIABILITY AND ASSUMPTION OF RISK</div>
+            <br/>
+            <div style="TEXT-ALIGN: left">In consideration of Cycle &amp; Carriage Automotive Pte. Limited (
+                <b>"C&amp;C"</b>) providing vehicles, services and/or equipment to enable me to participate in the showroom
+                test drive (
+                <b>"Test Drive"</b>).
+                <br/>
+                <br/>
+                <ol style="MARGIN: 0px;list-style-type: none; TEXT-ALIGN: justify">
+                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        I, the undersigned,fully agree, understand and acknowledge the following:
+                    </li>
+                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        1. I have requested to be allowed to participate in the Test Drive. I acknowledge that the activity involves physical exertion
+                        and other risks, known and unknown and may result in injury or death to me or others involved.
+                    </li>
+                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        2. I agree to participate in the Test Drive according to the safety rules and procedures as explained to me by the MITSUBISHI
+                        sales consultant.
+                    </li>
+                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        3. I agree that C&amp;C shall not be obliged to claim against its insurance for any damages or losses suffered by C&amp;C
+                        caused by my use of the Vehicle. If C&amp;C should decide to claim against its insurance, I agree
+                        to render my full co-operation in the claim. Any shortfall in the payment received from C&amp;C's
+                        claim against its insurance and/or any liability for which the insurers are not liable to bear shall
+                        be fully borne by me and payable on demand. I note that the relevant excess payable is currently
+                        S$3,500.00.
+                    </li>
+                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        4. I warrant that (a) I am physically and mentally fit to participate in the Test Drive; (b) I am not under any form of treatment
+                        for any physical infirmity or ailment (chronic or otherwise); (c) I am not suffering from any injury
+                        or incapacity; and (d) I am not under any form of medication.
+                    </li>
+                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        5. I warrant that I possess a valid driver's licence.
+                    </li>
+                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        6. For test drives without the company of a C&amp;C personnel, I warrant that I am at least 22 years old and have at least 1 year of driving experience. 
+                    </li>
+                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        7. In consideration of being permitted to participate in the Test Drive, I the undersigned, on my own behalf and on the behalf
+                        of my successors and assigns, hereby release and forever discharge C&amp;C and its managers, employees,
+                        officers, and agents both jointly and severally, from any actions, claims, demands, damages, cost
+                        and/or loss however arising.
+                    </li>
+                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        8. I further expressly agree to waive any claim I may have for any injury that may befall me due to any lack of reasonable
+                        care by C&amp;C, their employees or agents of the Test Drive.
+                    </li>
+                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        9. I acknowledge that the vehicle (the "Vehicle") given to me for use in the Test Drive is on temporary loan basis from the
+                        C&amp;C, and I agree to use the Vehicle for the purpose of the Test Drive only and I shall comply
+                        with all instructions and requirements in connection with such use (including no stunts, racing or
+                        speed-testing).
+                    </li>
+                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        10. If the Vehicle is involved in any traffic or parking offence during my use, I agree to inform C&amp;C and be liable for
+                        and to promptly pay any fine or other amount which any government or corporation may levy or impose
+                        upon the Vehicle. Where the notice of the offence is directed to C&amp;C, I agree that C&amp;C may
+                        disclose my particulars to the traffic police, authorities or corporation for the purpose of re-directing
+                        the summons or fine to me, or if C&amp;C chooses to make payment on my behalf, I shall promptly reimburse
+                        C&amp;C for the full amount, including any costs and expenses incurred by C&amp;C in connection with
+                        the payment.
+                    </li>
+                    
+                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        11. I agree to adhere to all road traffic regulations including (but not limited to) speed limits of all roads as well as 
+                        all applicable laws as governed by the Road Traffic Act and all regulations set forth by the Land Transport Authority and traffic police. 
+                        Should I fail to abide to the above, the Mitsubishi Sales Consultant will have the prerogative to stop the test drive at any point of time.
+                    </li>
+                    
+                    
+                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        12. In respect of any loss of or damage to the Vehicle or loss of use of the Vehicle and all costs, expenses, claims, damages
+                        or losses that C&amp;C may suffer as a result of any accident, theft, impoundment, wheel-clamping
+                        or other incident during my use of the Vehicle, I shall indemnify C&amp;C against the same and make
+                        good the damages and losses upon demand.
+                    </li>
+                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        13. Any claim made by C&amp;C against its insurance is without prejudice to, and shall not amount to a waiver of, C&amp;C's
+                        rights as set out above and shall not in any way diminish my obligations to C&amp;C as set out above.
+                    </li>
+                    
+                     <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        14. I understand that driving the car with its electronic safety systems disabled poses additional risks to myself,
+                         all occupants in the car I am test driving as well as other road users. Hence, 
+                         the use of Sport mode or turning off any electronic safety system is not allowed on any of the test drives I participate in
+                    </li>
+                    
+                    
+                     <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        15. I hereby authorise C&amp;C to use or reproduce, release, publish or exhibit any audio recordings, videos, photographs 
+                        and films of myself during the Test Drive for any purpose deemed suitable by C&amp;C.
+                    </li>
+                    
+                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        16. I agree to adhere to all road traffic regulations including (but not limited to) speed limits of all roads as well as
+                        all applicable laws as governed by the Road Traffic Act and all regulations set forth by the Land
+                        Transport Authority and traffic police. Should I fail to abide to the above, MITSUBISHI Sales Consultant
+                        will have the prerogative to stop the test drive at any point of time.
+                    </li>
+                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        17. I agree that all matters arising out of or in connection with this agreement shall be subject to, construed and governed by the laws of Singapore and the courts in Singapore shall have the exclusive jurisdiction to settle any dispute which may arise out of or in connection with this agreement.
+                    </li>
+                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        18. THIS DOCUMENT IS INTENDED TO BE LEGALLY BINDING.</li>
+                </ol>
+            </div>
+              <div style="PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; WIDTH: 100%; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                <div style="TEXT-ALIGN: center; WIDTH: 100%">
+                    <br/> WE MAINTAIN THE RIGHT TO REFUSE PARTICIPATION TO ANYONE ON ANY GROUNDS DEEMED APPLICABLE BY US. FAILURE TO COMPLY WITH THE SAFETY RULES OR C&amp;C’s INSTRUCTIONS WILL RESULT IN DISMISSAL FROM THE TEST DRIVE.</div>
+            </div>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!branchCode=='CCK'}">
+                                            <div class="pagewrapper" style="font-size:15px">
+                                                
+                            <div style="padding-top:5mm;TEXT-ALIGN: center; WIDTH: 100%; FONT-WEIGHT: bold; TEXT-DECORATION: underline">WAIVER/RELEASE 
+                                OF LIABILITY AND ASSUMPTION OF RISK</div>
+                            <br/>
+                            <div style="TEXT-ALIGN: left">In consideration of Cycle &amp; Carriage Kia Pte. 
+                                Limited (<b>"C&amp;C"</b>) providing vehicles, services and/or equipment to 
+                                enable me to participate in the test drive (<b>"Test Drive"</b>).
+                                <br/>
+                                <br/>
+                                <ol style="MARGIN: 0px;list-style-type: none; TEXT-ALIGN: justify">
+                                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                                    I, the undersigned,fully agree, understand and acknowledge the following:
+                                    </li><li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                                    1. I have requested to be allowed to participate in the Test Drive. I 
+                                    acknowledge that the activity involves physical exertion and other risks, known 
+                                    and unknown and may result in injury or death to me or others involved.
+                                    </li><li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                                    2. I agree to participate in the Test Drive according to the safety rules and 
+                                    procedures as explained to me by the Kia sales consultant.
+                                    </li><li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                                    3. I agree that C&amp;C shall not be obliged to claim against its insurance for 
+                                    any damages or losses suffered by C&amp;C caused by my use of the Vehicle. If 
+                                    C&amp;C should decide to claim against its insurance, I agree to render my full 
+                                    co-operation in the claim. Any shortfall in the payment received from C&amp;C's 
+                                    claim against its insurance and/or any liability for which the insurers are not 
+                                    liable to bear shall be fully borne by me and payable on demand. I note that 
+                                    the relevant excess payable is currently S$3,500.00.
+                                    </li><li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                                    4. I warrant that (a) I am physically and mentally fit to participate in the 
+                                    Test Drive; (b) I am not under any form of treatment for any physical infirmity 
+                                    or ailment (chronic or otherwise); (c) I am not suffering from any injury or 
+                                    incapacity; and (d) I am not under any form of medication.
+                                    </li><li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                                    5. I warrant that I possess a valid driver's licence.
+                                    </li>
+                                    
+                                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                                    6. For test drives without the company of a C&amp;C personnel, I warrant that I am at least 22 
+                                    years old and have at least 1 year of driving experience. In the event that I am test-driving a 
+                                    Kia Stinger (with or without the company of a C&amp;C personnel), I warrant that I am at least 25 years 
+                                    old and have at least 3 years of driving experience.
+                                    </li>
+                                    
+                                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                                    7. In consideration of being permitted to participate in the Test Drive, I the 
+                                    undersigned, on my own behalf and on the behalf of my successors and assigns, 
+                                    hereby release and forever discharge C&amp;C and its managers, employees, 
+                                    officers, and agents both jointly and severally, from any actions, claims, 
+                                    demands, damages, cost and/or loss however arising.
+                                    </li>
+                                    
+                                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                                    8. I further expressly agree to waive any claim I may have for any injury that 
+                                    may befall me due to any lack of reasonable care by C&amp;C, their employees or 
+                                    agents of the Test Drive.
+                                    </li><li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                                    9. I acknowledge that the vehicle (the "Vehicle") given to me for use in the 
+                                    Test Drive is on temporary loan basis from the C&amp;C, and I agree to use the 
+                                    Vehicle for the purpose of the Test Drive only and I shall comply with all 
+                                    instructions and requirements in connection with such use (including no stunts, 
+                                    racing or speed-testing).
+                                    </li>
+                                    
+                                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                                    10. I agree to adhere to all road traffic regulations including (but not limited to) speed limits 
+                                    of all roads as well as all applicable provisions of the Road Traffic Act and all regulations set forth 
+                                    by the Land Transport Authority and the traffic police. Should I fail to abide by the above, 
+                                    C&amp;C personnel will have the right to stop the test drive at any point of time
+                                    </li>
+                                    
+                                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                                    11. If the Vehicle is involved in any traffic or parking offence during my use, 
+                                    I agree to inform C&amp;C and be liable for and to promptly pay any fine or 
+                                    other amount which any government or corporation may levy or impose upon the 
+                                    Vehicle. Where the notice of the offence is directed to C&amp;C, I agree that 
+                                    C&amp;C may disclose my particulars to the traffic police, authorities or 
+                                    corporation for the purpose of re-directing the summons or fine to me, or if 
+                                    C&amp;C chooses to make payment on my behalf, I shall promptly reimburse 
+                                    C&amp;C for the full amount, including any costs and expenses incurred by 
+                                    C&amp;C in connection with the payment.
+                                    </li>
+                                    
+                                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                                    12. In respect of any loss of or damage to the Vehicle or loss of use of the 
+                                    Vehicle and all costs, expenses, claims, damages or losses that C&amp;C may 
+                                    suffer as a result of any accident, theft, impoundment, wheel-clamping or other 
+                                    incident during my use of the Vehicle, I shall indemnify C&amp;C against the 
+                                    same and make good the damages and losses upon demand.
+                                    </li><li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                                    13. Any claim made by C&amp;C against its insurance is without prejudice to, 
+                                    and shall not amount to a waiver of, C&amp;C's rights as set out above and 
+                                    shall not in any way diminish my obligations to C&amp;C as set out above.
+                                    </li>
+                                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                                    14. I understand that driving the car with its electronic safety systems disabled poses additional risks to myself, 
+                                    all occupants in the car I am test driving as well as other road users. I agree to refrain from turning on the vehicle’s Sport+ mode 
+                                    or turning off any electronic safety system in the vehicle during the Test Drive
+                                    </li>
+                                    
+                                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                                    15. I hereby authorise C&amp;C to use or reproduce, release, publish or exhibit any audio recordings, 
+                                    videos, photographs and films of myself during the Test Drive for any purpose deemed suitable by C&amp;C.
+                                    </li>
+                                    
+                                      <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                                    16. In the event that the Test Drive involves the use or aid of artificial intelligence technology (“AI”), 
+                                    I agree that in participating in the Test Drive, I am consenting to my interactions and conversations with the AI being 
+                                    recorded and used by C&amp;C and the Vehicle manufacturer in order to improve on the AI’s functionality and capabilities.
+                                    </li>
+                                    
+                                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                                    17. I agree that if any clause or part of this agreement is found by a court, tribunal, administrative body or authority 
+                                    of competent jurisdiction to be illegal, invalid or unenforceable, then that provision shall, to the extent required, 
+                                    be severed from this agreement and will be ineffective without, as far as possible, modifying any other provision, 
+                                    clause or part of this agreement and this will not affect any other provisions of this agreement which will remain in full force and effect.
+                                    </li>
+                                    
+                                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                                    18. I agree that all matters arising out of or in connection with this agreement shall be subject to, 
+                                    construed and governed by the laws of Singapore and the courts in Singapore shall have the exclusive jurisdiction to settle any dispute which may arise out of or in connection with this agreement.
+                                    </li>
+                                    
+                                    <li style="PADDING-BOTTOM: 4px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                                    19. THIS DOCUMENT IS INTENDED TO BE LEGALLY BINDING.</li></ol>
+                            </div>
+                            <div style="PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; WIDTH: 100%; PADDING-RIGHT: 0px; PADDING-TOP: 0px"> 
+                            <div style="TEXT-ALIGN: center; WIDTH: 100%">
+                    <br/> WE MAINTAIN THE RIGHT TO REFUSE PARTICIPATION TO ANYONE ON ANY GROUNDS DEEMED APPLICABLE BY US. FAILURE
+                    TO COMPLY WITH THE SAFETY RULES OR ORGANISERS’ INSTRUCTIONS WILL RESULT IN DISMISSAL FROM THE TEST DRIVE.</div>
+                            </div>
+                            <br/>
+                            <br/>
+                               
+                        </div>   
+                        
+                                        </apex:outputPanel>
+                                        
+                                    <apex:outputPanel rendered="{!branchCode='CCF'}">
+<div style="padding-top:10mm !important;TEXT-ALIGN: center; WIDTH: 100%; FONT-WEIGHT: bold; TEXT-DECORATION: underline">WAIVER/RELEASE OF LIABILITY AND ASSUMPTION OF RISK</div>
+            <br/>
+
+            <div style="TEXT-ALIGN: left">In consideration of Cycle &amp; Carriage France Pte. Limited (
+                <b>"CCF"</b>) providing vehicles, services and/or equipment to enable me to participate in the showroom test
+                drive (
+                <b>"Test Drive"</b>).
+                <br/>
+                <br/>
+                <ol style="MARGIN: 0px;list-style-type: none; TEXT-ALIGN: justify">
+                    <li style="PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        I, the undersigned,fully agree, understand and acknowledge the following:
+                    </li>
+                    <li style="PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        1. I have requested to be allowed to participate in the Test Drive. I acknowledge that the activity involves physical exertion
+                        and other risks, known and unknown and may result in injury or death to me or others involved.
+                    </li>
+                    <li style="PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        2. I agree to participate in the Test Drive according to the safety rules and procedures as explained to me by the Citro&euml;n
+                        sales consultant.
+                    </li>
+                    <li style="PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        3. I agree that CCF shall not be obliged to claim against its insurance for any damages or losses suffered by CCF caused
+                        by my use of the Vehicle. If CCF should decide to claim against its insurance, I agree to render
+                        my full co-operation in the claim. Any shortfall in the payment received from CCF's claim against
+                        its insurance and/or any liability for which the insurers are not liable to bear shall be fully borne
+                        by me and payable on demand. I note that the relevant excess payable is currently S$3,500.00.
+                    </li>
+                    <li style="PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        4. I warrant that (a) I am physically and mentally fit to participate in the Test Drive; (b) I am not under any form of treatment
+                        for any physical infirmity or ailment (chronic or otherwise); (c) I am not suffering from any injury
+                        or incapacity; and (d) I am not under any form of medication.
+                    </li>
+                    <li style="PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        5. I warrant that I possess a valid driver's licence.
+                    </li>
+                     <li style="PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        6. For test drives without the company of a CCF personnel, I warrant that I am at least 22 years old and have at least 1 year of driving experience.
+                    </li>
+                    <li style="PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        7. In consideration of being permitted to participate in the Test Drive, I the undersigned, on my own behalf and on the behalf
+                        of my successors and assigns, hereby release and forever discharge CCF and its managers, employees,
+                        officers, and agents both jointly and severally, from any actions, claims, demands, damages, cost
+                        and/or loss however arising.
+                    </li>
+                    <li style="PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        8. I further expressly agree to waive any claim I may have for any injury that may befall me due to any lack of reasonable
+                        care by CCF, their employees or agents of the Test Drive.
+                    </li>
+                    <li style="PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        9. I acknowledge that the vehicle (the "Vehicle") given to me for use in the Test Drive is on temporary loan basis from the
+                        CCF, and I agree to use the Vehicle for the purpose of the Test Drive only and I shall comply with
+                        all instructions and requirements in connection with such use (including no stunts, racing or speed-testing).
+                    </li>
+                     <li style="PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        10. I agree to adhere to all road traffic regulations including (but not limited to) speed limits of all roads as well as all applicable provisions 
+                        of the Road Traffic Act and all regulations set forth by the Land Transport Authority and the traffic police. 
+                        Should I fail to abide by the above, CCF personnel will have the right to stop the test drive at any point of time.
+                    </li>
+                    <li style="PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        11. If the Vehicle is involved in any traffic or parking offence during my use, I agree to inform CCF and be liable for and
+                        to promptly pay any fine or other amount which any government or corporation may levy or impose upon
+                        the Vehicle. Where the notice of the offence is directed to CCF, I agree that CCF may disclose my
+                        particulars to the traffic police, authorities or corporation for the purpose of re-directing the
+                        summons or fine to me, or if CCF chooses to make payment on my behalf, I shall promptly reimburse
+                        CCF for the full amount, including any costs and expenses incurred by CCF in connection with the
+                        payment.
+                    </li>
+                    <li style="PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        12. In respect of any loss of or damage to the Vehicle or loss of use of the Vehicle and all costs, expenses, claims, damages
+                        or losses that CCF may suffer as a result of any accident, theft, impoundment, wheel-clamping or
+                        other incident during my use of the Vehicle, I shall indemnify CCF against the same and make good
+                        the damages and losses upon demand.
+                    </li>
+                    <li style="PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        13. Any claim made by CCF against its insurance is without prejudice to, and shall not amount to a waiver of, CCF's rights
+                        as set out above and shall not in any way diminish my obligations to CCF as set out above.
+                    </li>
+                    
+                    <li style="PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        14. I understand that driving the car with its electronic safety systems disabled poses additional risks to myself, all occupants 
+                        in the car I am test driving as well as other road users. I agree to refrain from turning off any electronic safety system 
+                        in the vehicle during the Test Drive.
+                    </li>
+                    <li style="PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        15. Vehicle usage is only allowed within the area of Singapore.
+                    </li>
+                    <li style="PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        16. I hereby authorise CCF to use or reproduce, release, publish or exhibit any audio recordings, videos, photographs 
+                        and films of myself during the Test Drive for any purpose deemed suitable by CCF.
+                    </li>
+                    <li style="PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        17. I agree that if any clause or part of this agreement is found by a court, tribunal, administrative body or authority of competent jurisdiction to be illegal, 
+                        invalid or unenforceable, then that provision shall, to the extent required, be severed from this agreement and will be ineffective without, as far as possible, modifying any other provision, 
+                        clause or part of this agreement and this will not affect any other provisions of this agreement which will remain in full force and effect.
+                    </li>
+                    <li style="PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        18. I agree that all matters arising out of or in connection with this agreement shall be subject to, construed and governed by the laws of Singapore and the courts in 
+                        Singapore shall have the exclusive jurisdiction to settle any dispute which may arise out of or in connection with this agreement.
+                    </li>
+                                       
+                    <li style="PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                        19. THIS DOCUMENT IS INTENDED TO BE LEGALLY BINDING.</li>
+                </ol>
+            </div>
+
+            <div style="PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; WIDTH: 100%; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+                <div style="TEXT-ALIGN: center; WIDTH: 100%">
+                    <br/> WE MAINTAIN THE RIGHT TO REFUSE PARTICIPATION TO ANYONE ON ANY GROUNDS DEEMED APPLICABLE BY US. FAILURE
+                    TO COMPLY WITH THE SAFETY RULES OR ORGANISERS’ INSTRUCTIONS WILL RESULT IN DISMISSAL FROM THE TEST DRIVE.</div>
+            </div>
+                                    </apex:outputPanel>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <canvas class="canvas2 cinfo" id="newSignature1"></canvas>
+                                <a class="clearSign" title="Clear" href='javascript:void(0);' onclick="signaturePad1.clear();">
+                                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                                </a>
+                                <div class="errorMessage" style="display:none" id="noSignError1">
+                                    <font style="color:red;margin-top:2px;font-weight:bold;">
+                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Please sign within the box provided.</font>
+                                </div>
+                                <br/>
+                                <!--<p id="Sname">
+                            </p>-->
+                            </div>
+                        </div>
+                        <div class="sub1">
+                            <font face="verdana" color="#003366">
+                                <h5>Take Photo</h5>
+                            </font>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="form-horizontal">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Photo 1:</label>
+                                        <div class="col-md-8">
+                                            <input type="file" class="form-control" accept="image/*" id="photo1" capture="camera" onchange="displayPhoto1($(this));"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">&nbsp;</label>
+                                        <div class="col-md-8">
+                                            <img height="128" width="128" id="photoHolder1" src="{!URLFOR($Resource.cssjsTestDriveIpad, 'no_image.png')}" class="watermark_image"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">&nbsp;</label>
+                                        <div class="col-md-8">
+                                            <div class="errorMessage " style="display:none" id="photo1Error">
+                                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Please upload NRIC photo.</font>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Photo 2:</label>
+                                        <div class="col-md-8">
+                                            <input type="file" class="form-control" accept="image/*" id="photo2" capture="camera" onchange="displayPhoto2($(this));"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">&nbsp;</label>
+                                        <div class="col-md-8">
+                                            <img height="128" width="128" id="photoHolder2" src="{!URLFOR($Resource.cssjsTestDriveIpad, 'no_image.png')}" class="watermark_image"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">&nbsp;</label>
+                                        <div class="col-md-8">
+                                            <div class="errorMessage " style="display:none" id="photo2Error">
+                                                <font style="color:red;margin-top:2px;font-weight:bold;">
+                                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Please upload NRIC photo.</font>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer centerize">
+                    <button id="saveForm" class="btn btn-primary" onclick="startLoading();submit1();return false;">Save</button>
+                    <apex:commandButton styleclass="btn btn-primary" value="Cancel" action="{!cancel}" onkeydown="if(event.keyCode==13){this.blur();actionFunction();}"
+                    />
+
+                    <apex:actionFunction name="save1" action="{!save}" reRender="notif,history" oncomplete="afterSave1();">
+                        <apex:param name="userSign" value="" />
+                        <!-- <apex:param name="DateOfBirth" value=""/>
+                        <apex:param name="DateOfRegistration" value=""/> -->
+                    </apex:actionFunction>
+                    <apex:actionFunction action="{!searchCustNric}" name="searchCustNric" reRender="ContInfo,history" oncomplete="stopLoading();chooseFocus();signatureName();">
+                        <apex:param name="searchType" value="" />
+                        <apex:param name="typeVal" value="" />
+                    </apex:actionFunction>
+                    <apex:actionFunction action="{!postalChange}" name="postalChange" reRender="ContInfo" oncomplete="rendCont()" />
+                    <apex:actionFunction action="{!afterSave}" name="afterSave" />
+                    <!--<apex:actionFunction action="{!searchCustPhone}" name="searchCustPhone" reRender="ContInfo,history,signatureName" />-->
+                    <br/>
+                </div>
+            </div>
+            <br/>
+            <apex:outputPanel id="history">
+                <div class="container-fluid">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h5>
+                                <a data-toggle="collapse" href="#collapse1">
+                                    <span class="glyphicon glyphicon-plus-sign"></span> Test Drive History</a>
+                            </h5>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <br/>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Sales Rep</th>
+                                            <th>Model</th>
+                                            <th>Days</th>
+                                        </tr>
+                                    </thead>
+                                    <apex:repeat value="{!historyTest}" var="list">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <apex:outputText value="{0,date,dd/MM/yyyy}">
+                                                        <apex:param value="{!list.Date__c}" /></apex:outputText>
+                                                </td>
+                                                <td>
+                                                    <apex:outputText value="{!list.Owner.Name}" />
+                                                </td>
+                                                <td>
+                                                    <apex:outputText value="{!list.Model__r.name}" />
+                                                </td>
+                                                <td>
+                                                    <apex:outputText value="{!list.Count_Day__c}" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </apex:repeat>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </apex:outputPanel>
+        </apex:form>
+    </body>
+
+    </html>
+    <script>
+
+        var isMktSourceSelected = false;
+        document.addEventListener("DualPickilistValueChanged", function (event) 
+        {
+            //console.log('HERE: ' + JSON.stringify(event.detail));
+            if (event.detail.selectedTouchPoint.length !== 0)
+            {
+                $('#errMktSource').hide();
+                $('#errMktSource1').hide();
+                isMktSourceSelected = true;
+                document.getElementsByClassName("mktSource")[0].value = event.detail.selectedTouchPoint;
+                //console.log(document.getElementsByClassName("mktSource")[0].value);
+            }
+            else
+            {
+                isMktSourceSelected = false;
+                document.getElementsByClassName("mktSource")[0].value = '';
+                //console.log(document.getElementsByClassName("mktSource")[0].value);
+            }
+        });        
+
+        //search cust nric
+        /*function custnricenter(){
+            var nric = document.getElementById('{!$Component.formBook.nric1}').value;
+            var nricT = nric.trim();
+            if(nricT != null){
+                startLoading();
+                searchCustNric();
+                }
+        }*/
+        function custMobileEnter() {
+            var nric = document.getElementById('{!$Component.formBook.mobile1}').value;
+            var nricT = nric.trim();
+            if (nricT != null) {
+                startLoading();
+                searchCustNric('mobilePhone', nricT);
+            }
+        }
+        function postalOnChange() {
+            postalChange();
+        }
+
+        //only for test new javascript
+        function testt() {
+            var agree1 = document.getElementsByName('{!$Component.formBook.idRadio1}');
+            for (i = 0; i < agree1.length; i++) {
+                if (agree1[i].checked) {
+                    alert("You are select option " + agree1[i].value);
+                }
+            }
+        }
+
+        //choose focus after postalchange based on orientation window
+        function rendCont() {
+            // when orientation potrait
+            if (window.innerHeight > window.innerWidth) {
+                $('.nofloor').focus();
+                window.scrollTo(0, 1000);
+            } else {
+                $('.nofloor').focus();
+                window.scrollTo(0, 500);
+            }
+        }
+        function setFocus(id) {
+            $('.' + id).focus();
+            $('.' + id).select();
+        }
+
+        //choose focus after search nric
+        function chooseFocus() {
+            var nric = document.getElementById('{!$Component.formBook.mobile1}').value;
+            var emailVal = document.getElementById('{!$Component.formBook.cusEmail}').value;
+            var name3 = document.getElementById('{!$Component.formBook.name1}').value;
+            var custNric = document.getElementById('{!$Component.formBook.nric1}').value;
+            var dateOfBirth = document.getElementById('{!$Component.formBook.dateInput}').value;
+            if (nric.length != 0 && emailVal.length == 0) {
+                //$('.name').focus();
+                $('.cusEmail').focus();
+
+            } else {
+                $('.nonCon').blur();
+            }
+            if (nric.length != 0 || emailVal.length != 0) {
+                $('.cinfo').attr("disabled", false);
+                // 19/07/2022 - disable DOB and NRIC No fields when PA is existed
+                if (custNric.length == 12){
+                    $('.redmark1').attr("disabled", true);
+                    $('.cinfo1').attr("disabled", true);
+                }
+            } else {
+                $('.cinfo').attr("disabled", true);
+            }
+
+            /*if(nric.length == 0){
+                $('.cinfo').attr("disabled", true);
+            }*/
+        }
+
+        //when focus on nric disable field with class .cinfo
+        function nricFocus() {
+            var nric = document.getElementById('{!$Component.formBook.mobile1}').value;
+            if (nric.length == 0) {
+                $('.cinfo').attr("disabled", true);
+            }
+        }
+
+        function nricFocus1() {
+            $('.cinfo').attr("disabled", true);
+        }
+
+        //document ready
+        var nric = document.getElementById('{!$Component.formBook.mobile1}').value;
+        if (nric.length == 0) {
+            $('.cinfo').attr("disabled", true);
+        }
+        var canvas1;
+        var signaturePad1;
+
+        canvas1 = document.getElementById("newSignature1");
+        signaturePad1 = new SignaturePad(canvas1);
+        canvas1.width = 400;
+        canvas1.height = 250;
+
+        //validation onblur nric
+        function checkNric() {
+            $('#errNRIC, #errNRIC1').hide();
+            $('#errNricValidate1, #errNricValidate11').hide();
+            $('#errNricValidate2, #errNricValidate21').hide();
+            $('#errNricValidate5, #errNricValidate51').hide();
+
+            var nricT = document.getElementById('{!$Component.formBook.mobile1}').value;
+            var nric = nricT.trim();
+            if (nric == null || nric == '') {
+                //$('#errNRIC').show();
+                //$('#errNRIC1').show();
+                $('#errMobile1').show();
+            }
+            
+            // 06/07/2022 - validate on NRIC/Passport No
+            var custNric = document.getElementById('{!$Component.formBook.nric1}').value;
+            var nricInput = custNric.trim();
+            if(nricInput.length == 0 || nricInput == ''){
+                $('#errNRIC, #errNRIC1').show();
+            }
+            // if(nricInput.length == 12){
+            //     var nricThreeChars = nricInput.substr(0, 3);
+            //     var nricFourthChar = nricInput.substr(3, 1);
+
+            //     if(isNaN(nricThreeChars)){
+            //         $('#errNricValidate1, #errNricValidate11').show(); 
+            //     }
+            //     if((nricFourthChar.charCodeAt(0) >= 32 && nricFourthChar.charCodeAt(0) <= 64) || 
+            //         (nricFourthChar.charCodeAt(0) >= 91 && nricFourthChar.charCodeAt(0) <= 96) || 
+            //         (nricFourthChar.charCodeAt(0) >= 123 && nricFourthChar.charCodeAt(0) <= 126)){
+            //         $('#errNricValidate2, #errNricValidate21').show();
+            //     }
+            // }
+            if(nricInput.length == 9 && !checkNricNineChars(nricInput)){
+                $('#errNricValidate5, #errNricValidate51').show();
+            }
+            if(nricInput.length != 9 && nricInput.length != 12 && nricInput.length != 0){
+                $('#errNricValidate5, #errNricValidate51').show();
+            }
+
+            $('#errName').hide();
+            $('#errName1').hide();
+            $('#noSignError11').hide();
+            $('#errMobile1').hide();
+            $('#errNumberMobile1').hide();
+            $('#errNumberMobile21').hide();
+            $('#errNumberMobile31').hide();
+            $('#errRegistration1').hide();
+            $('#errDateofBirth1').hide();
+            $('#errInvalidDateofBirth1').hide();
+            $('#errEmail1').hide();
+            $('#errEmail21').hide();
+            $('#errAgree1').hide();
+            $('#errNoDateofBirth1').hide();
+            $('#errcustFirstName,#errcustFirstName1,#errcustLastName,#errcustLastName1').hide();
+            $('#errMktSource').hide();
+            $('#errMktSource1').hide();
+            $('#photo1Error').hide();
+            $('#photo2Error').hide();
+            $('#photoError').hide();
+        }
+
+        // 14/07/2022 - validate method for NRIC
+        function validateNRIC(){
+            $('#errNRIC, #errNRIC1').hide();
+            $('#errNricValidate1, #errNricValidate11').hide();
+            $('#errNricValidate2, #errNricValidate21').hide();
+            $('#errNricValidate5, #errNricValidate51').hide();
+
+            var custNric = document.getElementById('{!$Component.formBook.nric1}').value;
+            var nricInput = custNric.trim();
+            var isValidated = true;
+            if(nricInput.length == 0 || nricInput == ''){
+                $('#errNRIC, #errNRIC1').show();
+                isValidated = false;
+            }
+            // if(nricInput.length == 12){
+            //     var nricThreeChars = nricInput.substr(0, 3);
+            //     var nricFourthChar = nricInput.substr(3, 1);
+
+            //     if(isNaN(nricThreeChars)){
+            //         $('#errNricValidate1, #errNricValidate11').show();
+            //         isValidated = false;
+            //     }
+            //     if((nricFourthChar.charCodeAt(0) >= 32 && nricFourthChar.charCodeAt(0) <= 64) || 
+            //         (nricFourthChar.charCodeAt(0) >= 91 && nricFourthChar.charCodeAt(0) <= 96) || 
+            //         (nricFourthChar.charCodeAt(0) >= 123 && nricFourthChar.charCodeAt(0) <= 126)){
+            //         $('#errNricValidate2, #errNricValidate21').show();
+            //         isValidated = false;
+            //     }
+            // }
+            // 11-07-2022 - validate on NRIC which has length is 9
+            if(nricInput.length == 9 && !checkNricNineChars(nricInput)){
+                $('#errNricValidate5, #errNricValidate51').show();
+                isValidated = false;
+            }
+            if(nricInput.length != 9 && nricInput.length != 12 && nricInput.length != 0){
+                $('#errNricValidate5, #errNricValidate51').show();
+                isValidated = false;
+            }
+
+            return isValidated;
+        }
+
+        // 14/07/2022 - validate method for NRIC 9 characters
+        function checkNricNineChars(nricInput){
+            nricInput = nricInput.toUpperCase();
+            var i, 
+            icArray = [];
+            for (i = 0; i < 9; i++) {
+                icArray[i] = nricInput.charAt(i);
+            }
+
+            icArray[1] = parseInt(icArray[1], 10) * 2;
+            icArray[2] = parseInt(icArray[2], 10) * 7;
+            icArray[3] = parseInt(icArray[3], 10) * 6;
+            icArray[4] = parseInt(icArray[4], 10) * 5;
+            icArray[5] = parseInt(icArray[5], 10) * 4;
+            icArray[6] = parseInt(icArray[6], 10) * 3;
+            icArray[7] = parseInt(icArray[7], 10) * 2;
+
+            var weight = 0;
+            for (i = 1; i < 8; i++) {
+                weight += icArray[i];
+            }
+
+            var offset = (icArray[0] == "T" || icArray[0] == "G") ? 4 : (icArray[0] == "M") ? 3 : 0;
+            var temp   = (offset + weight) % 11;
+            if (icArray[0] == "M") temp = 10 - temp;
+
+            var st = ["J","Z","I","H","G","F","E","D","C","B","A"];
+            var fg = ["X","W","U","T","R","Q","P","N","M","L","K"];
+            var m  = ["K", "L", "J", "N", "P", "Q", "R", "T", "U", "W", "X"];
+
+            var theAlpha;
+            if (icArray[0] == "S" || icArray[0] == "T") { theAlpha = st[temp]; }
+            else if (icArray[0] == "F" || icArray[0] == "G") { theAlpha = fg[temp]; }
+            else if (icArray[0] == "M") { theAlpha = m[temp]; }
+
+            return (icArray[8] === theAlpha);
+        }
+
+
+        //validation onblur name
+        function checkName() {
+            $('#errName').hide();
+            $('#errName1').hide();
+            var name3 = document.getElementById('{!$Component.formBook.name1}').value;
+            if (name3 == null || name3 == '') {
+                $('#errName').show();
+                $('#errName1').show();
+            }
+        }
+
+        function checkFirstName() {
+            $('#errcustFirstName,#errcustFirstName1').hide();
+            var firstName = document.getElementById('{!$Component.formBook.firstName1}').value;
+            if (firstName == null || firstName == '') {
+                $('#errcustFirstName,#errcustFirstName1').show();
+            }
+        }
+        function checkLastName() {
+            $('#errcustLastName,#errcustLastName1').hide();
+            var lastname = document.getElementById('{!$Component.formBook.lastName1}').value;
+            if (lastname == null || lastname == '') {
+                $('#errcustLastName,#errcustLastName1').show();
+            }
+        }
+
+        //validation onblur mobile
+        function checkMobile() {
+            var isValidatedTotaldigits, isValidatedStart, isValidatedNumeric, isvalidatedLength;
+            /* $('#errMobile').hide();
+            $('#errNumberMobile').hide();
+            $('#errNumberMobile2').hide();
+            $('#errNumberMobile3').hide();
+            //top panel
+            $('#errMobile1').hide();
+            $('#errNumberMobile1').hide();
+            $('#errNumberMobile21').hide();
+            $('#errNumberMobile31').hide();*/
+
+            var mobilee = document.getElementById('{!$Component.formBook.mobile1}').value;
+            var mobLength = mobilee.length;
+            if (mobLength == 0) {
+                $('#errMobile').show();
+                $('#errMobile1').show();
+                isValidatedTotaldigits = false;
+                //window.scrollTo(0,500);
+            } else {
+                isValidatedTotaldigits = true;
+            }
+            var patt1 = /^[8-9]/;
+            if (patt1.test(mobilee)) {
+                isValidatedStart = true;
+                //window.scrollTo(0,500);  
+            } else {
+                $('#errNumberMobile2').show();
+                $('#errNumberMobile21').show();
+                isValidatedStart = false;
+
+            }
+
+            var noNumeric = isNaN(mobilee);
+            if (noNumeric == true) {
+                $('#errNumberMobile').show();
+                $('#errNumberMobile1').show();
+                //window.scrollTo(0,500);
+                isValidatedNumeric = false;
+            } else {
+                isValidatedNumeric = true;
+            }
+            if (mobilee != '' && mobLength != 8) {
+                $('#errNumberMobile3').show();
+                $('#errNumberMobile31').show();
+                isvalidatedLength = false;
+                //window.scrollTo(0,500);  
+            } else {
+                isvalidatedLength = true;
+            }
+            if (isValidatedTotaldigits && isValidatedStart && isValidatedNumeric && isvalidatedLength) {
+                custMobileEnter();
+            }
+
+        }
+
+        //validation onblur email
+        function checkEmail() {
+            $('#errEmail').hide();
+            $('#errEmail2').hide();
+            //top panel
+            $('#errEmail1').hide();
+            $('#errEmail21').hide();
+            var email = document.getElementById('{!$Component.formBook.cusEmail}').value;
+
+            if (email == null || email == '') {
+                $('#errEmail').show();
+                $('#errEmail1').show();
+            }
+            else if (email != '') {
+
+                // anystring@anystring.anystring
+                var filter = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+
+                if (filter.test(email)) {
+                    startLoading();
+
+                    var m = searchCustNric('Email', email);
+                    console.log('m---->', m);
+                } else {
+                    $('#errEmail2').show();
+                    $('#errEmail21').show();
+                }
+            }
+            var ReceiveEmail = document.getElementsByName('{!$Component.formBook.idRadio}');
+
+            for (i = 0; i < ReceiveEmail.length; i++) {
+                if (ReceiveEmail[i].checked) {
+                    var check1 = ReceiveEmail[i].value;
+                    if (check1 == 'Yes' && (email == '' || email == null)) {
+                        $('#errEmail').show();
+                        $('#errEmail1').show();
+                    }
+                }
+            }
+        }
+
+        //javascript on change on selectradio below email input
+        function removeEmailErr() {
+            var ReceiveEmail = document.getElementsByName('{!$Component.formBook.idRadio}');
+            for (i = 0; i < ReceiveEmail.length; i++) {
+                if (ReceiveEmail[i].checked) {
+                    var check1 = ReceiveEmail[i].value;
+                    if (check1 == 'No') {
+                        $('#errEmail').hide();
+                        $('#errEmail1').hide();
+                    }
+                }
+            }
+        }
+
+        function checkDateofBirth() {
+            $('#errDateofBirth').hide();
+            $('#errDateofBirth1').hide();
+            $('#errNoDateofBirth1').hide();
+            $('#errNoDateofBirth').hide();
+            $('#errInvalidDateofBirth,#errInvalidDateofBirth1').hide();
+            var date = new Date();
+            date.setHours(0, 0, 0, 0);
+            var dateofbirth = document.getElementById('{!$Component.formBook.dateinput}').value;
+            if (dateofbirth != '') {
+                mydate = new Date(dateofbirth);
+                mydate.setHours(0, 0, 0, 0);
+                if (mydate > date) {
+                    $('#errDateofBirth').show();
+                    $('#errDateofBirth1').show();
+                }
+                else if (!isValidDate(mydate)) {
+                    $('#errInvalidDateofBirth,#errInvalidDateofBirth1').show();
+                }
+            }
+            else {
+                $('#errInvalidDateofBirth,#errInvalidDateofBirth1').show();
+            }
+        }
+
+        function isValidDate(dateval) {
+            var dtMonth = dateval.getMonth() + 1;
+            var dtDay = dateval.getDate();
+            var dtYear = dateval.getFullYear();
+            var date = new Date();
+            if (dtYear < 1900 || dtMonth <= 0 || dtMonth > 12 || dtDay <= 0 || dtDay > 31)
+                return false;
+            else if ((dtMonth == 4 || dtMonth == 6 || dtMonth == 9 || dtMonth == 11) && dtDay == 31)
+                return false;
+            else if (dtMonth == 2) {
+                var isleap = (dtYear % 4 == 0 && (dtYear % 100 != 0 || dtYear % 400 == 0));
+                if (dtDay > 29 || (dtDay == 29 && !isleap))
+                    return false;
+            }
+            else if (new Date(date.getFullYear() - 18, date.getMonth(), date.getDate()) < dateval) {
+                return false;
+            }
+            return true;
+        }
+
+        function checkDateofRegistration() {
+            $('#errRegistration').hide();
+            $('#errRegistration1').hide();
+            var date = new Date();
+            date.setHours(0, 0, 0, 0);
+            var dateofregistratin = document.getElementById('{!$Component.formBook.dateinput2}').value;
+            if (dateofregistratin != '') {
+                mydate2 = new Date(dateofregistratin);
+                mydate2.setHours(0, 0, 0, 0);
+                console.log(mydate2);
+                if (mydate2 > date) {
+                    $('#errRegistration').show();
+                    $('#errRegistration1').show();
+                } else {
+                    $('#errEmail3').show();
+                    $('#errEmail31').show();
+                }
+            }
+        }
+
+        function checkPDPAagreement() {
+            var pdpaCheck = document.getElementsByName('{!$Component.formBook.idRadio1}');
+            for (i = 0; i < pdpaCheck.length; i++) {
+                if (pdpaCheck[i].checked) {
+                    $('#errAgree').hide();
+                    $('#errAgree1').hide();
+                }
+            }
+        }
+
+        function submit1() {
+            $('#newSignature1').removeClass('canvasEror');
+            $('#noSignError1').hide();
+            $('#errMobile').hide();
+            $('#errNumberMobile').hide();
+            $('#errNumberMobile2').hide();
+            $('#errNumberMobile3').hide();
+            $('#errRegistration').hide();
+            $('#errDateofBirth').hide();
+            $('#errInvalidDateofBirth').hide();
+            $('#errNRIC').hide();
+            $('#errName').hide();
+            $('#errEmail').hide();
+            $('#errEmail2').hide();
+            $('#errAgree').hide();
+            $('#errMktSource').hide();
+            $('#errNricValidate5').hide();
+            $('#errNricValidate1').hide();
+            $('#errNricValidate2').hide();
+            //top panel
+            $('#noSignError11').hide();
+            $('#errMobile1').hide();
+            $('#errNumberMobile1').hide();
+            $('#errNumberMobile21').hide();
+            $('#errNumberMobile31').hide();
+            $('#errRegistration1').hide();
+            $('#errDateofBirth1').hide();
+            $('#errInvalidDateofBirth1').hide();
+            $('#errNRIC1').hide();
+            $('#errName1').hide();
+            $('#errEmail1').hide();
+            $('#errEmail21').hide();
+            $('#errAgree1').hide();
+            $('#errNoDateofBirth1').hide();
+            $('#errNoDateofBirth').hide();
+            $('#errMktSource1').hide();
+            $('#photo1Error').hide();
+            $('#photo2Error').hide();
+            $('#photoError').hide();
+            $('#errNricValidate51').hide();
+            $('#errNricValidate11').hide();
+            $('#errNricValidate21').hide();
+            checkLastName();
+            checkFirstName();
+            var mobT = document.getElementById('{!$Component.formBook.mobile1}').value;
+            var mob = mobT.trim();
+            if (mob == null || mob == '') {
+                $('#errMobile').show();
+                $('#errMobile1').show();
+            }
+
+
+            // var nricT = document.getElementById('{!$Component.formBook.nric1}').value;
+            // var nric = nricT.trim();
+            // if (nric == null || nric == '') {
+            //     $('#errNRICMsg').text('Customer\'s NRIC is mandatory.');
+            //     $('#errNRIC').show();
+            //     $('#errNRIC1').show();
+            // } else if(nric.length < 8) {
+            //     $('#errNRICMsg').text('Customer\'s NRIC is is too short.');
+            //     $('#errNRIC').show();
+            // }
+
+            var name3 = document.getElementById('{!$Component.formBook.name1}').value;
+            if (name3 == null || name3 == '') {
+                $('#errName').show();
+                $('#errName1').show();
+            }
+
+            var mobilee = document.getElementById('{!$Component.formBook.mobile1}').value;
+            var mobLength = mobilee.length;
+            if (mobLength == 0) {
+                $('#errMobile').show();
+                $('#errMobile1').show();
+                //window.scrollTo(0,500);
+            }
+            var noNumeric = isNaN(mobilee);
+            if (noNumeric == true) {
+                $('#errNumberMobile').show();
+                $('#errNumberMobile1').show();
+                //window.scrollTo(0,500);
+            }
+            var firstNum = mobilee.substring(0, 1);
+            if (mobLength != 0 && firstNum != '8' && firstNum != '9') {
+                $('#errNumberMobile2').show();
+                $('#errNumberMobile21').show();
+                //window.scrollTo(0,500);
+            }
+            if (mobilee != '' && mobLength != 8) {
+                $('#errNumberMobile3').show();
+                $('#errNumberMobile31').show();
+                //window.scrollTo(0,500);  
+            }
+
+            var email = document.getElementById('{!$Component.formBook.cusEmail}').value;
+
+            if (email == null || email == '') {
+                $('#errEmail').show();
+                $('#errEmail1').show();
+            }
+            else if (email != '') {
+                var filter = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+                if (!filter.test(email)) {
+                    $('#errEmail2').show();
+                    $('#errEmail21').show();
+                }
+            }
+            // /*
+            // var ReceiveEmail =document.getElementsByName('{!$Component.formBook.idRadio}');
+    
+            // for (i = 0; i < ReceiveEmail.length; i++) 
+            // {
+            //     if (ReceiveEmail[i].checked) {
+            //         var check1 = ReceiveEmail[i].value;
+            //         if(check1 =='Yes' && (email =='' || email == null )) {
+            //         $('#errEmail').show();
+            //         $('#errEmail1').show();
+            //         }
+            //     }
+            // }*/
+         
+            if(!isMktSourceSelected)
+            {
+                $('#errMktSource').show();
+                $('#errMktSource1').show();
+            }
+
+            var date = new Date();
+            date.setHours(0, 0, 0, 0);
+            var dateofbirth = document.getElementById('{!$Component.formBook.dateinput}').value;
+            console.log('dateofbirth--->' + dateofbirth);
+            var dobTrue = true;
+            if (dateofbirth != '' && dateofbirth != null) {
+                mydate = new Date(dateofbirth);
+                mydate.setHours(0, 0, 0, 0);
+                //console.log(date);
+                //console.log(mydate);
+                if (mydate > date) {
+                    $('#errDateofBirth').show();
+                    $('#errDateofBirth1').show();
+                    dobTrue = false;
+                }
+                else if (!isValidDate(mydate)) {
+                    $('#errInvalidDateofBirth,#errInvalidDateofBirth1').show();
+                    dobTrue = false;
+                }
+
+            } else {
+                $('#errNoDateofBirth1').show();
+                $('#errNoDateofBirth').show();
+                dobTrue = false;
+            }
+
+            // 06/07/2022 - validate on NRIC/Passport No before Save
+            if(!validateNRIC()){
+                window.scrollTo(0, 0);
+                stopLoading();
+                return false;
+            }
+
+            var dateofregistratin = document.getElementById('{!$Component.formBook.dateinput2}').value;
+            if (dateofregistratin != '') {
+                mydate2 = new Date(dateofregistratin);
+                mydate2.setHours(0, 0, 0, 0);
+                console.log(mydate2);
+                if (mydate2 > date) {
+                    $('#errRegistration').show();
+                    $('#errRegistration1').show();
+                } else {
+                    $('#errEmail3').show();
+                    $('#errEmail31').show();
+                }
+            }
+
+            var checked1 = false;
+            var agree1 = document.getElementsByName('{!$Component.formBook.idRadio1}');
+            for (i = 0; i < agree1.length; i++) {
+                if (agree1[i].checked) {
+                    checked1 = true;
+                    break;
+                }
+            }
+            if (checked1 == false) {
+                $('#errAgree').show();
+                $('#errAgree1').show();
+            }
+
+            var gotError = false;
+            var photo1 = document.getElementById('photo1').files[0];
+            console.log('photo1 = ' + photo1);
+            if (photo1 == null) {
+                $('#photo1Error').show();
+                $('#photoError').show();
+                gotError = true;
+            }
+
+            var photo2 = document.getElementById('photo2').files[0];
+            console.log('photo2 = ' + photo2);
+            if (photo2 == null) {
+                $('#photo2Error').show();
+                $('#photoError').show();
+                gotError = true;
+            }         
+
+            var sign1 = signaturePad1.isEmpty();
+            if (sign1) {
+                $('#noSignError1').show();
+                $('#noSignError11').show();
+                $('#newSignature1').addClass('canvasEror');
+                stopLoading();
+                return false;
+                window.scrollTo(0, 0);
+            }
+
+            if(gotError) {
+                stopLoading();
+                return false;
+            }
+
+            if (nric !== '' && mobT == '' && name3 == '' && mobLength == 0 && noNumeric == true && firstNum != '8' && firstNum != '9' && mobLength != 8 && (email == '' || email == null) && (dateofbirth != '' && (mydate > date)) && (dateofregistratin != '' && (mydate2 > date)) && (sign1 == true)) {
+                window.scrollTo(0, 0);
+                stopLoading();
+                return false;
+            }
+
+            if (email == '' || email == null) {
+                window.scrollTo(0, 0);
+                stopLoading();
+                return false;
+            }
+
+            if (email != '' && (!filter.test(email))) {
+                window.scrollTo(0, 0);
+                stopLoading();
+                return false;
+            }
+            if (checked1 == false) {
+                window.scrollTo(0, 0);
+                stopLoading();
+                return false;
+            }
+            if (dobTrue == false) {
+                window.scrollTo(0, 0);
+                stopLoading();
+                return false;
+            }
+
+            if (!isMktSourceSelected)
+            {
+                window.scrollTo(0, 0);
+                stopLoading();
+                return false;
+            }
+
+
+            var userSign = signaturePad1.toDataURL();
+            save1(userSign);
+        }
+
+        function afterSave1() {
+            var isError = isErrorWhenSave;
+            var isHasError = $('.notifPanel').children().length > 1 ? true : false;
+
+            if (isError || isHasError) {
+                stopLoading();
+                window.scrollTo(0, 0);
+            }
+            else {
+                afterRenderWatermark();
+            }
+        }
+
+        function afterRenderWatermark() {
+            var photoHolder1 = $('#photoHolder1').attr('src');
+            var photoHolder2 = $('#photoHolder2').attr('src');
+
+            if (photoChange1) {
+                var newImageSplit = photoHolder1.split(":");
+                var splitImageCode = newImageSplit[1].split(";");
+                var splitImage = splitImageCode[1].split(",");
+
+                var base64Image = splitImage[1];
+                var contentType = splitImageCode[0];
+
+                $('.photoInputHidden1').val(base64Image);
+            }
+            if (photoChange2) {
+                var newImageSplit = photoHolder2.split(":");
+                var splitImageCode = newImageSplit[1].split(";");
+                var splitImage = splitImageCode[1].split(",");
+
+                var base64Image = splitImage[1];
+                var contentType = splitImageCode[0];
+
+                $('.photoInputHidden2').val(base64Image);
+            }
+
+            afterSave();
+        }
+
+        function mobileChange() {
+            searchCustPhone();
+        }
+        function startLoading() {
+            $.loader.open({ imgUrl: "{!URLFOR($Resource.plugIn, 'PlugIn/overlayLoading/images/loading32x32.gif')}" });
+        }
+        function stopLoading() {
+            $.loader.close();
+        }
+
+        //update name below signature name
+        function signatureName() {
+            var nric = document.getElementById('{!$Component.formBook.mobile1}').value;
+            var name3 = document.getElementById('{!$Component.formBook.name1}').value;
+            if (nric.length != 0 && name3.length != 0) {
+                document.getElementById("Sname").innerHTML = nric + ", " + name3;
+            }
+            if (nric.length == 0 || name3.length == 0) {
+                document.getElementById("Sname").innerHTML = " ";
+            }
+        }
+
+        function displayPhoto1(el) {
+            photoChange1 = true;
+            var elID = el.attr('id');
+            var fileSize = document.getElementById(elID).files[0].size;
+            var photoFile1 = document.getElementById(elID).files[0];
+
+            var canvas = document.createElement('canvas')
+            var ctx = canvas.getContext("2d");
+
+            var _URL = window.URL || window.webkitURL;
+
+            var img = new Image();
+            img.src = _URL.createObjectURL(photoFile1);
+
+            img.onload = function () {
+                ctx.drawImage(this, 0, 0);
+
+                var MAX_WIDTH = 960;
+                var MAX_HEIGHT = 720;
+                var width = this.width;
+                var height = this.height;
+
+                if (width > height) {
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+                } else {
+                    if (height > MAX_HEIGHT) {
+                        width *= MAX_HEIGHT / height;
+                        height = MAX_HEIGHT;
+                    }
+                }
+
+                canvas.max_size = 544;
+                canvas.width = width;
+                canvas.height = height;
+                ctx = canvas.getContext("2d");
+                ctx.drawImage(this, 0, 0, width, height);
+
+                var imgWatermark = new Image();
+                imgWatermark.src = watermarkImageUrl;
+
+                imgWatermark.onload = function () {
+                    var watermarkWidth = imgWatermark.width;
+                    var watermarkHeight = imgWatermark.height;
+
+                    ctx = canvas.getContext("2d");
+                    ctx.globalAlpha = 0.75;
+                    ctx.drawImage(imgWatermark, width - watermarkWidth - 10, height - watermarkHeight - 10);
+
+                    var newImage = canvas.toDataURL('image/jpeg');
+                    document.getElementById("photoHolder1").src = newImage;
+                }
+            }
+        }
+
+        function displayPhoto2(el) {
+            photoChange2 = true;
+            var elID = el.attr('id');
+            var fileSize = document.getElementById(elID).files[0].size;
+            var photoFile2 = document.getElementById(elID).files[0];
+
+            var canvas = document.createElement('canvas')
+            var ctx = canvas.getContext("2d");
+
+            var _URL = window.URL || window.webkitURL;
+
+            var img = new Image();
+            img.src = _URL.createObjectURL(photoFile2);
+
+            img.onload = function () {
+                ctx.drawImage(this, 0, 0);
+
+                var MAX_WIDTH = 960;
+                var MAX_HEIGHT = 720;
+                var width = this.width;
+                var height = this.height;
+
+                if (width > height) {
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+                } else {
+                    if (height > MAX_HEIGHT) {
+                        width *= MAX_HEIGHT / height;
+                        height = MAX_HEIGHT;
+                    }
+                }
+
+                canvas.max_size = 544;
+                canvas.width = width;
+                canvas.height = height;
+                ctx = canvas.getContext("2d");
+                ctx.drawImage(this, 0, 0, width, height);
+
+                var imgWatermark = new Image();
+                imgWatermark.src = watermarkImageUrl;
+
+                imgWatermark.onload = function () {
+                    var watermarkWidth = imgWatermark.width;
+                    var watermarkHeight = imgWatermark.height;
+
+                    ctx = canvas.getContext("2d");
+                    ctx.globalAlpha = 0.75;
+                    ctx.drawImage(imgWatermark, width - watermarkWidth - 10, height - watermarkHeight - 10);
+
+                    var newImage = canvas.toDataURL('image/jpeg');
+                    document.getElementById("photoHolder2").src = newImage;
+                }
+            }
+        }
+    </script>
+</apex:page>

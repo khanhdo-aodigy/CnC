@@ -1,0 +1,188 @@
+<template>
+    <article class="slds-card">
+        <template if:true={spinner}>
+            <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+        </template>
+        <div class="slds-card__header slds-grid">
+          <header class="slds-media slds-media_center slds-has-flexi-truncate">
+            <div class="slds-media__figure">
+                <span class="slds-icon_container">
+                    <lightning-icon icon-name="standard:work_order" size="medium" variant="slds-icon-inverse"></lightning-icon>
+                </span>
+            </div>
+            <div class="slds-media__body">
+                <h2 class="slds-card__header-title">
+                    <span class="slds-card__header-link slds-truncate">Test Drive Vehicles</span>
+                </h2>
+            </div>
+          </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-grid slds-border_bottom">
+                <div class="slds-col slds-size_1-of-12" style="margin:auto"></div>
+                <div class="slds-col slds-size_1-of-12" style="margin:auto; font-weight:bold">No</div>
+                <div class="slds-col">
+                    <span>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-5 slds-p-vertical_xx-small" style="margin:auto; font-weight:bold">
+                                <span>Model</span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-5 slds-p-vertical_xx-small" style="margin:auto; font-weight:bold">
+                                <span>Vehicle Status</span>
+                            </div>
+                            <!-- <div class="slds-col slds-size_1-of-6 slds-p-vertical_xx-small" style="margin:auto; font-weight:bold">
+                                <span>Registration No</span>
+                            </div> -->
+                            <div class="slds-col slds-size_1-of-5 slds-p-vertical_xx-small" style="margin:auto; font-weight:bold">
+                                <span>Comm No</span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-5 slds-p-vertical_xx-small" style="margin:auto; font-weight:bold">
+                                <span>Last Check-Out By</span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-5 slds-p-vertical_xx-small" style="margin:auto; font-weight:bold"></div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+            <template for:each={wrapperResult} for:item="result">
+                <div key={result.vehicleInfo.Id} class="slds-border_bottom">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_1-of-12" style="margin:auto">
+                            <template if:true={result.ownerRequests}>
+                                <template if:true={expandStatus}>
+                                    <lightning-button-icon icon-name="utility:chevronup" 
+                                                           variant="container" 
+                                                           onclick={expandView}
+                                                           data-vehicle-id={result.vehicleInfo.Id}
+                                                           label=""></lightning-button-icon>                                
+                                </template>
+                                <template if:false={expandStatus}>
+                                    <lightning-button-icon icon-name="utility:chevrondown" 
+                                                           variant="container" 
+                                                           onclick={expandView}
+                                                           data-vehicle-id={result.vehicleInfo.Id}
+                                                           label=""></lightning-button-icon>
+                                </template>
+                            </template>
+                        </div>
+                        <div class="slds-col slds-size_1-of-12" style="margin:auto">{result.index}</div>
+                        <div class="slds-col">
+                            <span>
+                                <div class="slds-grid slds-wrap" style="min-height: 80px;">
+                                    <div class="slds-col slds-size_1-of-5 slds-p-vertical_xx-small" style="margin:auto"><span style="word-break: break-all;">{result.vehicleInfo.Name}</span></div>
+                                    <div class="slds-col slds-size_1-of-5 slds-p-vertical_xx-small" style="margin:auto"><span>{result.status}</span></div>
+                                    <!-- <div class="slds-col slds-size_1-of-6 slds-p-vertical_xx-small" style="margin:auto"><span>{result.vehicleInfo.Registration_No__c}</span></div> -->
+                                    <div class="slds-col slds-size_1-of-5 slds-p-vertical_xx-small" style="margin:auto"><span>{result.vehicleInfo.Comm_No__c}</span></div>
+                                    <div class="slds-col slds-size_1-of-5 slds-p-vertical_xx-small" style="margin:auto"><span style="word-break: break-all;">{result.vehicleInfo.Last_Check_Out_By__c}</span></div>
+                                    <div class="slds-col slds-size_1-of-5 slds-p-vertical_xx-small" style="margin:auto">
+                                        <span>
+                                            <div>
+                                                <lightning-button 
+                                                                variant="brand" 
+                                                                label="Check-Out"
+                                                                name="checkout"
+                                                                onclick={handleBtnAction}
+                                                                style="display: grid; margin-right: 0.5rem;"
+                                                                data-vehicle-id={result.vehicleInfo.Id}></lightning-button>
+                                            </div>
+                                            <template if:true={result.queuedTestDriveRequests}>
+                                                <div>
+                                                    <lightning-button 
+                                                                    variant="destructive-text" 
+                                                                    label="Queues"
+                                                                    name="queue"
+                                                                    icon-name="utility:trailblazer_ext"
+                                                                    onclick={handleBtnAction}
+                                                                    style="display: grid; margin-top: 0.5rem; margin-right: 0.5rem;"
+                                                                    data-vehicle-id={result.vehicleInfo.Id}></lightning-button>
+                                                </div>
+                                            </template>
+                                        </span>
+                                    </div>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                    <div key={result.vehicleInfo.Id} data-sub-id={result.vehicleInfo.Id} class="slds-grid" style="display: none;">
+                        <div class="slds-col">
+                            <span>
+                                <div class="slds-grid slds-wrap" style="color: white; font-weight: bold; background-color: #434343;">
+                                    <div class="slds-col slds-size_1-of-12 slds-p-vertical_xx-small" style="margin:auto;"></div>
+                                    <div class="slds-col slds-size_1-of-6 slds-p-vertical_xx-small" style="margin:auto;">
+                                        <span>Checked-Out</span>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-12 slds-p-vertical_xx-small" style="margin:auto;"></div>
+                                    <div class="slds-col slds-size_1-of-6 slds-p-vertical_xx-small" style="margin:auto;">
+                                        <span>Checked-In</span>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-12 slds-p-vertical_xx-small" style="margin:auto;"></div>
+                                    <div class="slds-col slds-size_1-of-6 slds-p-vertical_xx-small" style="margin:auto;">
+                                        <span>Request Status</span>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-12 slds-p-vertical_xx-small" style="margin:auto;"></div>
+                                    <div class="slds-col slds-size_1-of-6 slds-p-vertical_xx-small" style="margin:auto;"></div>
+                                </div>
+                            </span>
+                        </div>
+                        <template for:each={result.ownerRequests} for:item="request">
+                            <div key={request.reqInfo.Id} class="slds-col" style="background-color: rgb(220,220,220)">
+                                <span>
+                                    <div class="slds-grid slds-wrap slds-border_bottom">
+                                        <div class="slds-col slds-size_1-of-12 slds-p-vertical_xx-small" style="margin:auto;"></div>
+                                        <div class="slds-col slds-size_1-of-6 slds-p-vertical_xx-small" style="margin:auto;">
+                                            <span>{request.reqInfo.Check_Out__c}</span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-12 slds-p-vertical_xx-small" style="margin:auto;"></div>
+                                        <div class="slds-col slds-size_1-of-6 slds-p-vertical_xx-small" style="margin:auto;">
+                                            <span>{request.reqInfo.Check_In__c}</span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-12 slds-p-vertical_xx-small" style="margin:auto;"></div>
+                                        <div class="slds-col slds-size_1-of-6 slds-p-vertical_xx-small" style="margin:auto;">
+                                            <span>{request.reqInfo.Status__c}</span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-12 slds-p-vertical_xx-small" style="margin:auto;"></div>
+                                        <div class="slds-col slds-size_1-of-6 slds-p-vertical_xx-small" style="margin:auto;">
+                                            <template if:true={request.isCheckedOut}>
+                                                <lightning-button
+                                                                variant="Neutral"
+                                                                label="Check-In"
+                                                                name="Check In"
+                                                                data-req-id={request.reqInfo.Id}
+                                                                data-vehicle-id={result.vehicleInfo.Id}
+                                                                style="display: grid; margin-right: 0.5rem;"
+                                                                onclick={handleRequest}></lightning-button>
+                                            </template>
+                                            <template if:true={request.isQueued}>
+                                                <div>
+                                                    <lightning-button 
+                                                                    variant="Neutral"
+                                                                    label="Cancel"
+                                                                    name="Cancel"
+                                                                    data-req-id={request.reqInfo.Id}
+                                                                    style="display: grid; margin-right: 0.5rem;"
+                                                                    onclick={handleRequest}></lightning-button>                                                       
+                                                </div>
+                                                <div>
+                                                    <lightning-button 
+                                                                    variant="Neutral"
+                                                                    label="Check-Out"
+                                                                    name="Check Out"
+                                                                    data-req-id={request.reqInfo.Id}
+                                                                    style="display: grid; margin-top: 0.5rem; margin-right: 0.5rem;"
+                                                                    onclick={handleRequest}></lightning-button>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </span>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </article>
+    <template if:true={queuesOpened}>
+        <c-mb_-t-d-queues onclosequeues={closeQueues} queued-requests={queuedRequestsByVehId}></c-mb_-t-d-queues>
+    </template>
+</template>

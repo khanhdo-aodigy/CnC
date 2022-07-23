@@ -1,0 +1,14 @@
+.pill-container {
+    display: flex;
+    min-height: calc(var(--lwc-heightInput, 1.875rem) + 2px);
+    border-radius: var(--lwc-borderRadiusMedium, 0.25rem);
+    background-color: var(--lwc-colorBackgroundInput, rgb(255, 255, 255));
+}
+
+.spinner-height {
+    min-height: 2.5rem;
+}
+
+.pointer-cursor {
+    cursor: pointer;
+}

@@ -1,0 +1,16 @@
+.actionBtn {
+    display: grid;
+}
+
+.errorMsg {
+    white-space: pre;
+}
+
+.icon svg{
+    /* background: white; */
+    fill: white;
+}
+
+.toastMessage forceActionsText{
+    white-space : pre-line !important;
+}

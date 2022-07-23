@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Deposit_cant_be_unticked</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(  OR( $Profile.Name == &apos;MB Sales&apos;, $Profile.Name == &apos;MB Sales Manager&apos;) , ISCHANGED( Deposit_Collected__c ),  Deposit_Collected__c = FALSE)</errorConditionFormula>
+    <errorDisplayField>Deposit_Collected__c</errorDisplayField>
+    <errorMessage>You are not allowed to update Deposit Collected. Please contact your Administrator.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Indent_Order_Chee_WEI</fullName>
+    <columns>NAME</columns>
+    <columns>Booking_Date__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>Customer_Full_Name__c</columns>
+    <columns>Status__c</columns>
+    <columns>Variant__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>Deposit_Received_For_Indent_Order__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Stock_Type__c</field>
+        <operation>equals</operation>
+        <value>Indent Stock</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Booked,Reserved</value>
+    </filters>
+    <filters>
+        <field>Deposit_Received_For_Indent_Order__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Indent Order - Chee Wei</label>
+    <sharedTo>
+        <role>MB_Sales</role>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Daily_Reservation_New</fullName>
+    <columns>NAME</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>Comm__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Status__c</columns>
+    <columns>Customer_Full_Name__c</columns>
+    <columns>Variant__c</columns>
+    <columns>Colour__c</columns>
+    <columns>Trim__c</columns>
+    <columns>Used_Car_Make__c</columns>
+    <columns>Used_Car_Model__c</columns>
+    <columns>Finance_Company__c</columns>
+    <columns>New_Insurance_Company__c</columns>
+    <columns>Stock_Progress__c</columns>
+    <columns>Deposit_Collected_Timestamp__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>Daily Reservation - New</label>
+</ListView>

@@ -1,0 +1,5 @@
+<design:component>
+ 	<design:attribute name="selectedGenreString" label="Selected Value"/>	
+    <design:attribute name="fieldname" label="Field Name" />
+ 	<design:attribute name="recordtype" label="record type Name" />
+</design:component>

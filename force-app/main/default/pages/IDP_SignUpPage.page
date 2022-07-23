@@ -1,0 +1,219 @@
+<apex:page id="signUpPage" controller="IDPSignUpPageController" showHeader="false" standardStylesheets="false" docType="html-5.0" applyHtmlTag="false" applyBodyTag="false"
+            title="Signup - Identification | Cycle & Carriage Singapore" cache="True">
+    <apex:includeLightning />
+    <apex:slds />
+    <html>
+        <head>
+            <link href="{!URLFOR($Resource.Favicon,'favicon.png')}" rel="shortcut icon"/> 
+            
+            <!-- Google Tag Manager -->
+            <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-ND3Z4RG');</script>
+            <!-- End Google Tag Manager -->
+            
+            <meta charset="utf-8"/>
+            <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+            <title>Signup - Identification | Cycle &amp; Carriage Singapore</title>
+            <meta name="description" content=""/>
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+            <meta name="msapplication-TileColor" content="#ffffff"/>
+            <meta name="theme-color" content="#ffffff"/>
+            <style>
+                html.mobile body.nricmatch-bd .mfp-bg.mfp-ready
+                {
+                    height: 100vh !important;
+                }
+                /* MOBILE */
+                @media only screen and (max-width: 767px) 
+                {
+                    .modal.text-center.wide 
+                    {
+                        padding: 32px 32px;
+                        width: calc(100% / 12 * 11) !important;
+                        max-width: none !important;
+                    }
+                }             
+
+                @media only screen and (min-width: 993px) 
+                {
+                    .modal.text-center.wide 
+                    {
+                        padding: 32px 1rem !important;
+                    }                
+                }
+            </style>
+        </head>
+        
+        <body class="standalone nricmatch-bd slds-scope" style="overflow: auto">
+            <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-ND3Z4RG" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+            <div class="bg-container">
+                <div class="bg-container__content">
+                    <apex:form styleClass="" html-novalidate="novalidate" id="formBook" >
+                        <div id="spinner" class="slds-spinner_container" >
+                            <div role="status" class="slds-spinner slds-spinner_small">
+                                <div class="slds-spinner__dot-a"></div>
+                                <div class="slds-spinner__dot-b"></div>
+                            </div>
+                        </div>     
+                        <div id = "signUp">
+                            <script>
+                                $Lightning.use("c:IDPApp", function () 
+                                {
+                                    $Lightning.createComponent("c:idp_signUpForm", 
+                                    {
+                                        startURL: "{!JSENCODE($CurrentPage.parameters.msg)}"
+                                    },
+                                        "signUp", function(component){});
+                                });
+
+                                document.addEventListener("verifyUserSuccess", function (event) 
+                                {
+                                    console.log('SUCCESS!');
+                                    console.log(event.detail.data);
+                                    eventAction("verifyUserSuccess", event.detail.data);
+                                }); 
+                                
+                                /* IDP REVAMP PHASE 2 */
+                                document.addEventListener("sendToApp", function(event)
+                                {
+                                    var analytics = {};
+                                    var screen    = {};
+                                    var eventName     = event.detail.data.label;
+                                    var usernameInput = event.detail.data.value;
+                                    console.log(eventName);
+                           
+                                    switch (eventName)
+                                    {
+                                        case 'checkEmail':
+                                            analytics = {   "action":"app:analytics",
+                                                            "analyticType":"hm_push_event",
+                                                            "analyticPayload":
+                                                            {
+                                                                "event_category": "Acquisition", 
+                                                                "event_action": "SignUp",
+                                                                "event_label": "Step1=EnterValidEmail",
+                                                                "car_model":"",
+                                                                "user_id":"{" + "" + "}",
+                                                                "non_interaction_status":"{True}",
+                                                                "(done_via_GTM)":"",
+                                                                "user_type":"",
+                                                                "render_type":"WebView",
+                                                                "logged_in_status":"FALSE",
+                                                                "screen_name": "SignUp_CheckAvailability"
+                                                            }
+                                                        };
+                                            screen  =   {
+                                                            "action":"app:analytics",
+                                                            "analyticType":"hm_push_screen",
+                                                            "analyticPayload":
+                                                            {
+                                                                "user_id":"{" + "" + "}",
+                                                                "user_type":"New",             
+                                                                "logged_in_status":"FALSE",
+                                                                "screenName": "SignUp_CheckAvailability"
+                                                            }
+                                                        };
+                                            break;
+                                        case 'createUser':
+                                            analytics = {   "action":"app:analytics",
+                                                            "analyticType":"hm_push_event",
+                                                            "analyticPayload":
+                                                            {
+                                                                "event_category": "Acquisition", 
+                                                                "event_action": "SignUp",
+                                                                "event_label": "Step2=CreateAccount-Next",
+                                                                "car_model":"",
+                                                                "user_id":"{" + "" + "}",
+                                                                "non_interaction_status":"{True}",
+                                                                "(done_via_GTM)":"",
+                                                                "user_type":"",
+                                                                "render_type":"WebView",
+                                                                "logged_in_status":"FALSE",
+                                                                "screen_name": "SignUp_CreateAccount"
+                                                            }
+                                                        };
+                                            screen  =   {
+                                                "action":"app:analytics",
+                                                "analyticType":"hm_push_screen",
+                                                "analyticPayload":
+                                                {
+                                                    "user_id":"{" + "" + "}",
+                                                    "user_type":"New",             
+                                                    "logged_in_status":"FALSE",
+                                                    "screenName": "SignUp_CreateAccount"
+                                                }
+                                            };
+                                            break;
+                                        case 'verifyUser':
+                                            analytics = {   "action":"app:analytics",
+                                                            "analyticType":"hm_push_event",
+                                                            "analyticPayload":
+                                                            {
+                                                                "event_category": "Acquisition", 
+                                                                "event_action": "SignUp",
+                                                                "event_label": "Step3=VerifyEmail",
+                                                                "car_model":"",
+                                                                "user_id":"{" + "" + "}",
+                                                                "non_interaction_status":"{True}",
+                                                                "(done_via_GTM)":"",
+                                                                "user_type":"",
+                                                                "render_type":"WebView",
+                                                                "logged_in_status":"FALSE",
+                                                                "screen_name": "SignUp_VerifyYourEmail"
+                                                            }
+                                                        };
+                                            screen  =   {
+                                                            "action":"app:analytics",
+                                                            "analyticType":"hm_push_screen",
+                                                            "analyticPayload":
+                                                            {
+                                                                "user_id":"{" + "" + "}",
+                                                                "user_type":"New",             
+                                                                "logged_in_status":"FALSE",
+                                                                "screenName": "SignUp_VerifyYourEmail"
+                                                            }
+                                                        };
+                                            break;
+                                        default:
+                                            break;
+                                    }
+
+                                    var message    = JSON.stringify(analytics);
+                                    try 
+                                    {
+                                        flutterWebview.postMessage(message);
+                                    } 
+                                    catch (err) 
+                                    {
+                                        console.error('user ' + usernameInput + ' ++ ' + err + ' ++ ' + message);
+                                    }
+
+                                    var screenView = JSON.stringify(screen);
+                                    try 
+                                    {
+                                        flutterWebview.postMessage(screenView);
+                                    } 
+                                    catch (err) 
+                                    {
+                                        console.error('user ' + usernameInput + ' ++ ' + err + ' ++ ' + screenView);
+                                    }
+                                });
+                                /* END */
+
+                                setTimeout(function(){ document.getElementById('spinner').className += ' slds-hide' }, 1000);
+                            </script>
+
+                            <apex:actionFunction action="{!eventAction}" name="eventAction" reRender="someId">
+                                <apex:param name="eventName" value=""/>
+                                <apex:param name="pageRef" value="" />
+                            </apex:actionFunction>
+                        </div>
+                    </apex:form>
+                </div>               
+            </div>             
+        </body>
+    </html>
+</apex:page>

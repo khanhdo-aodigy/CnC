@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Estimated_Delivery__c</fullName>
+    <externalId>false</externalId>
+    <formula>SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(MB_Stock_Vehicle_Master__r.Estimated_Delivery_Date__c, &quot;01&quot;, &quot;January&quot;), &quot;02&quot;, &quot;February&quot;), &quot;03&quot;, &quot;March&quot;), &quot;04&quot;, &quot;April&quot;), &quot;05&quot;, &quot;May&quot;), &quot;06&quot;, &quot;June&quot;) , &quot;07&quot;, &quot;July&quot;) , &quot;08&quot;, &quot;August&quot;) , &quot;09&quot;, &quot;September&quot;) , &quot;10&quot;, &quot;October&quot;)
+, &quot;11&quot;, &quot;November&quot;) , &quot;12&quot;, &quot;December&quot;)</formula>
+    <label>Estimated Delivery</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

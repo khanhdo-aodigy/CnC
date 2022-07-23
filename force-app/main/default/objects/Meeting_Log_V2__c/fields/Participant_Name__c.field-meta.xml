@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Participant_Name__c</fullName>
+    <externalId>false</externalId>
+    <label>Participant Name</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Gordon Ho</fullName>
+                <default>false</default>
+                <label>Gordon Ho</label>
+            </value>
+            <value>
+                <fullName>Kia Sales</fullName>
+                <default>false</default>
+                <label>Kia Sales</label>
+            </value>
+            <value>
+                <fullName>Kia Sales 2</fullName>
+                <default>false</default>
+                <label>Kia Sales 2</label>
+            </value>
+            <value>
+                <fullName>Debra Lim</fullName>
+                <default>false</default>
+                <label>Debra Lim</label>
+            </value>
+            <value>
+                <fullName>Alan Yeo</fullName>
+                <default>false</default>
+                <label>Alan Yeo</label>
+            </value>
+            <value>
+                <fullName>Mason Law</fullName>
+                <default>false</default>
+                <label>Mason Law</label>
+            </value>
+            <value>
+                <fullName>Mimi Lee</fullName>
+                <default>false</default>
+                <label>Mimi Lee</label>
+            </value>
+            <value>
+                <fullName>Clement Teas</fullName>
+                <default>false</default>
+                <label>Clement Teas</label>
+            </value>
+            <value>
+                <fullName>James Law</fullName>
+                <default>false</default>
+                <label>James Law</label>
+            </value>
+            <value>
+                <fullName>Winnie Yeo</fullName>
+                <default>false</default>
+                <label>Winnie Yeo</label>
+            </value>
+            <value>
+                <fullName>Gary Quek</fullName>
+                <default>false</default>
+                <label>Gary Quek</label>
+            </value>
+            <value>
+                <fullName>Gracie Cheng</fullName>
+                <default>false</default>
+                <label>Gracie Cheng</label>
+            </value>
+            <value>
+                <fullName>Kee Hing Ng</fullName>
+                <default>false</default>
+                <label>Kee Hing Ng</label>
+            </value>
+            <value>
+                <fullName>Lance Kouk</fullName>
+                <default>false</default>
+                <label>Lance Kouk</label>
+            </value>
+            <value>
+                <fullName>Derrick Soh</fullName>
+                <default>false</default>
+                <label>Derrick Soh</label>
+            </value>
+            <value>
+                <fullName>Alvin Tham</fullName>
+                <default>false</default>
+                <label>Alvin Tham</label>
+            </value>
+            <value>
+                <fullName>George Pang</fullName>
+                <default>false</default>
+                <label>George Pang</label>
+            </value>
+            <value>
+                <fullName>David Phang</fullName>
+                <default>false</default>
+                <label>David Phang</label>
+            </value>
+            <value>
+                <fullName>Cheng Khoon Tan</fullName>
+                <default>false</default>
+                <label>Cheng Khoon Tan</label>
+            </value>
+            <value>
+                <fullName>Dawn Pan</fullName>
+                <default>false</default>
+                <label>Dawn Pan</label>
+            </value>
+            <value>
+                <fullName>Mei Ting Koh</fullName>
+                <default>false</default>
+                <label>Mei Ting Koh</label>
+            </value>
+            <value>
+                <fullName>Bryan Heng</fullName>
+                <default>false</default>
+                <label>Bryan Heng</label>
+            </value>
+            <value>
+                <fullName>Melvin Lee</fullName>
+                <default>false</default>
+                <label>Melvin Lee</label>
+            </value>
+            <value>
+                <fullName>Janice Mao</fullName>
+                <default>false</default>
+                <label>Janice Mao</label>
+            </value>
+            <value>
+                <fullName>Wilson Lau</fullName>
+                <default>false</default>
+                <label>Wilson Lau</label>
+            </value>
+            <value>
+                <fullName>Dave Wong</fullName>
+                <default>false</default>
+                <label>Dave Wong</label>
+            </value>
+            <value>
+                <fullName>Doris Yeo</fullName>
+                <default>false</default>
+                <label>Doris Yeo</label>
+            </value>
+            <value>
+                <fullName>Chantel Tae</fullName>
+                <default>false</default>
+                <label>Chantel Tae</label>
+            </value>
+            <value>
+                <fullName>Albert Soo</fullName>
+                <default>false</default>
+                <label>Albert Soo</label>
+            </value>
+            <value>
+                <fullName>Jessie Choo</fullName>
+                <default>false</default>
+                <label>Jessie Choo</label>
+            </value>
+            <value>
+                <fullName>Edward Chu</fullName>
+                <default>false</default>
+                <label>Edward Chu</label>
+            </value>
+            <value>
+                <fullName>Wendy Ng</fullName>
+                <default>false</default>
+                <label>Wendy Ng</label>
+            </value>
+            <value>
+                <fullName>Maxine Ang</fullName>
+                <default>false</default>
+                <label>Maxine Ang</label>
+            </value>
+            <value>
+                <fullName>Eliza Tan</fullName>
+                <default>false</default>
+                <label>Eliza Tan</label>
+            </value>
+            <value>
+                <fullName>Alvan Sio</fullName>
+                <default>false</default>
+                <label>Alvan Sio</label>
+            </value>
+            <value>
+                <fullName>CCFMD</fullName>
+                <default>false</default>
+                <label>CCFMD</label>
+            </value>
+            <value>
+                <fullName>Alvin Ng</fullName>
+                <default>false</default>
+                <label>Alvin Ng</label>
+            </value>
+            <value>
+                <fullName>Fulco Manager</fullName>
+                <default>false</default>
+                <label>Fulco Manager</label>
+            </value>
+            <value>
+                <fullName>Kenny Tan</fullName>
+                <default>false</default>
+                <label>Kenny Tan</label>
+            </value>
+            <value>
+                <fullName>Zhi Wei Liew</fullName>
+                <default>false</default>
+                <label>Zhi Wei Liew</label>
+            </value>
+            <value>
+                <fullName>Christiana Chang</fullName>
+                <default>false</default>
+                <label>Christiana Chang</label>
+            </value>
+            <value>
+                <fullName>Cindy Yap</fullName>
+                <default>false</default>
+                <label>Cindy Yap</label>
+            </value>
+            <value>
+                <fullName>Justin Yap</fullName>
+                <default>false</default>
+                <label>Justin Yap</label>
+            </value>
+            <value>
+                <fullName>Cleo Teo</fullName>
+                <default>false</default>
+                <label>Cleo Teo</label>
+            </value>
+            <value>
+                <fullName>Juliana Lim</fullName>
+                <default>false</default>
+                <label>Juliana Lim</label>
+            </value>
+            <value>
+                <fullName>Shenn Lim</fullName>
+                <default>false</default>
+                <label>Shenn Lim</label>
+            </value>
+            <value>
+                <fullName>Eric Leong</fullName>
+                <default>false</default>
+                <label>Eric Leong</label>
+            </value>
+            <value>
+                <fullName>JangKheng Teh</fullName>
+                <default>false</default>
+                <label>JangKheng Teh</label>
+            </value>
+            <value>
+                <fullName>Suzance So</fullName>
+                <default>false</default>
+                <label>Suzance So</label>
+            </value>
+            <value>
+                <fullName>Zhuo Ling Ng</fullName>
+                <default>false</default>
+                <label>Zhuo Ling Ng</label>
+            </value>
+            <value>
+                <fullName>Brandon Tan</fullName>
+                <default>false</default>
+                <label>Brandon Tan</label>
+            </value>
+            <value>
+                <fullName>Chee Tiong Chua</fullName>
+                <default>false</default>
+                <label>Chee Tiong Chua</label>
+            </value>
+            <value>
+                <fullName>Tai Hong Lee</fullName>
+                <default>false</default>
+                <label>Tai Hong Lee</label>
+            </value>
+            <value>
+                <fullName>Jolynn Wong</fullName>
+                <default>false</default>
+                <label>Jolynn Wong</label>
+            </value>
+            <value>
+                <fullName>Benjamin Chua</fullName>
+                <default>false</default>
+                <label>Benjamin Chua</label>
+            </value>
+            <value>
+                <fullName>Ernest Ong</fullName>
+                <default>false</default>
+                <label>Ernest Ong</label>
+            </value>
+            <value>
+                <fullName>Darren Ong</fullName>
+                <default>false</default>
+                <label>Darren Ong</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>10</visibleLines>
+</CustomField>

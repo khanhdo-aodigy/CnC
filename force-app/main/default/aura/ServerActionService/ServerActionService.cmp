@@ -1,0 +1,6 @@
+<aura:component>
+    <aura:method name="callApex" action="{!c.callApex}" description="Calls a server-side action">
+        <aura:attribute name="action" type="Map" required="true" description="Server-side action that will be called"/>
+        <aura:attribute name="params" type="Map" description="Optional parameters passed to the action"/>
+    </aura:method>
+</aura:component>

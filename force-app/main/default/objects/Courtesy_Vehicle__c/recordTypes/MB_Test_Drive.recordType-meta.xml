@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MB_Test_Drive</fullName>
+    <active>true</active>
+    <label>MB Test Drive</label>
+    <picklistValues>
+        <picklist>Branch_Code__c</picklist>
+        <values>
+            <fullName>CCI</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Franchise_Code__c</picklist>
+        <values>
+            <fullName>MBC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MBP</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Available</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Maintenance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>On Loan %28Test Drive%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sold</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

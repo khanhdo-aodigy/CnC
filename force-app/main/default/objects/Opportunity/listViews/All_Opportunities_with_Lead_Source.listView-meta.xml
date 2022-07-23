@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Opportunities_with_Lead_Source</fullName>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>OPPORTUNITY.LEAD_SOURCE</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <columns>OPPORTUNITY.LAST_UPDATE</columns>
+    <columns>EventRegistration__c</columns>
+    <columns>Mobile__c</columns>
+    <columns>Customer_Email__c</columns>
+    <columns>Lead_Mobile__c</columns>
+    <columns>PriceAlert__c</columns>
+    <columns>Test_Drive__c</columns>
+    <columns>OPPORTUNITY.CREATED_DATE</columns>
+    <columns>Custom_Quote__c</columns>
+    <columns>Model_c__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>OPPORTUNITY.STAGE_NAME</field>
+        <operation>notEqual</operation>
+        <value>Booked,Lost,Stock Reserved</value>
+    </filters>
+    <label>All Opportunities with Lead Source</label>
+</ListView>

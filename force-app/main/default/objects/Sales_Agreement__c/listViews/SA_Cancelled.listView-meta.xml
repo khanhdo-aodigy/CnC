@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SA_Cancelled</fullName>
+    <columns>NAME</columns>
+    <columns>Stage__c</columns>
+    <columns>SOH_STATUS__c</columns>
+    <columns>AcknowledgementAgreement__c</columns>
+    <columns>SOH_SONO__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Stage__c</field>
+        <operation>notEqual</operation>
+        <value>Cancelled</value>
+    </filters>
+    <label>SA != Cancelled</label>
+</ListView>

@@ -1,0 +1,70 @@
+<aura:component access="global" controller="CMCreditUsageService"
+    implements="lightning:isUrlAddressable,lightning:hasPageReference,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader">
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="recordId" type="String"> </aura:attribute>
+    <aura:attribute name="isLoading" type="Boolean" default="false"></aura:attribute>
+    <aura:attribute name="isSuccess" type="Boolean" default="false"></aura:attribute>
+    <aura:attribute name="errorMsg" type="String"></aura:attribute>
+    <aura:attribute name="showModal" type="Boolean" default="false" />
+    <aura:attribute name="header" type="String"></aura:attribute>
+    <aura:attribute name="attachmentId" type="String"></aura:attribute>
+    <!-- <c:cm_CreditUsage recordId="{!v.recordId}"></c:cm_CreditUsage> -->
+    
+    <div class="modal-header slds-modal__header slds-size_1-of-1">        
+        <!-- <aura:if isTrue="{!v.isSuccess}">
+            <h4 class="title slds-text-heading-medium">Credit Reward Usage Successful</h4>
+            <aura:set attribute="else">            
+                <h4 class="title slds-text-heading-medium">New Credit Reward Usage</h4>
+            </aura:set>
+        </aura:if> -->
+        <h4 class="title slds-text-heading--medium">{!v.header}</h4>
+    </div>
+    <div class="slds-modal__content " aura:id="modalbody" id="modalbody">
+        <aura:if isTrue="{!v.showModal}">      
+            <c:cm_CreditRewardUsageDetails recordId="{!v.recordId}" aura:id="creditUsage" onsubmitrecord="{!c.handleSubmitRecord}" onturnoffloader="{!c.turnOffLoader}"> 
+            </c:cm_CreditRewardUsageDetails>
+            <aura:set attribute="else">
+                <p class="slds-text-heading_small" style="text-align: center;">{!v.errorMsg}</p>
+            </aura:set> 
+        </aura:if>
+    </div>
+    <div class="modal-footer slds-modal__footer slds-size_1-of-1 slds-is-relative">
+        <aura:if isTrue="{!v.isLoading}">
+                <lightning:spinner alternativeText="Saving" size="medium"/>  
+        </aura:if>
+        <aura:if isTrue="{!v.isSuccess}">
+                <aura:if isTrue="{!v.showModal}"> 
+                    <lightning:button label="Download Transcript" class="slds-button" variant="neutral" onclick="{!c.onDownload}"></lightning:button>
+                </aura:if>
+                <lightning:button label="Close" class="slds-button" variant="brand" onclick="{!c.onCancel}"></lightning:button>
+            <aura:set attribute="else">
+                <lightning:button variant="brand" label="Submit" title="Submit" onclick="{!c.onSubmit}" />
+                <lightning:button variant="neutral" label="Cancel" title="Cancel" onclick="{!c.onCancel}" />
+            </aura:set>
+        </aura:if>                          
+        
+    </div>
+
+    <aura:html tag="style">
+        .slds-modal__container {
+            max-width: 80%;
+            width: 80%;
+        }
+        .slds-modal__content {
+            padding: none;
+        }
+        .cuf-content {
+            padding: 0 !important;
+        }
+        .slds-modal__content{
+            height:unset !important;
+            max-height:unset !important;
+            padding: 20px !important;
+        }
+        .slds-p-around--medium {
+            padding: 0 !important;
+        }
+    </aura:html>
+
+</aura:component>

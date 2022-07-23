@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Service Package</fullName>
+        <default>false</default>
+        <label>Service Package</label>
+    </customValue>
+    <customValue>
+        <fullName>Accessories</fullName>
+        <default>false</default>
+        <label>Accessories</label>
+    </customValue>
+    <customValue>
+        <fullName>Boutique</fullName>
+        <default>false</default>
+        <label>Boutique</label>
+    </customValue>
+    <customValue>
+        <fullName>Birthday Voucher</fullName>
+        <default>false</default>
+        <label>Birthday Voucher</label>
+    </customValue>
+    <customValue>
+        <fullName>Grooming Package</fullName>
+        <default>false</default>
+        <label>Grooming Package</label>
+    </customValue>
+    <customValue>
+        <fullName>Service Credit Voucher</fullName>
+        <default>false</default>
+        <label>Service Credit Voucher</label>
+    </customValue>
+    <customValue>
+        <fullName>CMP</fullName>
+        <default>false</default>
+        <label>CMP</label>
+    </customValue>
+    <customValue>
+        <fullName>Discount Voucher</fullName>
+        <default>false</default>
+        <label>Discount Voucher</label>
+    </customValue>
+    <customValue>
+        <fullName>Service Credit</fullName>
+        <default>false</default>
+        <label>Service Credit</label>
+    </customValue>
+    <customValue>
+        <fullName>Accessories Credit</fullName>
+        <default>false</default>
+        <label>Accessories Credit</label>
+    </customValue>
+    <description>Credit Management Reward Type</description>
+    <masterLabel>Reward Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

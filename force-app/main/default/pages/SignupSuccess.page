@@ -1,0 +1,112 @@
+<apex:page id="Signupsuccess" Controller="SignupSuccess" showHeader="false" standardStylesheets="false" docType="html-5.0"
+  applyHtmlTag="false" applyBodyTag="false" title="Signup - Success | Cycle & Carriage Singapore" cache="false" action="{!mapAccount}">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <head>
+        <link href="{!URLFOR($Resource.Favicon,'favicon.png')}" rel="shortcut icon"/>
+         <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-W4TR3HV');</script>
+        <!-- End Google Tag Manager -->
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <title>Signup - Success | Cycle &amp; Carriage Singapore</title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff" />
+         <link href="https://www.cyclecarriage.com/styles/style.min.css?cache=false&time={!timestamp}" rel="stylesheet"/>
+    </head>
+
+    <body class="standalone">
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W4TR3HV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <apex:outputPanel rendered="{!globalHeader}" layout="none">
+         <c:GlobalHeader ></c:GlobalHeader>
+        </apex:outputPanel>
+        
+        <apex:outputPanel rendered="{!mobileHeader}" layout="none">
+            <c:MobileHeader ></c:MobileHeader>
+        </apex:outputPanel>
+        <div class="bg-container bg-default">
+            <div class="bg-container__content">
+                <apex:form styleClass="signup__success">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col s12 m8 offset-m2">
+                                <div class="form-bg">
+
+                                    <apex:outputPanel layout="block" rendered="{!isSignup}">
+                                        <div class="row margin-bottom--1">
+                                            <div class="col s12 l10 offset-l1">
+                                                <div class="icon-holder text-center">
+                                                    <div class="icon-circular-base-48 success padding">
+                                                        <svg class="icon icon-tick" role="img" aria-hidden="true">
+                                                            <use xlink:href="{!URLFOR($Resource.icons,'#icon-tick')}">
+                                                            </use>
+                                                        </svg>
+                                                    </div>
+                                                    <h4>Thank you for signing up!</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row margin-bottom--6">
+                                            <div class="col s12 l10 offset-l1">
+                                                <p>We have sent an email to you at 
+                                                    <strong>{!email}</strong>.
+                                                    <br class="hide-on-med-and-down" />Please click on the link in the email to activate your account.</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col s12 l10 offset-l1">
+                                                <apex:commandlink styleClass="btn btn-primary btn-return-login" value="CONTINUE TO LOGIN" action="{!forwardRequestToLogin}"/>
+                                            </div>
+                                        </div>
+                                    </apex:outputPanel>
+
+                                    <apex:outputPanel layout="block" rendered="{!isResendActivation}">
+                                        <div class="row margin-bottom--1">
+                                            <div class="col s12 l10 offset-l1">
+                                                <div class="icon-holder text-center">
+                                                    <div class="icon-circular-base-48 success padding">
+                                                        <svg class="icon icon-tick" role="img" aria-hidden="true">
+                                                            <use xlink:href="{!URLFOR($Resource.icons,'#icon-tick')}">
+                                                            </use>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row margin-bottom--6">
+                                            <div class="col s12 l10 offset-l1">
+                                                <p>We have sent you an email with a link to activate your account. Please check your email.</p>
+                                                   <!-- (<strong>{!email}</strong>).
+                                                    <br class="hide-on-med-and-down" />Please check your email.-->
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col s12 l10 offset-l1">
+                                                <apex:commandlink styleClass="btn btn-primary btn-return-login" value="CONTINUE TO LOGIN" action="{!forwardRequestToLogin}"/>
+                                            </div>
+                                        </div>
+                                    </apex:outputPanel>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </apex:form>
+            </div>
+        </div>
+        <apex:outputPanel rendered="{!globalFooter}" layout="none">
+            <c:GlobalFooter ></c:GlobalFooter>
+        </apex:outputPanel>
+        <script type="text/javascript" src="https://www.cyclecarriage.com/scripts/libs.js?cache=false&time={!timestamp}"></script>
+        <script type="text/javascript" src="https://www.cyclecarriage.com/scripts/main.min.js?cache=false&time={!timestamp}"></script>
+
+    </body>
+
+    </html>
+</apex:page>

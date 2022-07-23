@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SA_SAC_PRICE__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( TEXT(SAC_ACCSTRADE__c) = &apos;Y&apos;, &apos;S$ 0.00&apos;, IF(BEGINS(SAC_ACM_ACCSCD__c, &apos;SVC&apos;) , &apos;INCLUSIVE&apos;, IF(SAC_PRICE__c &lt; 0, &quot;- &quot;, &quot;&quot;) &amp; &quot;S$ &quot; &amp;
+IF(ABS(SAC_PRICE__c) &gt;= 1000000, TEXT(FLOOR(ABS(SAC_PRICE__c) / 1000000)) &amp; &quot;,&quot;, &quot;&quot;) &amp;
+IF(ABS(SAC_PRICE__c) &gt;= 1000, RIGHT(TEXT(FLOOR(ABS(SAC_PRICE__c) / 1000)), 3) &amp; &quot;,&quot;, &quot;&quot;) &amp;
+RIGHT(TEXT(FLOOR(ABS(SAC_PRICE__c))), 3) &amp; &quot;.&quot; &amp;
+IF(MOD(ABS(SAC_PRICE__c) , 1) * 100 &lt; 10, &quot;0&quot; &amp; TEXT(ROUND(MOD(ABS(SAC_PRICE__c) , 1), 2) * 100), TEXT(MIN(ROUND(MOD(ABS(SAC_PRICE__c) , 1), 2) * 100, 99))) ) )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>SA Accessory Price</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

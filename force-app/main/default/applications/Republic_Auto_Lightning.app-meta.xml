@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <logo>republic_auto_logo</logo>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>true</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>true</isNavPersonalizationDisabled>
+    <label>Republic Auto</label>
+    <navType>Standard</navType>
+    <setupExperience>all</setupExperience>
+    <tabs>standard-home</tabs>
+    <tabs>standard-report</tabs>
+    <tabs>Used_Car_Vehicle_Stock__c</tabs>
+    <tabs>Used_Car_Vehicle_Sizing__c</tabs>
+    <tabs>Person_Account_Profiling__c</tabs>
+    <tabs>General_Enquiry__c</tabs>
+    <tabs>Sales_Opportunity__c</tabs>
+    <tabs>Vehicle_Stock_Reservation__c</tabs>
+    <tabs>Purchase_Option__c</tabs>
+    <tabs>Schedule_Viewing__c</tabs>
+    <tabs>Used_Car_Quote__c</tabs>
+    <uiType>Lightning</uiType>
+</CustomApplication>

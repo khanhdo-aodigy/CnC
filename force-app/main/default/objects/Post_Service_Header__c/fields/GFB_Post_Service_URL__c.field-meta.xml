@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GFB_Post_Service_URL__c</fullName>
+    <description>CNC Aftersales Survey: https://cyclecarriage.getfeedback.com/r/ppEtrG1M
+MMC Service Quality Survey: https://cyclecarriage.getfeedback.com/r/o57FWuGZ
+KMC DCSI Service Survey: https://cyclecarriage.getfeedback.com/r/QQrgJCqy</description>
+    <externalId>false</externalId>
+    <formula>if(Text(Registered_Vehicle__r.Branch__c) =&apos;CCF&apos;, &quot;https://cyclecarriage.getfeedback.com/r/ppEtrG1M?gf_unique=&quot; + Id + &quot;&amp;Post_Service_Header_ID=&quot; + Id,
+if(Text(Registered_Vehicle__r.Branch__c) =&apos;CCA&apos;, &quot;https://cyclecarriage.getfeedback.com/r/o57FWuGZ?gf_unique=&quot; + Id + &quot;&amp;Post_Service_Header_ID=&quot; + Id,
+if(Text(Registered_Vehicle__r.Branch__c) =&apos;CCK&apos;, &quot;https://cyclecarriage.getfeedback.com/r/QQrgJCqy?gf_unique=&quot; + Id + &quot;&amp;Post_Service_Header_ID=&quot; + Id,&quot;&quot;)))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>GFB Post Service URL</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Existing_Vehicle</fullName>
+    <columns>NAME</columns>
+    <columns>Original_Commcase__c</columns>
+    <columns>Vehicle_Status__c</columns>
+    <columns>Reservation_No__c</columns>
+    <columns>Model_Description__c</columns>
+    <columns>Color_Description__c</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <columns>LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Vehicle_Status__c</field>
+        <operation>equals</operation>
+        <value>FREE,ORD,SCL,RESRV,ALLOC,SOLD,CONF</value>
+    </filters>
+    <label>Existing Vehicle</label>
+    <sharedTo>
+        <role>CITCV_Sales_Manager</role>
+        <role>CITPC_Sales_Manager</role>
+        <role>KIACV_Sales_Manager</role>
+        <role>KIAPC_Sales_Manager</role>
+    </sharedTo>
+</ListView>

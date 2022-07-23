@@ -1,0 +1,555 @@
+<template>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open" aria-modal="true"
+        style="background:#E1E2E2;overflow-y:auto;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">
+
+        <!-- <header id="mainHeader"
+            style="text-align:center;font-size:x-large;font-weight:bold;padding:3%;background:#565B5B;color:whitesmoke">
+            <div class="d-flex align-items-center justify-content-between">
+                Add-ons (Optional)
+            </div>
+        </header> -->
+        <header id="mainHeader"
+            style="text-align:center;font-size:x-large;padding:2%;background:#000000;color:whitesmoke;">
+            <div class="d-flex align-items-center justify-content-between">
+                Add-ons (Optional)
+            </div>
+        </header>
+        <br />
+        <br />
+
+        <!-- Start: Loading Screen -->
+        <template if:true={spinner}>
+            <lightning-spinner variant="brand" size="large"></lightning-spinner>
+        </template>
+        <!-- End: Loading Screen -->
+
+        <!-- Start: Vehicle Specs Table -->
+        <template if:false={spinner}>
+            <ul class="slds-accordion">
+
+                <!-- Service Credits -->
+                <li class="slds-accordion__list-item" style="padding-left:7%;padding-right:7%">
+                    <section data-id="ServiceCredits" class="slds-accordion__section slds-box" style="background:white">
+                        <div class="slds-accordion__summary">
+                            <a class="slds-grid slds-accordion__summary-heading" onclick={collapseExpandSection}
+                                data-node="ServiceCredits" aria-expanded="false"
+                                style="padding-left:1%;padding-right:1%;">
+                                <div class="slds-col" style="font-size:larger;font-weight:bold;color:#565B5B">
+                                    <lightning-icon icon-name="utility:user_role" style="padding-right:10px">
+                                    </lightning-icon>
+                                    Service Credits ({countSC_}/{countSC})
+                                </div>
+                                <div class="slds-col" style="text-align:right">
+                                    <template if:false={sc_}>
+                                        <lightning-icon icon-name="utility:chevrondown">
+                                        </lightning-icon>
+                                    </template>
+                                    <template if:true={sc_}>
+                                        <lightning-icon icon-name="utility:chevronup">
+                                        </lightning-icon>
+                                    </template>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slds-accordion__content" style="font-size:large">
+                            <template for:each={SCs} for:item="item">
+                                <div key={item.Id} class="slds-grid" style="padding:1%">
+                                    <div class="slds-col slds-size_8-of-12" style="padding-top:4px;padding-left:3%">
+                                        <span>
+                                            {item.record.Label}
+                                        </span>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-12"
+                                        style="text-align:right;padding-top:4px;padding-right:3px">
+                                        <span>
+                                            $
+                                        </span>
+                                    </div>
+                                    <div class="slds-col slds-size_2-of-12">
+                                        <span>
+                                            <div class="slds-grid slds-wrap">
+                                                <div class="slds-col slds-size_10-of-12">
+                                                    <span>
+                                                        <lightning-input 
+                                                            type="number" 
+                                                            name={item.record.Option_Code__c} 
+                                                            data-type="ServiceCredits"
+                                                            data-sid={item.record.Id}
+                                                            value={item.record.Invoice_Price__c} 
+                                                            variant="label-hidden"
+                                                            onchange={onSpecValueChange}>
+                                                        </lightning-input>
+                                                    </span>
+                                                </div>
+                                                <div class="slds-col slds-size_2-of-12" style="padding-left:5px;">
+                                                    <span>
+                                                        <template if:true={item.changesDetected}>
+                                                            <lightning-button-icon 
+                                                                icon-name="utility:edit" 
+                                                                variant="brand" 
+                                                                onclick={confirmedValueChanges}
+                                                                name={item.record.Option_Code__c}
+                                                                data-type="ServiceCredits"
+                                                                data-sid={item.record.Id}>
+                                                            </lightning-button-icon>
+                                                        </template>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-12" style="text-align:center;">
+                                        <span>
+                                            <!-- <lightning-input 
+                                                type="checkbox-button" 
+                                                name="ServiceCredits"
+                                                value={item.record.Option_Code__c} 
+                                                onchange={trackCheckbox} 
+                                                checked={item.exist}
+                                                disabled={item.changesDetected}>
+                                            </lightning-input> -->
+                                            <lightning-input 
+                                                type="checkbox-button" 
+                                                data-type="ServiceCredits"
+                                                data-sid={item.record.Id}
+                                                name={item.record.Option_Code__c} 
+                                                onchange={trackCheckbox} 
+                                                checked={item.exist}
+                                                disabled={item.changesDetected}>
+                                            </lightning-input>
+                                        </span>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </section>
+                </li>
+                <br />
+
+                <!-- Additional Accessories -->
+                <li class="slds-accordion__list-item" style="padding-left:7%;padding-right:7%">
+                    <section data-id="AdditionalAccessories" class="slds-accordion__section slds-box"
+                        style="background:white">
+                        <div class="slds-accordion__summary">
+                            <a class="slds-grid slds-accordion__summary-heading" onclick={collapseExpandSection}
+                                data-node="AdditionalAccessories" aria-expanded="false"
+                                style="padding-left:1%;padding-right:1%;">
+                                <div class="slds-col" style="font-size:larger;font-weight:bold;color:#565B5B">
+                                    <lightning-icon icon-name="utility:package" style="padding-right:10px">
+                                    </lightning-icon>
+                                    Additional Accessories ({countAA_}/{countAA})
+                                </div>
+                                <div class="slds-col" style="text-align:right">
+                                    <template if:false={aa_}>
+                                        <lightning-icon icon-name="utility:chevrondown">
+                                        </lightning-icon>
+                                    </template>
+                                    <template if:true={aa_}>
+                                        <lightning-icon icon-name="utility:chevronup">
+                                        </lightning-icon>
+                                    </template>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slds-accordion__content" style="font-size:large">
+                            <template if:true={haveAA}>
+                                <template for:each={AAs} for:item="item">
+                                    <div key={item.Id} class="slds-grid" style="padding:1%">
+                                        <div class="slds-col slds-size_8-of-12" style="padding-top:4px;padding-left:3%">
+                                            <span>
+                                                {item.record.Description__c}
+                                            </span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-12" style="text-align:right;padding-top:4px;padding-right:3px">
+                                            <span>$</span>
+                                        </div>
+                                        <div class="slds-col slds-size_2-of-12">
+                                            <span>
+                                                <div class="slds-grid slds-wrap">
+                                                    <div class="slds-col slds-size_10-of-12">
+                                                        <span>
+                                                            <lightning-input 
+                                                                type="number" 
+                                                                name={item.record.Option_Code__c} 
+                                                                data-type="AdditionalAccessories" 
+                                                                data-sid={item.record.Id}           
+                                                                value={item.record.Invoice_Price__c} 
+                                                                variant="label-hidden"
+                                                                onchange={onSpecValueChange}>
+                                                            </lightning-input>
+                                                        </span>
+                                                    </div>
+                                                    <div class="slds-col slds-size_2-of-12" style="padding-left:5px;">
+                                                        <span>
+                                                            <template if:true={item.changesDetected}>
+                                                                <lightning-button-icon 
+                                                                    icon-name="utility:edit" 
+                                                                    name={item.record.Option_Code__c}
+                                                                    data-type="AdditionalAccessories" 
+                                                                    data-sid={item.record.Id}
+                                                                    onclick={confirmedValueChanges}
+                                                                    variant="brand">
+                                                                </lightning-button-icon>
+                                                            </template>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-12" style="text-align:center;">
+                                            <span>
+                                                <!-- <lightning-input 
+                                                    type="checkbox-button" 
+                                                    name="AdditionalAccessories"           
+                                                    value={item.record.Id} 
+                                                    onchange={trackCheckbox}
+                                                    checked={item.exist}>
+                                                </lightning-input> -->
+                                                <lightning-input 
+                                                    type="checkbox-button" 
+                                                    data-type="AdditionalAccessories"
+                                                    data-sid={item.record.Id}
+                                                    name={item.record.Option_Code__c} 
+                                                    onchange={trackCheckbox} 
+                                                    checked={item.exist}
+                                                    disabled={item.changesDetected}>
+                                                </lightning-input>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </template>
+                            </template>
+                            <template if:false={haveAA}>
+                                <div style="text-align:center;font-style:italic;padding:1%">
+                                    ---------- No Available Specs Found Under This Category ----------
+                                </div>
+                            </template>
+                        </div>
+                    </section>
+                </li>
+                <br />
+
+                <!-- Boutique Voucher -->
+                <li class="slds-accordion__list-item" style="padding-left:7%;padding-right:7%">
+                    <section data-id="BoutiqueVoucher" class="slds-accordion__section slds-box"
+                        style="background:white">
+                        <div class="slds-accordion__summary">
+                            <a class="slds-grid slds-accordion__summary-heading" onclick={collapseExpandSection}
+                                data-node="BoutiqueVoucher" aria-expanded="false"
+                                style="padding-left:1%;padding-right:1%;">
+                                <div class="slds-col" style="font-size:larger;font-weight:bold;color:#565B5B">
+                                    <lightning-icon icon-name="utility:product_workspace" style="padding-right:10px">
+                                    </lightning-icon>
+                                    Boutique Voucher ({countBV_}/{countBV})
+                                </div>
+                                <div class="slds-col" style="text-align:right">
+                                    <template if:false={bv_}>
+                                        <lightning-icon icon-name="utility:chevrondown">
+                                        </lightning-icon>
+                                    </template>
+                                    <template if:true={bv_}>
+                                        <lightning-icon icon-name="utility:chevronup">
+                                        </lightning-icon>
+                                    </template>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slds-accordion__content" style="font-size:large">
+                            <template if:true={haveBV}>
+                                <template for:each={BVs} for:item="item">
+                                    <div key={item.Id} class="slds-grid" style="padding:1%">
+                                        <div class="slds-col slds-size_8-of-12" style="padding-top:4px;padding-left:3%">
+                                            <span>
+                                                {item.record.Description__c}
+                                            </span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-12" style="text-align:right;padding-top:4px;padding-right:3px">
+                                            <span>$</span>
+                                        </div>
+                                        <div class="slds-col slds-size_2-of-12">
+                                            <span>
+                                                <div class="slds-grid slds-wrap">
+                                                    <div class="slds-col slds-size_10-of-12">
+                                                        <span>
+                                                            <lightning-input 
+                                                                type="number" 
+                                                                name={item.record.Option_Code__c} 
+                                                                data-type="BoutiqueVoucher"
+                                                                data-sid={item.record.Id}
+                                                                value={item.record.Invoice_Price__c} 
+                                                                variant="label-hidden"
+                                                                onchange={onSpecValueChange}>
+                                                            </lightning-input>
+                                                        </span>
+                                                    </div>
+                                                    <div class="slds-col slds-size_2-of-12" style="padding-left:5px;">
+                                                        <span>
+                                                            <template if:true={item.changesDetected}>
+                                                                <lightning-button-icon 
+                                                                    icon-name="utility:edit" 
+                                                                    name={item.record.Option_Code__c} 
+                                                                    data-type="BoutiqueVoucher" 
+                                                                    data-sid={item.record.Id}
+                                                                    onclick={confirmedValueChanges}
+                                                                    variant="brand">
+                                                                </lightning-button-icon>
+                                                            </template>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-12" style="text-align:center;">
+                                            <span>
+                                                <!-- <lightning-input 
+                                                    type="checkbox-button" 
+                                                    name="BoutiqueVoucher"
+                                                    value={item.record.Id} 
+                                                    onchange={trackCheckbox}
+                                                    checked={item.exist}>
+                                                </lightning-input> -->
+                                                <lightning-input 
+                                                    type="checkbox-button" 
+                                                    data-type="BoutiqueVoucher"
+                                                    data-sid={item.record.Id}
+                                                    name={item.record.Option_Code__c} 
+                                                    onchange={trackCheckbox} 
+                                                    checked={item.exist}
+                                                    disabled={item.changesDetected}>
+                                                </lightning-input>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </template>
+                            </template>
+                            <template if:false={haveBV}>
+                                <div style="text-align:center;font-style:italic;padding:1%">
+                                    ---------- No Available Specs Found Under This Category ----------
+                                </div>
+                            </template>
+                        </div>
+                    </section>
+                </li>
+                <br />
+
+                <!-- Other Dealer Fitted Options -->
+                <li class="slds-accordion__list-item" style="padding-left:7%;padding-right:7%">
+                    <section data-id="Others" class="slds-accordion__section slds-box" style="background:white">
+                        <div class="slds-accordion__summary">
+                            <a class="slds-grid slds-accordion__summary-heading" onclick={collapseExpandSection}
+                                data-node="Others" aria-expanded="false" style="padding-left:1%;padding-right:1%;">
+                                <div class="slds-col" style="font-size:larger;font-weight:bold;color:#565B5B">
+                                    <lightning-icon icon-name="utility:ribbon" style="padding-right:10px">
+                                    </lightning-icon>
+                                    Local Fitted Options ({countODF_}/{countODF})
+                                </div>
+                                <div class="slds-col" style="text-align:right">
+                                    <template if:false={odf_}>
+                                        <lightning-icon icon-name="utility:chevrondown">
+                                        </lightning-icon>
+                                    </template>
+                                    <template if:true={odf_}>
+                                        <lightning-icon icon-name="utility:chevronup">
+                                        </lightning-icon>
+                                    </template>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slds-accordion__content" style="font-size:large">
+                            <template if:true={haveODF}>
+                                <template for:each={ODFs} for:item="item">
+                                    <div key={item.Id} class="slds-grid" style="padding:1%">
+                                        <div class="slds-col slds-size_8-of-12" style="padding-top:4px;padding-left:3%">
+                                            <span>
+                                                {item.record.Description__c}
+                                            </span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-12" style="text-align:right;padding-top:4px;padding-right:3px">
+                                            <span>$</span>
+                                        </div>
+                                        <div class="slds-col slds-size_2-of-12">
+                                            <span>
+                                                <div class="slds-grid slds-wrap">
+                                                    <div class="slds-col slds-size_10-of-12">
+                                                        <span>
+                                                            <lightning-input 
+                                                                type="number" 
+                                                                name={item.record.Option_Code__c} 
+                                                                data-type="OtherDealerFitted"
+                                                                data-sid={item.record.Id}
+                                                                value={item.record.Invoice_Price__c} 
+                                                                variant="label-hidden"
+                                                                onchange={onSpecValueChange}>
+                                                            </lightning-input>
+                                                        </span>
+                                                    </div>
+                                                    <div class="slds-col slds-size_2-of-12" style="padding-left:5px;">
+                                                        <span>
+                                                            <template if:true={item.changesDetected}>
+                                                                <lightning-button-icon 
+                                                                    icon-name="utility:edit" 
+                                                                    name={item.record.Option_Code__c} 
+                                                                    data-type="OtherDealerFitted" 
+                                                                    data-sid={item.record.Id}
+                                                                    onclick={confirmedValueChanges}
+                                                                    variant="brand">
+                                                                </lightning-button-icon>
+                                                            </template>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-12" style="text-align:center;">
+                                            <span>
+                                                <!-- <lightning-input 
+                                                    type="checkbox-button" 
+                                                    name="OtherDealerFitted"
+                                                    value={item.record.Id} 
+                                                    onchange={trackCheckbox}
+                                                    checked={item.exist}>
+                                                </lightning-input> -->
+                                                <lightning-input 
+                                                    type="checkbox-button" 
+                                                    data-type="OtherDealerFitted"
+                                                    data-sid={item.record.Id}
+                                                    name={item.record.Option_Code__c} 
+                                                    onchange={trackCheckbox} 
+                                                    checked={item.exist}
+                                                    disabled={item.changesDetected}>
+                                                </lightning-input>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </template>
+                            </template>
+                            <template if:false={haveODF}>
+                                <div style="text-align:center;font-style:italic;padding:1%">
+                                    ---------- No Available Specs Found Under This Category ----------
+                                </div>
+                            </template>
+                        </div>
+                    </section>
+                </li>
+                <br />
+
+                <!-- Factory Options -->
+                <li class="slds-accordion__list-item" style="padding-left:7%;padding-right:7%">
+                    <section data-id="FactoryOptions" class="slds-accordion__section slds-box" style="background:white">
+                        <div class="slds-accordion__summary">
+                            <a class="slds-grid slds-accordion__summary-heading" onclick={collapseExpandSection}
+                                data-node="FactoryOptions" aria-expanded="false"
+                                style="padding-left:1%;padding-right:1%;">
+                                <div class="slds-col" style="font-size:larger;font-weight:bold;color:#565B5B">
+                                    <lightning-icon icon-name="utility:travel_and_places" style="padding-right:10px">
+                                    </lightning-icon>
+                                    Factory Options ({countFO_}/{countFO})
+                                </div>
+                                <div class="slds-col" style="text-align:right">
+                                    <template if:false={fo_}>
+                                        <lightning-icon icon-name="utility:chevrondown">
+                                        </lightning-icon>
+                                    </template>
+                                    <template if:true={fo_}>
+                                        <lightning-icon icon-name="utility:chevronup">
+                                        </lightning-icon>
+                                    </template>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slds-accordion__content" style="font-size:large">
+                            <template if:true={haveFO}>
+                                <template for:each={FOs} for:item="item">
+                                    <div key={item.Id} class="slds-grid" style="padding:1%">
+                                        <div class="slds-col slds-size_8-of-12" style="padding-top:4px;padding-left:3%">
+                                            <span>
+                                                {item.record.Description__c}
+                                            </span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-12" style="text-align:right;padding-top:4px;padding-right:3px">
+                                            <span>$</span>
+                                        </div>
+                                        <div class="slds-col slds-size_2-of-12">
+                                            <span>
+                                                <div class="slds-grid slds-wrap">
+                                                    <div class="slds-col slds-size_10-of-12">
+                                                        <span>
+                                                            <lightning-input 
+                                                                type="number" 
+                                                                name={item.record.Option_Code__c} 
+                                                                data-type="FactoryOptions"
+                                                                data-sid={item.record.Id}
+                                                                value={item.record.Invoice_Price__c} 
+                                                                variant="label-hidden"
+                                                                onchange={onSpecValueChange}>
+                                                            </lightning-input>
+                                                        </span>
+                                                    </div>
+                                                    <div class="slds-col slds-size_2-of-12" style="padding-left:5px;">
+                                                        <span>
+                                                            <template if:true={item.changesDetected}>
+                                                                <lightning-button-icon 
+                                                                    icon-name="utility:edit" 
+                                                                    name={item.record.Option_Code__c} 
+                                                                    data-type="FactoryOptions" 
+                                                                    data-sid={item.record.Id}
+                                                                    onclick={confirmedValueChanges} 
+                                                                    variant="brand">
+                                                                </lightning-button-icon>
+                                                            </template>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-12" style="text-align:center;">
+                                            <span>
+                                                <!-- <lightning-input 
+                                                    type="checkbox-button" 
+                                                    name="FactoryOptions"
+                                                    value={item.record.Id} 
+                                                    onchange={trackCheckbox}
+                                                    checked={item.exist}>
+                                                </lightning-input> -->
+                                                <lightning-input 
+                                                    type="checkbox-button" 
+                                                    data-type="FactoryOptions"
+                                                    data-sid={item.record.Id}
+                                                    name={item.record.Option_Code__c} 
+                                                    onchange={trackCheckbox} 
+                                                    checked={item.exist}
+                                                    disabled={item.changesDetected}>
+                                                </lightning-input>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </template>
+                            </template>
+                            <template if:false={haveFO}>
+                                <div style="text-align:center;font-style:italic;padding:1%">
+                                    ---------- No Available Specs Found Under This Category ----------
+                                </div>
+                            </template>
+                        </div>
+                    </section>
+                </li>
+                <br />
+
+            </ul>
+        </template>
+
+        <br />
+        <div style="text-align:center;padding-bottom:4%">
+            <!-- <button type="button" class="slds-button slds-button_brand" onclick={closeModal}
+                style="color:white;background-color:#565B5B;font-size:large;font-weight:bold;width:20%;padding-top:1%;padding-bottom:1%;">
+                Done
+            </button> -->
+            <button type="button" class="slds-button slds-button_brand" onclick={closeModal}
+                style="color:whitesmoke;background-color:#000000;font-size:x-large;width:20%;padding-top:1%;padding-bottom:1%">
+                Done
+            </button>
+        </div>
+
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

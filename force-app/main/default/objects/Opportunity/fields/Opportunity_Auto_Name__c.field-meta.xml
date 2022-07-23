@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity_Auto_Name__c</fullName>
+    <externalId>false</externalId>
+    <formula>If(!ISBLANK(Model_c__c), If(!ISBLANK( Contact_Person__c ), Contact_Person__r.LastName + &apos; - &apos; + Model_c__r.Name, Lead__r.LastName + &apos; - &apos; + Model_c__r.Name), If(!ISBLANK( Contact_Person__c ), Contact_Person__r.LastName, Lead__r.LastName))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Opportunity Auto Name</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

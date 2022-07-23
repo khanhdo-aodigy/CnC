@@ -1,0 +1,25 @@
+<aura:component controller="MultiPickListController" implements="lightning:availableForFlowScreens" access="global">
+
+    <!--Declare Event Handlers-->
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}" description="Call doInit function on component load to get picklist values"/>
+     
+    <!--Declare Attributes-->
+    <aura:attribute name="GenreList" type="List" default="[]" description="Genre Picklist Values"/>
+    <aura:attribute name="selectedGenreList" type="List" default="[]" description="Selected Genre Picklist Values" access="global"/>
+    <aura:attribute name="selectedGenreString" type="String" description="Genre Picklist Values" access="global"/>
+    <aura:attribute name="fieldname" type="String" description="field name" access="global"/>
+    <aura:attribute name="recordtype" type="String" description="record type name" access="global"/>
+    
+    <div class="slds-m-top_none">
+        <lightning:dualListbox aura:id="selectGenre"
+                               name="Genre"
+                               label="Select"
+                               sourceLabel="Available"
+                               selectedLabel="Selected"
+                               options="{!v.GenreList }"
+                               value="{!v.selectedGenreList}"
+                               onchange="{!c.handleGenreChange}"/>
+        <lightning:button variant="brand" label="Save" onclick="{!c.getSelectedGenre}" />
+    </div>
+    
+</aura:component>

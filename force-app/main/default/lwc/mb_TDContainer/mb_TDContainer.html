@@ -1,0 +1,17 @@
+<template>
+    <div style="background-color: white;">
+        <div class="slds-grid" data-id="td-se-info" style="padding-top: 2rem">
+            <div class="slds-col--padded slds-size--3-of-3">
+                <c-mb_-t-d-s-e-info></c-mb_-t-d-s-e-info>
+            </div>
+        </div>
+        <div class="slds-grid" data-id="td-vehicle-table" style="padding-top: 2rem; padding-bottom: 2rem;">
+            <div class="slds-col--padded slds-size--3-of-3">
+                <c-mb_-t-d-vehicles-summary onbooking={handleBooking}></c-mb_-t-d-vehicles-summary>
+            </div>
+        </div>
+        <div class="slds-var-p-around_small" style="display: none;" data-id="td-booking-detail">
+            <c-mb_-t-d-booking oncancel={handleCancelBooking}></c-mb_-t-d-booking>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,12 @@
+.THIS .slds-file-selector__text {
+    display: none;
+}
+
+.THIS .slds-file-selector__button {
+    padding-left: 2.5em;
+    padding-right: 2.5em;
+}
+
+.THIS .slds-file-selector__button:hover {
+    cursor: pointer;
+}

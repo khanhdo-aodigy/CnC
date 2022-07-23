@@ -1,0 +1,54 @@
+<aura:component controller="FileRequirementUploadController">    
+    
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="files" type="ContentDocument[]"/>
+    <aura:attribute name="fileRequirement" type="File_Requirements__mdt"/>
+    <aura:attribute name="userIsSysAdmin" type="Boolean"/>
+
+    <aura:registerEvent name="fileUploadEvent" type="c:FileUploadEvent"/>
+    
+    <lightning:navigation aura:id="navService"/>
+    <c:ServerActionService aura:id="serverService"/>
+
+    <lightning:card iconName="action:upload">
+        <aura:set attribute="title">       
+            <span class="slds-x-small-show-only slds-text-body_small">          
+                {#Upload + v.fileRequirement.Document_Name_for_Small_Screens__c}
+            </span>
+            <span class="slds-small-show-only slds-text-body_small">             
+                {#Upload + v.fileRequirement.Document_Name_for_Small_Screens__c}
+            </span>       
+            <span class="slds-medium-show">           
+                {#Upload + v.fileRequirement.Document_Name__c}
+            </span>                       
+        </aura:set>
+        <p class="slds-p-horizontal_small">
+            <lightning:fileUpload name="{#v.fileRequirement.Document_Name__c}"
+                                  multiple="{#greaterthan(v.fileRequirement.Max_Files__c, 1)}"
+                                  accept="{#v.fileRequirement.Allowed_Types__c}"
+                                  recordId="{#v.recordId}"
+                                  disabled="{!lessthanorequal(v.fileRequirement.Max_Files__c, v.files.length)}"
+                                  onuploadfinished="{!c.handleUploadFinished}"/>                    
+            <br/>
+            <aura:iteration items="{!v.files}" var="file">
+                <span class="slds-pill slds-pill_link">
+                    <span class="slds-pill__icon_container">
+                        <lightning:icon iconName="doctype:attachment" alternativeText="Attachment"/>
+                    </span>
+                    <a onclick="{!c.previewFile}" class="slds-pill__action" data-id="{#file.Id}">
+                        <span class="slds-pill__label">{#file.Title}</span>
+                    </a>
+                    <aura:if isTrue="{#v.userIsSysAdmin}">
+                        <button class="slds-button slds-button_icon slds-button_icon slds-pill__remove" title="Remove">
+                            <lightning:icon iconName="utility:close"
+                                            alternativeText="Delete Attachment"
+                                            onclick="{!c.removeFile}"
+                                            title="{#file.Id}"/>
+                        </button>
+                    </aura:if>
+                </span>
+            </aura:iteration>
+        </p>
+    </lightning:card>    
+    
+</aura:component>

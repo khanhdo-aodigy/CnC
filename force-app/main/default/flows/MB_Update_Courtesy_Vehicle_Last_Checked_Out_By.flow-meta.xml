@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>53.0</apiVersion>
+    <assignments>
+        <name>Update_Vehicle</name>
+        <label>Update Vehicle</label>
+        <locationX>50</locationX>
+        <locationY>575</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Courtesy_Vehicle.Last_Check_Out_By__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>User_Full_Name</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Courtesy_Vehicle.Is_Present__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Courtesy_Vehicle_Last_Check_Out_By</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Is_Vehicle_Checked_Out</name>
+        <label>Is Vehicle Checked Out?</label>
+        <locationX>182</locationX>
+        <locationY>335</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Check_Status</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Ongoing</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Courtesy_Vehicle</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Check Status</label>
+        </rules>
+    </decisions>
+    <formulas>
+        <name>User_Full_Name</name>
+        <dataType>String</dataType>
+        <expression>{!$User.FirstName} + &apos;  &apos; + {!$User.LastName}</expression>
+    </formulas>
+    <interviewLabel>MB Update Courtesy Vehicle Last Checked Out By {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>MB Update Courtesy Vehicle Last Checked Out By</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Courtesy_Vehicle</name>
+        <label>Get Courtesy Vehicle</label>
+        <locationX>50</locationX>
+        <locationY>455</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_Vehicle</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Courtesy_Vehicle__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Courtesy_Vehicle__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Last_Check_Out_By__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Courtesy_Vehicle_Last_Check_Out_By</name>
+        <label>Update Courtesy Vehicle Last Check Out By</label>
+        <locationX>50</locationX>
+        <locationY>695</locationY>
+        <inputReference>Get_Courtesy_Vehicle</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Is_Vehicle_Checked_Out</targetReference>
+        </connector>
+        <object>Vehicle_Request__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

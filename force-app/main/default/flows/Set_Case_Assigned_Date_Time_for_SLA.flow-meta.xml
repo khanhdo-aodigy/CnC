@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <processMetadataValues>
+            <name>ActionCallType</name>
+            <value>
+                <stringValue>flow</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>flowSelection</name>
+            <value>
+                <stringValue>Update Case Record with Assigned Date/time and SLA Process</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_1_A1</name>
+        <label>Update Case with Assigned Date/Time</label>
+        <locationX>100</locationX>
+        <locationY>200</locationY>
+        <actionName>Update_Case_Record_with_Assigned_Date_time_and_SLA_Process</actionName>
+        <actionType>flow</actionType>
+        <connector>
+            <targetReference>myRule_1_A2</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vCaseId</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vCaseId</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <processMetadataValues>
+            <name>apexSelection</name>
+            <value>
+                <stringValue>SetDeferredAssignedDateTime</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_1_A2</name>
+        <label>Update Case Deferred Assigned Date/Time</label>
+        <locationX>100</locationX>
+        <locationY>300</locationY>
+        <actionName>SetDeferredAssignedDateTime</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vCaseId</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vCaseId</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>49.0</apiVersion>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision</name>
+        <label>myDecision</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_1</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_1_pmetdec</targetReference>
+            </connector>
+            <label>Check for Change of Owner</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>myRule_1_pmetdec</name>
+        <label>Previously Met Decision</label>
+        <locationX>100</locationX>
+        <locationY>100</locationY>
+        <defaultConnector>
+            <targetReference>myRule_1_A1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Previously Met</defaultConnectorLabel>
+        <rules>
+            <name>myRule_1_pmetnullrule</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>myVariable_old</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_1_A1</targetReference>
+            </connector>
+            <label>Previously Met - Null</label>
+        </rules>
+        <rules>
+            <name>myRule_1_pmetrule</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_1_pmetrule</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Previously Met - Prev</label>
+        </rules>
+    </decisions>
+    <description>To update Case Assigned Date/Time when email2Case is assigned to Agent</description>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>
+AND(
+OR(ISPICKVAL([Case].Origin,&quot;Email&quot;),
+ISPICKVAL([Case].Origin,&quot;COMPASS&quot;),
+ISPICKVAL([Case].Origin,&quot;OAB&quot;), 
+ISPICKVAL([Case].Origin,&quot;Facebook&quot;), 
+ISPICKVAL([Case].Origin,&quot;Internet&quot;), 
+ISPICKVAL([Case].Origin,&quot;myMB iOS App&quot;), 
+ISPICKVAL([Case].Origin,&quot;myMB Android App&quot;), 
+ISPICKVAL([Case].Origin,&quot;myCNC iOS App&quot;), 
+ISPICKVAL([Case].Origin,&quot;myCNC Android App&quot;)
+),
+ISCHANGED([Case].OwnerId),
+BEGINS([Case].OwnerId, &quot;005&quot;),
+BEGINS(PRIORVALUE([Case].OwnerId), &quot;00G&quot;),
+[Case].Is_Case_Assigned_to_SA__c = false,
+NOT(ISNULL([Case].Deferred_Created_Date_Time__c)),
+OR(ISPICKVAL([Case].Status,&quot;New&quot;), ISPICKVAL([Case].Status,&quot;Open&quot;)),
+NOT( $Setup.Bypass_Automation_Settings__c.Bypass_Processes__c  )
+) 
+</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_1</name>
+        <dataType>Boolean</dataType>
+        <expression>
+AND(
+OR(ISPICKVAL({!myVariable_current.Origin},&quot;Email&quot;),
+ISPICKVAL({!myVariable_current.Origin},&quot;COMPASS&quot;),
+ISPICKVAL({!myVariable_current.Origin},&quot;OAB&quot;), 
+ISPICKVAL({!myVariable_current.Origin},&quot;Facebook&quot;), 
+ISPICKVAL({!myVariable_current.Origin},&quot;Internet&quot;), 
+ISPICKVAL({!myVariable_current.Origin},&quot;myMB iOS App&quot;), 
+ISPICKVAL({!myVariable_current.Origin},&quot;myMB Android App&quot;), 
+ISPICKVAL({!myVariable_current.Origin},&quot;myCNC iOS App&quot;), 
+ISPICKVAL({!myVariable_current.Origin},&quot;myCNC Android App&quot;)
+),
+ISCHANGED({!myVariable_current.OwnerId}),
+BEGINS({!myVariable_current.OwnerId}, &quot;005&quot;),
+BEGINS(PRIORVALUE({!myVariable_current.OwnerId}), &quot;00G&quot;),
+{!myVariable_current.Is_Case_Assigned_to_SA__c} = false,
+NOT(ISNULL({!myVariable_current.Deferred_Created_Date_Time__c})),
+OR(ISPICKVAL({!myVariable_current.Status},&quot;New&quot;), ISPICKVAL({!myVariable_current.Status},&quot;Open&quot;)),
+NOT( {!$Setup.Bypass_Automation_Settings__c.Bypass_Processes__c}  )
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>
+AND(
+OR(ISPICKVAL([Case].Origin,&quot;Email&quot;),
+ISPICKVAL([Case].Origin,&quot;COMPASS&quot;),
+ISPICKVAL([Case].Origin,&quot;OAB&quot;), 
+ISPICKVAL([Case].Origin,&quot;Facebook&quot;), 
+ISPICKVAL([Case].Origin,&quot;Internet&quot;), 
+ISPICKVAL([Case].Origin,&quot;myMB iOS App&quot;), 
+ISPICKVAL([Case].Origin,&quot;myMB Android App&quot;), 
+ISPICKVAL([Case].Origin,&quot;myCNC iOS App&quot;), 
+ISPICKVAL([Case].Origin,&quot;myCNC Android App&quot;)
+),
+ISCHANGED([Case].OwnerId),
+BEGINS([Case].OwnerId, &quot;005&quot;),
+BEGINS(PRIORVALUE([Case].OwnerId), &quot;00G&quot;),
+[Case].Is_Case_Assigned_to_SA__c = false,
+NOT(ISNULL([Case].Deferred_Created_Date_Time__c)),
+OR(ISPICKVAL([Case].Status,&quot;New&quot;), ISPICKVAL([Case].Status,&quot;Open&quot;)),
+NOT( $Setup.Bypass_Automation_Settings__c.Bypass_Processes__c  )
+) 
+</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_1_pmetrule</name>
+        <dataType>Boolean</dataType>
+        <expression>
+AND(
+OR(ISPICKVAL({!myVariable_old.Origin},&quot;Email&quot;),
+ISPICKVAL({!myVariable_old.Origin},&quot;COMPASS&quot;),
+ISPICKVAL({!myVariable_old.Origin},&quot;OAB&quot;), 
+ISPICKVAL({!myVariable_old.Origin},&quot;Facebook&quot;), 
+ISPICKVAL({!myVariable_old.Origin},&quot;Internet&quot;), 
+ISPICKVAL({!myVariable_old.Origin},&quot;myMB iOS App&quot;), 
+ISPICKVAL({!myVariable_old.Origin},&quot;myMB Android App&quot;), 
+ISPICKVAL({!myVariable_old.Origin},&quot;myCNC iOS App&quot;), 
+ISPICKVAL({!myVariable_old.Origin},&quot;myCNC Android App&quot;)
+),
+ISCHANGED({!myVariable_old.OwnerId}),
+BEGINS({!myVariable_old.OwnerId}, &quot;005&quot;),
+BEGINS(PRIORVALUE({!myVariable_old.OwnerId}), &quot;00G&quot;),
+{!myVariable_old.Is_Case_Assigned_to_SA__c} = false,
+NOT(ISNULL({!myVariable_old.Deferred_Created_Date_Time__c})),
+OR(ISPICKVAL({!myVariable_old.Status},&quot;New&quot;), ISPICKVAL({!myVariable_old.Status},&quot;Open&quot;)),
+NOT( {!$Setup.Bypass_Automation_Settings__c.Bypass_Processes__c}  )
+)</expression>
+    </formulas>
+    <interviewLabel>Set_Case_Assigned_Date_Time_for_SLA-13_InterviewLabel</interviewLabel>
+    <label>Set Case Assigned Date/Time for SLA</label>
+    <processMetadataValues>
+        <name>ObjectType</name>
+        <value>
+            <stringValue>Case</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>ObjectVariable</name>
+        <value>
+            <elementReference>myVariable_current</elementReference>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OldObjectVariable</name>
+        <value>
+            <elementReference>myVariable_old</elementReference>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>TriggerType</name>
+        <value>
+            <stringValue>onAllChanges</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Workflow</processType>
+    <startElementReference>myDecision</startElementReference>
+    <status>Active</status>
+    <variables>
+        <name>myVariable_current</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Case</objectType>
+    </variables>
+    <variables>
+        <name>myVariable_old</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Case</objectType>
+    </variables>
+</Flow>

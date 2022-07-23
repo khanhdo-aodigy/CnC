@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION">
+    <aura:attribute name="fileReq" type="File_Requirements__mdt"/>
+    <aura:attribute name="file" type="ContentDocument"/>
+    <aura:attribute name="uploadedOrDeleted" type="Boolean" description="True if file uploaded, false if deleted"/>
+</aura:event>

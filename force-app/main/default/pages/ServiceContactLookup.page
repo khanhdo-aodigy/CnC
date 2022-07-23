@@ -1,0 +1,4 @@
+<apex:page showHeader="false" sidebar="false" controller="ServiceContactLookup" action="{!getContactFromPhone}" cache="false">
+    <!-- CGaylan: this page is meant to be empty;
+        this is for redirecting only -->
+</apex:page>

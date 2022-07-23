@@ -1,0 +1,24 @@
+<template>
+  <div class={detailStyle}>
+    <lightning-input type="number" label="Amount" required variant="label-inline" name="amount" onchange={onValueChanged} value={amount} 
+                     step=".01" readonly={isEdit} class ="amount"></lightning-input>
+    <template if:true={isEdit}>
+        <lightning-input type="text" label="Request By" required variant="label-inline" name="requestBy" value={requestByName} read-only="true"></lightning-input>
+    </template>
+    <template if:false={isEdit}>
+      <div class={lookUpStyle}>
+        <span class="slds-form-element__label">
+          <abbr class="slds-required" title="required">*</abbr>Request By
+        </span>
+        <div class="slds-form-element__control">
+          <c-lookup-component s-obj-api-name="User" icon-name="standard:avatar" onvaluechanged={onValueChangedDetected} class="requestBy"></c-lookup-component>
+        </div>
+        <div class="slds-form-element__help" id="form-error-01">{errorMsg}</div>
+      </div>  
+    </template> 
+    <lightning-input type="text" label="DSA Number" required variant="label-inline" name="dsaNo" onchange={onValueChanged} value={dsaNo} 
+                     readonly={isEdit} class="dsaNo"></lightning-input>
+    <lightning-input type="text" label="Remarks" required variant="label-inline" name="remarks" onchange={onValueChanged} value={remarks} 
+                     maxlength="250" readonly={isEdit} class="remarks"></lightning-input>
+  </div>
+</template>

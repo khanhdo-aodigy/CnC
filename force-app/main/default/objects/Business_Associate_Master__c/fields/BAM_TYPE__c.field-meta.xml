@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BAM_TYPE__c</fullName>
+    <externalId>false</externalId>
+    <label>BAM_TYPE</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>FIN</fullName>
+                <default>false</default>
+                <label>FIN</label>
+            </value>
+            <value>
+                <fullName>INS</fullName>
+                <default>false</default>
+                <label>INS</label>
+            </value>
+            <value>
+                <fullName>USC</fullName>
+                <default>false</default>
+                <label>USC</label>
+            </value>
+            <value>
+                <fullName>EXSRC</fullName>
+                <default>false</default>
+                <label>EXSRC</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

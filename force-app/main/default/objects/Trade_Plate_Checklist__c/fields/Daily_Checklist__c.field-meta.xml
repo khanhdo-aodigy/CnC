@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Daily_Checklist__c</fullName>
+    <externalId>false</externalId>
+    <label>Daily Checklist</label>
+    <referenceTo>Daily_Checklist__c</referenceTo>
+    <relationshipLabel>Trade Plate Checklists</relationshipLabel>
+    <relationshipName>Trade_Plate_Checklists</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

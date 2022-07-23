@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Person_Recommending_to_Blacklist__c</fullName>
+    <externalId>false</externalId>
+    <label>Person Recommending to Blacklist</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Willie Neo</fullName>
+                <default>false</default>
+                <label>Willie Neo</label>
+            </value>
+            <value>
+                <fullName>Serene Chia</fullName>
+                <default>false</default>
+                <label>Serene Chia</label>
+            </value>
+            <value>
+                <fullName>Salim Nawer</fullName>
+                <default>false</default>
+                <label>Salim Nawer</label>
+            </value>
+            <value>
+                <fullName>Steven Gue</fullName>
+                <default>false</default>
+                <label>Steven Gue</label>
+            </value>
+            <value>
+                <fullName>Dawn Pan</fullName>
+                <default>false</default>
+                <label>Dawn Pan</label>
+            </value>
+            <value>
+                <fullName>Collin Teo</fullName>
+                <default>false</default>
+                <label>Collin Teo</label>
+            </value>
+            <value>
+                <fullName>Dave Wong</fullName>
+                <default>false</default>
+                <label>Dave Wong</label>
+            </value>
+            <value>
+                <fullName>MB Sales</fullName>
+                <default>false</default>
+                <label>MB Sales</label>
+            </value>
+            <value>
+                <fullName>Mktg</fullName>
+                <default>false</default>
+                <label>Mktg</label>
+            </value>
+            <value>
+                <fullName>Watson Tan</fullName>
+                <default>false</default>
+                <label>Watson Tan</label>
+            </value>
+            <value>
+                <fullName>Ronnie Lim</fullName>
+                <default>false</default>
+                <label>Ronnie Lim</label>
+            </value>
+            <value>
+                <fullName>Gary Chan</fullName>
+                <default>false</default>
+                <label>Gary Chan</label>
+            </value>
+            <value>
+                <fullName>Andy Wee</fullName>
+                <default>false</default>
+                <label>Andy Wee</label>
+            </value>
+            <value>
+                <fullName>Junn Chia</fullName>
+                <default>false</default>
+                <label>Junn Chia</label>
+            </value>
+            <value>
+                <fullName>Celeste Chen</fullName>
+                <default>false</default>
+                <label>Celeste Chen</label>
+            </value>
+            <value>
+                <fullName>Andrew Lim</fullName>
+                <default>false</default>
+                <label>Andrew Lim</label>
+            </value>
+            <value>
+                <fullName>Bryan Heng</fullName>
+                <default>false</default>
+                <label>Bryan Heng</label>
+            </value>
+            <value>
+                <fullName>Gene Chow</fullName>
+                <default>false</default>
+                <label>Gene Chow</label>
+            </value>
+            <value>
+                <fullName>Dennis Bay</fullName>
+                <default>false</default>
+                <label>Dennis Bay</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>10</visibleLines>
+</CustomField>

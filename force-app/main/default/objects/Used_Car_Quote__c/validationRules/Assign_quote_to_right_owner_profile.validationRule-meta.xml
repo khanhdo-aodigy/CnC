@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assign_quote_to_right_owner_profile</fullName>
+    <active>true</active>
+    <errorConditionFormula>RecordType.Name = &apos;MF Quote&apos; &amp;&amp;  Owner:User.Profile.Name = &apos;MB Purchaser&apos; ||
+RecordType.Name = &apos;MB Quote&apos; &amp;&amp;  Owner:User.Profile.Name = &apos;MF Purchaser&apos;</errorConditionFormula>
+    <errorMessage>MF (MB) Quote can only be assigned to owners with MF (MB) Purchaser Profile</errorMessage>
+</ValidationRule>

@@ -1,0 +1,22 @@
+<template>
+    <div class="d-flex">
+        <div class="text mr-auto p-2">{label}</div>
+        <div class="cta p-2">
+          <div data-apiname={fieldAPIName}  class="input-field d-none">
+                <input type={inputType} class={inputClass} 
+                name={fieldAPIName} id={fieldAPIName} 
+                aria-required="true" placeholder={placeholder}
+                value={fieldValue} pattern={pattern} 
+                maxlength={maxLength} onchange={onValueChanged}
+                disabled={disableField} min="0">
+
+
+            <a data-clearname={fieldAPIName} class="clear" href="#" onclick={onClear}>
+                <c-img-cmp url-to-resource='/BootStrap/images/icons/clear.svg'></c-img-cmp>
+            </a> 
+          </div>
+
+          <a data-addname={fieldAPIName} onclick={onAdd} href="#" class="btn-add">Add</a>
+        </div>
+      </div>  
+</template>
