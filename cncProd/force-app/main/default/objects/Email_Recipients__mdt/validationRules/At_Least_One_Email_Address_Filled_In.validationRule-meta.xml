@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>At_Least_One_Email_Address_Filled_In</fullName>
-    <active>true</active>
-    <errorConditionFormula>ISBLANK(BCC_Addresses__c) &amp;&amp;
-ISBLANK(CC_Addresses__c) &amp;&amp;
-ISBLANK(Recipient_Addresses__c)</errorConditionFormula>
-    <errorMessage>Please fill in at least 1 email address</errorMessage>
-</ValidationRule>

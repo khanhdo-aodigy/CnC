@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Vehicle_Deposit_cannot_be_empty</fullName>
-    <active>true</active>
-    <errorConditionFormula>if(ISBLANK(Vehicle_Deposit__c) &amp;&amp; ISNULL(Vehicle_Deposit__c),true,false)
-&amp;&amp; NOT( $Setup.Bypass_Automation_Settings__c.Bypass_Validation_Rules__c )</errorConditionFormula>
-    <errorMessage>Vehicle Deposit cannot be empty. Minimum value is 0.</errorMessage>
-</ValidationRule>

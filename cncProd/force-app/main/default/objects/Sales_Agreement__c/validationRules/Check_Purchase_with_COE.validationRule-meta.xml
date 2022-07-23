@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Check_Purchase_with_COE</fullName>
-    <active>true</active>
-    <errorConditionFormula>AND(OR(TEXT(PurchasewithCOE__c) = &apos;No&apos;, ISBLANK(TEXT(PurchasewithCOE__c))),
-    TEXT(Stage__c) = &apos;COE Bidding&apos;) &amp;&amp; NOT( $Setup.Bypass_Automation_Settings__c.Bypass_Validation_Rules__c )</errorConditionFormula>
-    <errorMessage>Customer did not purchase with COE, you can not enter COE Bidding Stage</errorMessage>
-</ValidationRule>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>CCI_Campaign_Promotion_Must_Have_Type</fullName>
-    <active>true</active>
-    <errorConditionFormula>AND(TEXT(Branch_Code__c) = &apos;CCI&apos;, TEXT(Type) = &apos;Promotions&apos;, ISBLANK(TEXT(Promotion_Type__c)))
-&amp;&amp; NOT( $Setup.Bypass_Automation_Settings__c.Bypass_Validation_Rules__c )</errorConditionFormula>
-    <errorDisplayField>Promotion_Type__c</errorDisplayField>
-    <errorMessage>Please indicate the Promotion Type</errorMessage>
-</ValidationRule>

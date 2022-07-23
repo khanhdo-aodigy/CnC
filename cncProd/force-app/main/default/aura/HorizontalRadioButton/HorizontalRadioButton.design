@@ -1,6 +1,0 @@
-<design:component>
-    <design:attribute name="optionLabels" label="Option Labels"/>
-    <design:attribute name="optionValues" label="Option Values"/>
-    <design:attribute name="selectedVal" label="Selected Value"/>
-    <design:attribute name="radioGroupLabel" label="Radio Group Label"/>
-</design:component>

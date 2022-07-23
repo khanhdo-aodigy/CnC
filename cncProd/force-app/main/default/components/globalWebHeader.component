@@ -1,3 +1,0 @@
-<apex:component controller="GetHeader" layout="none">     
-    <apex:outputText value="{!header}" escape="false"/>
-</apex:component>

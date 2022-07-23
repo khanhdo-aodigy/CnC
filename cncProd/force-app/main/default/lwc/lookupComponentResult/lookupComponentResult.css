@@ -1,8 +1,0 @@
-.media-figure {
-  margin-right: var(--lwc-spacingXSmall, 0.5rem);
-  flex-shrink: 0;
-}
-
-.auto-margin {
-  margin: auto;
-}

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Model_and_Brand_Must_Match</fullName>
-    <active>true</active>
-    <errorConditionFormula>AND(RecordType.DeveloperName = &apos;C_C_Campaign_RT_Sales_Targeted_Promo&apos;, Model_Master__c &lt;&gt; null, TEXT(Branch_Code__c) &lt;&gt; TEXT(Model_Master__r.Branch_Code__c))</errorConditionFormula>
-    <errorDisplayField>Model_Master__c</errorDisplayField>
-    <errorMessage>Model and Brand Must Match.</errorMessage>
-</ValidationRule>

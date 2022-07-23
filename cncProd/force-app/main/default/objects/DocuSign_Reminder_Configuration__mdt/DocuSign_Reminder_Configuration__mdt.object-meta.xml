@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Configuration for DocuSign reminder</description>
-    <label>DocuSign Reminder Configuration</label>
-    <pluralLabel>DocuSign Reminder Configurations</pluralLabel>
-    <visibility>Public</visibility>
-</CustomObject>

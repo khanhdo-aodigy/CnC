@@ -1,3 +1,0 @@
-<apex:component layout="none" Controller="GlobalWebFooter">
-     <apex:outputText value="{!footer}" escape="false"/>
-</apex:component>
