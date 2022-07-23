@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Target_Audience__c</fullName>
+    <externalId>false</externalId>
+    <label>Target Audience</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Public and Targeted</fullName>
+                <default>false</default>
+                <label>Public and Targeted</label>
+            </value>
+            <value>
+                <fullName>Targeted Only</fullName>
+                <default>false</default>
+                <label>Targeted Only</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

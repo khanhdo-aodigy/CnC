@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Recipient_Type__c</fullName>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Recipient Type</label>
+    <required>true</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Signer</fullName>
+                <default>true</default>
+                <label>Signer</label>
+            </value>
+            <value>
+                <fullName>Agent</fullName>
+                <default>false</default>
+                <label>Agent</label>
+            </value>
+            <value>
+                <fullName>Editor</fullName>
+                <default>false</default>
+                <label>Editor</label>
+            </value>
+            <value>
+                <fullName>Intermediary</fullName>
+                <default>false</default>
+                <label>Intermediary</label>
+            </value>
+            <value>
+                <fullName>Carbon copy</fullName>
+                <default>false</default>
+                <label>Carbon copy</label>
+            </value>
+            <value>
+                <fullName>Certified delivery</fullName>
+                <default>false</default>
+                <label>Certified delivery</label>
+            </value>
+            <value>
+                <fullName>In person signer</fullName>
+                <default>false</default>
+                <label>In person signer</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

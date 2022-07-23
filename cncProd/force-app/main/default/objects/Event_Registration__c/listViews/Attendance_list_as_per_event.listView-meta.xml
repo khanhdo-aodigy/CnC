@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Attendance_list_as_per_event</fullName>
+    <columns>Attendance_check__c</columns>
+    <columns>PromoID__c</columns>
+    <columns>FirstName__c</columns>
+    <columns>LastName__c</columns>
+    <columns>Email__c</columns>
+    <columns>MobilePhone__c</columns>
+    <columns>Showroom__c</columns>
+    <columns>NumberOfGuests__c</columns>
+    <columns>NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>PromoID__c</field>
+        <operation>equals</operation>
+        <value>Mitsubishi Dreamscape Fountain Making &amp; 2021 Feng Shui Workshop</value>
+    </filters>
+    <label>Attendance list as per event</label>
+</ListView>

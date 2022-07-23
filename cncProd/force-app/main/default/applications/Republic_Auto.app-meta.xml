@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <defaultLandingTab>standard-home</defaultLandingTab>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <label>Republic Auto</label>
+    <tabs>standard-report</tabs>
+    <tabs>standard-Account</tabs>
+    <tabs>standard-Contact</tabs>
+    <tabs>Sales_Opportunity__c</tabs>
+    <tabs>Vehicle_Stock_Reservation__c</tabs>
+    <tabs>Purchase_Option__c</tabs>
+    <tabs>Used_Car_Vehicle_Stock__c</tabs>
+    <tabs>Schedule_Viewing__c</tabs>
+    <tabs>General_Enquiry__c</tabs>
+    <tabs>Price_Alert_for_Non_MF__c</tabs>
+    <tabs>Model_Subscribed__c</tabs>
+    <tabs>Model_Subscribed_Staging__c</tabs>
+    <tabs>Model_Alert_Subscription__c</tabs>
+    <tabs>Vehicle_Pricing_Option__c</tabs>
+    <tabs>Pricing_Option_Add_on__c</tabs>
+    <tabs>Person_Account_Profiling__c</tabs>
+</CustomApplication>

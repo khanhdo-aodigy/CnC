@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Citroen_Test_Drive_Manager</fullName>
+    <columns>NAME</columns>
+    <columns>Check_In__c</columns>
+    <columns>Check_Out__c</columns>
+    <columns>Model__c</columns>
+    <columns>Average_TestDrive__c</columns>
+    <columns>Prospect__c</columns>
+    <columns>Source__c</columns>
+    <columns>OWNER.FIRST_NAME</columns>
+    <columns>OWNER.LAST_NAME</columns>
+    <columns>LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Franchise_Code__c</field>
+        <operation>equals</operation>
+        <value>CITPC</value>
+    </filters>
+    <filters>
+        <field>OWNER.FIRST_NAME</field>
+        <operation>contains</operation>
+        <value>Dave</value>
+    </filters>
+    <label>Citroen Test Drive Manager</label>
+    <sharedTo>
+        <role>CITPC_Sales_Manager</role>
+    </sharedTo>
+</ListView>

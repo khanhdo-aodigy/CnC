@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_C_C_Individual_Reward_Profile</fullName>
+    <columns>NAME</columns>
+    <columns>Contact__c</columns>
+    <columns>Registered_Vehicle__c</columns>
+    <columns>Branch__c</columns>
+    <columns>Brand__c</columns>
+    <columns>Type__c</columns>
+    <columns>Total_Credit__c</columns>
+    <columns>Total_Debited_Usage__c</columns>
+    <columns>Total_Credited_Usage__c</columns>
+    <columns>Total_Remainder__c</columns>
+    <columns>Unique_Key__c</columns>
+    <columns>RECORDTYPE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Reward_Profile__c.Individual</value>
+    </filters>
+    <label>All C&amp;C Individual Reward Profile</label>
+</ListView>

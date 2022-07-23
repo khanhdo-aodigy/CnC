@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>sw01_last_synced_at__c</fullName>
+    <description>Last time that Saleswhale pulled information from this resource</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Last time that Saleswhale pulled information from this resource</inlineHelpText>
+    <label>Saleswhale Last Synced Time</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>DateTime</type>
+</CustomField>

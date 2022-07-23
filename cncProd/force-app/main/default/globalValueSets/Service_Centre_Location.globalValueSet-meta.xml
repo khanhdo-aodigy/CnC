@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Mercedes Benz Service Center Pandan Loop</fullName>
+        <default>false</default>
+        <label>Mercedes Benz Service Center Pandan Loop</label>
+    </customValue>
+    <customValue>
+        <fullName>Mercedes Benz Service Center Eunos</fullName>
+        <default>false</default>
+        <label>Mercedes Benz Service Center Eunos</label>
+    </customValue>
+    <customValue>
+        <fullName>Mercedes Benz Service Center Alexandra</fullName>
+        <default>false</default>
+        <label>Mercedes Benz Service Center Alexandra</label>
+    </customValue>
+    <customValue>
+        <fullName>Mercedes-Benz Commercial Vehicle Service Center Pandan Garden</fullName>
+        <default>false</default>
+        <label>Mercedes-Benz Commercial Vehicle Service Center Pandan Garden</label>
+    </customValue>
+    <customValue>
+        <fullName>Leng Kee Service Centre</fullName>
+        <default>false</default>
+        <label>Leng Kee Service Centre</label>
+    </customValue>
+    <customValue>
+        <fullName>Sin Ming Service Centre</fullName>
+        <default>false</default>
+        <label>Sin Ming Service Centre</label>
+    </customValue>
+    <masterLabel>Service Centre Location</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

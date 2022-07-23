@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>register_your_interest_stonic</fullName>
+    <columns>CREATED_DATE</columns>
+    <columns>Opportunity__c</columns>
+    <columns>PromoID__c</columns>
+    <columns>ContactId__c</columns>
+    <columns>LeadId__c</columns>
+    <columns>MobilePhone__c</columns>
+    <columns>NumberOfGuests__c</columns>
+    <columns>PDPA__c</columns>
+    <columns>OWNER.FIRST_NAME</columns>
+    <columns>CREATEDBY_USER.ALIAS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>PromoID__c</field>
+        <operation>equals</operation>
+        <value>Register your interest (Stonic)</value>
+    </filters>
+    <label>Register Your Interest Stonic</label>
+</ListView>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Number_Of_Nill__c</fullName>
+    <description>Count the number of recipients with role nill</description>
+    <externalId>false</externalId>
+    <label>Number Of Nill</label>
+    <summaryFilterItems>
+        <field>DocuSign_Recipient__c.Signing_Role__c</field>
+        <operation>notEqual</operation>
+        <value>Endorser, Approver</value>
+    </summaryFilterItems>
+    <summaryForeignKey>DocuSign_Recipient__c.Signing_Group__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

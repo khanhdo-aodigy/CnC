@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CIT_Showroom</fullName>
+    <columns>NAME</columns>
+    <columns>Franchise_Code__c</columns>
+    <columns>Type__c</columns>
+    <columns>Status__c</columns>
+    <columns>Comm_No__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Franchise_Code__c</field>
+        <operation>equals</operation>
+        <value>CITPC</value>
+    </filters>
+    <filters>
+        <field>Type__c</field>
+        <operation>equals</operation>
+        <value>Showroom</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Sold</value>
+    </filters>
+    <label>CIT Showroom</label>
+</ListView>

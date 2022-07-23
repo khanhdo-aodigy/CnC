@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Kia</fullName>
+    <columns>NAME</columns>
+    <columns>BranchCode__c</columns>
+    <columns>ACM_ACCSCD__c</columns>
+    <columns>ACM_MDM_MODELCD__c</columns>
+    <columns>ACM_ACCSDESC__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ACM_ACCSCD__c</field>
+        <operation>equals</operation>
+        <value>SVC1800</value>
+    </filters>
+    <label>All Kia</label>
+</ListView>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Disallow_Edit_During_AM_DP_DC</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    $Profile.Name &lt;&gt; &apos;System Administrator&apos;, 
+    OR(
+        AND( TEXT(PRIORVALUE(Status__c)) = &quot;AM&quot;, ISPICKVAL( Status__c , &quot;AM&quot;) ),
+        AND( TEXT(PRIORVALUE(Status__c)) = &quot;RJ&quot;, ISPICKVAL( Status__c , &quot;RJ&quot;) ),
+        AND( TEXT(PRIORVALUE(Status__c)) = &quot;CN&quot;, ISPICKVAL( Status__c , &quot;CN&quot;) ),
+        AND( TEXT(PRIORVALUE(Status__c)) = &quot;DP&quot;, ISPICKVAL( Status__c , &quot;DP&quot;) ),
+        AND( TEXT(PRIORVALUE(Status__c)) = &quot;DC&quot;, ISPICKVAL( Status__c , &quot;DC&quot;) ) 
+    )
+)
+&amp;&amp; NOT( $Setup.Bypass_Automation_Settings__c.Bypass_Validation_Rules__c )</errorConditionFormula>
+    <errorMessage>Edit is not allowed during AM, DP, and DC</errorMessage>
+</ValidationRule>

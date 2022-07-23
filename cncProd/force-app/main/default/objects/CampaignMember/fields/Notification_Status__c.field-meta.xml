@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Notification_Status__c</fullName>
+    <externalId>false</externalId>
+    <label>Notification Status</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Open</fullName>
+                <default>true</default>
+                <label>Open</label>
+            </value>
+            <value>
+                <fullName>Push</fullName>
+                <default>false</default>
+                <label>Push</label>
+            </value>
+            <value>
+                <fullName>No device token</fullName>
+                <default>false</default>
+                <label>No device token</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

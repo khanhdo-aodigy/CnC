@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Has_NRIC_Photo_Uploaded__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>To check whether SC has uploaded NRIC photos during book test drive.
+This field is used for reporting purpose</description>
+    <externalId>false</externalId>
+    <label>NRIC Photo Uploaded?</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

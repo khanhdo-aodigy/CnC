@@ -1,0 +1,59 @@
+<template>
+    <div class="modal-backdrop"></div>
+    <template if:true={spinner}>
+        <div class="d-flex justify-content-center centralisedAbsolute">
+            <div class="spinner-border m-5" role="status" style="width: 3rem; height: 3rem;">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </template>
+    <template if:false={spinner}>
+        <div class="modal-dialog">
+            <div class="modal-content additionalModalCSS">
+                <template if:true={commissionStatus}>
+                    <div style="text-align:center;font-size:x-large;margin-top:20%;margin-bottom:20%;color:#485e71">
+                        Your commission has been sent for approval.
+                        <br />
+                        We will proceed to generate/email the DSA PDF.
+                    </div>
+                </template>
+
+                <template if:false={commissionStatus}>
+                    <div>
+                        <h3 style="text-align:center;font-size:xx-large;margin-top:5%;margin-bottom:5%;color:#485e71">Commission Form
+                        </h3>
+                        <div class="btn-box justify-content-between">
+                            <c-input-field-as-box-cmp input-type="text" label="Commission Amount"
+                                input-class="others-input input-numbers-only" field-a-p-i-name="Proposed_Commission__c"
+                                onvaluechanged={onValueChanged} pattern="\d*" placeholder=""
+                                default-value={defaultCommissionValue}>
+                            </c-input-field-as-box-cmp>
+                        </div>
+
+                        <div class="form-group" style="color:#0a9cfb">
+                            <c-input-field-as-cmp input-type="text" input-class="form-control" placeholder="Type here"
+                                label="Comments" field-a-p-i-name="Proposed_Commission_Reason__c"
+                                onvaluechanged={onValueChanged} focuson="true">
+                                <div slot="bottomOfInputField">
+                                    <span class="message" style="color:#516173">{commissionDescription}</span>
+                                </div>
+                            </c-input-field-as-cmp>
+                        </div>
+                    </div>
+
+                    <!-- Review Page only have 'Save and Cancel' -->
+                    <div class="modal-footer">
+                        <!--
+                        <button type="button" class="btn btn-custom btn-xs"
+                            style="width:40%;border-color:#2196f3;border-radius:20px;border-width:thin;border-style:solid;font-weight:bold"
+                            onclick={cancelSubmission}>Cancel</button>
+                        -->
+                        <button type="button" class="btn btn-primary"
+                            style="width:60%;border-width:thin;border-style:solid;height:85px"
+                            onclick={submitCommission}>Submit for Approval</button>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </template>
+</template>

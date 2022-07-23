@@ -1,0 +1,11 @@
+.THIS table th {
+    padding: 0.5rem;
+}
+
+.THIS table td {
+    padding: 0.5rem;
+}
+
+.THIS table td:hover {
+    background-color: white !important;
+}

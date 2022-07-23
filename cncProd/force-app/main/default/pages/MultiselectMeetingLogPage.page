@@ -1,0 +1,21 @@
+<apex:page standardController="Meeting_Log_V2__c" extensions="MultiselectMeetingLogController">
+    <apex:detail title="true" relatedList="false"/>
+        <apex:form >
+        <apex:pageBlock title="Select Participants">
+            <c:MultiselectPicklist leftLabel="Available User"
+                leftOption="{!allUser}"
+                rightLabel="Selected User"
+                rightOption="{!selectedUser}"
+                size="14"
+                width="300px"/>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Save" action="{!save}"/>
+            </apex:pageBlockButtons>
+    <apex:outputText >{!message}</apex:outputText>
+        </apex:pageBlock>
+    </apex:form>
+	<apex:relatedList subject="{!Meeting_Log_V2__c}" list="Agendas__r"/>
+    <apex:relatedList subject="{!Meeting_Log_V2__c}" list="OpenActivities"/>
+    <apex:relatedList subject="{!Meeting_Log_V2__c}" list="ActivityHistories" />
+
+</apex:page>

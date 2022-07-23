@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unassigned_Mobile_App_Queue_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>Unassigned Mobile App Queue</label>
+    <queue>Unassigned_Mobile_App_Queue</queue>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

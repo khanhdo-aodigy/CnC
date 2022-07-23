@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Broadcast</fullName>
+    <active>true</active>
+    <description>Broadcast-typed Customer Alert</description>
+    <label>Broadcast</label>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>deleted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>read</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>unread</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>SubType__c</picklist>
+        <values>
+            <fullName>E-shop</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Evergreen Promotion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Notice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Paid Event</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Promotion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Targeted Promo</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type__c</picklist>
+        <values>
+            <fullName>Broadcast</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

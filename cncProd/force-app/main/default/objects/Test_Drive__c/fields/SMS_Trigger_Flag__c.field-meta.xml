@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SMS_Trigger_Flag__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Boolean field to cater for &quot;Update&quot; entry criteria in GFB Test Drive SMS journey</description>
+    <externalId>false</externalId>
+    <label>SMS Trigger Flag</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Promotion_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Promotion Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>eShop Value Bundle Promotion</fullName>
+                <default>false</default>
+                <label>eShop Value Bundle Promotion</label>
+            </value>
+            <value>
+                <fullName>MB Protector Plus</fullName>
+                <default>false</default>
+                <label>MB Protector Plus</label>
+            </value>
+            <value>
+                <fullName>MB B&amp;P 120 Promotion</fullName>
+                <default>false</default>
+                <label>MB Promotions</label>
+            </value>
+            <value>
+                <fullName>CCS FB Contests</fullName>
+                <default>false</default>
+                <label>CCS FB Contests</label>
+            </value>
+            <value>
+                <fullName>Maxus Lead Gen Ads</fullName>
+                <default>false</default>
+                <label>Maxus Ads</label>
+            </value>
+            <value>
+                <fullName>C&amp;C 120th Anniversary Promotion</fullName>
+                <default>false</default>
+                <label>C&amp;C 120th Anniversary Promotion</label>
+            </value>
+            <value>
+                <fullName>KIA 9.9 Promotion</fullName>
+                <default>false</default>
+                <label>KIA 9.9 Promotion</label>
+            </value>
+            <value>
+                <fullName>Media Survey</fullName>
+                <default>false</default>
+                <label>Media Survey</label>
+            </value>
+            <value>
+                <fullName>11.11 Sales</fullName>
+                <default>false</default>
+                <label>11.11 Sales</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

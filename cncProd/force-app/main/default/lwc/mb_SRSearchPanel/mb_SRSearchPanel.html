@@ -1,0 +1,97 @@
+<template>
+    <article class="slds-card">
+        <div class="slds-col searchPanel">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-2 slds-var-p-around_xx-small">
+                    <lightning-combobox data-id="mb-sr-model"
+                                        data-type="sr-inputs"
+                                        name="modelId"
+                                        options={availableModelOptions}
+                                        label="Model"
+                                        onchange={handleInputChanged}></lightning-combobox>
+
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-var-p-around_xx-small">
+                    <lightning-combobox data-id="mb-sr-variant"
+                                        data-type="sr-inputs"
+                                        name="variant"
+                                        options={availableVariantOptions}
+                                        label="Variant"
+                                        onchange={handleInputChanged}></lightning-combobox>
+                </div>
+            </div>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-2 slds-var-p-around_xx-small">
+                    <lightning-combobox data-id="mb-sr-promo"
+                                        data-type="sr-inputs"
+                                        name="promo"
+                                        options={availablePromoOptions}
+                                        label="Promotion"
+                                        onchange={handleInputChanged}></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-var-p-around_xx-small">
+                    <lightning-combobox data-id="mb-sr-edd"
+                                        data-type="sr-inputs"
+                                        name="edd"
+                                        options={availableEDDOptions}
+                                        label="Estimated Delivery Date"
+                                        onchange={handleInputChanged}></lightning-combobox>
+                </div>
+            </div>
+            <div class="slds-grid slds-wrap slds-var-p-bottom_xx-large slds-var-p-top_medium">
+                <div class="slds-col slds-size_1-of-3 slds-var-p-right_large">
+                    <lightning-dual-listbox data-id="mb-sr-colour"
+                                            data-type="sr-inputs"
+                                            name="colours"
+                                            label="Colour"
+                                            source-label="Available"
+                                            selected-label="Selected"
+                                            field-level-help="Select available colours"
+                                            options={availableColourOptions}
+                                            style="font-size: x-medium;"
+                                            disable-reordering=true
+                                            onchange={handleInputChanged}></lightning-dual-listbox>
+                </div>
+                <div class="slds-col slds-size_1-of-3 slds-var-p-left_large slds-var-p-right_large">
+                    <lightning-dual-listbox data-id="mb-sr-trim"
+                                            data-type="sr-inputs"
+                                            name="trims"
+                                            label="Trim"
+                                            source-label="Available"
+                                            selected-label="Selected"
+                                            field-level-help="Select available colours"
+                                            options={availableTrimOptions}
+                                            style="font-size:x-medium;"
+                                            disable-reordering=true
+                                            onchange={handleInputChanged}></lightning-dual-listbox>
+                </div>
+                <div class="slds-col slds-size_1-of-3 slds-var-p-left_large">
+                    <lightning-dual-listbox data-id="mb-sr-hl-options"
+                                            data-type="sr-inputs"
+                                            name="highlightOptions"
+                                            label="Highlight Options"
+                                            source-label="Available"
+                                            selected-label="Selected"
+                                            field-level-help="Select highlight options"
+                                            options={availableHighlightOptions}
+                                            style="font-size:x-medium;"
+                                            disable-reordering=true
+                                            onchange={handleInputChanged}></lightning-dual-listbox>
+                </div>
+            </div>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-5 slds-var-p-around_xx-small"></div>
+                <div class="slds-col slds-size_1-of-5 slds-var-p-around_xx-small" style="font-weight: bold;">
+                    <lightning-button variant="neutral" label="Clear All" title="Clear All" class="slds-var-m-left_x-small actionBtn" onclick={handleClearAll}></lightning-button>
+                </div>
+                <div class="slds-col slds-size_1-of-5 slds-var-p-around_xx-small" style="font-weight: bold;">
+                    <lightning-button variant="brand" label="Indent Stock" title="Indent Stock" class="slds-var-m-left_x-small actionBtn" onclick={handleIndent}></lightning-button>
+                </div>
+                <div class="slds-col slds-size_1-of-5 slds-var-p-around_xx-small" style="font-weight: bold;">
+                    <lightning-button variant="brand" label="Search" title="Search" class="slds-var-m-left_x-small actionBtn" onclick={handleSearch}></lightning-button>
+                </div>
+                <div class="slds-col slds-size_1-of-5 slds-var-p-around_xx-small"></div>
+            </div>
+        </div>
+    </article>
+</template>

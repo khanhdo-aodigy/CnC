@@ -1,0 +1,38 @@
+<apex:component controller="MobileHeader">
+<header class="mobile-header app-only">
+  <div class="container">
+    <div class="mobile-header__title valign-wrapper center-align">
+<apex:outputPanel rendered="{!LoginPage}">
+          <a href="prelogin-screen">
+              <svg class="icon icon-chevron-down dropdown-arrow" role="img" aria-hidden="true">
+                  <use xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Resource.icons,'#icon-chevron-left')}">
+          </use>
+              </svg>
+          </a>
+    {!title}
+</apex:outputPanel>
+<apex:outputPanel rendered="{!otherPages}">
+          <a href="javascript:history.back();">
+              <svg class="icon icon-chevron-down dropdown-arrow" role="img" aria-hidden="true">
+                  <use xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Resource.icons,'#icon-chevron-left')}">
+          </use>
+              </svg>
+          </a>
+    {!title}
+</apex:outputPanel>
+<apex:outputPanel rendered="{!mobilePage}">
+          <a href="prelogin-screen">
+              <svg class="icon icon-chevron-down dropdown-arrow" role="img" aria-hidden="true">
+                  <use xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Resource.icons,'#icon-chevron-left')}">
+          </use>
+              </svg>
+          </a>
+    {!title}
+</apex:outputPanel>
+        <apex:outputPanel rendered="{!forgotPasswordPage}">
+    {!title}
+</apex:outputPanel>
+    </div> 
+  </div>
+</header>
+</apex:component>

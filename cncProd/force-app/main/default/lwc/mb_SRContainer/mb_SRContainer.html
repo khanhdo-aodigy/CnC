@@ -1,0 +1,46 @@
+<template>
+    <template if:true={prevStockInfo}>
+        <div class="slds-container slds-p-bottom_medium">
+            <article class="slds-card">
+                <div class="slds-p-around_small" style="width:30rem">
+                    <article class="slds-tile slds-media">
+                      <div class="slds-media__figure">
+                        <span class="slds-icon_container">
+                            <lightning-icon icon-name="standard:cancel_checkout" size="medium" variant="slds-icon-inverse"></lightning-icon>
+                        </span>
+                      </div>
+                      <div class="slds-media__body">
+                        <h4 class="slds-tile__title slds-truncate" style="font-weight: bold; font-size: medium;">Cancelled Stock</h4>
+                        <div class="slds-tile__detail">
+                          <dl class="slds-list_horizontal slds-wrap">
+                            <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Stock Number">Stock Number:</dt>
+                            <dd class="slds-item_detail slds-truncate">{prevStockInfo.prevStockNo}</dd>
+                          </dl>
+                        </div>
+                      </div>
+                    </article>
+                  </div>
+            </article>
+        </div>
+    </template>
+    <div data-id="sr-info">
+        <div class="slds-container slds-p-bottom_medium">
+            <c-mb_-s-r-search-panel></c-mb_-s-r-search-panel>
+        </div>
+        <div class="slds-container slds-p-bottom_medium">
+            <c-mb_-s-r-stock-summary stock-quantity={stockQuantity}></c-mb_-s-r-stock-summary>
+        </div>
+        <div class="slds-container slds-p-bottom_medium">
+            <c-mb_-s-r-stock-details></c-mb_-s-r-stock-details>
+        </div>
+    </div>
+    <div data-id="customer-info" style="display: none;">
+        <div class="slds-container slds-p-bottom_medium">
+            <c-mb_-s-r-customer-info stock-info={stockInfo}
+                                     indent-info={indentInfo}
+                                     is-indent-stock={isIndentStock}
+                                     prev-stock={prevStockInfo}
+                                     oncancel={handleCancel}></c-mb_-s-r-customer-info>
+        </div>
+    </div>
+</template>

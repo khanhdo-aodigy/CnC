@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_for_CIT</fullName>
+    <columns>NAME</columns>
+    <columns>SOH_SONO__c</columns>
+    <columns>Registered_Name__c</columns>
+    <columns>Model__c</columns>
+    <columns>Stage__c</columns>
+    <columns>ApprovalStatus__c</columns>
+    <columns>OWNER.FIRST_NAME</columns>
+    <columns>Agreement_Date__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Branch_Code__c</field>
+        <operation>equals</operation>
+        <value>CCF</value>
+    </filters>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>greaterOrEqual</operation>
+        <value>1/3/2022 12:00 AM</value>
+    </filters>
+    <label>All for CIT</label>
+</ListView>

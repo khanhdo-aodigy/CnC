@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>all_contacts</fullName>
+    <columns>FULL_NAME</columns>
+    <columns>CONTACT.EMAIL</columns>
+    <columns>CONTACT.PHONE3</columns>
+    <columns>NRIC__c</columns>
+    <columns>CONTACT.CREATED_DATE</columns>
+    <columns>CONTACT.FIRST_NAME</columns>
+    <columns>CONTACT.LAST_NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CONTACT.FIRST_NAME</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>CONTACT.LAST_NAME</field>
+        <operation>notEqual</operation>
+    </filters>
+    <label>Contact with FN and LN</label>
+</ListView>

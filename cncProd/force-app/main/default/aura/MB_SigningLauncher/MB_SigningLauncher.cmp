@@ -1,0 +1,22 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" controller="MB_Docusign">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:attribute name="progressStep" type="string" default="1"/>
+    
+    <div>
+        <lightning:progressIndicator aura:id="progress" type="path" currentStep="{!v.progressStep}">
+            <lightning:progressStep aura:id="step_1" label="Consent Clause" value="1" onclick="{!c.handleStep}"></lightning:progressStep>
+            <lightning:progressStep aura:id="step_2" label="Docusign" value="2" onclick="{!c.handleStep}"></lightning:progressStep>
+        </lightning:progressIndicator>
+    </div>
+    <div class="{!v.progressStep == '1' ? 'slds-show' : 'slds-hide'}" style="padding-top: 2rem;">
+        <c:termsAndConditions aura:id="TandC"
+                              recordId="{!v.recordId}"
+                              identifier="MB Consent Clause"
+                              buttonSize="small"></c:termsAndConditions>
+    </div>
+    <div class="{!v.progressStep == '2' ? 'slds-show' : 'slds-hide'}">
+        <c:MB_DocusignLauncher aura:id="docusign"
+                               recordId="{!v.recordId}"></c:MB_DocusignLauncher>
+    </div>
+</aura:component>

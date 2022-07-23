@@ -1,0 +1,7 @@
+.THIS .large-text {
+    font-size: 0.9rem;
+}
+
+.THIS .thick {
+    background: token(colorBackgroundShade);
+}

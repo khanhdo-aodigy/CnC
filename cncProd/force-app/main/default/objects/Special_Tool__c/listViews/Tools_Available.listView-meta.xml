@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tools_Available</fullName>
+    <columns>NAME</columns>
+    <columns>Part_Number__c</columns>
+    <columns>Service_Centre__c</columns>
+    <columns>Tool_Location__c</columns>
+    <columns>Date_Purchased_Received__c</columns>
+    <columns>Remarks__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Available__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>VALID</value>
+    </filters>
+    <label>Tools Available</label>
+</ListView>

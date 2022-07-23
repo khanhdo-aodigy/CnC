@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Can_not_change_SR</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(NOT(ISNEW()),ISCHANGED(Stock_Reservation__c)) &amp;&amp; NOT( $Setup.Bypass_Automation_Settings__c.Bypass_Validation_Rules__c )</errorConditionFormula>
+    <errorDisplayField>Stock_Reservation__c</errorDisplayField>
+    <errorMessage>Stock Reservation is not allowed to change</errorMessage>
+</ValidationRule>

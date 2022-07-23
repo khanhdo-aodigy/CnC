@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Model_Subscribed__c</fullName>
+    <externalId>false</externalId>
+    <label>Model Subscribed</label>
+    <referenceTo>Model_Subscribed__c</referenceTo>
+    <relationshipLabel>Model Subscribed Staging</relationshipLabel>
+    <relationshipName>Model_Subscribed_Staging</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

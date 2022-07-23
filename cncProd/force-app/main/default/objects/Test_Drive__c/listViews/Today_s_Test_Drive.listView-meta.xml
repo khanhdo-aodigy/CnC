@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Today_s_Test_Drive</fullName>
+    <columns>NRIC__c</columns>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>Model__c</columns>
+    <columns>Prospect__c</columns>
+    <columns>Opportunity__c</columns>
+    <columns>Check_Out__c</columns>
+    <columns>Account__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>First_SMS_Triggered__c</columns>
+    <columns>Second_SMS_Triggered__c</columns>
+    <columns>Third_SMS_Triggered__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>TODAY</value>
+    </filters>
+    <label>Today&apos;s Test Drive</label>
+</ListView>

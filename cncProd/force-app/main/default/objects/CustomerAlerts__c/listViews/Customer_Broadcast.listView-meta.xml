@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer_Broadcast</fullName>
+    <columns>NAME</columns>
+    <columns>Type__c</columns>
+    <columns>SubType__c</columns>
+    <columns>Campaign__c</columns>
+    <columns>Registered_Vehicle__c</columns>
+    <columns>Contact__c</columns>
+    <columns>Account__c</columns>
+    <columns>Description__c</columns>
+    <columns>Alert_Description__c</columns>
+    <columns>MobileNumber__c</columns>
+    <columns>isPush__c</columns>
+    <columns>isAlert__c</columns>
+    <columns>Status__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>CREATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Type__c</field>
+        <operation>equals</operation>
+        <value>Broadcast</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>CustomerAlerts__c.Broadcast</value>
+    </filters>
+    <label>Customer Broadcast</label>
+</ListView>

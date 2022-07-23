@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BQ030_Issues_with_Test_Drive__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISNULL(Issues_with_Test_Drive__c), &quot;&quot;, IF(ISBLANK(Issues_with_Test_Drive__c), &quot;&quot;, LEFT(IF( CONTAINS(Issues_with_Test_Drive__c, &quot;Test drive car was not available&quot;), &quot;12, &quot;, &quot;&quot;) +
+IF( CONTAINS(Issues_with_Test_Drive__c, &quot;Test drive car was not in good condition&quot;), &quot;13, &quot;, &quot;&quot;) +
+IF( CONTAINS(Issues_with_Test_Drive__c, &quot;Too long waiting time for test drive&quot;), &quot;14, &quot;, &quot;&quot;), LEN(IF( CONTAINS(Issues_with_Test_Drive__c, &quot;Test drive car was not available&quot;), &quot;12, &quot;, &quot;&quot;) +
+IF( CONTAINS(Issues_with_Test_Drive__c, &quot;Test drive car was not in good condition&quot;), &quot;13, &quot;, &quot;&quot;) +
+IF( CONTAINS(Issues_with_Test_Drive__c, &quot;Too long waiting time for test drive&quot;), &quot;14, &quot;, &quot;&quot;)) - 2) +
+
+IF( NOT(CONTAINS(Issues_with_Test_Drive__c, &quot;Test drive car was not available&quot;)) &amp;&amp;
+NOT(CONTAINS(Issues_with_Test_Drive__c, &quot;Test drive car was not in good condition&quot;)) &amp;&amp;
+NOT(CONTAINS(Issues_with_Test_Drive__c, &quot;Too long waiting time for test drive&quot;)), IF(NOT(ISNUMBER(RIGHT(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(Issues_with_Test_Drive__c ,
+&quot;Test drive car was not available&quot;, &quot;12&quot;),
+&quot;Test drive car was not in good condition&quot;, &quot;13&quot;),
+&quot;Too long waiting time for test drive&quot;, &quot;14&quot;), 2))), &quot;15&quot;, &quot;&quot;), IF(NOT(ISNUMBER(RIGHT(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(Issues_with_Test_Drive__c ,
+&quot;Test drive car was not available&quot;, &quot;12&quot;),
+&quot;Test drive car was not in good condition&quot;, &quot;13&quot;),
+&quot;Too long waiting time for test drive&quot;, &quot;14&quot;), 2))), &quot;, 15&quot;, &quot;&quot;)) ))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>BQ030_Issues_with_Test_Drive</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

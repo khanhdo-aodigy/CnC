@@ -1,0 +1,256 @@
+<template>
+    
+    <div data-id="overlord-container">
+        <!-- <div data-id="test-panel"> delete -->
+        <!-- header -->
+        <header>
+            <div class="d-flex align-items-center justify-content-between standard-font" >
+                <a></a>
+                <p style="font-size:x-large;font-weight:bold">Delivery Certificate</p>
+                <a href="javascript:void(0)" onclick={closePage} class="white-text bold-text">Cancel</a>
+            </div>
+        </header>
+
+        <!-- Detail section -->
+        <div style="background-color: #F0F3F6;">
+            <div class="container standard-font container-extra-padding">
+                <div if:true={displayDetail}>
+                    
+                    <!-- Detail section header -->
+                    <div class="pad-top-normal mouse-fur-text bold-text big-text pointer-cursor" onclick={handleCollapse}>
+                        CUSTOMER DETAILS
+                        <div style="float:right">
+                            <template if:false={detailHide}>
+                                <c-svg-cmp
+                                    url-to-resource='/BootStrap/images/icons/icons.svg#icon-chevron-down'
+                                    svg-class="icon icon-add" svg-role="img" svg-aria-hidden="true">
+                                </c-svg-cmp>
+                            </template>
+                            <template if:true={detailHide}>
+                                <c-svg-cmp
+                                    url-to-resource='/BootStrap/images/icons/icons.svg#icon-chevron-up'
+                                    svg-class="icon icon-add" svg-role="img" svg-aria-hidden="true">
+                                </c-svg-cmp>
+                            </template>
+                        </div>
+                    </div>
+                    
+                    <!-- Customer & Vehicle Detail panel -->
+                    <div data-id="detail-panel" class="visible-element">
+                        <!-- Detail section -->
+                        <div class="pad-top-large">
+                            <div class="smoke-ash-text normal-text">Sales Consultant</div>
+                            <div class="big-text">{ownerFullName}</div>    
+                        </div>
+
+                        <!-- Customer Details -->
+                        <div class="pad-top-normal mouse-fur-text big-text bold-text">
+                            Customer Details
+                        </div>
+                        <template for:each={customerDetails} for:item="detail">
+                            <div class="row" key={detail.row}>
+                                <div class="col">
+                                    <div class="normal-text smoke-ash-text pad-top-normal">{detail.l_label}</div>
+                                    <div class="big-text">{detail.l_value}</div>
+                                </div>
+                                <div class="col">
+                                    <div class="normal-text smoke-ash-text pad-top-normal">{detail.r_label}</div>
+                                    <div class="big-text">{detail.r_value}</div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- Vehicle Details -->
+                        <div class="pad-top-normal mouse-fur-text big-text bold-text">
+                            Vehicle Details
+                        </div>
+                        <template for:each={vehicleDetails} for:item="detail">
+                            <div class="row" key={detail.row}>
+                                <div class="col">
+                                    <div class="normal-text smoke-ash-text pad-top-normal">{detail.l_label}</div>
+                                    <div class="big-text">{detail.l_value}</div>
+                                </div>
+                                <div class="col">
+                                    <div class="normal-text smoke-ash-text pad-top-normal">{detail.r_label}</div>
+                                    <div class="big-text">{detail.r_value}</div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                    
+                    <!--Vehicle run-through foreword-->
+                    <div class="mouse-fur-text big-text bold-text pad-top-small" data-id="collapse-point">
+                        VEHICLE RUN-THROUGH
+                    </div>
+                    <h4 class="smoke-ash-text normal-text pad-top-normal">Please acknowledge that the vehicle has been delivered in good condition, with the following items where applicable:</h4>
+                </div>
+            </div>
+        </div>
+
+        <!--Checklist tabs-->
+        <div class="standard-font">
+            <div if:true={displayDetail}>
+                <div class="pad-top-normal" style="background-color: #F0F3F6;">
+                    <!-- tabs header-->
+                    <div data-id="tab-headers">
+                        <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                            <li class="nav-item ">
+                                <a class="nav-link active chosenTabs normal-text" data-id="vehicleInfo-tab" data-toggle="tab" href="#home"
+                                    role="tab" data-target-id="vehicleInfo" onclick={switchTab}>Vehicle Information</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link notchosenTabs normal-text" data-id="addnlAccs-tab" data-toggle="tab" href="#profile"
+                                    role="tab" data-target-id="addnlAccs" onclick={switchTab}>Vehicle Accessories</a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div id="myTabContent" style="background-color:white;">
+                        <!--Vehicle Information tab-->
+                        <div class="visible-element" data-id="vehicle-tab">
+                            <div class="vehicleInfoClass" style="height: auto; overflow-y: auto;">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="accordion accordion-icon" id="accordionItems" role="tablist" aria-multiselectable="true">
+                                                <c-sdp_-vehicle-delivery-certificate_-handover-items></c-sdp_-vehicle-delivery-certificate_-handover-items>
+                                                <c-sdp_-vehicle-delivery-certificate_-vehicle-checklist franchise-code={franchiseCode}></c-sdp_-vehicle-delivery-certificate_-vehicle-checklist>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Additional Accessories tab-->
+                        <div class="invisible-element" data-id="accessories-tab">
+                            <div class="vehicleInfoClass">
+                                <c-sdp_-vehicle-delivery-certificate_-addnl-accs data-id="accsCmp" record-id={recordId}></c-sdp_-vehicle-delivery-certificate_-addnl-accs>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- acknowledgement clauses -->
+        <div if:true={displayDetail}>
+            <div class="terms-section pad-top-normal" data-id="acknowledgement-section">
+                <div class="container container-extra-padding">
+                    <p class="big-text">Customer acknowledgement</p>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" checked={acknowledge} class="custom-control-input" id="acknowledgement" onclick={handleAcknowledge}>
+                        <label class="custom-control-label" for="acknowledgement" style="margin-right: 5em;">
+                            <p class="big-text"> I hereby agree and acknowledge that I have received the above-mentioned vehicle in good and satisfactory condition and that I understand the information provided on the warranty, maintenance and operation of the vehicle.</p>
+                            <p class="big-text"> Local Dealer Fitted Accessories Warranty - Sports rims, leather seats, alarm system, reverse camera and other locally fitted accessories are covered under warranty for 1-year or 20,000 km, whichever come first</p>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--OBO acknowledgements & buttons-->
+        <div class="container standard-font container-extra-padding">
+            <div if:true={displayDetail}>
+                
+                <!-- vehicle collection OBO -->
+                <div class="container normal-text">
+                    <p class="smoke-ash-text big-text">3rd Party Vehicle Collection</p>
+                    <!--clause-->
+                    <div class="custom-control custom-checkbox pad-top-normal">
+                        <input type="checkbox" checked={acknowledge_OBO} class="custom-control-input" id="OBO" onclick={handleAcknowledge_OBO}>
+                        <label class="custom-control-label" for="OBO">
+                        <p class="big-text"> Yes, I acknowledge the collection of this vehicle on behalf of the customer.</p>
+                        </label>
+                    </div>
+                    <!--optional comment-->
+                    <template if:true={acknowledge_OBO}>
+                        <p class="pad-top-normal navy-text big-text">Comments</p>
+                        <input onchange={commentChange} data-id="OBO-comment" value={comment_OBO} placeholder="Please indicate the name of the person collecting" type="text" style="width: 100%; border-bottom:1px solid #0F9EFB;"></input>
+                    </template>
+                    <!--upload document-->
+                    <template if:true={acknowledge_OBO}>
+                        <p class="pad-top-normal smoke-ash-text big-text">Upload Supporting Document</p>
+                        <p class="smoke-ash-text big-text">(Required for 3rd Party Vehicle Collection)</p>
+                        <div class="form-group">
+                            <div class="upload-docs">
+                                <c-file-upload-cmp label="Vehicle Delivery & Hand-Over Authorisation Form" api-name="icFront" object-name="Sales_Agreement__c"
+                                    record-id={agreement.Id} record-name={agreement.Name}
+                                    file-name-format="\{RecordName}_Vehicle Authorization Form Third Party" supported-file-type="image/png, image/jpeg, image/jpg"
+                                    file-prefix="Vehicle Authorization Form Third Party" display-only=false>
+                                </c-file-upload-cmp>
+                            </div>
+                        </div>
+                        
+                    </template>
+                </div>
+
+                <!-- signature pad -->
+                <div class="pad-top-large">
+                    <c-sdp_-vehicle-delivery-certificate_-sign-pad data-id="sign_pad"></c-sdp_-vehicle-delivery-certificate_-sign-pad>
+                </div>
+
+                <!-- toast panel -->
+                <div data-id="toast-panel" class="margin-top-normal alert-success alert-dismissible stickyToast invisible-element">
+                    <a href="#" class="close close-button-toast " aria-label="close" onclick={hideToast}>&times;</a>
+                    <strong>{toastVariant}! </strong> {toastMessage}
+                    <template if:true={showAttachmentLink}>
+                        Please check the <a href="#" onclick={openGeneratedAttachment}>Generated Attachment</a> carefully before closing this form.
+                    </template>
+                    <template if:true={VSMS_calling}>
+                        <br></br>
+                        <strong>INFO! </strong> ... Updating delivery date to VSMS ...
+                    </template>
+                    <template if:true={VSMS_success}>
+                        <br></br>
+                        <strong>SUCCESS! </strong> Delivery date updated to VSMS: {VSMS_successMsg}. If this delivery date is wrong, please contact your IT support.
+                    </template>
+                    <template if:true={VSMS_fail}>
+                        <br></br>
+                        <span style="color: red;">
+                            <strong>DANGER! </strong> Delivery date update to VSMS failed with following reason: {VSMS_failMsg}. Please take a picture of this error and contact your IT support.
+                        </span>
+                    </template>
+                </div>
+
+                <!-- buttons -->
+                <div class="container pad-top-large">
+                    <div class="row justify-content-md-center">
+                        <div class="col">
+                            <button disabled={buttonDisable} type="button" class="btn btn-primary" style="background-color: #fff;border: 1px;color: #0a9cfb;border-style: solid;" onclick={previewPDF}>
+                                Preview Certificate
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button disabled={buttonDisable} type="button" class="btn btn-primary" onclick={savePDF}>
+                                Save Certificate
+                            </button>
+                        </div>
+                        
+                    </div>
+                </div>
+                <!-- </div> delete -->
+            </div>
+        </div>
+    </div>
+
+    <!-- C&C App pop-up modal -->
+    <template if:true={showAppScreen}>
+        <div class="modal fade modal-full show" id="modalAppScreen" tabindex="-1" role="dialog" aria-labelledby="modalAppScreenLabel" aria-hidden="true" style="display:block;">
+            <div class="modal-dialog" role="document" style="overflow-y: initial !important">
+                <div class="modal-content">
+                    <div class="modal-header d-block">
+                        <h2 class="modal-title" id="modalAddOnsLabel">My C&C App</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick={closeAppScreen}>Close</button>
+                    </div>
+                    <div class="modal-body modalClass" style="height: 250px; overflow-y: auto;">
+                        <div class="img-container">
+                            <img src={cncAppContent}/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    
+</template>

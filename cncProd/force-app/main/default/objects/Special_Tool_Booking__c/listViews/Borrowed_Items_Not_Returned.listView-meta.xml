@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Borrowed_Items_Not_Returned</fullName>
+    <columns>NAME</columns>
+    <columns>Special_Tool__c</columns>
+    <columns>Part_Number__c</columns>
+    <columns>Borrowed_By__c</columns>
+    <columns>Borrowed_Location__c</columns>
+    <columns>Borrow_DateTime__c</columns>
+    <columns>Returned_By__c</columns>
+    <columns>Returned_Location__c</columns>
+    <columns>Return_DateTime__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Return_DateTime__c</field>
+        <operation>equals</operation>
+    </filters>
+    <label>Borrowed Items Not Returned</label>
+</ListView>

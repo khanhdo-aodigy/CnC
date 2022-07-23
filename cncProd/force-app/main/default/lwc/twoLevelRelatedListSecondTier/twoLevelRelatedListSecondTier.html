@@ -1,0 +1,22 @@
+<template>
+    <div onmouseover={AddColor} onmouseout={RemoveColor} style={addBackgroundOnHover}>
+        <div class="slds-grid">
+            <div class="slds-col slds-size_1-of-24" style="margin:auto">
+                <lightning-icon icon-name="utility:chevronright" size="x-small">
+                </lightning-icon>
+            </div>
+            <div class="slds-col">
+                <div class="slds-grid slds-wrap" onclick={navigateToRecord}>
+                    <template for:each={eachchildRecord} for:item="body" if:true={eachchildRecord}>
+                        <div key={body.fieldName} class="slds-col slds-size_1-of-12 slds-p-vertical_xx-small"
+                            style="margin:auto">
+                            <span>
+                                 {body.Value}
+                            </span>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

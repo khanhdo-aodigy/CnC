@@ -1,0 +1,182 @@
+<aura:component controller="GetCLBLRecords" implements="force:appHostable" access="global">
+
+<aura:attribute name="options" type="List" default="[
+                                                        {'label': 'Create', 'value': 'Create'},
+                                                        {'label': 'Booking', 'value': 'Booking'}
+                                                        ]"/>
+<aura:attribute name="radioValue" type="String" default="Create"/>
+    
+<aura:attribute name="fromdate" type="Date" access="global"/>
+<aura:attribute name="todate" type="Date" access="global"/>
+
+<aura:handler name="change" value="{!v.fromdate}" action="{!c.FromdateChange}"/>
+<aura:handler name="change" value="{!v.todate}" action="{!c.TodateChange}"/>
+   
+ <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
+ <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>
+ <aura:attribute name="Spinner" type="boolean" default="false"/>
+    
+<!--loading spinner start... style=Brand Medium (blue dots)-->
+ <aura:if isTrue="{!v.Spinner}">
+    <div aura:id="spinnerId" class="slds-spinner_container">
+       <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+         <span class="slds-assistive-text">Loading</span>
+         <div class="slds-spinner__dot-a"></div>
+         <div class="slds-spinner__dot-b"></div>
+       </div>
+    </div>
+ </aura:if>
+  <!-- Loading spinner end-->    
+    
+<lightning:card iconName="action:description" title="Get Created or Booking List from CBS">
+        <lightning:radioGroup name="choice"
+                              aura:id="mygroup"
+                          	label="Select"
+                          	options="{! v.options }"
+                          	value="{! v.radioValue }"
+                          	type="button"
+                          	required="true"/>
+    
+    <fieldset class="slds-form-element slds-form-element_stacked">
+    <legend class="slds-form-element__legend slds-form-element__label">Date Selection:</legend>
+    <div class="slds-form-element__control">
+       <ui:inputDate aura:id="fromDate" label="From Date"
+                               class="slds-input"
+                               labelClass="slds-form-element__label"
+                               change="{!c.FromdateChange}" 
+                               value="{!v.fromdate}"
+                               displayDatePicker="true"/>
+        
+         <ui:inputDate aura:id="toDate" label="To Date"
+                               class="slds-input"
+                               labelClass="slds-form-element__label"
+                               change="{!c.TodateChange}" 
+                               value="{!v.todate}"
+                               displayDatePicker="true"/>
+   	 </div>      
+   </fieldset>
+    
+    
+     <fieldset class="slds-form-element slds-form-element_stacked">
+    <legend class="slds-form-element__legend slds-form-element__label">Service Centres:</legend>
+    <div class="slds-form-element__control">
+      <div class="slds-checkbox">
+        <input type="checkbox" name="svcctrschoice" id="checkbox-1" value="checkbox-1" checked="true"/>
+        <label class="slds-checkbox__label" for="checkbox-1">
+          <span class="slds-checkbox_faux"></span>
+          <span class="slds-form-element__label">MBEL</span>
+        </label>
+      </div>
+      <div class="slds-checkbox">
+        <input type="checkbox" name="svcctrschoice" id="checkbox-2" value="checkbox-2" checked="true"/>
+        <label class="slds-checkbox__label" for="checkbox-2">
+          <span class="slds-checkbox_faux"></span>
+          <span class="slds-form-element__label">MBMBC</span>
+        </label>
+      </div>
+      <div class="slds-checkbox">
+        <input type="checkbox" name="svcctrschoice" id="checkbox-3" value="checkbox-3" checked="true"/>
+        <label class="slds-checkbox__label" for="checkbox-3">
+          <span class="slds-checkbox_faux"></span>
+          <span class="slds-form-element__label">MBPL</span>
+        </label>
+      </div>  
+    </div>
+  </fieldset>
+    
+  <div><br></br> </div>
+    
+   <aura:if isTrue="{!v.radioValue == 'Create'}">
+     <div>       
+      <div style="color:blue"> <b> Booking Type: </b></div>
+      <div class="slds-checkbox">
+        <input type="checkbox" name="btypesel" id="checkbox-16" value="checkbox-16" checked="true"/>
+        <label class="slds-checkbox__label" for="checkbox-16">
+          <span class="slds-checkbox_faux"></span>
+          <span class="slds-form-element__label">Internet</span>
+        </label>
+      </div>
+      <div class="slds-checkbox">
+        <input type="checkbox" name="btypesel" id="checkbox-17" value="checkbox-17" checked="true"/>
+        <label class="slds-checkbox__label" for="checkbox-17">
+          <span class="slds-checkbox_faux"></span>
+          <span class="slds-form-element__label">iOS App</span>
+        </label>
+      </div>
+      <div class="slds-checkbox">
+        <input type="checkbox" name="btypesel" id="checkbox-18" value="checkbox-18" checked="true"/>
+        <label class="slds-checkbox__label" for="checkbox-18">
+          <span class="slds-checkbox_faux"></span>
+          <span class="slds-form-element__label">Android App</span>
+        </label>
+      </div>  
+      <div class="slds-checkbox">
+        <input type="checkbox" name="btypesel" id="checkbox-19" value="checkbox-19" checked="true"/>
+        <label class="slds-checkbox__label" for="checkbox-19">
+          <span class="slds-checkbox_faux"></span>
+          <span class="slds-form-element__label">CI</span>
+        </label>
+      </div>  
+    <div><br></br> </div>   
+	<div style="color:blue"><b> SCR:</b> </div>
+      <div>
+       <span class="slds-radio">
+        <input type="radio" id="radio-13" value="radio-13" name="SCROption1" checked="true"/>
+        <label class="slds-radio__label" for="radio-13">
+          <span class="slds-radio_faux"></span>
+          <span class="slds-form-element__label">Include SCR</span>
+        </label>
+      </span>
+      <span class="slds-radio">
+        <input type="radio" id="radio-14" value="radio-14" name="SCROption1" />
+        <label class="slds-radio__label" for="radio-14">
+          <span class="slds-radio_faux"></span>
+          <span class="slds-form-element__label">Exclude SCR</span>
+        </label>
+      </span>
+        <span class="slds-radio">
+        <input type="radio" id="radio-15" value="radio-15" name="SCROption1" />
+        <label class="slds-radio__label" for="radio-15">
+          <span class="slds-radio_faux"></span>
+          <span class="slds-form-element__label">SCR Only</span>
+        </label>
+      </span> 
+        <div><br></br></div>
+        </div>
+    </div>
+   <aura:set attribute="else">
+       <div>       
+        <div style="color:blue"> <b>SCR:</b> </div>
+        <div>
+       <span class="slds-radio">
+        <input type="radio" id="radio-23" value="radio-23" name="SCROption2" />
+        <label class="slds-radio__label" for="radio-23">
+          <span class="slds-radio_faux"></span>
+          <span class="slds-form-element__label">Include SCR</span>
+        </label>
+      </span>
+      <span class="slds-radio">
+        <input type="radio" id="radio-24" value="radio-24" name="SCROption2" />
+        <label class="slds-radio__label" for="radio-24">
+          <span class="slds-radio_faux"></span>
+          <span class="slds-form-element__label">Exclude SCR</span>
+        </label>
+      </span>
+        <span class="slds-radio">
+        <input type="radio" id="radio-25" value="radio-25" name="SCROption2" checked="true"/>
+        <label class="slds-radio__label" for="radio-25">
+          <span class="slds-radio_faux"></span>
+          <span class="slds-form-element__label">SCR Only</span>
+        </label>
+      </span> 
+        <div><br></br></div>
+        </div>
+    </div>
+   </aura:set> 
+   </aura:if> 
+
+   <lightning:button label="GET" class="slds-m-top--medium" variant="brand" onclick="{!c.clickCreateItem}"/>      
+
+</lightning:card> 
+  
+</aura:component>

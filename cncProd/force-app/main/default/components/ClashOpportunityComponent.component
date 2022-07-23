@@ -1,0 +1,60 @@
+<apex:component access="global" controller="ClashOpportunityController">
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        
+        .tbl-bg th{
+            background-color: #00619e !important;
+            color: #fff !important;
+            padding-left: 5px !important;
+            padding-right: 5px !important;
+        }
+        
+        .tbl-pad td{
+            padding-left: 5px !important;
+            padding-right: 5px !important;
+        }
+    </style>
+    <apex:attribute name="oppValue" type="Id" description="This is the Id of the Opportunity" assignTo="{!oppId}" access="global"/>
+      <p>Clashed opportunity Details : </p>
+        Opportunity Name : <a href="{!BaseURL}/{!oppfield.ID}">{!oppfield.name}</a><br/>
+        Opportunity Status : {!oppfield.Stagename}<br/>
+        <apex:outputPanel rendered="{!oppfield.Lead__r != NULL}">Opportunity Lead : <a href="{!BaseURL}/{!oppfield.Lead__r}">{!oppfield.Lead__r.name}</a><br/></apex:outputPanel>
+        <apex:outputPanel rendered="{!oppfield.Contact_Person__r != NULL}">Opportunity Contact : <a href="{!BaseURL}/{!oppfield.Contact_Person__r}">{!oppfield.Contact_Person__r.name}</a><br/></apex:outputPanel>  
+    
+    <br/>
+    <table class="table">
+        <thead>    
+            <tr class="tbl-bg">
+                <th>Opportunity Name</th> 
+                <th>Opportunity Status</th>
+                <apex:outputPanel rendered="{!oppfield.Lead__r != NULL}"><th>Opportunity Lead</th></apex:outputPanel>
+                <apex:outputPanel rendered="{!oppfield.Contact_Person__r != NULL}"><th>Opportunity Contact</th></apex:outputPanel>
+                <th>Sales Consultant</th>
+                <th>Created Date</th>
+                <th>Models Interested In</th>
+            </tr>
+        </thead>        
+        <tbody>
+            <apex:repeat value="{!oppList}" var="pos">
+                <tr class="tbl-pad">
+                    <td align="center"><a href="{!BaseURL}/{!pos.oppId}">{!pos.Name}</a></td>
+                    <td align="center">{!pos.status}</td>
+                    <apex:outputPanel rendered="{!oppfield.Lead__r != NULL}"><td align="center"><a href="{!BaseURL}/{!pos.leadId}">{!pos.leadName}</a></td></apex:outputPanel>
+                    <apex:outputPanel rendered="{!oppfield.Contact_Person__r != NULL}"><td align="center"><a href="{!BaseURL}/{!pos.conId}">{!pos.conName}</a></td></apex:outputPanel>                                            
+                    <td align="center">{!pos.ownerName}</td>
+                    <td align="center">
+                        <apex:outputText value="{0, date, medium}">
+                            <apex:param value="{!pos.oppDate}" /> 
+                        </apex:outputText>
+                    </td>
+                    <td align="center">
+                        {!pos.modelsInterested}
+                    </td>
+                </tr>       
+            </apex:repeat>
+        </tbody>   
+    </table>
+</apex:component>

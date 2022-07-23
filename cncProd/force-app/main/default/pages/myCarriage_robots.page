@@ -1,0 +1,5 @@
+<apex:page contentType="text/plain">
+    User-agent: *
+    Disallow: /
+    Sitemap: https://jccl-community.force.com/ccl/s/sitemap.xml
+</apex:page>

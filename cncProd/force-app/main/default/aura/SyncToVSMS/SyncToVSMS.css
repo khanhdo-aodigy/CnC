@@ -1,0 +1,8 @@
+.THIS .spins::after {
+    position: absolute;
+    content: 'Syncing to VSMS...';
+    width: 100%;
+    text-align: center;
+    top: calc(50% + 3em);
+    font-weight: bold;
+}

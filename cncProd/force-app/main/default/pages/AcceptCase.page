@@ -1,0 +1,17 @@
+<!--Setting up the Visualforce Page-->
+<apex:page standardController="Case" tabStyle="Case" recordSetVar="SelectedCases" >
+<!-- This is needed to 'display' the fields so that the Flow can read them.
+If there are any additional fields you want to send to the flow,
+add them after the existing fields. -->
+<apex:repeat value="{!SelectedCases}" var="c" rendered="false">
+{!c.Id} {!c.OwnerId}
+</apex:repeat>
+<!-- Setting your flow name in name, the finish location, and params
+use the param name of the flow with the value from the page,
+in this case the Selected Case records and the current User Id. -->
+<flow:interview name="AcceptCases"
+finishLocation="{!IF($User.UITheme == 'Theme4d' || $User.UITheme == 'Theme4t','/one/one.app#/sObject/Case/home','/500')}">
+<apex:param name="socvCases" value="{!Selected}"/>
+<apex:param name="vUId" value="{!$User.Id}"/>
+</flow:interview>
+</apex:page>

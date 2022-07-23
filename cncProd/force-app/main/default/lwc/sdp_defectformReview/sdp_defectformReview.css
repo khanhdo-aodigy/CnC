@@ -1,0 +1,48 @@
+.buttonatbottom {
+  bottom: 0;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+}
+
+.paddingleftright{
+  padding-left:3%;
+  padding-right:3%;
+}
+
+.paddingleftrightextra{
+  padding-left:4%;
+  padding-right:4%;
+}
+
+/* The navigation bar */
+.fixbar {
+  text-align: center;
+  font-size: x-large;
+  top: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 2000;
+}
+
+.nextpagebutton{
+  width: 300px;
+  height: 80px;
+}
+
+.container{
+  padding-top: 4%;
+  padding-left: 3%;
+  padding-right: 3%;
+}
+
+.section-title{
+  margin-bottom:0px;
+  padding:2%;
+}
+
+.review-section{
+  margin-bottom:0px;
+}

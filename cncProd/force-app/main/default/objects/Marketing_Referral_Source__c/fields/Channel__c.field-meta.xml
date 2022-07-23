@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Channel__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(CONTAINS(TEXT( Touch_Point__c), &apos;Offline&apos;)   , &apos;Offline&apos;, &apos;Online&apos;)</formula>
+    <label>Marketing Channel</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

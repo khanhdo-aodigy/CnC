@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Brand_and_Branch_Code_Must_Match</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR( AND(INCLUDES(Brand__c, &apos;KIA&apos;), NOT(INCLUDES(Branch_Code__c, &apos;CCK&apos;))),
+			AND(INCLUDES(Brand__c, &apos;MIT&apos;), NOT(INCLUDES(Branch_Code__c, &apos;CCA&apos;))),
+			AND(INCLUDES(Brand__c, &apos;CIT&apos;), NOT(INCLUDES(Branch_Code__c, &apos;CCF&apos;))),
+			AND(INCLUDES(Brand__c, &apos;DS&apos;), NOT(INCLUDES(Branch_Code__c, &apos;CCF&apos;))),
+			AND(INCLUDES(Branch_Code__c, &apos;CCK&apos;), NOT(INCLUDES(Brand__c, &apos;KIA&apos;))),
+			AND(INCLUDES(Branch_Code__c, &apos;CCA&apos;), NOT(INCLUDES(Brand__c, &apos;MIT&apos;))),
+			AND(INCLUDES(Branch_Code__c, &apos;CCF&apos;), OR( NOT(INCLUDES(Brand__c, &apos;CIT&apos;))), NOT(INCLUDES(Brand__c, &apos;DS&apos;))))</errorConditionFormula>
+    <errorMessage>Brand and Branch Code Must Match.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>Configuration for Service Centre</description>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <label>Service Center Management</label>
+    <navType>Standard</navType>
+    <tabs>Service_Centre_Master__c</tabs>
+    <tabs>Service_Category__c</tabs>
+    <tabs>Service_Centre_Off_Day__c</tabs>
+    <tabs>Delivery_Bay_Booking__c</tabs>
+    <tabs>Delivery_Bay_In_Charge__c</tabs>
+    <tabs>Sales_Agreement__c</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>Service_Center_Management_UtilityBar</utilityBar>
+</CustomApplication>

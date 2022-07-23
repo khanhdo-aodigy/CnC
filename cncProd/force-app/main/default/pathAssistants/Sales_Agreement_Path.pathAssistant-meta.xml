@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Sales_Agreement__c</entityName>
+    <fieldName>Stage__c</fieldName>
+    <masterLabel>Sales Agreement Path</masterLabel>
+    <pathAssistantSteps>
+        <fieldNames>ApprovalStatus__c</fieldNames>
+        <fieldNames>Proposed_Commission__c</fieldNames>
+        <fieldNames>Proposed_Commission_Reason__c</fieldNames>
+        <info>&lt;p&gt;&lt;b style=&quot;font-size: 13px;&quot;&gt;&lt;u&gt;What is happening:&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;The Sales Agreement is in the midst of processing (Customer Signing / Approving / Endorsing)&lt;/li&gt;&lt;li&gt;The Used Car Purchase Agreement Envelope&lt;span style=&quot;font-size: 13px;&quot;&gt; is in the midst of processing (If Any)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;font-size: 13px;&quot;&gt;&lt;u&gt;What needs to be done at this stage (Mandatory):&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Refer to the Docusign status on the progress of the envelopes (All)&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Booking</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;b style=&quot;font-size: 13px;&quot;&gt;&lt;u&gt;What is happening:&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Sales Agreement has been cancelled&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>Cancelled</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Post_Car_Collection_Survey__c</fieldNames>
+        <fieldNames>Car_Collection_Date__c</fieldNames>
+        <fieldNames>PreferredServiceCenter__c</fieldNames>
+        <info>&lt;p&gt;&lt;b style=&quot;font-size: 13px;&quot;&gt;&lt;u&gt;What is happening:&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Car has been collected&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;font-size: 13px;&quot;&gt;&lt;u&gt;What needs to be done at this stage (Optional):&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Post Car Collection Survey - QR Code (Sales Consultant)&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Defect Form (Sales Consultant) - If Applicable&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Car Collected</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>COE__c</fieldNames>
+        <fieldNames>CommcaseNo__c</fieldNames>
+        <info>&lt;p&gt;&lt;b style=&quot;font-size: 13px;&quot;&gt;&lt;u&gt;What is happening:&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Sales Agreement process has been completed - DSA will be locked&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;&lt;u&gt;What needs to be done at this stage (Mandatory):&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;COE Details Synchronisation from VSMS&lt;/li&gt;&lt;li&gt;Car Allocation &lt;span style=&quot;font-size: 13px;&quot;&gt;Synchronisation from VSMS&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Confirmation of Sale</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Name</fieldNames>
+        <fieldNames>CreatedById</fieldNames>
+        <fieldNames>LastModifiedById</fieldNames>
+        <info>&lt;p&gt;&lt;b&gt;&lt;u&gt;What is happening:&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Sales Agreement has just been created&lt;/li&gt;&lt;li&gt;Sales Order Number will be synced from VSMS once an envelope has been successfully generated&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;&lt;u&gt;What needs to be done at this stage (Mandatory):&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Please confirm that all information inside DSA is correct before generating (Sales Consultant)&lt;/li&gt;&lt;li&gt;Complete the DSA Form (Sales Consultant)&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Draft</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>DocStatusCoverNote__c</fieldNames>
+        <fieldNames>SOH_REGNO__c</fieldNames>
+        <info>&lt;p&gt;&lt;b style=&quot;font-size: 13px;&quot;&gt;&lt;u&gt;What needs to be done at this stage (Mandatory):&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Upload Cover Note (Insurance)&lt;/li&gt;&lt;li&gt;Car Registration Number &lt;span style=&quot;font-size: 13px;&quot;&gt;Synchronisation&lt;/span&gt; from VSMS&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;font-size: 13px;&quot;&gt;&lt;u&gt;What needs to be done at this stage (Optional):&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Upload Release Letter (Finance)&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Collect Balance Payment (BSD)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Pending Registration</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>DocStatusVehicleDeliveryCertificate__c</fieldNames>
+        <fieldNames>SOH_REGNO__c</fieldNames>
+        <info>&lt;p&gt;&lt;b&gt;&lt;u&gt;What needs to be done at this stage (Mandatory):&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Issue Vehicle Delivery Certificate (Sales Consultant)&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Ready for Registration</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>InsurancePremiumConfirmed__c</fieldNames>
+        <fieldNames>Registration_Date__c</fieldNames>
+        <fieldNames>Balance_Payment_Email__c</fieldNames>
+        <fieldNames>RegistrationInstruction__c</fieldNames>
+        <info>&lt;p&gt;&lt;b style=&quot;font-size: 13px;&quot;&gt;&lt;u&gt;What needs to be done at this stage (Mandatory):&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Verify &amp;amp; Confirm Insurance Premium with Customer (Insurance)&lt;/li&gt;&lt;li&gt;Input &amp;amp; Confirm Registration Date with Customer (Sales Consultant)&lt;/li&gt;&lt;li&gt;Balance Payment Email (Sales Consultant)&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;&lt;u&gt;What needs to be done at this stage (Optional):&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Upload Used Car Full Settlement Letter (Sales Consultant)&lt;/li&gt;&lt;li&gt;Confirm Used Car Full Settlement Amount with Customer - within 3 days before Balance Payment (Sales Consultant)&lt;/li&gt;&lt;li&gt;Upload GMS Documents (Sales Consultant)&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Request Registration</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>__MASTER__</recordTypeName>
+</PathAssistant>

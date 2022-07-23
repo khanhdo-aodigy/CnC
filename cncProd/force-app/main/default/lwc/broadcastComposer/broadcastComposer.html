@@ -1,0 +1,88 @@
+<template>
+    <lightning-card title="Alert Message Composer" icon-name="standard:apex_plugin">
+        <div class="slds-m-horizontal_medium ">
+
+            <!--
+            <div class="row">
+                <lightning-record-edit-form object-api-name="CustomerAlerts__c">
+                    <lightning-input-field
+                        field-name="Campaign__c"
+                        onchange={handleCampaignChange}
+                    ></lightning-input-field>
+                </lightning-record-edit-form> 
+            </div>
+            -->
+
+            <div class="row">
+                <lightning-input
+                    required 
+                    value={alertName}
+                    field-name="Name"
+                    onchange={handleAlertNameChange}
+                    placeholder="Customer Alert Name" 
+                    label="Alert Name"
+                    >
+                </lightning-input>
+            </div>
+            
+            <div class="row">
+                <lightning-record-edit-form object-api-name="CustomerAlerts__c" record-type-id={broadcastRecordTypeId}>
+                    <lightning-input-field
+                        field-name="SubType__c"
+                        onchange={handleSubTypeChange}
+                        value={selectedSubType}
+                    ></lightning-input-field>
+                </lightning-record-edit-form> 
+            </div>
+
+            <div class="row">
+                <lightning-textarea name="customerAlert" 
+                    required 
+                    value={alertMsg}
+                    onchange={handleAlertMsgChange}
+                    placeholder="Compose your alert message" 
+                    label="Customer Alert" 
+                    maxlength="32768" 
+                    message-when-too-long="Only a maximum of 32768 characters are allowed." 
+                    message-when-value-missing="Please enter the alert message" 
+                    >
+                </lightning-textarea>
+            </div>
+
+            <div class="row">
+                <lightning-input type='url' name="deepLinkingUrl" 
+                    required
+                    value={deepLinkingURL}
+                    onchange={handleDeepLinkingUrlChange}
+                    placeholder="Enter the deep linking URL." 
+                    label="Deep Linking URL" 
+                    message-when-value-missing="Please enter the deep linking URL" 
+                    >
+                </lightning-input>
+            </div>
+            
+            <div class="row">
+                <template if:true={filters}>
+                    <div class="slds-clearfix">
+                        <!-- <div class="slds-float_right"> -->
+                            <div style = "width: 100%; margin: 0.5rem 0;" >
+                                <button class="slds-button slds-button_brand slds-button_stretch" onclick={createAlert} disabled={disableBtn} >Generate Alert</button>
+                            </div>
+                        <!-- </div> -->
+                    </div>
+                </template>
+            </div>
+
+
+            <template if:true={isError}>
+                <div data-name="ErrorHeaderOffsetSticky" class="header-snap scroller sticky" style="top: 20px; background:#fc6c6c">
+                    <div class="container">
+                        <div class="row justify-content-md-center">
+                           <span>{errorMsg}</span>
+                        </div>
+                      </div>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

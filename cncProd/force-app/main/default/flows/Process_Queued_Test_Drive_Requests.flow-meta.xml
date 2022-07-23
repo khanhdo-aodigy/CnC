@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>53.0</apiVersion>
+    <assignments>
+        <name>Assign_Status_for_Courtesy_Vehicle</name>
+        <label>Assign Status for Courtesy Vehicle</label>
+        <locationX>50</locationX>
+        <locationY>575</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Courtesy_Vehicle.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>RequestType</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Courtesy_Vehicle</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>isCheckoutForLoanAndMaintenanceReq</name>
+        <label>isCheckoutForLoanAndMaintenanceReq</label>
+        <locationX>182</locationX>
+        <locationY>335</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes3</name>
+            <conditionLogic>(1 OR 2) AND 3</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Test_Drive_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Maintenance</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Test_Drive_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Loan</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Ongoing</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Courtesy_Vehicle</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>- Process after checking out for Loan/Maintenance requests
+- Process to send email notification for next queued requests</description>
+    <formulas>
+        <name>RequestType</name>
+        <dataType>String</dataType>
+        <expression>IF(ISPICKVAL({!$Record.Test_Drive_Type__c}, &apos;Maintenance&apos;), &apos;Maintenance&apos;, &apos;On Loan (Test Drive)&apos;)</expression>
+    </formulas>
+    <formulas>
+        <name>Today</name>
+        <dataType>Date</dataType>
+        <expression>DATETIMEVALUE( TEXT(YEAR(TODAY())) + &quot;-&quot; + TEXT(MONTH(TODAY())) + &quot;-&quot; + TEXT(DAY(TODAY())) + &quot; 00:00:00&quot;)</expression>
+    </formulas>
+    <interviewLabel>Process Queued Test Drive Requests {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Process Queued MB Test Drive Requests</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Courtesy_Vehicle</name>
+        <label>Get Courtesy Vehicle</label>
+        <locationX>50</locationX>
+        <locationY>455</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Status_for_Courtesy_Vehicle</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Courtesy_Vehicle__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Courtesy_Vehicle__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Status__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Courtesy_Vehicle</name>
+        <label>Update Courtesy Vehicle</label>
+        <locationX>50</locationX>
+        <locationY>695</locationY>
+        <inputReference>Get_Courtesy_Vehicle</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>isCheckoutForLoanAndMaintenanceReq</targetReference>
+        </connector>
+        <object>Vehicle_Request__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>EmailBodyForMaintenanceLoan</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Hi {!6fb228ef-5fa8-484b-99e5-c6cc4fae1a58.Owner:User.FirstName} {!6fb228ef-5fa8-484b-99e5-c6cc4fae1a58.Owner:User.LastName},
+
+You have a pending Vehicle Request today. Please do the check-out now via the link below.
+
+https://jccuat--partcopy.lightning.force.com/lightning/r/Vehicle_Request__c/{!6fb228ef-5fa8-484b-99e5-c6cc4fae1a58.Id}/view</text>
+    </textTemplates>
+    <textTemplates>
+        <name>EmailBodyForTestDrive</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Hi {!6fb228ef-5fa8-484b-99e5-c6cc4fae1a58.Owner:User.FirstName} {!6fb228ef-5fa8-484b-99e5-c6cc4fae1a58.Owner:User.LastName}, 
+
+You have a pending Test Drive today. Please do the check-out now via the link below.
+
+https://jccuat--partcopy.lightning.force.com/lightning/n/MB_Test_Drive</text>
+    </textTemplates>
+</Flow>

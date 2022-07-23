@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Open_Sales_Agreement</fullName>
+    <columns>NAME</columns>
+    <columns>SOH_SONO__c</columns>
+    <columns>Registered_Name__c</columns>
+    <columns>Model__c</columns>
+    <columns>Stage__c</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>Stage__c</field>
+        <operation>notEqual</operation>
+        <value>Car Collection,Cancelled</value>
+    </filters>
+    <label>My Open Sales Agreement</label>
+</ListView>

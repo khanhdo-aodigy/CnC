@@ -1,0 +1,20 @@
+<template>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <!--<img src={dataUrlForDemo} alt="Signature Image Will Come Here"/>-->
+            <canvas id="signaturePad" 
+            height="300" width="500" 
+            style="border:1px solid #d3d3d3;" 
+            data-id="sign-pad">
+            </canvas>
+        </div>
+
+        <div class="row justify-content-md-center">
+            <button data-id="clear-pad" onclick={clear}>Clear</button>
+            <!--<button data-id="draw-image">Draw an image from above signing pad</button>-->
+            <!--<button data-id="data-url">Send data URL</button>-->
+        </div>
+    </div>
+
+    
+</template>

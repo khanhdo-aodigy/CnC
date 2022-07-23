@@ -1,0 +1,69 @@
+<apex:page id="deleteMyAccountPage" showHeader="false" standardStylesheets="false" docType="html-5.0" applyHtmlTag="false" applyBodyTag="false"
+           title="Delete My Account | Cycle &amp; Carriage Singapore" cache="True">
+    <apex:includeLightning />
+    <apex:slds />
+    <html>
+        <head>
+            <link href="{!URLFOR($Resource.Favicon,'favicon.png')}" rel="shortcut icon"/>
+            <meta charset="utf-8"/>
+            <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+            <title>Delete My Account | Cycle &amp; Carriage Singapore</title>
+            <meta name="description" content=""/>
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+            <meta name="msapplication-TileColor" content="#ffffff"/>
+            <meta name="theme-color" content="#ffffff"/>
+            <style>
+                html.mobile body.nricmatch-bd .mfp-bg.mfp-ready
+                {
+                    height: 100vh !important;
+                }
+                /* MOBILE */
+                @media only screen and (max-width: 767px) 
+                {
+                    .modal.text-center.wide 
+                    {
+                        padding: 32px 32px;
+                        width: calc(100% / 12 * 11) !important;
+                        max-width: none !important;
+                    }
+                }             
+
+                @media only screen and (min-width: 993px) 
+                {
+                    .modal.text-center.wide 
+                    {
+                        padding: 32px 1rem !important;
+                    }                
+                }
+            </style>
+        </head>
+        <body class="standalone nricmatch-bd slds-scope" style="overflow: auto">
+            <div class="bg-container">
+                <div class="bg-container__content">
+                    <apex:form styleClass="" html-novalidate="novalidate" id="formBook" >
+                        <div id="spinner" class="slds-spinner_container" >
+                            <div role="status" class="slds-spinner slds-spinner_small">
+                                <div class="slds-spinner__dot-a"></div>
+                                <div class="slds-spinner__dot-b"></div>
+                            </div>
+                        </div>     
+                        <div id="delete">
+                            <script>
+                                $Lightning.use("c:IDPApp", function()
+                                {
+                                    $Lightning.createComponent("c:idp_deleteMyAccountForm", 
+                                    {
+                                        userId: "{!$CurrentPage.parameters.userid}"
+                                    },
+                                        "delete", function(component){});
+                                });
+
+                                setTimeout(function(){ document.getElementById('spinner').className += ' slds-hide' }, 1000);
+                            </script>
+                        </div>
+                    </apex:form>
+                </div>               
+            </div>
+        </body>
+    </html>
+</apex:page>

@@ -1,0 +1,92 @@
+<aura:component controller="DependntPicklistCMPwithRecTypeAndMspCtrl" implements="lightning:availableForFlowScreens" access="global">
+    <aura:attribute name="recordtypeList" type="Object[]"/> <!-- List of RecordTypes accessible to the logged in user -->
+    <aura:attribute name="noRecordTypeAvailable" type="boolean" default="true"/>
+    
+    <aura:attribute name="selectedRecordTypeId" type="string"/>
+    <aura:attribute name="selectedControllingPicklistValue" type="string"/>
+    <aura:attribute name="selectedDependentPicklistValue" type="string"/>
+    
+    <aura:attribute name="objectApiName" type="string" required="true" />
+    
+    <aura:attribute name="controllingPicklistLabel" type="string"/>
+    <aura:attribute name="controllingFieldApiName" type="string" required="true" />
+    
+    <aura:attribute name="dependentPicklistLabel" type="string"/>
+    <aura:attribute name="dependentFieldApiName" type="string" required="true" />
+    
+    <aura:attribute name="isMSPtype" type="boolean" default="false"/> <!-- Check if the dependent picklist is a MultiSelect	 -->
+    <aura:attribute name="selectedMSPValues" type="List" default="[]"/>
+    
+    
+    
+    <aura:attribute name="invalidApiName" type="Boolean" default="false"/> <!-- To check the validity of the passed Object API name-->
+    
+    <aura:attribute name="fieldDependencMap" type="map"/> <!-- Map to store the field dependency values between controlling and dependent picklist -->
+    <aura:attribute name="controllingPicklistValues" type="string[]"/> <!-- List of controlling picklist values -->
+    <aura:attribute name="dependentPicklistValues" type="string[]"/> <!-- List of available dependent picklist values corresponding to the controlling picklist values -->
+    <aura:attribute name="dependentPicklistValuesCache" type="string[]"/> <!-- List of all the dependent picklist values -->
+    <aura:attribute name="dependentPicklistValuesforMSP" type="List"/>
+    
+    <aura:attribute name="showSpinner" type="boolean" default="false"/>	<!-- Show/Hide spinner -->
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    
+    <div class="slds-p-around_small slds-is-relative">
+        
+        <!-- Spinner -->
+        <aura:if isTrue="{!v.showSpinner}">
+            <lightning:spinner variant="brand" alternativeText="Loading" />
+        </aura:if>
+        
+        <!-- Record  type selection -->
+        <aura:if isTrue="{! not(v.invalidApiName) &amp;&amp; not(v.noRecordTypeAvailable) }">
+            <lightning:select name="recordType" label="Choose Record Type" value="{!v.selectedRecordTypeId}" onchange="{!c.handleRecordTypeChange}" required="true">
+                <option value="" text=" ---None--- "/>
+                <aura:iteration items="{!v.recordtypeList}" var="rt">
+                    <option value="{!rt.rtId}" text="{!rt.rtName}"/>
+                </aura:iteration>
+            </lightning:select>
+            <aura:set attribute="else">
+                <aura:if isTrue="{! v.noRecordTypeAvailable}">
+                    <!--h3 class="slds-text-heading_small slds-truncate slds-p-right_small" title="summary title">
+                        No Record types available.
+                    </h3-->
+                    <aura:set attribute="else">		
+                        Invalid Api name of the object.
+                    </aura:set>
+                </aura:if>	
+            </aura:set>
+        </aura:if>
+        <br/>
+        <aura:if isTrue="{! not(empty(v.selectedRecordTypeId)) || ( not(v.invalidApiName) &amp;&amp; v.noRecordTypeAvailable) }">
+            <!-- Controlling picklist selection-->
+            <lightning:select label="{!v.controllingPicklistLabel}" onchange="{!c.handleControllingPicklistChange}" value="{!v.selectedControllingPicklistValue}">
+                <option value="" text=" ---None--- "/>
+                <aura:iteration items="{!v.controllingPicklistValues}" var="cp">
+                    <option value="{!cp}" text="{!cp}"/>
+                </aura:iteration>
+            </lightning:select>
+            <br/>
+            <!-- Dependent picklist selection -->
+            <aura:if isTrue="{! v.isMSPtype}">
+                <lightning:dualListbox label="{!v.dependentPicklistLabel}" sourceLabel="Available"
+                                       disabled="{! empty(v.selectedControllingPicklistValue)}"
+                                       selectedLabel="Selected" options="{!v.dependentPicklistValues}"
+                                       value="{!v.selectedMSPValues}" 
+                                       onchange="{!c.handleDependentPicklistValueChange}"
+                                       />
+                <aura:set attribute="else">						
+                    <lightning:select label="{!v.dependentPicklistLabel}" disabled="{! empty(v.selectedControllingPicklistValue)}" value="{!v.selectedDependentPicklistValue}">
+                        <option value="" text=" ---None--- "/>
+                        <aura:iteration items="{!v.dependentPicklistValues}" var="dp">
+                            <option value="{!dp}" text="{!dp}"/>
+                        </aura:iteration>
+                    </lightning:select>
+                </aura:set>
+                <br/>
+            </aura:if>
+        </aura:if>	
+        
+    </div>
+</aura:component>

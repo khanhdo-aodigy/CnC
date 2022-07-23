@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Email_is_Required</fullName>
+    <active>false</active>
+    <description>Email is required</description>
+    <errorConditionFormula>ISBLANK(PersonEmail)
+&amp;&amp; IsPersonAccount = true
+&amp;&amp; RecordType.Name &lt;&gt; &apos;Prospect&apos;
+&amp;&amp; $Setup.Bypass_Automation_Settings__c.Bypass_Validation_Rules__c &lt;&gt; true</errorConditionFormula>
+    <errorDisplayField>PersonEmail</errorDisplayField>
+    <errorMessage>Email is required</errorMessage>
+</ValidationRule>

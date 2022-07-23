@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TCAccepted__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Paid Event: Flag to tell if customer agreed to the Terms and Conditions stipulated in the event site.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Paid Event: Flag to tell if customer agreed to the Terms and Conditions stipulated in the event site.</inlineHelpText>
+    <label>T&amp;C Accepted</label>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

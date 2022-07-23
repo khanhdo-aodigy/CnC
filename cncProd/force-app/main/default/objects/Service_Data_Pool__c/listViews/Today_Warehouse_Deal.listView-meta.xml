@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Today_Warehouse_Deal</fullName>
+    <columns>NAME</columns>
+    <columns>Created_DateTime__c</columns>
+    <columns>Response_Status_Code__c</columns>
+    <columns>Request_Method__c</columns>
+    <columns>Request_End_Point__c</columns>
+    <columns>Service_Name__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Apex_Class__c</columns>
+    <columns>Request_Params__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>greaterOrEqual</operation>
+        <value>5/10/2021 12:00 AM</value>
+    </filters>
+    <filters>
+        <field>Apex_Class__c</field>
+        <operation>equals</operation>
+        <value>restWarehouse,restPaymentService</value>
+    </filters>
+    <filters>
+        <field>Request_Method__c</field>
+        <operation>equals</operation>
+        <value>POST</value>
+    </filters>
+    <label>Today Warehouse Deal</label>
+</ListView>

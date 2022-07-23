@@ -1,0 +1,131 @@
+<template>
+    <!-- Start: Loading Screen -->
+    <template if:true={spinner}>
+        <lightning-spinner variant="brand" size="large"></lightning-spinner>
+    </template>
+    <!-- End: Loading Screen -->
+
+    <!-- Start: Vehicle Specs Table -->
+    <template if:false={spinner}>
+        <div class="slds-card slds-theme_default" style="font-size: 14px;">
+
+            <!-- SECTION HEADER -->
+            <div class="slds-card__header">
+                <div class="section-layout-container">
+                    <h3 class="slds-theme_shade slds-var-p-around_x-small slds-truncate">
+                        <div class="slds-grid">
+                            <div class="slds-col slds-var-p-top_xx-small" style="font-size: 16px;">
+                                Options
+                            </div>
+                            <div class="slds-col slds-size_2-of-12" style="text-align:left">
+                                <lightning-button
+                                    variant="destructive" 
+                                    label="Add" 
+                                    onclick={openModal} 
+                                    data-toggle="modal"
+                                    data-target="#modalAddOns" 
+                                    >
+                                </lightning-button>
+                            </div>
+                        </div>
+                    </h3>
+                </div>
+            </div>
+
+            <!-- MAIN BODY -->
+            <div class="slds-box" style="border-color: white;">
+
+                <!-- MAIN ACEESSORIES -->
+                <template if:true={haveMA}>
+                    <div class="slds-grid slds-wrap" style="font-weight: bold;">
+                        <div class="slds-col slds-size_10-of-12">
+                            STANDARD ITEMS
+                        </div>
+                        <div class="slds-col slds-size_2-of-12">
+                            Inclusive
+                        </div>
+                    </div>
+
+                    <template for:each={MA} for:item="mainSpec">
+                        <div class="slds-grid slds-wrap slds-var-p-top_medium" key={mainSpec.id}>
+                            <div class="slds-col slds-size_10-of-12 slds-var-p-left_medium">
+                                <lightning-icon icon-name="custom:custom19" size="small" class="bug-around"></lightning-icon>
+                                <span class="slds-var-p-left_small">{mainSpec.description}</span>
+                            </div>
+
+                            <!-- <div class="slds-col slds-size_2-of-12">
+                                Inclusive
+                            </div> -->
+                            <template if:false={mainSpec.isToDisplayInc}>
+                                $ <lightning-formatted-number value={mainSpec.value}></lightning-formatted-number>
+                            </template>
+                            <template if:true={mainSpec.isToDisplayInc}>
+                                Inclusive
+                            </template>
+                        </div>
+                    </template>
+                </template>
+                <!-- END MAIN ACEESSORIES -->
+
+                <template if:true={sepBar}>
+                    <hr style="border-color: #006DCC;">
+                </template>
+
+                <!-- ADDITIONAL ACCESSORIES -->
+                <template if:true={haveAA}>
+                    <div class="slds-grid slds-wrap" style="font-weight: bold;">
+                        <div class="slds-col slds-size_10-of-12">
+                            ADD-ON (OPTIONAL)
+                        </div>
+                        <div class="slds-col slds-size_2-of-12">
+                            $ <lightning-formatted-number value={AATotal}></lightning-formatted-number>
+                        </div>
+                    </div>
+
+                    <template for:each={AA} for:item="addSpec">
+                        <div class="slds-grid slds-wrap slds-var-p-top_medium" key={addSpec.id}>
+                            <div class="slds-col slds-size_10-of-12 slds-var-p-left_medium">
+                                <lightning-button-icon 
+                                    value={addSpec.id} 
+                                    icon-name="utility:delete"
+                                    icon-class="slds-text-color_destructive"
+                                    variant="border" 
+                                    onclick={onRecordDelete}>
+                                </lightning-button-icon>
+                                <span class="slds-var-p-left_small">
+                                    {addSpec.description}
+                                </span>
+                            </div>
+
+                            <div class="slds-col slds-size_2-of-12">
+                                <!-- <template if:false={addSpec.isSVCOrBoutique}>
+                                    $ <lightning-formatted-number value={addSpec.value}></lightning-formatted-number>
+                                </template>
+                                <template if:true={addSpec.isSVCOrBoutique}>
+                                    Inclusive
+                                </template> -->
+                                <template if:false={addSpec.isToDisplayInc}>
+                                    $ <lightning-formatted-number value={addSpec.value}></lightning-formatted-number>
+                                </template>
+                                <template if:true={addSpec.isToDisplayInc}>
+                                    Inclusive
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                </template>
+                <!-- END ADDITIONAL ACCESSORIES -->
+            </div>
+        </div>
+    </template>
+    <!-- End: Vehicle Specs Table -->
+
+    <!-- Pass on information to AddOnModal -->
+    <template if:true={modal}>
+        <c-mb-vehicle-specs-add-on-list 
+            existing-options={AA} 
+            onclosemodal={closeModal} 
+            sales-agreement={SA}>
+        </c-mb-vehicle-specs-add-on-list>
+    </template>
+</template>

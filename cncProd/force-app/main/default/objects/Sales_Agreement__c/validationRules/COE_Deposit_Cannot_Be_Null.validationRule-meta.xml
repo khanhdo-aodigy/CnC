@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COE_Deposit_Cannot_Be_Null</fullName>
+    <active>true</active>
+    <errorConditionFormula>if(ISBLANK(COE_Deposit__c) &amp;&amp; ISNULL(COE_Deposit__c),true,false)
+&amp;&amp; NOT( $Setup.Bypass_Automation_Settings__c.Bypass_Validation_Rules__c )</errorConditionFormula>
+    <errorMessage>COE Deposit cannot be empty. minimum value is 0.</errorMessage>
+</ValidationRule>

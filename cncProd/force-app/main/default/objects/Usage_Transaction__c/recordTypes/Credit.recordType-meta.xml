@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Credit</fullName>
+    <active>true</active>
+    <description>Refund/Ajustment/etc</description>
+    <label>Credit</label>
+    <picklistValues>
+        <picklist>Channel__c</picklist>
+        <values>
+            <fullName>Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>System</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eShop</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Outstanding_Payment_Type__c</picklist>
+        <values>
+            <fullName>Cash</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Card</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Source__c</picklist>
+        <values>
+            <fullName>Aftersales - FOC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Aftersales - Goodwill</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Car Purchase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales - Goodwill</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sold Credits</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

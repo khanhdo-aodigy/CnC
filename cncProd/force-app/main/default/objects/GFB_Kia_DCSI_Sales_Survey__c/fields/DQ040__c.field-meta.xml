@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DQ040__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(CONTAINS(Former_Car_Brand__c, &quot;Hyundai&quot;), 1, IF(CONTAINS(Former_Car_Brand__c, &quot;Toyota&quot;) , 2, 
+IF(CONTAINS(Former_Car_Brand__c, &quot;Audi&quot;) , 3, 
+IF(CONTAINS(Former_Car_Brand__c, &quot;Bentley&quot;) , 4, 
+IF(CONTAINS(Former_Car_Brand__c, &quot;BMW&quot;) , 5, 
+IF(CONTAINS(Former_Car_Brand__c, &quot;Chery&quot;) , 6, 
+IF(CONTAINS(Former_Car_Brand__c, &quot;Chevrolet&quot;) , 7, 
+IF(CONTAINS(Former_Car_Brand__c, &quot;Chrysler&quot;) , 8, 
+IF(CONTAINS(Former_Car_Brand__c, &quot;Citroen&quot;) , 9, 
+IF(CONTAINS(Former_Car_Brand__c, &quot;Daihatsu&quot;) , 10, 
+IF(CONTAINS(Former_Car_Brand__c, &quot;Fiat&quot;) , 11, 
+IF(CONTAINS(Former_Car_Brand__c, &quot;Ford&quot;) , 12, 
+IF(CONTAINS(Former_Car_Brand__c, &quot;Honda&quot;) , 13, 
+IF(CONTAINS(Former_Car_Brand__c, &quot;Infiniti&quot;) , 14, 
+IF(CONTAINS(Former_Car_Brand__c, &quot;Jaguar Land Rover&quot;) , 15, IF(CONTAINS(Former_Car_Brand__c, &quot;Lexus&quot;) , 16, 
+IF(CONTAINS(Former_Car_Brand__c, &quot;Mazda&quot;) , 17, 
+IF(CONTAINS(Former_Car_Brand__c, &quot;Mercedes-Benz&quot;) , 18, 
+IF(CONTAINS(Former_Car_Brand__c, &quot;MINI&quot;) , 19, 
+IF(CONTAINS(Former_Car_Brand__c, &quot;Mitsubishi&quot;) , 20, 
+IF(CONTAINS(Former_Car_Brand__c, &quot;Nissan&quot;) , 21, 
+IF(CONTAINS(Former_Car_Brand__c, &quot;Opel&quot;) , 22, 99))))))))))))))))))))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>DQ040</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

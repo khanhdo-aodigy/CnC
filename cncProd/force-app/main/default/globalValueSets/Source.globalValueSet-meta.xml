@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>New Car Purchase</fullName>
+        <default>false</default>
+        <label>New Car Purchase</label>
+    </customValue>
+    <customValue>
+        <fullName>Sales - Goodwill</fullName>
+        <default>false</default>
+        <label>Sales - Goodwill</label>
+    </customValue>
+    <customValue>
+        <fullName>Aftersales - Goodwill</fullName>
+        <default>false</default>
+        <label>Aftersales - Goodwill</label>
+    </customValue>
+    <customValue>
+        <fullName>Aftersales - FOC</fullName>
+        <default>false</default>
+        <label>Aftersales - FOC</label>
+    </customValue>
+    <customValue>
+        <fullName>Sold Credits</fullName>
+        <default>false</default>
+        <label>Sold Credits</label>
+    </customValue>
+    <description>Credit Management Credit Allocation Source</description>
+    <masterLabel>Source</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

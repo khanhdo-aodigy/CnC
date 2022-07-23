@@ -1,0 +1,17 @@
+/*style*/
+.displayBlock{
+    display : block;
+}
+
+.displayNone{
+    display : none;
+}
+
+.activeLabel{
+    border : 0;
+    background: 'transparent';
+}
+
+header .steps ul li a .steps--icon big .icon{
+    fill : white;
+}

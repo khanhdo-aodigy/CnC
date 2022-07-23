@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GFB_Post_Car_Collection_URL__c</fullName>
+    <description>C&amp;C Sales Survey: https://cyclecarriage.getfeedback.com/r/J6Zf7V0o
+Kia DCSI Sales Survey: https://cyclecarriage.getfeedback.com/r/NMzKhJMS</description>
+    <externalId>false</externalId>
+    <formula>if(Text(Branch_Code__c) =&apos;CCK&apos;, &quot;https://cyclecarriage.getfeedback.com/r/NMzKhJMS?gf_unique=&quot; &amp; Id &amp; &quot;&amp;Sales_Agreement_ID=&quot; &amp; Id, &quot;https://cyclecarriage.getfeedback.com/r/J6Zf7V0o?gf_unique=&quot; &amp; Id &amp; &quot;&amp;Sales_Agreement_ID=&quot; &amp; Id)</formula>
+    <inlineHelpText>This is for QR Code</inlineHelpText>
+    <label>GFB Post Car Collection URL</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

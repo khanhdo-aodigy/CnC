@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>A04N</fullName>
+        <default>false</default>
+        <label>AIG (Non InHouse)</label>
+    </customValue>
+    <customValue>
+        <fullName>A04</fullName>
+        <default>false</default>
+        <label>AIG Asia Pacific Insurance Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>A10</fullName>
+        <default>false</default>
+        <label>Allianz Global Corporate &amp; Specialty AG SG Branch</label>
+    </customValue>
+    <customValue>
+        <fullName>R02</fullName>
+        <default>false</default>
+        <label>Allied World</label>
+    </customValue>
+    <customValue>
+        <fullName>A16</fullName>
+        <default>false</default>
+        <label>Auto &amp; General Insurance (S) Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>Aviva</fullName>
+        <default>false</default>
+        <label>Aviva</label>
+    </customValue>
+    <customValue>
+        <fullName>A12</fullName>
+        <default>false</default>
+        <label>AXA Insurance Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>Budget Direct</fullName>
+        <default>false</default>
+        <label>Budget Direct</label>
+    </customValue>
+    <customValue>
+        <fullName>C01</fullName>
+        <default>false</default>
+        <label>China Taiping Insurance (SG) Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>A13</fullName>
+        <default>false</default>
+        <label>Chubb Insurance Singapore Limited</label>
+    </customValue>
+    <customValue>
+        <fullName>D01</fullName>
+        <default>false</default>
+        <label>Direct Asia Insurance (Singapore) Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>E06</fullName>
+        <default>false</default>
+        <label>ECICS Limited</label>
+    </customValue>
+    <customValue>
+        <fullName>E04</fullName>
+        <default>false</default>
+        <label>EQ Insurance Company Limited</label>
+    </customValue>
+    <customValue>
+        <fullName>N03</fullName>
+        <default>false</default>
+        <label>Ergo Insurance Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>E05</fullName>
+        <default>false</default>
+        <label>Etiqa Insurance Berhad</label>
+    </customValue>
+    <customValue>
+        <fullName>F02</fullName>
+        <default>false</default>
+        <label>Federal Insurance Co</label>
+    </customValue>
+    <customValue>
+        <fullName>F04</fullName>
+        <default>false</default>
+        <label>FWD Singapore Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>G05</fullName>
+        <default>false</default>
+        <label>Government Vehicles</label>
+    </customValue>
+    <customValue>
+        <fullName>G03</fullName>
+        <default>false</default>
+        <label>Great American Insurance Company</label>
+    </customValue>
+    <customValue>
+        <fullName>O03</fullName>
+        <default>false</default>
+        <label>Great Eastern General Insurance Limited</label>
+    </customValue>
+    <customValue>
+        <fullName>H03</fullName>
+        <default>false</default>
+        <label>HL Assurance Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>I05</fullName>
+        <default>false</default>
+        <label>India International Ins P L</label>
+    </customValue>
+    <customValue>
+        <fullName>C05</fullName>
+        <default>false</default>
+        <label>Liberty INS P L</label>
+    </customValue>
+    <customValue>
+        <fullName>L06</fullName>
+        <default>false</default>
+        <label>Lonpac Insurance Bhd</label>
+    </customValue>
+    <customValue>
+        <fullName>F03</fullName>
+        <default>false</default>
+        <label>MS First Capital Insurance Limited</label>
+    </customValue>
+    <customValue>
+        <fullName>I01</fullName>
+        <default>false</default>
+        <label>MSIG Insurance (Singapore) Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>N08</fullName>
+        <default>false</default>
+        <label>Nipponkoa Insurance Co Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>N12</fullName>
+        <default>false</default>
+        <label>NTUC Income Ins Co-Operative L</label>
+    </customValue>
+    <customValue>
+        <fullName>Q01</fullName>
+        <default>false</default>
+        <label>QBE Insurance (Singapore) Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>S10</fullName>
+        <default>false</default>
+        <label>Sompo Insurance Singapore Pte Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>A06</fullName>
+        <default>false</default>
+        <label>Tokio Marine Insurance Singapore Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>U06</fullName>
+        <default>false</default>
+        <label>United Overseas Insurance</label>
+    </customValue>
+    <masterLabel>MB Insurance Company</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

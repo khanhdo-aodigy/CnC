@@ -1,0 +1,35 @@
+ul li {
+    list-style-type: none;
+    width: 50px;
+    display: inline;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin: 0px;
+    float: left;
+}
+
+/*.headerli {
+    list-style-type: none;
+    width: 100px;
+    display: inline;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin: 0px;
+    float: left;
+}
+
+.btnLi {
+    list-style-type: none;
+    display: inline;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin: 0px;
+}*/
+
+
+@media only screen and (max-width: 700px) {
+    div {
+        width: 100%;
+        overflow-x: auto;
+    }
+}

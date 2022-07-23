@@ -1,0 +1,31 @@
+<apex:page standardController="User" extensions="EditUserController" action="{!checkPermission}" showHeader="false" lightningStyleSheets="true" >
+    <apex:form >
+        <apex:sectionHeader title="User Edit" subtitle="{!User.Name}" />
+        <apex:pageBlock title="User Edit" mode="edit" id="theBlock">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Save" oncomplete="closeWindow();"/>
+                <apex:commandButton action="{!cancel}" value="Cancel" oncomplete="closeWindow();"/>
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockSection title="General Information" columns="2">
+                <apex:outputField value="{!user.FirstName}"/>                
+                <apex:outputField value="{!user.UserRoleId}"/>
+                <apex:outputField value="{!user.LastName}"/>
+                <apex:outputField value="{!user.ProfileId}"/>
+                <apex:outputField value="{!user.Alias}"/>
+                <apex:outputField value="{!user.Email}"/>
+                <apex:outputField value="{!user.Username}"/>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Additional Information" columns="1">
+				<apex:repeat value="{!fieldNames}" var="FieldName" >
+                	<apex:pageBlockSectionItem >
+                    	<apex:outputLabel value="{!$ObjectType.User.Fields[FieldName].Label}" />
+                    	<apex:inputField value="{!u[FieldName]}" />                               
+                    </apex:pageBlockSectionItem>
+                </apex:repeat>
+           </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

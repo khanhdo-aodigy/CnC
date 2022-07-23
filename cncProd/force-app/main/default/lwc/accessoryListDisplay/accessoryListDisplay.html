@@ -1,0 +1,19 @@
+<template>
+        <div class="panel-body">
+                <template if:true={listItems}>
+                        <ul class="list-default">
+                                <template for:each={listItems} for:item="item">
+                                        <li key={item.Description__c}>  
+                                                <div class="container">
+                                                        <div class={rowStyle}>
+                                                                <div class="col-8">
+                                                                        <span>{item.Description__c}</span>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                        </li>
+                                </template>
+                        </ul>
+                </template>
+        </div>
+</template>

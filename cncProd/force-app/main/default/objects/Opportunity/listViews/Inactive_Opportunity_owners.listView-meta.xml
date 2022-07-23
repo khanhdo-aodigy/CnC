@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Inactive_Opportunity_owners</fullName>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>CORE.USERS.FULL_NAME</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <columns>OPPORTUNITY.CLOSE_DATE</columns>
+    <columns>Model_c__c</columns>
+    <columns>Account_Record_Type__c</columns>
+    <columns>Branch_Code__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Owner_is_Active__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>OPPORTUNITY.STAGE_NAME</field>
+        <operation>equals</operation>
+        <value>Open,Test Driven</value>
+    </filters>
+    <filters>
+        <field>Account_Record_Type__c</field>
+        <operation>equals</operation>
+        <value>PROSPECT</value>
+    </filters>
+    <filters>
+        <field>CORE.USERS.FULL_NAME</field>
+        <operation>contains</operation>
+        <value>Florence</value>
+    </filters>
+    <label>Inactive Opportunity Owners</label>
+</ListView>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RAP</fullName>
+    <booleanFilter>1 OR 2</booleanFilter>
+    <columns>NAME</columns>
+    <columns>Request_Params__c</columns>
+    <columns>Response_Status_Code__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Service_Name__c</columns>
+    <columns>Apex_Class__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Apex_Class__c</field>
+        <operation>equals</operation>
+        <value>RAP_SendVehicleDetailsAPI</value>
+    </filters>
+    <filters>
+        <field>Apex_Class__c</field>
+        <operation>equals</operation>
+        <value>RAP_UpdateMachinePriceAPI</value>
+    </filters>
+    <label>RAP: SF-ML</label>
+    <sharedTo>
+        <group>RAP_Admin</group>
+    </sharedTo>
+</ListView>

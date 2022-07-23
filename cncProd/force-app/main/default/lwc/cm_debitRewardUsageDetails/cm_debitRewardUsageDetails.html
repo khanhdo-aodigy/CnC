@@ -1,0 +1,80 @@
+<template>
+    <div class="slds-grid slds-wrap">
+        <template if:true={isEdit}>
+            <div class="slds-col slds-size_1-of-2">
+                <lightning-input type="text" label="Invoice Number" required value={invoiceNumber}
+                    variant="label-inline" name="invoiceNumber" data-id="invoice-number" onchange={onValueChanged}
+                    onkeydown={handleScannedInput}>
+                </lightning-input>
+                <lightning-input type="number" label="Invoice Amount" value={invoiceAmount} step=".01" required
+                    variant="label-inline" name="invoiceAmount" data-id="invoice-amount" onchange={onValueChanged}>
+                </lightning-input>
+                <lightning-input type="date" label="Invoice Date" required variant="label-inline" name="invoiceDate"
+                    onchange={onValueChanged} value={invoiceDate}>
+                </lightning-input>
+                <lightning-input type="number" label="Credit Amount" step=".01" required variant="label-inline"
+                    name="creditAmount" onchange={onValueChanged} value={creditAmount}>
+                </lightning-input>
+                <lightning-input type="number" label="Outstanding Payment Amount" step=".01" variant="label-inline"
+                    name="outStandingAmount" onchange={onValueChanged} value={outStandingAmount} read-only="true"
+                    field-level-help="Non-Credit Amount">
+                </lightning-input>
+                <lightning-combobox name="paymentType" label="Payment Type" value={paymentType} options={options}
+                    onchange={onValueChanged} variant="label-inline" placeholder="Select Payment Type..."
+                    read-only={isDisabled} field-level-help="Non-Credit Payment Type" required>
+                </lightning-combobox>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <div class="form-style">
+                    <template if:true={rewardProfileRec}>
+                        <lightning-record-view-form record-id={recordId} object-api-name="Reward_Profile__c" density="compact">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <label class="slds-form-element__label" for="issuedDate">Reward Profile ID</label>
+                                <div class="slds-form-element__control">
+                                    <lightning-output-field field-name="Name" variant="label-hidden"> </lightning-output-field>
+                                </div>
+                            </div>                        
+                            <lightning-output-field field-name="Contact__c">
+                            </lightning-output-field>
+                            <lightning-output-field field-name="Brand__c">
+                            </lightning-output-field>
+                            <lightning-output-field field-name="Type__c">
+                            </lightning-output-field>
+                            <lightning-output-field field-name="Total_Remainder__c">
+                            </lightning-output-field>
+                        </lightning-record-view-form>
+                    </template>
+                </div>
+            </div>
+        </template>
+        <template if:false={isEdit}>
+            <div class="slds-col slds-size_1-of-1 slds-grid_align-center" style="padding-left: 30%">
+                <lightning-record-view-form record-id={recordId} object-api-name="Reward_Profile__c" density="compact">
+                    <lightning-input type="text" label="Reward Profile ID" variant="label-inline"
+                        value={rewardProfileRec.Name} read-only="true"></lightning-input>
+                    <lightning-output-field field-name="Contact__c">
+                    </lightning-output-field>
+                    <lightning-output-field field-name="Brand__c">
+                    </lightning-output-field>
+                    <lightning-output-field field-name="Type__c">
+                    </lightning-output-field>
+                    <lightning-input type="number" label="Credit Before Deduction" variant="label-inline"
+                        value={totalRemainderBefore} step=".01" read-only="true"></lightning-input>
+                    <lightning-input type="date" label="Date" variant="label-inline" value={invoiceDate}
+                        read-only="true"></lightning-input>
+                    <lightning-input type="text" label="Invoice Number" variant="label-inline" value={invoiceNumber}
+                        read-only="true"></lightning-input>
+                    <lightning-input type="number" label="Invoice Amount" variant="label-inline"
+                        value={invoiceAmount} step=".01" read-only="true"></lightning-input>
+                    <lightning-input type="number" label="Credit Deducted" variant="label-inline"
+                        value={creditAmount} step=".01" read-only="true"></lightning-input>
+                    <lightning-input type="number" label="Outstanding Payment by Cash/Credit Card"
+                        variant="label-inline" value={outStandingAmount} step=".01" read-only="true">
+                    </lightning-input>
+                    <lightning-output-field field-name="Total_Remainder__c">
+                    </lightning-output-field>
+                </lightning-record-view-form>
+            </div>
+        </template>
+    </div>
+</template>

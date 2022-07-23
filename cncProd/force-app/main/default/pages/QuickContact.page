@@ -1,0 +1,289 @@
+<apex:page docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false" cache="true" controller="OCCont">
+    <link href="{!URLFOR($Resource.bootStrap, 'bootstrap/css/bootstrap.min.css')}" rel="stylesheet" media="screen" />
+    <link href="{!URLFOR($Resource.bootStrap, 'bootstrap/css/bootstrap-responsive.css')}" rel="stylesheet" media="screen" />
+    <link href="{!URLFOR($Resource.plugIn, 'PlugIn/overlayLoading/style.css')}" rel="stylesheet" media="screen" />
+    <style type="text/css">
+        .btn-primary {
+
+            margin-right: 15px;
+            margin-top: 10px;
+        }
+
+        .container {
+            width: 100%;
+            padding-left: 20px;
+            border-width: 1px 0 1px 0;
+            border-style: solid;
+            border-color: #D3D3D3;
+            padding-top: 7px;
+        }
+
+        .container1 {
+            width: 100%;
+            padding-left: 20px;
+            padding-top: 0 px;
+            padding-bottom: 0px;
+        }
+
+        .loading {
+            display: inline-block;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            width: 400px;
+            margin: auto;
+            padding-left: 10px;
+            padding-right: 10px;
+            text-align: center;
+        }
+
+        .logo {
+            max-height: 79px;
+            max-width: 135px;
+        }
+    </style>
+    <script>
+        var getError = '';
+    </script>
+    <apex:includeScript value="{!URLFOR($Resource.bootStrap, 'bootstrap/js/bootstrap.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.plugIn, 'PlugIn/jquery.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.plugIn, 'PlugIn/overlayLoading/jquery-loader.js')}" />
+    <html>
+
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>Quick Contact</title>
+    </head>
+    <img src="{!logo1}" align='Left' />
+    <img src="{!logo2}" align='right' class="logo" />
+
+    <body>
+        <div style="width: 100% !important; height: 3px; background: black; overflow: hidden;" />
+        <div class="container1">
+            <h3>Quick Contact</h3>
+        </div>
+        <div class="container">
+            <apex:form id="theForm" styleClass="form-control" rendered="{!if(rtid==null,false,true)}">
+                <apex:actionFunction name="callAction" action="{!callLookup}" />
+                <apex:pageMessages ></apex:pageMessages>
+
+                <script>
+                    getError = "{!theGotError}";
+                </script>
+
+                <apex:outputPanel rendered="{!okMsg}">
+                    <div class="alert alert-success">
+                        <strong>Data submitted</strong>
+                    </div>
+                </apex:outputPanel>
+
+                <!-- Mobile Number -->
+                <strong>Mobile Number</strong>
+                <br/>
+                <apex:input id="mobNum-quickcon" value="{!CustMobile}" onkeypress="return isNumber(event)" required="false" onblur="startLoading();mobileChange();"
+                    styleClass="mobilenum" style="border-color:red;" html-maxlength="8" />
+                <br/>
+                <apex:outputPanel rendered="{!errMobile}">
+                    <div class="alert alert-danger">
+                        <strong>Please enter a mobile number</strong>
+                    </div>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!errNumberMobile || errNumberMobile2 || errNumberMobile3}">
+                    <div class="alert alert-danger">
+                        <strong>Please enter a valid mobile number starting with 8 or 9.</strong>
+                        <br/>
+                    </div>
+                </apex:outputPanel>
+
+                <!-- First Name -->
+                <strong> First Name</strong>
+                <br/>
+                <apex:inputText id="FirstName-quickcon" value="{!CustFirstName}" required="false" styleClass="phone" style="border-color:red;"
+                    maxlength="40" />
+                <br/>
+                <apex:outputPanel rendered="{!errFirstName}">
+                    <div class="alert alert-danger">
+                        <strong>Please enter the Customer's First Name</strong>
+                    </div>
+                </apex:outputPanel>
+
+                <!-- Last Name -->
+                <strong> Last Name</strong>
+                <br/>
+                <apex:inputText id="LastName-quickcon" value="{!CustlastName}" required="false" styleClass="phone" style="border-color:red;"
+                    html-minlength="2" maxlength="80" />
+                <br/>
+                <apex:outputPanel rendered="{!errName}">
+                    <div class="alert alert-danger">
+                        <strong>Please enter the Customer's Last Name</strong>
+                    </div>
+                </apex:outputPanel>
+
+                <!-- Email -->
+                <strong>Email</strong>
+                <br/>
+                <apex:inputText value="{!CustEmail}" required="false" styleClass="nama" style="border-color:red;" maxlength="255" />
+                <br/>
+                <apex:outputPanel rendered="{!errEmail}">
+                    <div class="alert alert-danger">
+                        <strong>Please enter an Email Address</strong>
+                    </div>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!errInvalidemail}">
+                    <div class="alert alert-danger">
+                        <strong>Please enter a valid email address</strong>
+                        <br/>
+                    </div>
+                </apex:outputPanel>
+
+                <!-- Other Number -->
+                <strong>Other Number</strong>
+                <br/>
+                <apex:inputText id="otherPhone-quickCon" value="{!CustPhone}" styleclass="phone" maxlength="8" onkeypress="return isNumber(event)"
+                />
+                <br/>
+
+                <apex:outputPanel style="display:none">
+                    <apex:inputField value="{!opp.Franchise_Code__c}" />
+                </apex:outputPanel>
+
+                <!--
+                <apex:outputPanel rendered="{!$Profile.Name == 'KIAPC Sales Manager' || $Profile.Name == 'MITPC Sales Manager' || $Profile.Name == 'CITPC Sales Manager'}">
+                -->
+                <apex:outputPanel >
+                <strong>Source</strong>
+                <br/>               
+                    <apex:selectList value="{!selectedSrc}" multiselect="false" size="1">
+                        <apex:selectOptions value="{!SourceOptions}"/>
+                    </apex:selectList>
+             
+                    <!--<apex:outputText value="{!selectedSrc}" label="You have selected:"/>-->
+                <br/>
+                </apex:outputPanel>
+
+                <apex:outputPanel >
+                <strong>PDPA</strong>
+                <br/>                
+                    <table>
+                        <tr>
+                            <td>SMS </td>
+                            <td><apex:inputCheckbox value="{!isSMS}" /></td>
+                            <td>Email</td>
+                            <td><apex:inputCheckbox value="{!isEmail}" /></td>
+                            <td>Call</td>
+                            <td><apex:inputCheckbox value="{!isCall}" /></td>
+                            <td>Fax</td>
+                            <td><apex:inputCheckbox value="{!isFax}" /></td>
+                        </tr>
+                    </table>
+                     
+                <br/>
+
+                </apex:outputPanel>
+
+                <!-- Model Selection -->
+                <strong>Model</strong>
+                <br/>
+                <apex:inputText label="Model Lookup" disabled="true" html-placeholder="Click Search Icon" style="float:left;" value="{!modName}">
+                    <apex:image value="https://api.icons8.com/download/19343120d27c16dd3e9d21ad3aa637f94fd4d5fa/Android_L/PNG/256/Very_Basic/search-256.png"
+                        height="25" width="25" onclick="callAction()" />
+                </apex:inputText>
+                <apex:outputPanel rendered="{!errModel}">
+                    <div class="alert alert-danger">
+                        <strong>Please select the Model Interested in</strong>
+                    </div>
+                </apex:outputPanel>
+                <br/>
+                <br/>
+
+                <apex:commandButton value="Submit" styleclass="btn btn-primary" onclick="handleSubmit(this)" />
+                <apex:commandButton action="{!doClear}" value="Clear" styleclass="btn btn-primary" reRender="theForm" />
+                <apex:commandButton action="{!doCancel}" value="Cancel" styleclass="btn btn-primary" />
+
+                <apex:actionFunction action="{!doSave}" name="doSave" />
+                <apex:actionFunction action="{!searchCustPhone}" name="searchCustPhone" reRender="theForm" oncomplete="stopLoading();setFocusOn();"
+                />
+                <apex:actionFunction name="setFocus1" oncomplete="setFocus('mobilenum');" />
+                <apex:actionFunction name="setFocus2" oncomplete="setFocus('nama');" />
+            </apex:form>
+
+            <apex:form styleClass="form-control" rendered="{!if(rtid==null,true,false)}">
+                <div class="alert alert-info">
+                    <strong>Your Branch and Franchise settings have not been setup.Please Contact your System Administrator.</strong>
+                </div>
+                <apex:commandButton action="{!doCancel}" value="Cancel" styleclass="btn btn-primary" />
+            </apex:form>
+        </div>
+    </body>
+
+    </html>
+
+
+
+    <script>    
+        function mobileChange() {
+            searchCustPhone();
+        }
+
+        function startLoading() {
+            $.loader.open({ imgUrl: "{!URLFOR($Resource.plugIn, 'PlugIn/overlayLoading/images/loading32x32.gif')}" });
+        }
+
+        function stopLoading() {
+            $.loader.close();
+        }
+
+        function setFocus(id) {
+            $('.' + id).focus();
+            $('.' + id).select();
+        }
+
+        function setFocusOn() {
+            if (getError == 'err') {
+                setFocus1();
+            } else {
+                setFocus2();
+            }
+        }
+        function checkMobileNumber(id) {
+            var val = $('.' + id).val().substr(0, 1);
+            if (val != 8 && val != 9) {
+                $('.' + id).val('');
+            };
+            checkNumber(id);
+            checkLength(id, 8);
+        }
+
+        function checkNumber(id) {
+            var val = $('.' + id).val();
+            if (val.match(/[^0-9]/g)) {
+                $('.' + id).val(val.replace(/[^0-9]/g, ''));
+            }
+        }
+
+        function checkLength(id, validlength) {
+            var val = $('.' + id).val();
+            if (val.length > validlength) {
+                var val2 = $('.' + id).val().substr(0, $('.' + id).val().length - 1);
+                $('.' + id).val(val2);
+            };
+        }
+
+        function isNumber(evt) {
+            var iKeyCode = (evt.which) ? evt.which : evt.keyCode
+            if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+                return false;
+
+            return true;
+        }
+
+        function handleSubmit(obj) {
+            obj.disabled = 'disabled';
+            doSave();
+        }
+
+    </script>
+</apex:page>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="hideSaveBtn" type="Boolean" label="Hide Save button?" description="Hide Save button?" default="false"/>
+            <property name="hideNewBtn" type="Boolean" label="Hide Save &amp; New button?" description="Hide Save &amp; New button?" default="false"/>
+            <property name="hideCancelBtn" type="Boolean" label="Hide Cancel button?" description="Hide Cancel button?" default="false"/>
+
+            <property name="saveLabel" type="String" label="Save custom label" description="Save custom label" default="Save"/>
+            <property name="saveNewLabel" type="String" label="Save &amp; New custom label" description="Save &amp; New custom label" default="Save &amp; New"/>
+            <property name="cancelLabel" type="String" label="Cancel custom label" description="Cancel custom label" default="Cancel"/>
+
+            <property name="selectedOption" type="String" label="Selected Option" description="Selected Option"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

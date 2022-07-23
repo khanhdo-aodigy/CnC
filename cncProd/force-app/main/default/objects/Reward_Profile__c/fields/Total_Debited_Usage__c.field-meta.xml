@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Debited_Usage__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Total Credit Debited (i.e. Credit Utilization)</inlineHelpText>
+    <label>Total Debited Usage</label>
+    <summarizedField>Reward__c.Debited_Usage__c</summarizedField>
+    <summaryForeignKey>Reward__c.Reward_Profile__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

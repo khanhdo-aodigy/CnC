@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Test_Drive_Vehicle</fullName>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>Type__c</columns>
+    <columns>Comm_No__c</columns>
+    <columns>Registration_No__c</columns>
+    <columns>Internal_Comm_No__c</columns>
+    <columns>Model_Group__c</columns>
+    <columns>Model__c</columns>
+    <columns>Variant__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Type__c</field>
+        <operation>equals</operation>
+        <value>Test Drive</value>
+    </filters>
+    <filters>
+        <field>Branch_Code__c</field>
+        <operation>equals</operation>
+        <value>CCK</value>
+    </filters>
+    <label>All KIA Test Drive Vehicle</label>
+    <sharedTo>
+        <roleAndSubordinates>KIAPC_Sales_Manager</roleAndSubordinates>
+    </sharedTo>
+</ListView>

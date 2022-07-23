@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>AssignBtn</fullName>
+        <categories>Opty Reassign Page</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>AssignBtn</shortDescription>
+        <value>Assign</value>
+    </labels>
+    <labels>
+        <fullName>AssignSuccessSummary</fullName>
+        <categories>Opty Reassign Page</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>AssignSuccessSummary</shortDescription>
+        <value>The opportunities you selected and their attached open activities have successfully been reassigned.</value>
+    </labels>
+    <labels>
+        <fullName>AssignSuccessTitle</fullName>
+        <categories>Opty Reassign Page</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>AssignSuccessTitle</shortDescription>
+        <value>Reassignment successfully completed!</value>
+    </labels>
+    <labels>
+        <fullName>AssignToBtn</fullName>
+        <categories>Opty Reassign Page</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>AssignToBtn</shortDescription>
+        <value>Assign to:</value>
+    </labels>
+    <labels>
+        <fullName>AssigningBtn</fullName>
+        <categories>Opty Reassign Page</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>AssigningBtn</shortDescription>
+        <value>In progress ...</value>
+    </labels>
+    <labels>
+        <fullName>CCL_RedirectURL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCL Redirect URL</shortDescription>
+        <value>https://booking.mycarriage.sg/user/login/salesforce</value>
+    </labels>
+    <labels>
+        <fullName>CITPromoLabel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CITPromoLabel</shortDescription>
+        <value>Please follow-up with customer</value>
+    </labels>
+    <labels>
+        <fullName>C_CHelpNumber</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>C&amp;CHelpNumber</shortDescription>
+        <value>64719111.</value>
+    </labels>
+    <labels>
+        <fullName>CloseDateCriteriaLabel</fullName>
+        <categories>Opty Reassign Page</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CloseDateCriteriaLabel</shortDescription>
+        <value>Closed Date</value>
+    </labels>
+    <labels>
+        <fullName>CriteriaSearchSection</fullName>
+        <categories>Opty Reassign Page</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CriteriaSearchSection</shortDescription>
+        <value>Search with a search criteria</value>
+    </labels>
+    <labels>
+        <fullName>Default_Commission_Description</fullName>
+        <categories>DSA Commission</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Default Commission Description</shortDescription>
+        <value>Basic Car Commission - CAT A $600 / CAT B $900 (Except for Citroen). For additional commission (i.e. Cash Deal Top Up &amp; Guaranteed COE), please add amount in commission section.</value>
+    </labels>
+    <labels>
+        <fullName>DisplayViewLabel</fullName>
+        <categories>Opty Reassign Page</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DisplayViewLabel</shortDescription>
+        <value>Display:</value>
+    </labels>
+    <labels>
+        <fullName>ErrorDupeVehicles</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ErrorDupeVehicles</shortDescription>
+        <value>We are not able to proceed as your vehicle number is linked to more than one car. 
+&lt;br/&gt;&lt;br/&gt;
+Please contact Customer Assistance at</value>
+    </labels>
+    <labels>
+        <fullName>ErrorExsistingAccount</fullName>
+        <categories>Header</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ErrorExsistingAccount</shortDescription>
+        <value>You have already signed up!</value>
+    </labels>
+    <labels>
+        <fullName>ErrorExsistingAccountBody</fullName>
+        <categories>Body</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ErrorExsistingAccountBody</shortDescription>
+        <value>Your vehicle number is already linked to an existing C&amp;C account.</value>
+    </labels>
+    <labels>
+        <fullName>ErrorExsistingAccountNoActivation</fullName>
+        <categories>Body</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ErrorExsistingAccountNoActivation</shortDescription>
+        <value>&lt;n/&gt; and it is not activated yet. You would have received an Activation Email in your inbox/spam folder. Click on the link in the email to activate your account. 
+&lt;br/&gt;&lt;br/&gt;
+Alternatively, you can choose to link your account to another email address. &lt;br/&gt;&lt;br/&gt;
+If you face further issues, please contact Customer Assistance at</value>
+    </labels>
+    <labels>
+        <fullName>ErrorMobileNotFoundBody</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ErrorMobileNotFoundBody</shortDescription>
+        <value>We are not able to send you an OTP to proceed with the sign up. 
+&lt;br/&gt;&lt;br/&gt;
+Please contact Customer Assistance at</value>
+    </labels>
+    <labels>
+        <fullName>ErrorMobileNotFoundHeader</fullName>
+        <categories>Header Error</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ErrorMobileNotFoundHeader</shortDescription>
+        <value>Mobile number is not found</value>
+    </labels>
+    <labels>
+        <fullName>ErrorMobileNumberBlank</fullName>
+        <categories>GuestBooking</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ErrorMobileNumberBlank</shortDescription>
+        <value>We are not able to proceed as we can’t verify your mobile number in our records. Please contact Customer Assistance at</value>
+    </labels>
+    <labels>
+        <fullName>ErrorVehicleNumNotFoundHeader</fullName>
+        <categories>GuestBooking</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ErrorVehicleNumNotFoundHeader</shortDescription>
+        <value>Vehicle number is not found</value>
+    </labels>
+    <labels>
+        <fullName>ErrorVehiclenotFoundBody</fullName>
+        <categories>BodyError</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ErrorVehiclenotFoundBody</shortDescription>
+        <value>We are not able to proceed as your vehicle number is not found in our records. Please check that you have entered the correct vehicle number.
+&lt;br /&gt;
+&lt;br /&gt;
+If you just bought a new car, you can only sign up two days after your car 
+collection date.
+&lt;br/&gt;
+&lt;br/&gt;
+If you face further issues, please contact Customer Assistance at</value>
+    </labels>
+    <labels>
+        <fullName>ErrorVehiclenotFoundHeader</fullName>
+        <categories>Header Error</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ErrorVehiclenotFoundHeader</shortDescription>
+        <value>Car owner details are not found</value>
+    </labels>
+    <labels>
+        <fullName>ErrorWrongMobileBody</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ErrorWrongMobileBody</shortDescription>
+        <value>We are not able to proceed as we can’t verify your mobile number in our records. Please contact Customer Assistance at</value>
+    </labels>
+    <labels>
+        <fullName>ErrorWrongMobileHeader</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ErrorWrongMobileHeader</shortDescription>
+        <value>Did you change your mobile number?</value>
+    </labels>
+    <labels>
+        <fullName>Events_Waitlist</fullName>
+        <categories>Event Registration</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Events_Waitlist</shortDescription>
+        <value>Thank you for registering for the event. Due to the limited number of slots, the event has been fully subscribed and you are added on the waiting list. Here are the event details and we will contact you once there are available slots.</value>
+    </labels>
+    <labels>
+        <fullName>GST</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GST</shortDescription>
+        <value>0.07</value>
+    </labels>
+    <labels>
+        <fullName>GatewaySRUpsert</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Gateway URL to Upsert SR</shortDescription>
+        <value>https://api.cyclecarriage.com/StockReservation/Stockreservation.asmx</value>
+    </labels>
+    <labels>
+        <fullName>HeaderText</fullName>
+        <categories>Opty Reassign Page</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>HeaderText</shortDescription>
+        <value>Mass reassign opportunities</value>
+    </labels>
+    <labels>
+        <fullName>KIA_Showroom_Address</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>KIA Showroom Address</shortDescription>
+        <value>Kia Showroom : 239 Alexandra Road Tel: 6866 1666</value>
+    </labels>
+    <labels>
+        <fullName>LastStockReservedDay</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LastStockReservedDay</shortDescription>
+        <value>7</value>
+    </labels>
+    <labels>
+        <fullName>MIT_Showroom_Address</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MIT Showroom Address</shortDescription>
+        <value>Mitsubishi Showroom : 239 Alexandra Road Tel: 6473 9722</value>
+    </labels>
+    <labels>
+        <fullName>NewViewLinkLabel</fullName>
+        <categories>Opty Reassign Page</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>NewViewLinkLabel</shortDescription>
+        <value>Create new view</value>
+    </labels>
+    <labels>
+        <fullName>NoResultSummary</fullName>
+        <categories>Opty Reassign Page</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>NoResultSummary</shortDescription>
+        <value>Please modify your search criteria</value>
+    </labels>
+    <labels>
+        <fullName>NoResultTitle</fullName>
+        <categories>Opty Reassign Page</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>NoResultTitle</shortDescription>
+        <value>No results</value>
+    </labels>
+    <labels>
+        <fullName>NoViewSelection</fullName>
+        <categories>Opty Reassign Page</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>NoViewSelection</shortDescription>
+        <value>- None -</value>
+    </labels>
+    <labels>
+        <fullName>NotSupportedMessage</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>NotSupportedMessage</shortDescription>
+        <value>Unable to access a field called</value>
+    </labels>
+    <labels>
+        <fullName>OppAssignment</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>OppAssignment</shortDescription>
+        <value>A new opportunity has been assigned to you.</value>
+    </labels>
+    <labels>
+        <fullName>OppReffAssignment</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>OppReffAssignment</shortDescription>
+        <value>A new referral opportunity assigned to you</value>
+    </labels>
+    <labels>
+        <fullName>PaymentVoided</fullName>
+        <categories>Payment</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PaymentVoided</shortDescription>
+        <value>Customer did not continue purchase.</value>
+    </labels>
+    <labels>
+        <fullName>RA_SalesOpportunity_LeadTime</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>RA_SalesOpportunity_LeadTime</shortDescription>
+        <value>6</value>
+    </labels>
+    <labels>
+        <fullName>ResultBlockTitle</fullName>
+        <categories>Opty Reassign Page</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ResultBlockTitle</shortDescription>
+        <value>Results</value>
+    </labels>
+    <labels>
+        <fullName>SMS_APIID</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SMS API ID</shortDescription>
+        <value>75630002_Paused</value>
+    </labels>
+    <labels>
+        <fullName>SMS_APIPWD</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SMS API Password</shortDescription>
+        <value>Al159930</value>
+    </labels>
+    <labels>
+        <fullName>SMS_url</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sms url</shortDescription>
+        <value>https://www.commzgate.net/gateway/SendMsg</value>
+    </labels>
+    <labels>
+        <fullName>SearchBlockTitle</fullName>
+        <categories>Opty Reassign Page</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>SearchBlockTitle</shortDescription>
+        <value>Search opportunities</value>
+    </labels>
+    <labels>
+        <fullName>SearchBtn</fullName>
+        <categories>Opty Reassign Page</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>SearchBtn</shortDescription>
+        <value>Search</value>
+    </labels>
+    <labels>
+        <fullName>SearchingBtn</fullName>
+        <categories>Opty Reassign Page</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>SearchingBtn</shortDescription>
+        <value>Searching ...</value>
+    </labels>
+    <labels>
+        <fullName>TooManyRowsError</fullName>
+        <categories>Opty Reassign Page</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>TooManyRowsError</shortDescription>
+        <value>The total number of open activities on the opportunities you selected is greater than the system can handle. Please reduce the number of opportunities to reassign</value>
+    </labels>
+    <labels>
+        <fullName>TooManyRowsSummary</fullName>
+        <categories>Opty Reassign Page</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>TooManyRowsSummary</shortDescription>
+        <value>The view you selected returned more than 1000 rows. Only the 1000 first ones will be displayed</value>
+    </labels>
+    <labels>
+        <fullName>TooManyRowsTitle</fullName>
+        <categories>Opty Reassign Page</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>TooManyRowsTitle</shortDescription>
+        <value>Too many rows returned</value>
+    </labels>
+    <labels>
+        <fullName>TotalFooterLabel</fullName>
+        <categories>Opty Reassign Page</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>TotalFooterLabel</shortDescription>
+        <value>Number</value>
+    </labels>
+    <labels>
+        <fullName>VSMSSRInsert</fullName>
+        <categories>VSMS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>VSMS SR Insert Url</shortDescription>
+        <value>https://api.cyclecarriage.com/StockReservation/Stockreservation.asmxReserveStock</value>
+    </labels>
+    <labels>
+        <fullName>VSMSSRUpdate</fullName>
+        <categories>VSMS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>VSMS SR Update Url</shortDescription>
+        <value>https://api.cyclecarriage.com/StockReservation/Stockreservation.asmx/UpdateStock</value>
+    </labels>
+    <labels>
+        <fullName>VSMS_Webservice</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>VSMS Webservice</shortDescription>
+        <value>http://161.202.11.14/OraWS/OraWs.asmx/InsertUpdateCustData</value>
+    </labels>
+    <labels>
+        <fullName>ViewSearchSection</fullName>
+        <categories>Opty Reassign Page</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ViewSearchSection</shortDescription>
+        <value>Search with a view</value>
+    </labels>
+    <labels>
+        <fullName>WebLogin</fullName>
+        <categories>WebLogin</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>WebLogin</shortDescription>
+        <value>https://www.cyclecarriage.com/sg/my-garage</value>
+    </labels>
+    <labels>
+        <fullName>adglib_security_error_field_not_insertable</fullName>
+        <categories>security,error</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>adglib_security_error_field_not_insertable</shortDescription>
+        <value>You do not have permission to insert field {1} on {0}</value>
+    </labels>
+    <labels>
+        <fullName>adglib_security_error_field_not_readable</fullName>
+        <categories>security,error</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>adglib_security_error_field_not_readable</shortDescription>
+        <value>You do not have permission to read the field {1} on {0}</value>
+    </labels>
+    <labels>
+        <fullName>adglib_security_error_field_not_updateable</fullName>
+        <categories>security,error</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>adglib_security_error_field_not_updateable</shortDescription>
+        <value>You do not have permission to update the field {1} on {0}</value>
+    </labels>
+    <labels>
+        <fullName>adglib_security_error_object_not_deletable</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>adglib_security_error_object_not_deletable</shortDescription>
+        <value>You do not have permission to delete {0}</value>
+    </labels>
+    <labels>
+        <fullName>adglib_security_error_object_not_insertable</fullName>
+        <categories>security,error</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>adglib_security_error_object_not_insertable</shortDescription>
+        <value>You do not have permission to insert {0}</value>
+    </labels>
+    <labels>
+        <fullName>adglib_security_error_object_not_readable</fullName>
+        <categories>security,error</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>adglib_security_error_object_not_readable</shortDescription>
+        <value>You do not have permission to read {0}</value>
+    </labels>
+    <labels>
+        <fullName>adglib_security_error_object_not_updateable</fullName>
+        <categories>security,error</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>adglib_security_error_object_not_updateable</shortDescription>
+        <value>You do not have permission to update {0}</value>
+    </labels>
+    <labels>
+        <fullName>smsUrl</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>smsUrl</shortDescription>
+        <value>https://cs5.salesforce.com/</value>
+    </labels>
+</CustomLabels>

@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title={componentTitleDA} icon-name={componentIconDA}>
+        <div class="slds-grid slds-wrap">
+            <template for:each={currentButtons} for:item="button">
+                <div key={button.Position__c} class="slds-size_1-of-2">
+                    <lightning-layout>
+                        <lightning-layout-item flexibility="auto" padding="around-small">
+                            <lightning-button 
+                                class="slds-button slds-button_neutral slds-button_stretch" icon-position="right"
+                                variant="base" label={button.Label_UI__c} onclick={processButton} value={button}
+                                disabled = {button.Disable} >
+                            </lightning-button>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

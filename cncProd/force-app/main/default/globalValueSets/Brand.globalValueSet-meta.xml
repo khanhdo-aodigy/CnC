@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>CIT</fullName>
+        <default>false</default>
+        <label>CIT</label>
+    </customValue>
+    <customValue>
+        <fullName>DS</fullName>
+        <default>false</default>
+        <label>DS</label>
+    </customValue>
+    <customValue>
+        <fullName>KIA</fullName>
+        <default>false</default>
+        <label>KIA</label>
+    </customValue>
+    <customValue>
+        <fullName>MB</fullName>
+        <default>false</default>
+        <label>MB</label>
+    </customValue>
+    <customValue>
+        <fullName>MIT</fullName>
+        <default>false</default>
+        <label>MIT</label>
+    </customValue>
+    <masterLabel>Brand</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

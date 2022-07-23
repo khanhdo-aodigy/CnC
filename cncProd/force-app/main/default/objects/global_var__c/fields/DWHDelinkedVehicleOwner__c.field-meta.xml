@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DWHDelinkedVehicleOwner__c</fullName>
+    <description>Default Owner of the Delinked Vehicle, or Registered Vehicles that do not have an Owner.</description>
+    <externalId>false</externalId>
+    <label>DWH Delinked Vehicle Owner</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

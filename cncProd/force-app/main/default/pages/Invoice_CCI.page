@@ -1,0 +1,371 @@
+<apex:page controller="Invoice_Save_Copy_PDF_C" renderAs="pdf" showHeader="false" sidebar="false" standardStylesheets="false" applyBodyTag="false" applyHtmlTag="false">
+    <html>
+        <head>
+            <style>
+                @page :first {  
+                    @top-center {
+						content: element(header1);
+                    } 
+                }
+                @page {
+                    margin-top: 200px;
+                    margin-bottom: 2.8cm;
+                    @top-center {
+						content: element(header);
+                    }
+                	@bottom-right {
+                		content: element(footer);
+                	}     
+                }
+                
+                @media print {
+                   .terms-and-conditions {
+                      page-break-before: always;
+                   }
+                }
+                
+                #header1 {
+                	position: running(header1);
+                }
+                
+				#header {
+                	position: running(header);
+                }
+                
+                #footer {
+                	font-size: 8px;
+                	position: running(footer);
+                	width: 100%;
+                    margin-right: -8px;
+                }
+                
+                body {
+                	font-family: SansSerif;
+                    font-size: 12px;
+                }
+                
+                .hr-below {
+                	border-bottom: 2.5px solid #000;
+                    width: 720px;
+                }
+                
+                .company-name {
+                   font-size: 12px;
+                   float: right;
+                   margin-right: -3px;
+                }
+
+                .company-infor {
+                   font-size: 8px;
+                   padding-right: 6.5px;
+                   float: right;
+                   padding-bottom: 25px;
+                }
+                
+                .image-wrapper {
+                   text-align: right;
+                   padding-right: 95px;
+                   padding-top: 5px;
+                }
+                
+                .invoice-name {
+                   font-size: 24px;
+                }
+                
+                .invoice-infor {
+                   margin-left:-5px;
+                   padding-top: 5px;
+                   margin-top: 0px;
+                }
+                
+                .billing-add-title {
+                   font-size: 14px;
+                   margin-left: -3px;
+                   padding-top: 10px;
+                }
+                
+                .billing-add {
+                   margin-left: -3px;
+                   padding-bottom: 10px;
+                }
+                
+                .product-infor  {
+                   margin-left:-8px;
+                   border-top: 2.5px solid #000;
+                   border-bottom: 2.5px solid #000;
+                   border-collapse: collapse;
+                   width: 720px;
+                }
+                
+                .product-infor th {
+                   border-bottom: 1.5px solid #000;
+                   border-top: 2.5px solid #000;
+                   font-size: 12px;
+                   padding-top: 5px;
+                   padding-bottom: 5px;
+                }
+                
+                .product-infor tr {
+                   padding-top: 10px;
+                   padding-bottom: 10px;
+                }
+                
+                .text-spacing {
+                    padding-top: 15px;
+                }
+                
+                .border { 
+                   border-bottom: 2.5px solid #000;  
+                   padding-top: 20px;
+                   padding-bottom: 20px;
+                }
+                
+                .border-bottom {
+                   border-bottom: 2.5px solid #000;
+                   padding-top: 5px;
+                   padding-bottom: 110px;
+                }
+                
+                .total-amount {
+                   font-size: 18px;
+                   padding-top: 20px;    
+                }
+                
+                .notes {
+                  margin-left: -8px;
+                  margin-right: -8px;
+                  text-align: justify;
+                }
+                
+                .footer-logo {
+                  padding-left: 30px;
+                }
+                
+                .footer-text {
+                   padding-left: 58px;
+                }
+                
+                .version-wrapper {
+                   padding-top:5px;
+                }
+                
+                .version {
+                   margin-right: -8px; 
+                }
+                
+                .terms-and-conditions {
+                   margin-left: -8px;
+                   text-align: left;
+                   padding-top: 10px;
+                }
+                
+                .terms-and-conditions .title {
+                   font-size: 16px;
+                }        
+         </style>
+        </head>
+        <body>
+            <div id="header1">
+                <div class="image-wrapper">
+                    <apex:image url="{!$Resource.MBBrandLogo}" width="220" height="100"/>
+                </div>
+                <table class="hr-below">
+                    <col width="70%"/>
+                    <col width="30%"/>
+                    <tr>
+                        <td></td>
+                        <td align="left">
+                             <span class="company-name">
+                               Cycle &amp; Carriage<br/>
+                               Industries Pte Limited 
+                             </span>
+                             
+                        </td>                    
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            <span class="invoice-name"><b>TAX INVOICE</b></span>
+                        </td>
+                        <td>
+                            <span class="company-infor">
+                                Authorised Dealer<br/>
+                                Company No. 196400367W <br/>
+                                GST Reg No. MR-8500111-X
+                             </span>
+                        </td>
+                    </tr>      
+                </table>
+			</div>
+            <div id="header">
+                <div class="image-wrapper">
+                    <apex:image url="{!$Resource.MBBrandLogo}" width="220" height="100"/>
+                </div>
+                <table class="hr-below">
+                    <col width="70%"/>
+                    <col width="30%"/>
+                    <tr>
+                        <td></td>
+                        <td align="left">
+                             <span class="company-name">
+                               Cycle &amp; Carriage<br/>
+                               Industries Pte Limited 
+                             </span>
+                        </td>                    
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                        </td>
+                        <td>
+                            <span class="company-infor">
+                                Authorised Dealer<br/>
+                                Company No. 196400367W <br/>
+                                GST Reg No. MR-8500111-X
+                             </span>
+                        </td>
+                    </tr>      
+                </table>
+			</div>
+            <div class="invoice-infor">
+				<p>
+                    Invoice No: {!Invoice_Number}<br/>
+                    Date: {!Date_Time_of_Purchase}<br/>
+                </p>
+                <p class="billing-add-title">
+                    <b>Billing Address</b>
+                </p>
+                <p> 
+                    <apex:outputPanel rendered="{!(!ISNULL(First_Name))}">
+                        {!First_Name} 
+                        <apex:outputPanel rendered="{!(!ISBLANK(Last_Name))}">
+                            
+                            <apex:outputText value=" {!Last_Name} "/>
+                            
+                        </apex:outputPanel>
+                        <br/>
+                    </apex:outputPanel> 
+                    
+                    <apex:outputPanel rendered="{!(ISNULL(First_Name)) && (!ISNULL(Contact_Name))}">
+                        {!Contact_Name}<br/>
+                        
+                    </apex:outputPanel> 
+                    {!Contact_Address_Line_1} 
+                   <apex:outputPanel rendered="{!(!ISBLANK(Contact_Address_Line_2))}">
+                     <br/>
+                       <apex:outputText value="{!Contact_Address_Line_2}"/>
+                   </apex:outputPanel>
+                   <apex:outputPanel rendered="{!(!ISBLANK(Contact_Address_Line_3))}">
+                       <apex:outputText value="{!Contact_Address_Line_3}"/>
+                   </apex:outputPanel>
+                  <apex:outputText escape="false" value="<br/>" /> {!Contact_Country} </p>
+            </div>
+            <table class="product-infor">
+                <col width="35%"/>
+                <col width="14%"/>
+                <col width="17%"/>
+                <col width="17%"/>
+                <col width="17%"/>
+                <tr>
+                    <th>Description of Goods/Services</th>
+                    <th align="center">Qty</th>
+                    <th align="center">Unit Price</th>
+                    <th align="center">Discount</th>
+                    <th align="right">Amount</th>
+                </tr>
+                <tr>
+                    <td class="border">{!Product_Item}<br/>
+                                       for {!Vehicle_Registration_Number}<br/>
+                                       <c:InvoiceEmail_RV_VIN srv_id="{!Vehicle_Registration_Number}"/>
+                    </td>
+                    <td class="border" align="center" valign="top">1</td>
+                    <td class="border" align="center" valign="top">${!Amout_Before_Dicount}</td>
+                    <td class="border" align="center" valign="top">${!Discount}</td>
+                    <td class="border" align="right" valign="top">${!Amount_With_GST}</td>
+                </tr>
+                <tr>
+                    <td colspan="2" rowspan="4" class="border" valign="top">Paid with {!CardType} {!MaskedCCNo}</td>
+                    <td colspan="2" align="right" class="total-amount"><b>Total Amount</b></td>
+                    <td align="right" class="total-amount"><b>${!Net_Amount}</b></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="right"><b>inclusive of GST</b></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="right" class="text-spacing" valign="top">Total amount before GST</td>
+                    <td align="right" valign="bottom">${!Amount_Without_GST}</td>
+                </tr>
+                <tr >
+                    <td colspan="2" class="border-bottom" align="right">GST @ 7%</td>
+                    <td class="border-bottom" align="right">${!GST}</td>
+                </tr>                
+            </table>
+            <div class="notes">
+                <p>
+                    Merchandise sold are non-exchangeable or refundable. Merchandise can be exchanged within 7 days with original tax invoice at the MercedesBoutique,
+                    301 Alexandra Road.
+                </p>
+                <p>Any dispute to the invoice must be made within 3 days. This is a computer generated document, no signature is required.</p>   
+                <p>For any enquiries, please call C&amp;C Customer Assistance at 6471 9111.</p>  
+            </div>
+            <table id="footer" cellpadding="0" cellspacing="0">
+                <col width="70%"/>
+                <col width="70%"/>
+                <tr>
+                    <td align="left" valign="bottom" class="footer-logo" >
+                        <apex:image url="{!$Resource.CnCLogoOnWhite}" height="25"/>       
+                    </td>
+                    <td valign="bottom" align="left" class="footer-text">
+                        239 Alexandra Road                           
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td valign="bottom" align="left" class="footer-text">
+                         Singapore 159930
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td valign="bottom" align="left" class="footer-text">
+                        Tel: 6473 3122
+                    </td>
+                </tr>
+                <tr>
+                     <td valign="bottom" rowspan="2" class="footer-logo">
+                        <apex:image url="{!$Resource.MBBrandLogoTransparent}" style="vertical-align:middle"/>
+                        <span>
+                            Mercedes-Benz - are registered trademarks of Daimler, Stuttgart, Germany
+                        </span>   
+                    </td>
+                    <td valign="bottom" align="left" class="footer-text">
+                       Fax: 6474 6189
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" align="left" class="footer-text">
+                        www.mercendes-benz.com.sg
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="right" class="version-wrapper">
+                        <span class="version">
+                            CUSTOMER'S COPY
+                        </span>
+                    </td>
+                </tr>
+            </table>
+            <div class="terms-and-conditions">
+                <p class="title">
+                   <b>Generic Terms and Conditions</b> 
+                </p>
+                <p>
+                   Promotion is valid for online purchase only. Eligible for purchase on myC&amp;C app for selected customers
+                   and limited to 1 purchase per vehicle only. Strictly non-refundable, non-transferable and not exchangeable
+                   for cash, discount, rebates or any other items under any circumstances whatsoever. Not to be used in
+                   conjunction with any other promotions, discounts, service credits, privileges or vouchers. Cycle &amp; Carriage
+                   reserves the right to amend any terms and conditions without prior notice.            
+                </p>
+            </div>
+        </body>
+    </html>
+</apex:page>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Vehicle_Master__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Vehicle Master</label>
+    <lookupFilter>
+        <active>false</active>
+        <filterItems>
+            <field>Vehicle_Master2__c.Color_Code__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Color_Code__c</valueField>
+        </filterItems>
+        <filterItems>
+            <field>Vehicle_Master2__c.Model_Code__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Model_Code__c</valueField>
+        </filterItems>
+        <filterItems>
+            <field>Vehicle_Master2__c.Trim_Code__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Trim_Code__c</valueField>
+        </filterItems>
+        <filterItems>
+            <field>Vehicle_Master2__c.Model_Year_Code__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Model_Year_Code__c</valueField>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Vehicle_Master2__c</referenceTo>
+    <relationshipLabel>Stock Reservations</relationshipLabel>
+    <relationshipName>Stock_Reservations</relationshipName>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

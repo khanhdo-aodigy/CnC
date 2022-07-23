@@ -1,0 +1,3 @@
+<apex:page controller="showAttachmentCont" showHeader="false" sidebar="false" action="{!next}">
+
+</apex:page>

@@ -1,0 +1,9 @@
+<template>
+    <lightning-card title="Opt-In summary" icon-name="standard:feedback">       
+        <template for:each={optInOptions} for:item="option">
+            <span key={option.label} style="padding-left: 25px">
+                <lightning-icon key={option.label} icon-name={option.value} size="xx-small"></lightning-icon>&nbsp;{option.label}      
+            </span>
+        </template>
+    </lightning-card>
+</template>

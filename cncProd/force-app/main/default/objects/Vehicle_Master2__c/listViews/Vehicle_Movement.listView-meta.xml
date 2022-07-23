@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Vehicle_Movement</fullName>
+    <columns>NAME</columns>
+    <columns>Franchise_Code__c</columns>
+    <columns>Model_Description__c</columns>
+    <columns>Color_Description__c</columns>
+    <columns>Trim_Description__c</columns>
+    <columns>Vehicle_Status__c</columns>
+    <columns>Agreement_No__c</columns>
+    <columns>Vehicle_Movement_Location__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>Vehicle Movement</label>
+</ListView>

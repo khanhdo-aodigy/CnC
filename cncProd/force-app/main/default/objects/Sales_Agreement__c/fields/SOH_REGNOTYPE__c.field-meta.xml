@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SOH_REGNOTYPE__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE(TEXT(Registration_Number_Method__c),
+&quot;LTA Assigned Number (for new car)&quot;, &quot;LTANO&quot;,
+&quot;Number Retention (for new car) &amp; Acceptance of Random Number (for used car)&quot;, &quot;RETNO&quot;,
+&quot;Number Retention (for new car) &amp; Use of Purchase-Bid Number (for used car)&quot;, &quot;RETNO&quot;,
+&quot;Purchasing-Bid Number (for new car)&quot;, &quot;BIDNO&quot;,
+&quot;To be decided&quot;, &quot;&quot;,
+&quot;&quot;
+ )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Registration No Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

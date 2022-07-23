@@ -1,0 +1,38 @@
+<template>
+    <article class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+            <div class="slds-media__figure">
+                <span class="slds-icon_container">
+                    <lightning-icon icon-name="standard:user" size="medium" variant="slds-icon-inverse"></lightning-icon>
+                </span>
+            </div>
+            <div class="slds-media__body">
+                <h2 class="slds-card__header-title">
+                    <span class="slds-card__header-link slds-truncate">Sales Rep: {userNm}</span>
+                </h2>
+            </div>
+            </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <div style="padding: 0 !important;">
+                <ul class="slds-list_horizontal">
+                    <li class="slds-page-header__detail-block slds-item">
+                        <template if:false={isError}>
+                            <div class="slds-form-element">
+                                <span class="slds-form-element__label">Email</span>
+                                <div class="slds-form-element__control">{userEmail}</div>
+                            </div>
+                        </template>
+                        <template if:true={isError}>
+                            <div class="slds-form-element">
+                                <span class="slds-form-element__label" style="font-weight: bold; color: red;">ERROR!</span>
+                                <div class="slds-form-element__control">{errorMsg}</div>
+                            </div>
+                        </template>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </article>
+</template>

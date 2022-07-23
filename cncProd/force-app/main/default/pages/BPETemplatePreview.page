@@ -1,0 +1,34 @@
+<apex:page controller="BPETemplatePreviewCtrl" sidebar="false" showHeader="false" docType="html-5.0">
+
+    <apex:variable var="currentSalesAgreement" value="{!SalesAgreement}"></apex:variable>
+    <apex:form style="background-color: white; padding: 0; margin: 0">
+        <apex:commandButton rendered="{!NOT(ISNULL(currentSalesAgreement.emailaddress__c))}" action="{!emailToCustomer}" value="Email To {!currentSalesAgreement.emailaddress__c}" onclick="showClickToast()" oncomplete="showCompleteToast()" style="background: #00396B; display: block; margin: 0 auto; text-align: center; color: white; font-size: 14px; border-radius: 5px"></apex:commandButton>
+        <apex:commandButton rendered="{!ISNULL(currentSalesAgreement.emailaddress__c)}" disabled="true" title="Disabled because no customer email address found" value="Email To Customer" style="background: #95AEC5; display: block; margin: 0 auto; text-align: center; color: white; font-size: 14px; border-radius: 5px"></apex:commandButton>
+    </apex:form>
+    <br/>
+    <apex:outputText value="{!BPETemplate}" escape="false"></apex:outputText>
+
+    <script>
+        function showCompleteToast() {
+            sforce.one.showToast(
+                {
+                    "title" : "Success",
+                    "message" : "Balance Payment has been sent",
+                    "type" : "success",
+                }
+            );
+        }
+    </script>
+    <script>
+        function showClickToast() {
+            
+            sforce.one.showToast(
+                {
+                    "title" : "Success",
+                    "message" : "Balance Payment is being sent to: " + '{!currentSalesAgreement.emailaddress__c}',
+                    "type" : "success",
+                }
+            );
+        }
+    </script>
+</apex:page>

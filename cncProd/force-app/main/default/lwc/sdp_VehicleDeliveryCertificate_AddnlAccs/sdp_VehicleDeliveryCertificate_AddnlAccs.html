@@ -1,0 +1,54 @@
+<template>
+    <!-- Main Accessories -->
+    <div class="d-flex align-items-center list-addon" style="padding-top:2em; padding-left: 1.2em">
+        <c-img-cmp url-to-resource='/BootStrap/images/icons/accessories.svg'></c-img-cmp>
+
+        <div style="font-weight: bold;" class="big-text">Main Accessories</div>
+    </div>
+    <template if:true={haveMain}>
+        <template for:each={mainGroup} for:item="item">
+            <div key={item.Id} class="list-addon d-flex align-items-center">
+                <div class="list-addon--text flex-grow-1 big-text" style="padding:0.5em 1em 0 1em;">{item.SA_ACM_ACCSDESC__c}</div>
+                <div class="list-addon--icon" style="margin-right: 1.2em">
+                    <button class="btn-circle deal" onclick={itemCheck} data-itemid={item.Id} data-category="main">
+                        <c-svg-cmp url-to-resource='/BootStrap/images/icons/icons.svg#icon-tick' svg-class="icon icon-tick"
+                            svg-role="img" svg-aria-hidden="true">
+                        </c-svg-cmp>
+                    </button>
+                </div>
+            </div>
+        </template>
+    </template>
+
+    <template if:false={haveMain}>
+        <div class="list-addon d-flex align-items-center">
+            <div class="list-addon--text flex-grow-1 big-text" style="padding:1.2em">There are no Main Accessories detected!</div>
+        </div>
+    </template>
+    
+    <!-- Additional Accessories -->
+    <div class="d-flex align-items-center list-addon" style="padding-top:2em; padding-left: 1.2em">
+        <c-img-cmp url-to-resource='/BootStrap/images/icons/accessories.svg'></c-img-cmp>
+
+        <div style="font-weight: bold" class="big-text">Additional Accessories</div>
+    </div>
+    <template if:true={haveAdditional}>
+        <template for:each={additionalGroup} for:item="item">
+            <div key={item.Id} class="list-addon d-flex align-items-center">
+                <div class="list-addon--text flex-grow-1 big-text" style="padding:0.5em 1em 0 1em">{item.SA_ACM_ACCSDESC__c}</div>
+                <div class="list-addon--icon" style="margin-right: 1.2em">
+                    <button class="btn-circle deal" onclick={itemCheck} data-itemid={item.Id} data-category="additional">
+                        <c-svg-cmp url-to-resource='/BootStrap/images/icons/icons.svg#icon-tick' svg-class="icon icon-tick"
+                            svg-role="img" svg-aria-hidden="true">
+                        </c-svg-cmp>
+                    </button>
+                </div>
+            </div>
+        </template>
+    </template>
+    <template if:false={haveAdditional}>
+        <div class="list-addon d-flex align-items-center">
+            <div class="list-addon--text flex-grow-1 big-text" style="padding:1.2em">There are no Additional Accessories detected!</div>
+        </div>
+    </template>
+</template>

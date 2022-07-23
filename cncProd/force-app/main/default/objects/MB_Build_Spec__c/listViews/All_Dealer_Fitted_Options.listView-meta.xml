@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Dealer_Fitted_Options</fullName>
+    <columns>NAME</columns>
+    <columns>Model__c</columns>
+    <columns>Variant__c</columns>
+    <columns>Option_Code__c</columns>
+    <columns>Option_Type__c</columns>
+    <columns>Option_Group__c</columns>
+    <columns>Description__c</columns>
+    <columns>Highlight_Option__c</columns>
+    <columns>Batch_Processed__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Option_Code__c</field>
+        <operation>contains</operation>
+        <value>VES</value>
+    </filters>
+    <filters>
+        <field>Variant_Code__c</field>
+        <operation>equals</operation>
+        <value>21308022-SG2</value>
+    </filters>
+    <label>All Dealer Fitted Options</label>
+</ListView>

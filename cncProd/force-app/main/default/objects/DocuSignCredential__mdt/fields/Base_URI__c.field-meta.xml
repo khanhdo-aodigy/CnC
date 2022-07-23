@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Base_URI__c</fullName>
+    <description>The base URI for rest API callout.
+For sandbox: https://demo.docusign.net/
+For production: refer to https://developers.docusign.com/esign-rest-api/guides/post-go-live</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>The base URI for rest API callout (exclude OAuth callout).</inlineHelpText>
+    <label>Base URI</label>
+    <length>32768</length>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

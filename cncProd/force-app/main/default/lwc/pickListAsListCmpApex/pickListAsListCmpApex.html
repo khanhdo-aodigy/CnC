@@ -1,0 +1,30 @@
+<template>
+    <div class="form-group relative">
+        <label for={apiFieldName} style={labelStyle}>{fieldLabel}</label>
+        <div class="inner-addon right-addon">
+            <i class="glyphicon" style="color:#cde5f4">
+                <template if:false={showOptions}>
+                    <c-svg-cmp url-to-resource='/BootStrap/images/icons/icons.svg#icon-chevron-down'
+                        svg-class="icon icon-add" svg-role="img" svg-aria-hidden="true">
+                    </c-svg-cmp>
+                </template>
+                <template if:true={showOptions}>
+                    <c-svg-cmp url-to-resource='/BootStrap/images/icons/icons.svg#icon-chevron-up'
+                        svg-class="icon icon-add" svg-role="img" svg-aria-hidden="true">
+                    </c-svg-cmp>
+                </template>
+            </i>
+            <input type="text" class={fieldStyle} name={apiFieldName} id={apiFieldName} autocomplete="off"
+                placeholder={placeholder} value={displaySelectedValue} onkeyup={onKeyUpFilter} onclick={onFocus}
+                onchange={onValueChanged}>
+        </div>
+        <template if:true={displayPickListValue}>
+            <ul class={ulClass} id={apiFieldName}>
+                <template for:each={displayPickListValue} for:item="item">
+                    <li class="pickValue" data-item={item.value} key={item.value} onclick={onSelectPickListValue}>
+                        {item.label}</li>
+                </template>
+            </ul>
+        </template>
+    </div>
+</template>

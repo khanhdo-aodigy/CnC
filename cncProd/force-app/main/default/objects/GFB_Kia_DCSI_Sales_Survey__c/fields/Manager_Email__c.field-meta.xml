@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Manager_Email__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(TEXT(Sales_Agreement__r.Branch_Code__c )  = &apos;CCK&apos; , &apos;aodigyprojects@gmail.com&apos;, IF(TEXT(Sales_Agreement__r.Branch_Code__c ) = &apos;CCF&apos;, &apos;aodigyprojects@gmail.com&apos;, &apos;aodigyprojects@gmail.com&apos;) )</formula>
+    <label>Manager Email</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

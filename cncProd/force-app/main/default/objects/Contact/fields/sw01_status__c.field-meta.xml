@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>sw01_status__c</fullName>
+    <description>Status of Contact resource being worked by Saleswhale Engage</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Status of Contact resource being worked by Saleswhale Engage</inlineHelpText>
+    <label>Saleswhale Contact Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>unsynced</fullName>
+                <default>true</default>
+                <label>Unsynced</label>
+            </value>
+            <value>
+                <fullName>qualified</fullName>
+                <default>false</default>
+                <label>Qualified</label>
+            </value>
+            <value>
+                <fullName>bounced</fullName>
+                <default>false</default>
+                <label>Bounced</label>
+            </value>
+            <value>
+                <fullName>not_interested</fullName>
+                <default>false</default>
+                <label>Not Interested</label>
+            </value>
+            <value>
+                <fullName>unresponsive</fullName>
+                <default>false</default>
+                <label>Unresponsive</label>
+            </value>
+            <value>
+                <fullName>canceled</fullName>
+                <default>false</default>
+                <label>Canceled</label>
+            </value>
+            <value>
+                <fullName>human_review</fullName>
+                <default>false</default>
+                <label>Needs Human Review</label>
+            </value>
+            <value>
+                <fullName>stop_responding</fullName>
+                <default>false</default>
+                <label>Stop Responding</label>
+            </value>
+            <value>
+                <fullName>in_progress</fullName>
+                <default>false</default>
+                <label>In Progress</label>
+            </value>
+            <value>
+                <fullName>import_error</fullName>
+                <default>false</default>
+                <label>Import Error</label>
+            </value>
+            <value>
+                <fullName>enrollment_error</fullName>
+                <default>false</default>
+                <label>Enrollment Error</label>
+            </value>
+            <value>
+                <fullName>not_started</fullName>
+                <default>false</default>
+                <label>Not Started</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

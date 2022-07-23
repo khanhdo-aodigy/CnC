@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RAP</fullName>
+    <booleanFilter>1 OR 2 OR 3</booleanFilter>
+    <columns>NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>Instance__c</columns>
+    <columns>Type__c</columns>
+    <columns>Cause__c</columns>
+    <columns>Line_Number__c</columns>
+    <columns>Stack_Trace__c</columns>
+    <columns>Message__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Instance__c</field>
+        <operation>equals</operation>
+        <value>RAPUpdateTransactionAPI</value>
+    </filters>
+    <filters>
+        <field>Instance__c</field>
+        <operation>equals</operation>
+        <value>RAP_SendVehicleDetailsAPI</value>
+    </filters>
+    <filters>
+        <field>Instance__c</field>
+        <operation>equals</operation>
+        <value>RAP_UpdateMachinePriceAPI</value>
+    </filters>
+    <label>RAP</label>
+    <sharedTo>
+        <group>RAP_Admin</group>
+    </sharedTo>
+</ListView>

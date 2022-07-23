@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type_of_Meeting_Logs__c</fullName>
+    <externalId>false</externalId>
+    <label>Type of Meeting Logs</label>
+    <required>true</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Morning Briefing</fullName>
+                <default>false</default>
+                <label>Morning Briefing</label>
+            </value>
+            <value>
+                <fullName>Debrief</fullName>
+                <default>false</default>
+                <label>Debrief</label>
+            </value>
+            <value>
+                <fullName>Biweekly Sales Marketing</fullName>
+                <default>false</default>
+                <label>Biweekly Sales Marketing</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

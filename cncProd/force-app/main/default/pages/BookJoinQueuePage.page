@@ -1,0 +1,111 @@
+<apex:page controller="BookJoinController" sidebar="false" showHeader="false" >
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<style>          
+.redmark {border : 1px solid red;}
+.bluetable {background-color:#0489B1 !important;}
+body {font-size:14px;}
+</style>
+<c:datepickerextend lowerlimit="80" higherlimit="2"/>
+<img src="{!logo1}" align='Left'/>
+<img src="{!logo2}" align='right'/>
+  <apex:form id="form">
+      <apex:pageBlock title="Book/Join Queue">
+          <apex:pagemessages />
+          <apex:pageBlockSection columns="2" title="Sales Rep Details : " id="SalesInfo">
+              <apex:pageBlockSectionItem >
+              <font color="red">*</font>Sales Rep NRIC
+              <apex:inputText value="{!salesNRIC}" label="Sales Rep NRIC" onblur="salesnricenter(event);" styleClass="redmark salesnric" id="salesnric"/>
+              </apex:pageBlockSectionItem>
+              <apex:outputText value="{!salesName}" label="Sales Rep"/>
+          </apex:pageBlockSection>
+          <apex:pageBlockSection columns="2" title="Test Drive Vehicle Details : ">
+              <apex:outputField value="{!vehicle.name}"/>
+              <apex:inputField value="{!test.Trade_Plate__c}"/>
+          </apex:pageBlockSection>
+          <apex:pageBlockSection columns="2" title="Contact Details : " id="ContInfo">
+              <apex:pageBlockSectionItem >
+              <font color="red">*</font>NRIC/Passport No.
+              <apex:inputText value="{!custNric}" label="NRIC/Passport No." onblur="custnricenter();" styleClass="redmark nric" tabindex="11"/>
+              </apex:pageBlockSectionItem>
+              <!--apex:inputField value="{!customer.Postal_Code__c}" onchange="postalOnChange();" taborderhint="6"/ -->
+              <apex:inputText value="{!custPost}" label="Postal Code" onblur="postalOnChange();" tabindex="51"/>
+              <apex:pageBlockSectionItem >
+              <font color="red">*</font>Name
+              <apex:inputField value="{!customer.Lastname}" label="Name" required="false" taborderhint="2" styleClass="redmark name"/>
+              </apex:pageBlockSectionItem>
+              <apex:inputText value="{!customer.Unit_No_Floor__c}" label="Unit/Floor no" tabindex="62" html-placeholder="Eg.#xx-xxx" styleClass="nofloor"/>
+              <apex:pageBlockSectionItem >
+              <font color="red">*</font>Mobile
+              <apex:inputText value="{!custPhone}" label="Mobile" onblur="mobileChange({!custNric});" tabindex="21" styleClass="redmark"/>
+              </apex:pageBlockSectionItem>
+              <apex:inputField value="{!customer.Address_Line_1__c}" taborderhint="7"/>
+              <apex:inputField value="{!customer.Email}" label="Email" taborderhint="3"/>
+              <apex:inputField value="{!customer.Address_Line_2__c}" taborderhint="8"/>
+              <apex:inputField value="{!customer.Birthdate}" label="Date of Birth" taborderhint="4" html-placeholder="DD/MM/YYYY"/>
+              <apex:inputField value="{!customer.Address_Line_3__c}" taborderhint="9"/>
+              <apex:inputField value="{!customer.Gender__c}" taborderhint="5" id="item1"/>
+              <apex:inputField value="{!customer.Country__c}" taborderhint="10" id="item2"/>
+          </apex:pageBlockSection>
+          <apex:pageBlockSection columns="1" title="Current Car Details : ">
+              <!--apex:inputField value="{!test.Opportunity__c}" onchange="oppOnChange();"/ -->
+              <apex:inputField value="{!opp.Make_Model__c}"/>
+              <apex:inputField value="{!opp.Date_of_Registration__c}" html-placeholder="DD/MM/YYYY"/>
+              <apex:inputField value="{!opp.Old_Car_No__c}"/>
+          </apex:pageBlockSection>
+          <apex:pageBlockButtons location="Bottom">
+              <apex:commandButton value="Save" action="{!save}" onkeydown="if(event.keyCode==13){this.blur();actionFunction();}"/>
+              <apex:commandButton value="Cancel" action="{!cancel}" onkeydown="if(event.keyCode==13){this.blur();actionFunction();}"/> 
+          </apex:pageBlockButtons>
+          
+      </apex:pageBlock>
+      
+      <apex:pageBlock id="history">
+      <apex:pageBlockSection title="Test Drive History" rendered="{!historyTest.size>0}">
+          <apex:pageBlockTable value="{!historyTest}" var="list" headerClass="bluetable">
+              <apex:column headerValue="Date">
+                <apex:outputText value="{0,date,dd/MM/yyyy}">
+                    <apex:param value="{!list.Date__c}" />
+                </apex:outputText>
+              </apex:column>
+              <apex:column value="{!list.Owner.Name}" headerValue="Sales Rep"/>
+              <!--apex:column value="{!list.Sales_Rep_Mobile__c}" headerValue="Contact No."/ -->
+              <apex:column value="{!list.Model__r.name}" headerValue="Model"/>
+              <apex:column value="{!list.Count_Day__c}" headerValue="Days"/>
+          </apex:pageBlockTable>
+      </apex:pageBlockSection>
+      </apex:pageBlock>
+      <apex:actionFunction action="{!searchSalesNric}" name="searchSalesNric" reRender="SalesInfo" oncomplete="setFocus('nric')"/>
+      <apex:actionFunction action="{!searchCustNric}" name="searchCustNric" reRender="ContInfo,history" oncomplete="setFocus('name')"/>
+      <apex:actionFunction action="{!postalChange}" name="postalChange" reRender="ContInfo" oncomplete="setFocus('nofloor')"/>
+      <apex:actionFunction action="{!salesChange}" name="salesChange" reRender="SalesInfo" oncomplete="setFocus('nric')"/>
+      <apex:actionFunction action="{!searchCustPhone}" name="searchCustPhone" reRender="ContInfo,history" oncomplete="setFocus('name')"/>
+  </apex:form>
+  
+<script>
+function salesnricenter(){
+    searchSalesNric();
+}
+function custnricenter(){
+    searchCustNric();
+}
+function postalOnChange(){
+    postalChange();
+}
+function salesOnChange(){
+    salesChange();
+}
+function mobileChange(cv){
+    if (cv==undefined){
+        console.log(cv);
+        searchCustPhone();
+    }
+}
+function setFocus(id){
+    $('.'+id).focus();
+    $('.'+id).select();
+}
+
+$('.salesnric').focus();
+</script>
+
+</apex:page>

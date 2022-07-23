@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Case Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sales Product</fullName>
+                <default>false</default>
+                <label>Sales</label>
+            </value>
+            <value>
+                <fullName>Aftersales Product</fullName>
+                <default>false</default>
+                <label>Aftersales</label>
+            </value>
+            <value>
+                <fullName>Refund</fullName>
+                <default>false</default>
+                <label>Refund</label>
+            </value>
+            <value>
+                <fullName>Parts &amp; Accessories</fullName>
+                <default>false</default>
+                <label>Parts &amp; Accessories</label>
+            </value>
+            <value>
+                <fullName>Boutique</fullName>
+                <default>false</default>
+                <label>Boutique/eShop</label>
+            </value>
+            <value>
+                <fullName>Finance and Insurance</fullName>
+                <default>false</default>
+                <label>Finance and Insurance</label>
+            </value>
+            <value>
+                <fullName>Vehicle status</fullName>
+                <default>false</default>
+                <label>Vehicle status</label>
+            </value>
+            <value>
+                <fullName>Follow up from other departments</fullName>
+                <default>false</default>
+                <label>Follow up from other departments</label>
+            </value>
+            <value>
+                <fullName>New ownership enquiry</fullName>
+                <default>false</default>
+                <label>New ownership enquiry</label>
+            </value>
+            <value>
+                <fullName>CCLeasing</fullName>
+                <default>false</default>
+                <label>CCLeasing</label>
+            </value>
+            <value>
+                <fullName>PDPA</fullName>
+                <default>false</default>
+                <label>PDPA</label>
+            </value>
+            <value>
+                <fullName>Breakdown and Roadside Assistance</fullName>
+                <default>false</default>
+                <label>Breakdown and Roadside Assistance</label>
+            </value>
+            <value>
+                <fullName>Others</fullName>
+                <default>false</default>
+                <label>Others</label>
+            </value>
+            <value>
+                <fullName>P01 - Price - Car Sales</fullName>
+                <default>false</default>
+                <label>Price - Car Sales - P01</label>
+            </value>
+            <value>
+                <fullName>P02 - Price - Exp Insurance Premium</fullName>
+                <default>false</default>
+                <label>Price - Exp Insurance Premium - P02</label>
+            </value>
+            <value>
+                <fullName>P03 - Price - Parts/Accessories</fullName>
+                <default>false</default>
+                <label>Price - Parts/Accessories - P03</label>
+            </value>
+            <value>
+                <fullName>P04 - Price - Exp Promo Packages</fullName>
+                <default>false</default>
+                <label>Price - Exp Promo Packages - P04</label>
+            </value>
+            <value>
+                <fullName>P05 - Price - Exp Service</fullName>
+                <default>false</default>
+                <label>Price - Exp Service - P05</label>
+            </value>
+            <value>
+                <fullName>P06 - Price - User Car Low Trade-In</fullName>
+                <default>false</default>
+                <label>Price - User Car Low Trade-In - P06</label>
+            </value>
+            <value>
+                <fullName>P00 - Price - Others</fullName>
+                <default>false</default>
+                <label>Price - Others - P00</label>
+            </value>
+            <value>
+                <fullName>U01 - Pdt - Air-con Problem</fullName>
+                <default>false</default>
+                <label>Pdt - Air-con Problem - U01</label>
+            </value>
+            <value>
+                <fullName>U02 - Pdt - Alarm/Remote Problem</fullName>
+                <default>false</default>
+                <label>Pdt - Alarm/Remote Problem - U02</label>
+            </value>
+            <value>
+                <fullName>U03 - Pdt - Alignment Problem</fullName>
+                <default>false</default>
+                <label>Pdt - Alignment Problem - U03</label>
+            </value>
+            <value>
+                <fullName>U04 - Pdt - Brakes Problem</fullName>
+                <default>false</default>
+                <label>Pdt - Brakes Problem - U04</label>
+            </value>
+            <value>
+                <fullName>U05 - Pdt - Clutch Problem</fullName>
+                <default>false</default>
+                <label>Pdt - Clutch Problem - U05</label>
+            </value>
+            <value>
+                <fullName>U06 - Pdt - Dashboard/Meters Problem</fullName>
+                <default>false</default>
+                <label>Pdt - Dashboard/Meters Problem - U06</label>
+            </value>
+            <value>
+                <fullName>U07 - Pdt - Engine Problem</fullName>
+                <default>false</default>
+                <label>Pdt - Engine Problem - U07</label>
+            </value>
+            <value>
+                <fullName>U08 - Pdt - Glasses Problem</fullName>
+                <default>false</default>
+                <label>Pdt - Glasses Problem - U08</label>
+            </value>
+            <value>
+                <fullName>U09 - Pdt - Leather Seats Problem</fullName>
+                <default>false</default>
+                <label>Pdt - Leather Seats Problem - U09</label>
+            </value>
+            <value>
+                <fullName>U10 - Pdt - Lightings Problem</fullName>
+                <default>false</default>
+                <label>Pdt - Lightings Problem - U10</label>
+            </value>
+            <value>
+                <fullName>U11 - Pdt - Poor Body Quality</fullName>
+                <default>false</default>
+                <label>Pdt - Poor Body Quality - U11</label>
+            </value>
+            <value>
+                <fullName>U12 - Pdt - Poor Paintwork Quality</fullName>
+                <default>false</default>
+                <label>Pdt - Poor Paintwork Quality - U12</label>
+            </value>
+            <value>
+                <fullName>U13 - Pdt - Poor Parts/Acc Quality</fullName>
+                <default>false</default>
+                <label>Pdt - Poor Parts/Acc Quality - U13</label>
+            </value>
+            <value>
+                <fullName>U14 - Pdt - Power Mirror/Window Prob</fullName>
+                <default>false</default>
+                <label>Pdt - Power Mirror/Window Prob - U14</label>
+            </value>
+            <value>
+                <fullName>U15 - Pdt - Solar Film Problem</fullName>
+                <default>false</default>
+                <label>Pdt - Solar Film Problem - U15</label>
+            </value>
+            <value>
+                <fullName>U16 - Pdt - Steering Problem</fullName>
+                <default>false</default>
+                <label>Pdt - Steering Problem - U16</label>
+            </value>
+            <value>
+                <fullName>U17 - Pdt - Suspension Problem</fullName>
+                <default>false</default>
+                <label>Pdt - Suspension Problem - U17</label>
+            </value>
+            <value>
+                <fullName>U18 - Pdt - Transmission Problem</fullName>
+                <default>false</default>
+                <label>Pdt - Transmission Problem - U18</label>
+            </value>
+            <value>
+                <fullName>U19 - Pdt - Wiper Problem</fullName>
+                <default>false</default>
+                <label>Pdt - Wiper Problem - U19</label>
+            </value>
+            <value>
+                <fullName>U20 - Pdt - Windscreen Problem</fullName>
+                <default>false</default>
+                <label>Pdt - Windscreen Problem - U20</label>
+            </value>
+            <value>
+                <fullName>U21 - Pdt - Wing Mirror Problem</fullName>
+                <default>false</default>
+                <label>Pdt - Wing Mirror Problem - U21</label>
+            </value>
+            <value>
+                <fullName>U22 - Pdt - IU Problem</fullName>
+                <default>false</default>
+                <label>Pdt - IU Problem - U22</label>
+            </value>
+            <value>
+                <fullName>U23 - Pdt - NGT/CNG Problem</fullName>
+                <default>false</default>
+                <label>Pdt - NGT/CNG Problem - U23</label>
+            </value>
+            <value>
+                <fullName>U00 - Pdt - Others</fullName>
+                <default>false</default>
+                <label>Pdt - Others - U00</label>
+            </value>
+            <value>
+                <fullName>V01 - Svc - Appt Made Not Found</fullName>
+                <default>false</default>
+                <label>Svc - Appt Made Not Found - V01</label>
+            </value>
+            <value>
+                <fullName>V02 - Svc - Contact Difficulty</fullName>
+                <default>false</default>
+                <label>Svc - Contact Difficulty - V02</label>
+            </value>
+            <value>
+                <fullName>V03 - Svc - Damaged Claim</fullName>
+                <default>false</default>
+                <label>Svc - Damaged Claim - V03</label>
+            </value>
+            <value>
+                <fullName>V04 - Svc - Inconvenient Location</fullName>
+                <default>false</default>
+                <label>Svc - Inconvenient Location - V04</label>
+            </value>
+            <value>
+                <fullName>V05 - Svc - Inconvenient Operating Hr</fullName>
+                <default>false</default>
+                <label>Svc - Inconvenient Operating Hr - V05</label>
+            </value>
+            <value>
+                <fullName>V06 - Svc - Item Loss</fullName>
+                <default>false</default>
+                <label>Svc - Item Loss - V06</label>
+            </value>
+            <value>
+                <fullName>V07 - Svc - Late Delivery Of New Car</fullName>
+                <default>false</default>
+                <label>Svc - Late Delivery Of New Car - V07</label>
+            </value>
+            <value>
+                <fullName>V08 - Svc - Late Manual/Handbook</fullName>
+                <default>false</default>
+                <label>Svc - Late Manual/Handbook - V08</label>
+            </value>
+            <value>
+                <fullName>V09 - Svc - Late Update/Response</fullName>
+                <default>false</default>
+                <label>Svc - Late Update/Response - V09</label>
+            </value>
+            <value>
+                <fullName>V10 - Svc - Long Servicing Duration</fullName>
+                <default>false</default>
+                <label>Svc - Long Servicing Duration - V10</label>
+            </value>
+            <value>
+                <fullName>V11 - Svc - Long Wait for Parts/Acc</fullName>
+                <default>false</default>
+                <label>Svc - Long Wait for Parts/Acc - V11</label>
+            </value>
+            <value>
+                <fullName>V12 - Svc - Long Wait for Refund</fullName>
+                <default>false</default>
+                <label>Svc - Long Wait for Refund - V12</label>
+            </value>
+            <value>
+                <fullName>V13 - Svc - Long Wait for Towing/Tech</fullName>
+                <default>false</default>
+                <label>Svc - Long Wait for Towing/Tech - V13</label>
+            </value>
+            <value>
+                <fullName>V14 - Svc - Long Wait To See CSE/SA</fullName>
+                <default>false</default>
+                <label>Svc - Long Wait To See CSE/SA - V14</label>
+            </value>
+            <value>
+                <fullName>V15 - Svc - New Car Quality Control</fullName>
+                <default>false</default>
+                <label>Svc - New Car Quality Control - V15</label>
+            </value>
+            <value>
+                <fullName>V16 - Svc - New Problem Arise</fullName>
+                <default>false</default>
+                <label>Svc - New Problem Arise - V16</label>
+            </value>
+            <value>
+                <fullName>V17 - Svc - No Updates/Followup</fullName>
+                <default>false</default>
+                <label>Svc - No Updates/Followup - V17</label>
+            </value>
+            <value>
+                <fullName>V18 - Svc - Poor Amenities</fullName>
+                <default>false</default>
+                <label>Svc - Poor Amenities - V18</label>
+            </value>
+            <value>
+                <fullName>V19 - Svc - Poor Carwash/Polishing</fullName>
+                <default>false</default>
+                <label>Svc - Poor Carwash/Polishing - V19</label>
+            </value>
+            <value>
+                <fullName>V20 - Svc - Poor Explanation/Info</fullName>
+                <default>false</default>
+                <label>Svc - Poor Explanation/Info - V20</label>
+            </value>
+            <value>
+                <fullName>V21 - Svc - Poor Signage</fullName>
+                <default>false</default>
+                <label>Svc - Poor Signage - V21</label>
+            </value>
+            <value>
+                <fullName>V22 - Svc - Poor Staff Attitude</fullName>
+                <default>false</default>
+                <label>Svc - Poor Staff Attitude - V22</label>
+            </value>
+            <value>
+                <fullName>V23 - Svc - Problem Arise Again</fullName>
+                <default>false</default>
+                <label>Svc - Problem Arise Again - V23</label>
+            </value>
+            <value>
+                <fullName>V24 - Svc - Problem Unsolved/CBJ</fullName>
+                <default>false</default>
+                <label>Svc - Problem Unsolved/CBJ - V24</label>
+            </value>
+            <value>
+                <fullName>V25 - Svc - Workshop Quality Control</fullName>
+                <default>false</default>
+                <label>Svc - Workshop Quality Control - V25</label>
+            </value>
+            <value>
+                <fullName>V00 - Svc - Others</fullName>
+                <default>false</default>
+                <label>Svc - Others - V00</label>
+            </value>
+            <value>
+                <fullName>X01 - Sales - Professionalism</fullName>
+                <default>false</default>
+                <label>Sales - Professionalism - X01</label>
+            </value>
+            <value>
+                <fullName>X02 - Sales - Late Delivery of Car</fullName>
+                <default>false</default>
+                <label>Sales - Late Delivery of Car - X02</label>
+            </value>
+            <value>
+                <fullName>Sales - New Car Quality Control - X03</fullName>
+                <default>false</default>
+                <label>Sales - New Car Quality Control - X03</label>
+            </value>
+            <value>
+                <fullName>Sales - Promotions/Events - X04</fullName>
+                <default>false</default>
+                <label>Sales - Promotions/Events - X04</label>
+            </value>
+            <value>
+                <fullName>Sales - Refund - X05</fullName>
+                <default>false</default>
+                <label>Sales - Refund - X05</label>
+            </value>
+            <value>
+                <fullName>X00 - Sales - Others (Pls specify)</fullName>
+                <default>false</default>
+                <label>Sales - Others (Pls specify) - X00</label>
+            </value>
+            <value>
+                <fullName>MB Sin CCC - Svc - Contact difficulty</fullName>
+                <default>false</default>
+                <label>MB Sin CCC - Svc - Contact difficulty</label>
+            </value>
+            <value>
+                <fullName>MB Sin CCC - Svc - Poor updates/follow up</fullName>
+                <default>false</default>
+                <label>MB Sin CCC - Svc - Poor updates/follow up</label>
+            </value>
+            <value>
+                <fullName>MB Sin CCC - Svc - Poor Explanation/Info</fullName>
+                <default>false</default>
+                <label>MB Sin CCC - Svc - Poor Explanation/Info</label>
+            </value>
+            <value>
+                <fullName>MB Sin CCC - Svc - Poor Staff Attitude</fullName>
+                <default>false</default>
+                <label>MB Sin CCC - Svc - Poor Staff Attitude</label>
+            </value>
+            <value>
+                <fullName>MB Sin CCC - Svc - Professionalism</fullName>
+                <default>false</default>
+                <label>MB Sin CCC - Svc - Professionalism</label>
+            </value>
+            <value>
+                <fullName>C&amp;C CCC - Svc - Contact difficulty</fullName>
+                <default>false</default>
+                <label>C&amp;C CCC - Svc - Contact difficulty</label>
+            </value>
+            <value>
+                <fullName>C&amp;C CCC - Svc - Poor updates/follow up</fullName>
+                <default>false</default>
+                <label>C&amp;C CCC - Svc - Poor updates/follow up</label>
+            </value>
+            <value>
+                <fullName>C&amp;C CCC - Svc - Poor Explanation/Info</fullName>
+                <default>false</default>
+                <label>C&amp;C CCC - Svc - Poor Explanation/Info</label>
+            </value>
+            <value>
+                <fullName>C&amp;C CCC - Svc – Poor Staff Attitude</fullName>
+                <default>false</default>
+                <label>C&amp;C CCC - Svc – Poor Staff Attitude</label>
+            </value>
+            <value>
+                <fullName>C&amp;C CCC - Svc - Professionalism</fullName>
+                <default>false</default>
+                <label>C&amp;C CCC - Svc - Professionalism</label>
+            </value>
+            <value>
+                <fullName>Mercedes Me</fullName>
+                <default>false</default>
+                <label>Mercedes Me</label>
+            </value>
+            <value>
+                <fullName>MyMB/MyC&amp;C</fullName>
+                <default>false</default>
+                <label>MyMB/MyC&amp;C</label>
+            </value>
+            <value>
+                <fullName>OneWeb</fullName>
+                <default>false</default>
+                <label>OneWeb</label>
+            </value>
+            <value>
+                <fullName>Website</fullName>
+                <default>false</default>
+                <label>Website</label>
+            </value>
+            <value>
+                <fullName>Ease of Contact – L01</fullName>
+                <default>false</default>
+                <label>Ease of Contact – L01</label>
+            </value>
+            <value>
+                <fullName>Fast Turn-Over Time – L02</fullName>
+                <default>false</default>
+                <label>Fast Turn-Over Time – L02</label>
+            </value>
+            <value>
+                <fullName>Good Amenities – L03</fullName>
+                <default>false</default>
+                <label>Good Amenities – L03</label>
+            </value>
+            <value>
+                <fullName>Good Product – L04</fullName>
+                <default>false</default>
+                <label>Good Product – L04</label>
+            </value>
+            <value>
+                <fullName>Good Service Quality – L05</fullName>
+                <default>false</default>
+                <label>Good Service Quality – L05</label>
+            </value>
+            <value>
+                <fullName>Good Staff Attitude – L06</fullName>
+                <default>false</default>
+                <label>Good Staff Attitude – L06</label>
+            </value>
+            <value>
+                <fullName>Good Staff Initiative – L07</fullName>
+                <default>false</default>
+                <label>Good Staff Initiative – L07</label>
+            </value>
+            <value>
+                <fullName>Gd/Clear Explanation/Info Given – L08</fullName>
+                <default>false</default>
+                <label>Gd/Clear Explanation/Info Given – L08</label>
+            </value>
+            <value>
+                <fullName>Good/Close Followup – L09</fullName>
+                <default>false</default>
+                <label>Good/Close Followup – L09</label>
+            </value>
+            <value>
+                <fullName>Prompt Update/Response – L10</fullName>
+                <default>false</default>
+                <label>Prompt Update/Response – L10</label>
+            </value>
+            <value>
+                <fullName>Reasonable Pricing – L11</fullName>
+                <default>false</default>
+                <label>Reasonable Pricing – L11</label>
+            </value>
+            <value>
+                <fullName>None</fullName>
+                <default>false</default>
+                <label>None</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

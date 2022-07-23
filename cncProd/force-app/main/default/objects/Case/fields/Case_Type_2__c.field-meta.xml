@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case_Type_2__c</fullName>
+    <description>Picklist values for Enquiry and Request case type in flow</description>
+    <externalId>false</externalId>
+    <label>Case Type 2</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sales</fullName>
+                <default>false</default>
+                <label>Sales</label>
+            </value>
+            <value>
+                <fullName>Aftersales</fullName>
+                <default>false</default>
+                <label>Aftersales</label>
+            </value>
+            <value>
+                <fullName>Refund</fullName>
+                <default>false</default>
+                <label>Refund</label>
+            </value>
+            <value>
+                <fullName>Parts and Accessories</fullName>
+                <default>false</default>
+                <label>Parts and Accessories</label>
+            </value>
+            <value>
+                <fullName>Boutique/eShop</fullName>
+                <default>false</default>
+                <label>Boutique/eShop</label>
+            </value>
+            <value>
+                <fullName>Vehicle Status</fullName>
+                <default>false</default>
+                <label>Vehicle Status</label>
+            </value>
+            <value>
+                <fullName>Follow up from other departments</fullName>
+                <default>false</default>
+                <label>Follow up from other departments</label>
+            </value>
+            <value>
+                <fullName>New ownership enquiry</fullName>
+                <default>false</default>
+                <label>New ownership enquiry</label>
+            </value>
+            <value>
+                <fullName>CCLeasing</fullName>
+                <default>false</default>
+                <label>CCLeasing</label>
+            </value>
+            <value>
+                <fullName>PDPA</fullName>
+                <default>false</default>
+                <label>PDPA</label>
+            </value>
+            <value>
+                <fullName>Breakdown and Roadside Assistance</fullName>
+                <default>false</default>
+                <label>Breakdown and Roadside Assistance</label>
+            </value>
+            <value>
+                <fullName>Others</fullName>
+                <default>false</default>
+                <label>Others</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,188 @@
+<apex:page docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false" cache="true" controller="TestDriveController_ipad" id="thePage" >
+<style type="text/css">
+    
+    .disableBtn{
+        color: #fff;
+        border-color: #B6B6B4;
+        background-color: #B6B6B4 !important;
+    }
+
+    .btn-primary{
+        
+        margin-right:15px;
+        margin-top:10px;
+    }
+    .h3 {
+    
+    }
+    .tablesorter thead tr th{
+        background-color: #3090C7 !important;
+        border: 1px solid #FFF;
+        font-size: 11pt;
+        color: #FFF;
+        padding:10px !important;
+        
+    }
+    .tablesorter tbody tr td{
+        border: 1px solid #e6e6e6;
+        background-color:#fcfcfc;
+        padding-left:10px !important;
+        padding-right:10px !important;
+    }
+    .tablesorter-childRow tr th{
+        background-color:#ccccb3 !important;
+    }
+</style>
+    
+    <apex:stylesheet value="{!URLFOR($Resource.cssjsTestDriveIpad, 'bootstrap.min.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.cssjsTestDriveIpad, 'bootstrap-glyphicons.css')}" />
+    <apex:stylesheet value="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap-glyphicons.css"/>
+    <apex:stylesheet value="{!URLFOR($Resource.cssjsTestDriveIpad, 'theme.blue.css')}" />
+    
+    <apex:includeScript value="{!URLFOR($Resource.cssjsTestDriveIpad, 'jquery.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.cssjsTestDriveIpad, 'jquery.tablesorter.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.cssjsTestDriveIpad, 'bootstrap.min.js')}"/>
+    <!--<apex:stylesheet value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+    <apex:includeScript value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"/>
+    <apex:includeScript value="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" />
+    <apex:includeScript value="//cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.17.8/js/jquery.tablesorter.min.js" />
+    <apex:stylesheet value="//cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.17.8/css/theme.blue.css" />
+    <apex:stylesheet value="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap-glyphicons.css"/>-->
+<html>
+    <head>
+	
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>Test Drives</title>
+    </head>
+        <img class="logo" src="{!logo1}" align='Left'/>
+        <img class="logo" src="{!logo2}" align='right' style="width:75px; height:60px; margin-right: 20px; margin-top: 20px;"/>
+    <body>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+        <apex:form Styleclass="container-fluid">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4>Test Drive Home Page</h4>
+                </div>
+                <div class="panel-body">
+                    <apex:outputPanel rendered="{!errTradePlate}">
+                            <div class="alert alert-danger">
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> This trade plate {!tradePlateName} already on used by other test drive now.
+                            </div>
+                        </apex:outputPanel>
+                    <table id="accsTable" class="tablesorter" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Model</th>
+                                <th colspan="2">Comm No/Reg No</th>
+                                <th>Detail</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <apex:variable var="rowNumber" value="{!1}" />
+                        <apex:repeat value="{!theLists}" var="list" >
+                        <tbody>
+                            <tr>
+                                <td style="text-align:center;">{!rowNumber} <apex:variable var="rowNumber" value="{!rowNumber+1}" /></td>
+                                <td ><apex:outputText value="{!list.vehicle.name}"/></td>
+                                <td colspan="2" style=""><apex:outputText value="{!list.Comno}"/></td>
+                                <td style="text-align:center;" ><a href="#" class="toggle"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                                </td>
+                                <td style="text-align:center;">
+                                    <apex:commandLink action="{!bookClick}" styleClass="btn btn-info" rendered="{!!list.disableBook}">
+                                        <span class="glyphicon glyphicon-bookmark"></span> Book
+                                        <apex:param name="id" value="{!list.vehicle.id}" assignTo="{!vehiId}" />
+                                    </apex:commandLink>
+
+                                    <apex:commandLink onclick="return false;" styleClass="btn disableBtn disabled"  rendered="{!list.disableBook}">
+                                        <span class="glyphicon glyphicon-bookmark"></span> Book
+                                        <apex:param name="id" value="{!list.vehicle.id}" assignTo="{!vehiId}" />
+                                    </apex:commandLink>
+                                </td>
+                            </tr>
+                            <tr class="tablesorter-childRow">
+                                        <td style="background-color:#B6B6B4;color:#FFF;"></td>
+                                        <td style="background-color:#B6B6B4;color:#FFF;">SC Name</td>
+                                        <td style="background-color:#B6B6B4;color:#FFF;">SC Mobile</td>
+                                        <td style="background-color:#B6B6B4;color:#FFF;">Status</td>
+                                        <td style="background-color:#B6B6B4;color:#FFF;"></td>
+                                        <td style="background-color:#B6B6B4;color:#FFF;"></td>
+                                    </tr>
+                                    <apex:repeat value="{!list.theTests}" var="test" >
+                                    <tr class="tablesorter-childRow">
+                                        <td></td>
+                                        <td><apex:outputText value="{!test.owner.name}"/></td>
+                                        <td><apex:outputText value="{!test.Sales_Rep_Mobile__c}"/></td>
+                                        <td><apex:outputText value="{!test.Status__c}"/></td>
+                                        <td style="text-align:center;">
+                                            <!-- <apex:commandLink value="Check-Out" action="{!outClick}" styleClass="btn"  rendered="{!OR(test.Status__c=='Pending',test.Status__c=='Queue')}">
+                                                <apex:param name="id" value="{!test.id}" assignTo="{!testId}"/>
+                                            </apex:commandLink>&nbsp; -->
+                                            <apex:commandLink value="Check-In" action="{!inClick}" styleClass="btn"  rendered="{!test.Status__c=='Out'}">
+                                                <apex:param name="id" value="{!test.id}" assignTo="{!testId}"/>
+                                            </apex:commandLink>&nbsp;
+                                            <!-- <apex:commandLink value="Cancel Queue" action="{!cancelClick}" styleClass="btn"  rendered="{!IF(list.showQueue==true,IF(test.Status__c=='Queue',true,false),false)}">
+                                                <apex:param name="id" value="{!test.id}" assignTo="{!testId}"/>
+                                            </apex:commandLink>&nbsp; -->
+                                            
+                                        </td>
+                                        <td style="text-align:center;"><apex:commandButton styleClass="btn" value="Print Form" onClick="window.open('/apex/showAttachment?id={!test.id}');" reRender="thePage" />
+                                        </td>
+                                    </tr>
+                                    </apex:repeat>
+                        </tbody>
+                        </apex:repeat>
+                    </table>
+                </div>
+            </div>
+        </apex:form>
+    </body>
+</html>
+ <script>
+    $(document).ready(function() 
+    {   
+        $("[id$='accsTable'] thead th:eq(0)").data("sorter", false);
+        $("[id$='accsTable'] thead th:eq(1)").data("sorter", false);
+        $("[id$='accsTable'] thead th:eq(2)").data("sorter", false);
+        $("[id$='accsTable'] thead th:eq(3)").data("sorter", false);
+        $("[id$='accsTable'] thead th:eq(4)").data("sorter", false);
+
+        // hide child rows
+          $('.tablesorter-childRow td').hide();
+
+          $("[id$='accsTable']")
+            .tablesorter({
+              theme : 'blue',
+              // this is the default setting
+              cssChildRow: "tablesorter-childRow"
+            })
+
+              // Toggle child row content (td), not hiding the row since we are using rowspan
+              // Using delegate because the pager plugin rebuilds the table after each page change
+              // "delegate" works in jQuery 1.4.2+; use "live" back to v1.3; for older jQuery - SOL
+              $('.tablesorter').delegate('.toggle', 'click' ,function(){
+
+                // use "nextUntil" to toggle multiple child rows
+                // toggle table cells instead of the row
+                $(this).closest('tr').nextUntil('tr:not(.tablesorter-childRow)').find('td').toggle();
+                // in v2.5.12, the parent row now has the class tablesorter-hasChildRow
+                // so you can use this code as well
+                // $(this).closest('tr').nextUntil('tr.tablesorter-hasChildRow').find('td').toggle();
+
+                return false;
+              });
+
+    });
+    $('.glyphicon').parent().click(function(){
+    if(jQuery(this).children('.glyphicon').hasClass('glyphicon glyphicon-chevron-right')){
+        jQuery(this).children('.glyphicon').removeClass('glyphicon glyphicon-chevron-right').addClass('glyphicon glyphicon-chevron-down');
+    }else if(jQuery(this).children('.glyphicon').hasClass('glyphicon glyphicon-chevron-down')){
+        jQuery(this).children('.glyphicon').removeClass('glyphicon glyphicon-chevron-down').addClass('glyphicon glyphicon-chevron-right');
+    }
+    });   
+  </script>
+</apex:page>

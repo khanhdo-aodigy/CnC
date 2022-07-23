@@ -1,0 +1,388 @@
+<!--
+  @File Name          : dsp_vehiclePurchase.html
+  @Description        : 
+  @Author             : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Group              : 
+  @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Last Modified On   : 1/21/2020, 1:29:39 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    1/21/2020   ChangeMeIn@UserSettingsUnder.SFDoc     Initial Version
+-->
+<template>
+    <template if:true={salesRec}>
+      <main role="main" style={containerStyle}>
+          <section class="section-wrapper">
+            <form id="vehiclePurchaseForm" class="form-init" novalidate>
+              <div class="container">
+                <div class="row">
+                  <div class="col-12">
+                    <!-- Title -->
+                    <div class="page-title top-title" style="margin: 0 0 4.4rem;">
+                      <h1>Vehicle Purchase</h1>
+                    </div>
+
+                    <!-- Vehicle Variants -->
+                    <div class="vehicle-variant">
+                      <ul>
+                        <li>
+                          <div>
+                            <div class="row">
+                              <div class="col">
+                                <div style="padding-top: 1.5em;">
+                                  <c-svg-cmp url-to-resource='/BootStrap/images/icons/icons.svg#icon-car' svg-class="icon icon-car"
+                                    svg-role="img" svg-aria-hidden="true">
+                                  </c-svg-cmp>
+    
+                                  <div class="vehicle-variant--text" style="padding-left: 1em;">
+                                    Model
+                                    <span id="model">
+                                      {salesRec.Model__c.value}
+                                    </span>
+                                  </div>
+                                </div>
+                                <div style="padding-top: 1.5em;">
+                                  <c-svg-cmp url-to-resource='/BootStrap/images/icons/icons.svg#icon-car' svg-class="icon icon-car"
+                                    svg-role="img" svg-aria-hidden="true">
+                                  </c-svg-cmp>
+    
+                                  <div class="vehicle-variant--text" style="padding-left: 1em;">
+                                    Colour
+                                    <span id="colour">
+                                      {salesRec.Color__c.value}
+                                    </span>
+                                  </div>
+                                </div>
+                                <div style="padding-top: 1.5em;">
+                                  <c-svg-cmp url-to-resource='/BootStrap/images/icons/icons.svg#icon-trim' svg-class="icon icon-trim"
+                                    svg-role="img" svg-aria-hidden="true">
+                                  </c-svg-cmp>
+    
+                                  <div class="vehicle-variant--text" style="padding-left: 1em;">
+                                    Trim
+                                    <span id="trim">
+                                      {salesRec.Trim__c.value}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col">
+                                <template if:true={salesRec.Vehicle_Condition__c.value}>
+                                  <div style="padding-top: 1.5em;">
+                                    <c-svg-cmp url-to-resource='/BootStrap/images/icons/icons.svg#icon-car' svg-class="icon icon-car"
+                                    svg-role="img" svg-aria-hidden="true">
+                                    </c-svg-cmp>
+                                    <div class="vehicle-variant--text" style="padding-left: 1em;">
+                                      Vehicle Condition
+                                      <span id="vehicleCondition">
+                                          {salesRec.Vehicle_Condition__c.value}
+                                      </span>
+                                    </div>
+                                  </div>
+                                </template>
+                                <template if:true={salesRec.Vehicle_Mileage__c.value}>
+                                  <div style="padding-top: 1.5em;">
+                                    <img src={dsaMileageIcon}/>
+                                    <div class="vehicle-variant--text" style="padding-left: 1em;">
+                                      Mileage(Estimated)
+                                      <span id="mileage">
+                                          {salesRec.Vehicle_Mileage__c.value}
+                                      </span>
+                                    </div>
+                                  </div>                                  
+                                </template>
+                                <template if:true={salesRec.Vehicle_Location__c.value}>
+                                  <div style="padding-top: 1.5em;">
+                                    <img src={dsaLocationIcon}/>
+                                    <div class="vehicle-variant--text" style="padding-left: 1em;">
+                                      Location
+                                      <span id="location">
+                                        {salesRec.Vehicle_Location__c.value}
+                                      </span>
+                                    </div>
+                                  </div>
+                                </template>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <c-svg-cmp url-to-resource='/BootStrap/images/icons/icons.svg#icon-coe' svg-class="icon icon-coe"
+                          svg-role="img" svg-aria-hidden="true">
+                          </c-svg-cmp>
+
+                          <div class="vehicle-variant--text" style="padding-left: 1em;">
+                            COE
+                            <span id="coeCategory"> Category {salesRec.COECategory__c.value}</span>
+                          </div>
+                        </li>
+                        <li>
+                          <c-checkbox-as-cmp field-label="Demo / Promotional Vehicle Selection" api-field-name="isPromotionVehicle__c"
+                          value-label="Yes, willing to accept a demo vehicle."
+                          field-style="custom-control-input" existing-value={salesRec.isPromotionVehicle__c.value}
+                          default-value=false onvaluechanged={onValueChanged}>
+                          </c-checkbox-as-cmp>
+                        </li>
+                      </ul>
+
+                    </div>
+
+
+                    <h2>COE</h2>
+
+                    <!-- Purchase with COE? -->
+                    <c-picklist-as-button-cmp component-label="Purchase with COE?" object-name="Sales_Agreement__c" picklist-field-api-name="PurchasewithCOE__c"
+                      shape-style="tick" default-value={salesRec.PurchasewithCOE__c.value} onvaluechanged={onValueChanged} conditional-disable="false">
+                    </c-picklist-as-button-cmp>
+                    <template if:false={isPurchaseWithCOE}>
+                        <div data-name="Customer_Purchased_COE__c" class="form-group with-currency">
+                            <c-input-field-as-cmp input-type="text" label="Customer Purchased COE Amount" input-class="form-control input-numbers-only is-number money"
+                            field-a-p-i-name="Customer_Purchased_COE__c" onvaluechanged={onValueChanged}
+                            placeholder="" default-value={salesRec.Customer_Purchased_COE__c.value} >
+                            </c-input-field-as-cmp>
+                        </div>
+                    </template>
+                    <!-- Package -->
+                  <c-picklist-as-button-cmp component-label="Package" object-name="Sales_Agreement__c" picklist-field-api-name="COE_Package__c"
+                    shape-style="tick" default-value={salesRec.COE_Package__c.value} onvaluechanged={onValueChanged} conditional-disable={disabledCOESection}>
+                  </c-picklist-as-button-cmp>
+
+                    <!-- Number of COE Bids -->
+                  <c-picklist-as-button-cmp component-label="Number of COE Bids" object-name="Sales_Agreement__c" picklist-field-api-name="Number_of_COE_Bids__c"
+                    shape-style="circ" default-value={salesRec.Number_of_COE_Bids__c.value} onvaluechanged={onValueChanged} conditional-disable={disabledCOESection}>
+                  </c-picklist-as-button-cmp>
+
+                    <!-- COE Charged/Rebate -->
+                    <div data-name="COE_Charged_Rebate__c" class="form-group with-currency">
+                        <c-input-field-as-cmp input-type="text" label="COE Charged/Rebate Level" input-class="form-control input-numbers-only is-number money"
+                        field-a-p-i-name="COE_Charged_Rebate__c" onvaluechanged={onValueChanged}
+                        placeholder="" default-value={salesRec.COE_Charged_Rebate__c.value} >
+                        <div slot="bottomOfInputField">
+                            <span class="message" style="color:#516173">Not applicable for packages utilising Open Category COE.</span>
+                        </div>
+                        </c-input-field-as-cmp>
+                    </div>
+
+
+                    <h2>Registration</h2>
+
+                    <!-- Registration Number -->
+
+                    <c-picklist-as-button-cmp component-label="Registration Number" object-name="Sales_Agreement__c" picklist-field-api-name="Registration_Number_Type__c"
+                    shape-style="tick" default-value={salesRec.Registration_Number_Type__c.value} onvaluechanged={onValueChanged} conditional-disable="false">
+                    </c-picklist-as-button-cmp>
+
+                    <!-- Accordion: RNM -->
+                    <template if:true={registrationMethodPickListValue}>
+
+                        <c-picklist-as-accordion-cmp field-label="Registration Number Method" api-field-name="Registration_Number_Method__c"
+                                                      multi-select="false" list-style="accordion" configuration-pick-list-value={registrationMethodPickListValue}
+                                                      existing-value={salesRec.Registration_Number_Method__c.value} onvaluechanged={onValueChanged} >
+                        </c-picklist-as-accordion-cmp>
+                    </template>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Vehicle Purchase Price -->
+            <div data-name="vehicleHeaderOffset" class="header-snap-anchor scroller-anchor"></div>
+            <div data-name="vehicleHeaderSticky" class="header-snap scroller" style="top: -5px;">
+              <div class="container">
+                <div class="row ">
+                  <div class="col-12">
+                    <div class="row align-items-center">
+                      <div class="col-9">
+                        <div class="header-snap--title">
+                          <h2>Vehicle Purchase Price</h2>
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <div id="vehicleTotalPrice" class="header-snap--price">
+                          Vehicle Total Price
+                          <span>$<strong class="currency"></strong>{vehicleTotalPrice}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              <!-- Vehicle List Price -->
+              <div id="vehicleLists" class="vehicle-lists">
+                <div class="container">
+                  <div class="row ">
+                    <div class="col-12">
+                      <!-- Vehicle Lists -->
+                      <div id="vehicleListPrice" class="vehicle-wrapper">
+                        <div class="vehicle-lists--header d-flex justify-content-between">
+                          <div class="h3">Vehicle List Price</div>
+                          <!-- Start of RN2020Q1010 -->
+                          <!--<div class="h3"><span class="currency">{salesRec.Package_Header__r.value.fields.PKH_PKGPRICE__c.displayValue}</span></div>-->
+                          <div class="h3"><span class="currency">{salesRec.Package_List_Price__c.displayValue}</span></div>
+                          <!-- End of RN2020Q1010 -->
+                        </div>
+
+                       <!-- <c-record-list-as-list-cmp record-id={salesRec.Package_Header__r.value.id} </c-record-list-as-list-cmp>-->
+                        <c-accessory-list-display record-id={salesRec.Id.value} list-items={packageItemList}></c-accessory-list-display>
+                        <!-- Accessories Credit -->
+                        <div class="form-group with-currency mt-5">
+                          <c-input-field-as-cmp input-type="text" label="Accessories Credits" input-class="form-control is-number money accs-credit"
+                                                field-a-p-i-name="Accessories_Credit__c" onvaluechanged={onValueChanged}
+                                                placeholder="" default-value={salesRec.Accessories_Credit__c.value} min-value={salesRec.Package_Accessories_Credit__c.value}
+                                                >
+                          </c-input-field-as-cmp> 
+                        </div>
+                        <!-- Service Credit -->
+                        <div class="form-group with-currency mt-5">
+                            <c-input-field-as-cmp input-type="text" label="Service Credits" input-class="form-control is-number money service-credit"
+                                                  field-a-p-i-name="Service_Credit__c" onvaluechanged={onValueChanged}
+                                                  placeholder="" default-value={salesRec.Service_Credit__c.value} min-value={salesRec.Package_Service_Credit__c.value}
+                                                  >
+                            </c-input-field-as-cmp>
+                            <div slot="bottomOfInputField">
+                                <span class="message" style="color:#516173">WEF for {serviceCreditEffectiveYears} years bases on data of registration. Non refundable & non transferable.</span>
+                            </div>
+                        </div>
+                      </div>
+
+                      <!-- Vehicle Add-Ons -->
+                      <div id="vehicleAddOns" class="vehicle-wrapper">
+                        <template if:true={spinner}>
+                          <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                        </template>
+                        <template if:false={spinner}>
+                          <div class="vehicle-lists--header d-flex justify-content-between">
+                            <div class="h3">Add-Ons (Optional)</div>
+                            <div class="h3 price-wrap">$<span class="total-price">{addOnTotalValue}</span></div>
+                          </div>
+  
+                          <div class="list-delete">
+                            <template if:true={addOnList}>
+                              <template for:each={addOnList} for:item="eachItem">
+                                <div key={eachItem.Id} class="list-delete--item">
+                                  <a class="list-delete--icon" data-itemid={eachItem.Id} href="#" onclick={deleteAddOnItem} >
+                                    <svg class="icon icon-delete" role="img" aria-hidden="true" viewBox="0 0 24 24">
+                                      <g fill-rule="nonzero">
+                                        <path d="M7.5 7.5V18A1.5 1.5 0 0 0 9 19.5h7a1.5 1.5 0 0 0 1.5-1.5V7.5h-10zm-.5-1h11a.5.5 0 0 1 .5.5v11a2.5 2.5 0 0 1-2.5 2.5H9A2.5 2.5 0 0 1 6.5 18V7a.5.5 0 0 1 .5-.5z"></path>
+                                        <path d="M10.5 5.5v1h4v-1h-4zm-.5-1h5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1-.5-.5V5a.5.5 0 0 1 .5-.5z"></path><path d="M5.5 7.5a.5.5 0 0 1 0-1h14a.5.5 0 1 1 0 1h-14zM10 10.5a.5.5 0 1 1 1 0v5.523a.5.5 0 1 1-1 0V10.5zM12 10.5a.5.5 0 1 1 1 0v5.523a.5.5 0 1 1-1 0V10.5zM14 10.5a.5.5 0 1 1 1 0v5.523a.5.5 0 1 1-1 0V10.5z"></path>
+                                      </g>
+                                    </svg>
+                                  </a>
+                                  <div class="list-delete--desc">{eachItem.Description__c}</div>
+                                  <div class="list-delete--price ml-auto">$<span class="currency">{eachItem.SAC_ACCSVALUE__c}</span></div>
+                                </div>
+                                </template>
+                          </template>
+                          </div>
+                        </template>
+
+                        <a href="#" onclick={openAddOn} class="btn-add" data-toggle="modal" data-target="#modalAddOns">
+                          <span>
+
+                            <c-svg-cmp url-to-resource='/BootStrap/images/icons/icons.svg#icon-add' svg-class="icon icon-add"
+                              svg-role="img" svg-aria-hidden="true">
+                            </c-svg-cmp>
+
+                          </span>
+                          Add-ons
+                        </a>
+                      </div>
+
+                      <!-- Road Tax -->
+                      <div id="vehicleTax" class="vehicle-wrapper">
+                        <div class="vehicle-lists--header d-flex justify-content-between">
+                          <div class="h3">Road Tax, Licenses &amp; Fees</div>
+                        </div>
+
+                        <div class="list-price">
+                        <template if:true={additionalCharges}>
+                          <template for:each={additionalCharges} for:item="eachItem">
+                              <template if:false={eachItem.isRoadTax}>
+                                <div key={eachItem.chargeCode} class="list-price--item d-flex justify-content-between">
+
+                                <div class="list-price-desc">{eachItem.description}</div>
+                                <div class="list-price-notes"> <span class="total-price">{eachItem.displayCharges}</span></div>
+                              </div>
+                              </template>
+                          </template>
+                        </template>
+
+                        <template if:true={roadTaxList}>
+                            <div class="list-price--item d-flex justify-content-between">
+                                <div class="list-price-desc">ROAD TAX</div>
+                                <div class="list-price-notes"> <span class="total-price">{roadTaxDisplayValue}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                            <template for:each={roadTaxList} for:item="eachItem">
+                              <div key={eachItem.chargeCode} data-name={eachItem.chargeCode} class="custom-control custom-radio">
+                                <input type="radio" data-id={eachItem.chargeCode} id={eachItem.chargeCode} name="road-tax" value={eachItem.chargeCode} class="custom-control-input" onclick={roadTaxSelection}>
+                                <label class="custom-control-label" for={eachItem.chargeCode}>{eachItem.roadTaxDescription}</label>
+                              </div>
+                          </template>
+                          </div>
+                        </template>
+
+                      </div>
+                      </div>
+
+                      <div id="vehicleOthers" class="vehicle-wrapper last">
+                          <div class="vehicle-lists--header">
+                            <div class="h3">Others</div>
+                          </div>
+                          <div class="btn-box justify-content-between">
+                            <c-input-field-with-button-cmp input-type="text" label="Accessories Discount (if applicable)" input-class="others-input input-numbers-only"
+                            field-a-p-i-name="Accessories_Discount__c" onvaluechanged={onValueChanged} pattern="\d*"
+                            placeholder="" default-value={salesRec.Accessories_Discount__c.value} >
+                            </c-input-field-with-button-cmp>
+                          </div>
+                            <div class="btn-box justify-content-between">
+                            <c-input-field-with-button-cmp input-type="text" label="Promo Discount (if applicable)" input-class="others-input input-numbers-only"
+                            field-a-p-i-name="Promo_Discount__c" onvaluechanged={onValueChanged} pattern="\d*"
+                            placeholder="" default-value={salesRec.Promo_Discount__c.value} >
+                          </c-input-field-with-button-cmp>
+                      </div>
+                          <div class="btn-box justify-content-between">
+                          <c-input-field-with-button-cmp input-type="text" label="COE Refund (if applicable)" input-class="others-input input-numbers-only"
+                          field-a-p-i-name="COE_Refund__c" onvaluechanged={onValueChanged} pattern="\d*"
+                          placeholder="" default-value={salesRec.COE_Refund__c.value} >
+                          </c-input-field-with-button-cmp>
+                         </div>
+                        </div>
+
+                        <template if:false={isModal}>
+
+                            <button  type="button" class="btn btn-primary btn-submit" onclick={onSaveRecordNext}>Continue to Finance & Insurance</button>
+                        </template>
+                        <slot name="additionalButtonSlot"></slot>
+
+                      <!-- <a href="step-3.html" class="btn btn-primary btn-submit mt-40">Continue to Finance & Insurance</a> -->
+                    </div>
+                    </div>
+                </div>
+              </div>
+
+            </form>
+          </section>
+                                      
+          <template if:true={isError}>
+              <div data-name="ErrorHeaderOffsetSticky" class="header-snap scroller sticky" style={errorStyle}>
+                  <div class="container">
+                      <div class="row justify-content-md-center">
+                          <span>{errorMsg}</span>
+                      </div>
+                    </div>
+              </div>
+            </template>
+
+      </main>
+        <template if:true={showAddOn}>
+          <c-accessories-add-on-list ondonesaving={doneSavingAddOn} onclose={closeAddOn}
+                                    record-id={salesRec.Id.value}
+                                    existing-list={addOnList}
+                                    package-existing-list = {packageItemList}
+                                    package-addon={packageAddOn}> </c-accessories-add-on-list>
+        </template>
+    </template>
+  </template>

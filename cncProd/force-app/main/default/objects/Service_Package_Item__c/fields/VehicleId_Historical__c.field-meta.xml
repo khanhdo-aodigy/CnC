@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VehicleId_Historical__c</fullName>
+    <description>Id of the Registered Vehicle for Historical Tracking Purposes (due to Autoline Split)</description>
+    <externalId>false</externalId>
+    <label>Vehicle Id (Historical)</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

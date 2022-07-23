@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LeadAssignedStatus__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(Owner:User.UserRole.Name = &apos;CITCV Sales Consultant&apos;, &apos;Assigned&apos;,IF(Owner:User.UserRole.Name = &apos;CITPC Sales Consultant&apos;, &apos;Assigned&apos;,IF(Owner:User.UserRole.Name = &apos;KIACV Sales Consultant&apos;, &apos;Assigned&apos;,IF(Owner:User.UserRole.Name = &apos;KIAPC Sales Consultant&apos;, &apos;Assigned&apos;,&apos;Unassigned&apos;))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Lead Assigned Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

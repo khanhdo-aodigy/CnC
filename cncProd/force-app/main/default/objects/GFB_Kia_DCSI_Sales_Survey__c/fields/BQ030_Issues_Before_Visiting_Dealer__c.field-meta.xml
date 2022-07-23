@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BQ030_Issues_Before_Visiting_Dealer__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISNULL(Issues_Before_Visiting_Dealer__c ), &quot;&quot;, IF(ISBLANK(Issues_Before_Visiting_Dealer__c ), &quot;&quot;, LEFT(IF( CONTAINS(Issues_Before_Visiting_Dealer__c , &quot;Difficulty finding Cycle &amp; Carriage information online&quot;), &quot;1, &quot;, &quot;&quot;) +
+IF( CONTAINS(Issues_Before_Visiting_Dealer__c , &quot;Difficulty navigating the Kia Singapore website&quot;), &quot;2, &quot;, &quot;&quot;) +
+IF( CONTAINS(Issues_Before_Visiting_Dealer__c , &quot;Nobody answered when I called&quot;), &quot;3, &quot;, &quot;&quot;) +
+IF( CONTAINS(Issues_Before_Visiting_Dealer__c , &quot;Long response time&quot;), &quot;4, &quot;, &quot;&quot;), LEN(IF( CONTAINS(Issues_Before_Visiting_Dealer__c , &quot;Difficulty finding Cycle &amp; Carriage information online&quot;), &quot;1, &quot;, &quot;&quot;) +
+IF( CONTAINS(Issues_Before_Visiting_Dealer__c , &quot;Difficulty navigating the Kia Singapore website&quot;), &quot;2, &quot;, &quot;&quot;) +
+IF( CONTAINS(Issues_Before_Visiting_Dealer__c , &quot;Nobody answered when I called&quot;), &quot;3, &quot;, &quot;&quot;) +
+IF( CONTAINS(Issues_Before_Visiting_Dealer__c , &quot;Long response time&quot;), &quot;4, &quot;, &quot;&quot;)) - 2) +
+
+IF( NOT(CONTAINS(Issues_Before_Visiting_Dealer__c , &quot;Difficulty finding Cycle &amp; Carriage information online&quot;)) &amp;&amp;
+NOT(CONTAINS(Issues_Before_Visiting_Dealer__c , &quot;Difficulty navigating the Kia Singapore website&quot;)) &amp;&amp;
+NOT(CONTAINS(Issues_Before_Visiting_Dealer__c , &quot;Nobody answered when I called&quot;)) &amp;&amp;
+NOT(CONTAINS(Issues_Before_Visiting_Dealer__c , &quot;Long response time&quot;)), IF(NOT(ISNUMBER(RIGHT(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(Issues_Before_Visiting_Dealer__c ,
+&quot;Difficulty finding Cycle &amp; Carriage information online&quot;, &quot;1&quot;),
+&quot;Difficulty navigating the Kia Singapore website&quot;, &quot;2&quot;),
+&quot;Nobody answered when I called&quot;, &quot;3&quot;),
+&quot;Long response time&quot;, &quot;4&quot;), 2))), &quot;5&quot;, &quot;&quot;), IF(NOT(ISNUMBER(RIGHT(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(Issues_Before_Visiting_Dealer__c ,
+&quot;Difficulty finding Cycle &amp; Carriage information online&quot;, &quot;1&quot;),
+&quot;Difficulty navigating the Kia Singapore website&quot;, &quot;2&quot;),
+&quot;Nobody answered when I called&quot;, &quot;3&quot;),
+&quot;Long response time&quot;, &quot;4&quot;), 2))), &quot;, 5&quot;, &quot;&quot;))) )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>BQ030_Issues_Before_Visiting_Dealer</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

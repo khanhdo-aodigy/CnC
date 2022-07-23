@@ -1,0 +1,2 @@
+<apex:page controller="Logout" action="{!logoutfunction}">
+</apex:page>

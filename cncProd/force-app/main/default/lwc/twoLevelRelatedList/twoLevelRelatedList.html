@@ -1,0 +1,98 @@
+<template>
+
+    <!-- Start: Loading Screen -->
+    <template if:true={spinner}>
+        <lightning-spinner variant="brand" size="large"></lightning-spinner>
+    </template>
+    <!-- End: Loading Screen -->
+
+    <template if:false={spinner}>
+        <article class="slds-card">
+            <div class="slds-card__header slds-grid slds-p-bottom_medium slds-theme_shade">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-account" title="account">
+                            <lightning-icon icon-name={componentIcon}></lightning-icon>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <a class="slds-card__header-link slds-truncate">
+                                <span>{componentTitle} ({noOfRecords})</span>
+                            </a>
+                        </h2>
+                    </div>
+                    <div class="slds-no-flex">
+                        <lightning-button-icon icon-name="utility:refresh" variant="border-filled"
+                            onclick={refreshComponentRecords}>
+                        </lightning-button-icon>
+                    </div>
+                </header>
+            </div>
+
+            <!-- Start: Screen if records are found in the system (Table) -->
+            <template if:true={recordexists}>
+                <div class="slds-card__body slds-card__body_inner">
+                    <div class="slds-grid slds-border_bottom slds-border_top">
+                        <div class="slds-col">
+                            <span>
+                                <div class="slds-grid slds-wrap">
+                                    <template for:each={firstLevelTable} for:item="body" if:true={firstLevelTable}>
+                                        <div key={body.fieldLabel}
+                                            class="slds-col slds-size_1-of-12 slds-p-vertical_xx-small"
+                                            style="margin:auto;font-weight:bold">
+                                            <span>
+                                                {body.fieldLabel}
+                                            </span>
+                                        </div>
+                                    </template>
+                                </div>
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-24" style="margin:auto">
+                            <span>
+                                <template if:true={expandAll}>
+                                    <lightning-button-icon icon-name="utility:contract" variant="container"
+                                        onclick={expandAllView}>
+                                    </lightning-button-icon>
+                                </template>
+                                <template if:false={expandAll}>
+                                    <lightning-button-icon icon-name="utility:expand" variant="container"
+                                        onclick={expandAllView}>
+                                    </lightning-button-icon>
+                                </template>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Start: Body of the table -->
+                    <template if:true={recordStorage} for:each={recordStorage} for:item="eachrecord" >                        
+                        <div key={eachrecord.ParentId}>
+                            <c-two-level-related-list-first-tier first-level-display-field={firstLevelTable}
+                                second-level-display-field={secondLevelTable} record-storage={eachrecord}>
+                            </c-two-level-related-list-first-tier>
+                        </div>
+                    </template>
+                    <!-- End: Body of the table -->
+                </div>
+                <!--
+                <footer class="slds-card__footer">
+                    <a class="slds-card__footer-action" href="javascript:void(0);">View All
+                    </a>
+                </footer>
+                -->
+            </template>
+            <!-- End: Screen if records are found in the system-->
+
+
+            <!-- Start: No records found screen-->
+            <template if:false={recordexists}>
+                <div class="slds-p-bottom_medium" style="text-align:center">
+                    ----- No Record Found -----
+                </div>
+            </template>
+            <!-- End: No records found screen-->
+
+        </article>
+    </template>
+</template>

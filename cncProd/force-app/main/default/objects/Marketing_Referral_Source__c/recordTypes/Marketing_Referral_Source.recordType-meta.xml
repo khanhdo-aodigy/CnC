@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Marketing_Referral_Source</fullName>
+    <active>true</active>
+    <label>Marketing Referral Source</label>
+    <picklistValues>
+        <picklist>Source__c</picklist>
+        <values>
+            <fullName>Stock Reservation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Test Drive</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Touch_Point__c</picklist>
+        <values>
+            <fullName>Digital Ads</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Facebook</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Google Search</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Instagram</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Newspaper Ad Offline</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outdoor Ad Offline</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Radio Ad Offline</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TV Ads Offline</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tik Tok</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Word-of-Mouth %2F Friends Offline</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>YouTube</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>sgCarMart</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

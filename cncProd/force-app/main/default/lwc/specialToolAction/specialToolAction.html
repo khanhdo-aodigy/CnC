@@ -1,0 +1,16 @@
+<template>
+    <div class="wrapper">
+            <div class="slds-tabs_scoped">
+                <ul class="slds-tabs_scoped__nav" role="tablist">
+                  <li class="slds-tabs_scoped__item slds-is-active" title="Item One" role="presentation">
+                    <p class="slds-tabs_scoped__link"  role="tab" tabindex="0" aria-selected="true" aria-controls="tab-scoped-1" id="tab-scoped-1__item"  onclick={changeTap}>Borrow</p>
+                  </li>
+                  <li class="slds-tabs_scoped__item" title="Item Two" role="presentation">
+                    <p class="slds-tabs_scoped__link" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-scoped-2" id="tab-scoped-2__item" onclick={changeTap}>Return</p>
+                  </li>
+                </ul>
+                <div class="tab-scoped-1 slds-tabs_scoped__content slds-show" role="tabpanel" aria-labelledby="tab-scoped-1__item"><c-special-tool-borrow></c-special-tool-borrow></div>
+                <div class="tab-scoped-2 slds-tabs_scoped__content slds-hide" role="tabpanel" aria-labelledby="tab-scoped-2__item"><c-special-tool-return></c-special-tool-return></div>
+            </div>     
+    </div>
+</template>

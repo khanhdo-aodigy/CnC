@@ -1,0 +1,52 @@
+<aura:component controller="FileRequirementUploadController">
+    <aura:attribute name="fileRequirement" type="File_Requirements__mdt"/>
+    <aura:attribute name="files" type="ContentDocument[]"/>
+    <aura:attribute name="recordId" type="Id"/>
+    <aura:attribute name="userIsSysAdmin" type="Boolean"/>
+
+    <aura:registerEvent name="fileUploadEvent" type="c:FileUploadEvent"/>
+    
+    <lightning:navigation aura:id="navService"/>
+    
+    <tr class="large-text">
+        <td >
+            {#v.fileRequirement.Document_Name__c}
+            <aura:iteration items="{!v.files}" var="file">
+                <br/>
+ 
+                <span class="slds-pill slds-pill_link">
+                    <span class="slds-pill__icon_container">
+                        <lightning:icon iconName="doctype:attachment" alternativeText="Attachment"/>
+                    </span>
+                    <a onclick="{!c.previewFile}" class="slds-pill__action" data-id="{#file.Id}">
+                        <span class="slds-pill__label">{#file.Title}</span>
+                    </a>
+                    <aura:if isTrue="{#v.userIsSysAdmin}">
+                        <button class="slds-button slds-button_icon slds-button_icon slds-pill__remove" title="Remove">
+                            <lightning:icon iconName="utility:close"
+                                            alternativeText="Delete Attachment"
+                                            onclick="{!c.removeFile}"
+                                            title="{#file.Id}"/>
+                        </button>
+                    </aura:if>
+                </span>
+            </aura:iteration>
+        </td>
+        <td>
+            <div class="slds-p-top_x-small">
+                <aura:iteration items="{!v.files}" var="file">
+                    {#file.Owner.Name}<br/>
+                </aura:iteration>
+            </div>
+        </td>
+        <td>
+            <lightning:fileUpload name="{#v.fileRequirement.Document_Name__c}"
+                                  class="float-right"
+                                  multiple="{#greaterthan(v.fileRequirement.Max_Files__c, 1)}"
+                                  accept="{#v.fileRequirement.Allowed_Types__c}"
+                                  recordId="{#v.recordId}"
+                                  disabled="{!or(equals(v.fileRequirement.Max_Files__c, v.files.length), lessthan(v.fileRequirement.Max_Files__c, v.files.length))}"
+                                  onuploadfinished="{!c.handleUploadFinished}"/>
+        </td>
+    </tr>
+</aura:component>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Events_API</fullName>
+    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+    <columns>NAME</columns>
+    <columns>Response_Status_Code__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Service_Name__c</columns>
+    <columns>Apex_Class__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Apex_Class__c</field>
+        <operation>equals</operation>
+        <value>BusinessRuleHandlerSFMC</value>
+    </filters>
+    <filters>
+        <field>Apex_Class__c</field>
+        <operation>equals</operation>
+        <value>EventRegistrationManager</value>
+    </filters>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>greaterOrEqual</operation>
+        <value>8/20/2021 12:00 AM</value>
+    </filters>
+    <label>Events API</label>
+</ListView>

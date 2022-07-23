@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Milestone_Status__c</fullName>
+    <externalId>false</externalId>
+    <formula>if( OR(ISNULL(SLA_Reminder_Sent_Date_Time__c), ISBLANK( SLA_Reminder_Sent_Date_Time__c )),
+IMAGE(&quot;/sfc/servlet.shepherd/version/renditionDownload?rendition=ORIGINAL_Png&amp;versionId=0682x000001VzwD&amp;operationContext=CHATTER&amp;contentId=05T2x000003mDVG&quot;, &quot;GREEN&quot;, 10, 20),
+if(AND(OR(!ISNULL(SLA_Reminder_Sent_Date_Time__c),!ISBLANK( SLA_Reminder_Sent_Date_Time__c )),
+(Did_not_meet_SLA__c == FALSE)),
+IMAGE(&quot;/sfc/servlet.shepherd/version/renditionDownload?rendition=ORIGINAL_Png&amp;versionId=0682x000001VzwE&amp;operationContext=CHATTER&amp;contentId=05T2x000003mDVQ&quot;, &quot;Amber&quot;, 10,20),
+	if(AND(OR(!ISNULL(SLA_Reminder_Sent_Date_Time__c),!ISBLANK( SLA_Reminder_Sent_Date_Time__c )),
+		(Did_not_meet_SLA__c == TRUE)),
+		IMAGE(&quot;/sfc/servlet.shepherd/version/renditionDownload?		rendition=ORIGINAL_Png&amp;versionId=0682x000001Vzw8&amp;operationContext=CHATTER&amp;contentId=05T2x000003mDVB&quot;, &quot;RED&quot;, 10, 20),
+		&apos;&apos;)
+)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Milestone Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

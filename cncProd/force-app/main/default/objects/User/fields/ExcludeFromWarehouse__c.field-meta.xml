@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ExcludeFromWarehouse__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Checked to exclude consultant from warehouse list</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Checked to exclude consultant from warehouse list</inlineHelpText>
+    <label>ExcludeFromWarehouse?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Alert_Description__c</columns>
+    <columns>Contact__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>Service_Appointment__c</columns>
+    <columns>Status__c</columns>
+    <columns>Type__c</columns>
+    <columns>SubType__c</columns>
+    <columns>isEmail__c</columns>
+    <columns>isPush__c</columns>
+    <columns>isSMS__c</columns>
+    <columns>Date__c</columns>
+    <columns>DateTime__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Type__c</field>
+        <operation>equals</operation>
+        <value>Service Appointment</value>
+    </filters>
+    <label>All</label>
+</ListView>

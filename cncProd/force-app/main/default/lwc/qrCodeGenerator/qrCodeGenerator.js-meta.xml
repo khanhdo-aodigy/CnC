@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata" fqn="qrCodeGeneration">
+    <apiVersion>48.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage, lightning__AppPage,lightning__HomePage">
+            <property name="generationMode" type="String" label="Source of Link" datasource="Read from Record,Custom URL,JSON" default="Custom URL"/>
+            <property name="customURL" type="String" label="Custom URL" description="Link to generate QR Code"/>
+            <property name="objectName" type="String" label="Object API Name" description="Please fill in if you choose to Read from Record"/>
+            <property name="fieldName" type="String" label="Field API Name" description="Please fill in if you choose to Read from Record"/>
+            <property name="recordToRead" type="String" label="Record Id" description="If reading from this record, type 'CurrentRecord' else pass the recordId here" default="CurrentRecord"/>
+            <property name="visible" type="Boolean" label="Show QR Code"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

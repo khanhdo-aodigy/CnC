@@ -1,0 +1,68 @@
+.spinner{
+    position: relative;
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+
+pre{
+
+    font-family : WhitneyBook,Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+.rotate180{
+  transform: rotate(180deg);
+}
+
+.panel{
+    padding: 0.5em;
+}
+
+.panel-heading {
+  border-style: double;
+  border-width: thin;
+  padding: 0.7em;
+  border: 1;
+  border-color: #314959;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+  .panel-heading-noborder {
+    padding: 1em;
+    border: 0;
+  }
+
+  .panel-row-text {
+    padding: 0.5em;
+  }
+  .panel-heading  a {
+    color:#516173;
+ }
+
+ .top-title{
+  padding-top:1em;
+}
+
+.lockScroll{
+  position: fixed;
+  overflow: hidden;
+}
+
+input[type="checkbox"]:disabled {
+  background: #dddddd;
+  color: black
+}
+
+.terms-section .custom-control-label2 {
+  color : #001c2d;
+  font-size : 22px;
+  font-weight: 300;
+  line-height: 26px;
+}
+
+.custom-control-label2 {
+  position : relative;
+  margin-bottom: 0;
+  vertical-align: top;
+}

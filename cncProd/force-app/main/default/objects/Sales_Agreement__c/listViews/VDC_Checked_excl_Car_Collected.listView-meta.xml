@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VDC_Checked_excl_Car_Collected</fullName>
+    <columns>NAME</columns>
+    <columns>SOH_SONO__c</columns>
+    <columns>DocStatusVehicleDeliveryCertificate__c</columns>
+    <columns>Stage__c</columns>
+    <columns>Branch_Code__c</columns>
+    <columns>Owner_Username__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>DocStatusVehicleDeliveryCertificate__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Stage__c</field>
+        <operation>notEqual</operation>
+        <value>Cancelled,Car Collected</value>
+    </filters>
+    <label>VDC Checked excl Car Collected</label>
+</ListView>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case_Reason_for_Compliment__c</fullName>
+    <externalId>false</externalId>
+    <label>Case Reason for Compliment</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sales</fullName>
+                <default>false</default>
+                <label>Sales</label>
+            </value>
+            <value>
+                <fullName>Aftersales</fullName>
+                <default>false</default>
+                <label>Aftersales</label>
+            </value>
+            <value>
+                <fullName>Digital Related</fullName>
+                <default>false</default>
+                <label>Digital Related</label>
+            </value>
+            <value>
+                <fullName>Breakdown calls</fullName>
+                <default>false</default>
+                <label>Breakdown calls</label>
+            </value>
+            <value>
+                <fullName>Others</fullName>
+                <default>false</default>
+                <label>Others</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PA_Merging</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>ACCOUNT.RECORDTYPE</columns>
+    <columns>Is_Primary_Account__c</columns>
+    <columns>is_Duplicated__pc</columns>
+    <columns>Is_DWHContactId_Conflict__c</columns>
+    <columns>NRIC__pc</columns>
+    <columns>Person_Account_Profilings__pc</columns>
+    <columns>Signup_Channel__pc</columns>
+    <columns>Signup_Date__pc</columns>
+    <columns>OTP_Timestamp__pc</columns>
+    <columns>Device__pc</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>IS_PERSON_ACCOUNT</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>PC_EMAIL</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>Signup_Channel__pc</field>
+        <operation>equals</operation>
+        <value>My C&amp;C App,DSA</value>
+    </filters>
+    <filters>
+        <field>Signup_Date__pc</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>OTP_Timestamp__pc</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>Device__pc</field>
+        <operation>notEqual</operation>
+    </filters>
+    <label>PA Merging</label>
+</ListView>

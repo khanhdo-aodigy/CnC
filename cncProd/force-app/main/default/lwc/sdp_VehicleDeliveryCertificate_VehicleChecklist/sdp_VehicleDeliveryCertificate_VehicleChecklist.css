@@ -1,0 +1,15 @@
+.img-container {
+    text-align: center;
+    display: block;
+}
+
+.modalClass {
+    background: #fff !important;
+    /*padding: 4rem 4rem 14rem;
+    position: relative;
+    flex: 1 1 auto;*/
+}
+
+.wordClass {
+    font-size: large !important;
+}

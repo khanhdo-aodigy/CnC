@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Only_Send_Survey_1x</fullName>
+    <active>true</active>
+    <description>Once checkbox triggering the survey is ticked, it cannot be unticked. This is to prevent multiple times sending</description>
+    <errorConditionFormula>AND(
+ISCHANGED(Send_Survey_SMS__c),
+PRIORVALUE(Send_Survey_SMS__c) = true) &amp;&amp; NOT( $Setup.Bypass_Automation_Settings__c.Bypass_Validation_Rules__c )</errorConditionFormula>
+    <errorMessage>Survey has been sent previously, cannot untick the checkbox</errorMessage>
+</ValidationRule>

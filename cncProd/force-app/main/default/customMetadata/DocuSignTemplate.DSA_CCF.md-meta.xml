@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>DSA_CCF</label>
+    <protected>false</protected>
+    <values>
+        <field>DocuSign_Brand_ID__c</field>
+        <value xsi:type="xsd:string">c4d50ee5-db5f-4c8d-a764-8108381c6df2</value>
+    </values>
+    <values>
+        <field>DocuSign_Template_Id__c</field>
+        <value xsi:type="xsd:string">a2M2x0000000UnJEAU</value>
+    </values>
+    <values>
+        <field>Used_Car_Agreement_Template__c</field>
+        <value xsi:type="xsd:string">a2M2x000000150GEAQ</value>
+    </values>
+</CustomMetadata>

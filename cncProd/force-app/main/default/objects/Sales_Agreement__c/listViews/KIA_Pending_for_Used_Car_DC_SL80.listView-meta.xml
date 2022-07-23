@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>KIA_Pending_for_Used_Car_DC_SL80</fullName>
+    <columns>NAME</columns>
+    <columns>Registered_Name__c</columns>
+    <columns>SOH_SONO__c</columns>
+    <columns>SOH_GMT_PURAGGNO__c</columns>
+    <columns>GMS_Package__c</columns>
+    <columns>DocStatusGMSCreditNote__c</columns>
+    <columns>DocStatusGMSDebitNote__c</columns>
+    <columns>DocStatusRAPurchaseGST__c</columns>
+    <columns>DocStatusUsedCarSettlementLetter__c</columns>
+    <columns>DocStatusProofOfRelationship__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Branch_Code__c</field>
+        <operation>equals</operation>
+        <value>CCK</value>
+    </filters>
+    <filters>
+        <field>GMS_Package__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>Stage__c</field>
+        <operation>equals</operation>
+        <value>Car Collected</value>
+    </filters>
+    <filters>
+        <field>DocStatusSL80Bill__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>DocStatusUsedCarDeliveryForm__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>[KIA] Pending for Used Car DC &amp; SL80</label>
+</ListView>

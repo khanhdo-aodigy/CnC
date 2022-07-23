@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Not_allowed_to_update_other_record_type</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( $Profile.Id  &lt;&gt;  Owner:User.ProfileId ,
+OR( ISCHANGED( Mileage__c ), ISCHANGED( Sales_Consultant__c ), ISCHANGED( Purchaser_Quote__c ), ISCHANGED( Scrap_Car__c ), ISCHANGED( Customizations__c), ISCHANGED( Color__c ), ISCHANGED( GMS_Package__c ), ISCHANGED( Previous_Accidents__c ), ISCHANGED( Spare_Key__c ),  ISCHANGED( Inspection_Date__c )  ) 
+)</errorConditionFormula>
+    <errorMessage>Not allowed to update quotations of other record types (MF or MB)</errorMessage>
+</ValidationRule>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Process_Sequence_Number__c</fullName>
+    <defaultValue>TEXT(1)</defaultValue>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Process Sequence Number</label>
+    <length>2</length>
+    <required>true</required>
+    <securityClassification>Public</securityClassification>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

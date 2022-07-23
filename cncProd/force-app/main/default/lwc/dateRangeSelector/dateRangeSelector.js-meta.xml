@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>47.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__AppPage,lightning__RecordPage,lightning__HomePage" >
+            <property name="label" label="Input Field Label" type="String"/>
+            <property name="filterName" label="Filter Name" type="String"/>
+            <property name="start_date_min" default="-1" label="Min Start Date (Unit in Year)" datasource="-5,-4,-3,-2,-1,0,1,2,3,4,5" type="String" />
+            <property name="start_date_max" default="1" label="Max Start Date (Unit in Year) " datasource="-5,-4,-3,-2,-1,0,1,2,3,4,5" type="String" />
+            <property name="end_date_min" default="-1" label="Min End Date (Unit in Year) " datasource="-5,-4,-3,-2,-1,0,1,2,3,4,5" type="String" />
+            <property name="end_date_max" default="1" label="Max End Date (Unit in Year) " datasource="-5,-4,-3,-2,-1,0,1,2,3,4,5" type="String" />
+            <property name="isDraggedDropped" label="Is a Lightning Card?" type="Boolean" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

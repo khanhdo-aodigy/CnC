@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FranchiseCode__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(TEXT(MB_Stock_Vehicle_Master__r.Variant__r.Franchise__c) == &apos;MBP&apos;, &apos;MBPC&apos;, &apos;MBCV&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Franchise Code</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

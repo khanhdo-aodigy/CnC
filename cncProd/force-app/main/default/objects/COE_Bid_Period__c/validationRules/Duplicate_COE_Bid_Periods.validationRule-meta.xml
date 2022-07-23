@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Duplicate_COE_Bid_Periods</fullName>
+    <active>true</active>
+    <errorConditionFormula>Overlapping_Dates__c  = True
+&amp;&amp;  $Setup.Bypass_Automation_Settings__c.Bypass_Validation_Rules__c &lt;&gt; true</errorConditionFormula>
+    <errorMessage>Duplicate COE Bid Period! Please choose another From Date and/or To Date.</errorMessage>
+</ValidationRule>

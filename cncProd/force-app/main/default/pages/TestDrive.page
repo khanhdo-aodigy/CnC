@@ -1,0 +1,60 @@
+<apex:page controller="TestDriveController" sidebar="false" showHeader="false" id="thePage">
+<style>          
+.redtable {background-color:#2ECCFA !important;}
+.bluetable {background-color:#FF7F27 !important;}
+.yellowtable {background-color:none !important;}
+.narrow {width:100% !important; max-width:700px}
+.thick {font-weight: bold;}
+body {font-size:14px;}
+</style>
+  <apex:form >
+  <!--img src="{!URLFOR($Resource.Logo,'CCLogo.jpg')}" align='Left'/-->
+  <!--img src="{!URLFOR($Resource.Logo,'KiaLogo.png')}" align='right'/-->
+  <img src="{!logo1}" align='Left'/>
+  <img src="{!logo2}" align='right'/>
+      <apex:pageBlock title="Test Drive Vehicle  Availability (New)" id="testDriveList">
+      <apex:pagemessages />
+          <apex:pageBlockTable value="{!theLists}" var="list" headerClass="bluetable" styleClass="narrow">
+              <apex:column headerValue="Action" width="50">
+                  <apex:commandLink value="Book" action="{!bookClick}" styleClass="btn" style="padding:2px 5px 2px 5px; text-decoration:none;">
+                      <apex:param name="id" value="{!list.vehicle.id}" assignTo="{!vehiId}"/>
+                  </apex:commandLink>
+              </apex:column>
+              <apex:column value="{!list.vehicle.name}" headerValue="Model" width="450" styleClass="thick"/>
+              <apex:column value="{!list.Comno}" headerValue="Comm No/Reg No" styleClass="thick"/>
+              <apex:column breakBefore="true" rendered="{!list.show}" colspan="3">
+              <apex:pageBlockTable value="{!list.theTests}" var="test">
+                  <apex:column headerClass="yellowtable" width="50"/>
+                  <apex:column value="{!test.OwnerID}" headerValue="SC Name" headerClass="redtable"/>
+                  <apex:column value="{!test.Sales_Rep_Mobile__c}" headerValue="SC Mobile" headerClass="redtable"/>
+                  <apex:column value="{!test.Status__c}" headerValue="Status" headerClass="redtable"/>
+                  <apex:column headerClass="redtable">
+                      <apex:commandLink value="Check-Out" action="{!outClick}" styleClass="btn" style="padding:2px 5px 2px 5px; text-decoration:none;" rendered="{!!list.showQueue}">
+                          <apex:param name="id" value="{!test.id}" assignTo="{!testId}"/>
+                      </apex:commandLink>
+                      <apex:commandLink value="Check-In" action="{!inClick}" styleClass="btn" style="padding:2px 5px 2px 5px; text-decoration:none;" rendered="{!IF(list.showQueue==true,IF(test.Status__c=='Out',true,false),false)}">
+                          <apex:param name="id" value="{!test.id}" assignTo="{!testId}"/>
+                      </apex:commandLink>
+                      <apex:commandLink value="Cancel Queue" action="{!cancelClick}" styleClass="btn" style="padding:2px 5px 2px 5px; text-decoration:none;" rendered="{!IF(list.showQueue==true,IF(test.Status__c=='Queue',true,false),false)}">
+                          <apex:param name="id" value="{!test.id}" assignTo="{!testId}"/>
+                      </apex:commandLink>
+                      <apex:commandButton value="Print Form" onClick="window.open('/apex/TestDrivePDFPortal?id={!test.id}');" style="padding:2px 5px 2px 5px; text-decoration:none;">
+                      </apex:commandButton>
+                  </apex:column>
+              </apex:pageBlockTable>
+              </apex:column>
+          </apex:pageBlockTable>
+          <apex:pageBlock id="hiddenBlock" rendered="false"></apex:pageBlock>
+      </apex:pageBlock>
+  </apex:form>
+<script>
+    function launchWindow()
+    {
+        var getId='{!pdfId}';
+        if (getId!=''){
+            window.open("/apex/TestDrivePDF?id={!pdfId}");
+        }
+    }
+    window.onload=launchWindow;
+</script>
+</apex:page>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Remarks_for_Goodwill_if_Yes</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(RecordTypeId = &apos;0122x000000GskW&apos;,ISPICKVAL(Goodwill__c, &apos;Yes&apos;),LEN(Specify_goodwill_given_If_any__c)=0
+)</errorConditionFormula>
+    <errorDisplayField>Specify_goodwill_given_If_any__c</errorDisplayField>
+    <errorMessage>Please specify goodwill given.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,45 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId" controller="FileRequirementUploadController">
+    <aura:attribute name="record" type="Object"/>
+    <aura:attribute name="associatedCheckboxFields" type="String[]"/>
+    <aura:attribute name="userIsSysAdmin" type="Boolean"/>
+    
+    <aura:attribute name="filesPerRequirements" type="List"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:handler event="c:FileUploadEvent" action="{!c.handleFileUploadEvent}"/>
+    
+    <c:ToastHandler aura:id="toastHandler" /> 
+    <c:ServerActionService aura:id="serverService"/>
+    
+    <aura:if isTrue="{!not(empty(v.associatedCheckboxFields))}">
+        <force:recordData aura:id="recordHandler"
+                          recordId="{!v.recordId}"
+                          fields="{!v.associatedCheckboxFields}"
+                          targetFields="{!v.record}"
+                          mode="EDIT"
+                          recordUpdated="{!c.doInit}"
+                          />  
+        <aura:set attribute="else">
+            <force:recordData aura:id="recordHandler"
+                              recordId="{!v.recordId}"
+                              layoutType="FULL"
+                              targetFields="{!v.record}"
+                              mode="EDIT"
+                              recordUpdated="{!c.doInit}"
+                              />              
+        </aura:set>
+    </aura:if>
+    
+    <aura:if isTrue="{!not(empty(v.filesPerRequirements))}">
+        <div class="slds-p-around_small">
+            <div class="slds-text-heading_small slds-p-bottom_small"><b>Upload Documents</b></div>
+            <aura:iteration items="{!v.filesPerRequirements}" var="filesPerReq">
+                <c:FileRequirementUpload fileRequirement="{#filesPerReq.fileReq}"
+                                         files="{!filesPerReq.files}"
+                                         recordId="{#v.recordId}"
+                                         userIsSysAdmin="{!v.userIsSysAdmin}"/>
+            </aura:iteration>
+        </div>
+    </aura:if>  
+    
+</aura:component>

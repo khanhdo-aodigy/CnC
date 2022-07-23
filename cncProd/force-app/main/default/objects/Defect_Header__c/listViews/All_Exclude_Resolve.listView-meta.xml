@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Exclude_Resolve</fullName>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>Account__c</columns>
+    <columns>Contact__c</columns>
+    <columns>Service_Center__c</columns>
+    <columns>Service_Advisor__c</columns>
+    <columns>Milestone_Status__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Rectified</value>
+    </filters>
+    <label>All (Exclude Resolve)</label>
+</ListView>

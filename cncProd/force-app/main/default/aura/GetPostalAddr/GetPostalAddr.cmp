@@ -1,0 +1,13 @@
+<aura:component controller="GetPostalAddrController" implements="lightning:availableForFlowScreens" access="global">
+     
+    <!--Declare Attributes-->
+     <aura:attribute name="selectedAddr" type="String" description="Selected Address" access="global"/>
+     <aura:attribute name="postalcode" type="String" description="Postal Code" access="global"/>
+    
+    <lightning:input name="postalcode" label="Postal Code" value="{!v.postalcode}" />
+    
+    <div class="slds-m-top_none">
+        <lightning:button variant="brand" label="Get" onclick="{!c.getSelectedAddr}" />
+    </div>
+    
+</aura:component>

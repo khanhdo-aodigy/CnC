@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DQ020__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( ROUND(((TODAY() -  Sales_Agreement__r.Date_Of_Birth__c) / 365), 0) &lt; 20, 1,
+IF( 20 &lt;= ROUND(((TODAY() -  Sales_Agreement__r.Date_Of_Birth__c) / 365), 0) &amp;&amp;  ROUND(((TODAY() - Sales_Agreement__r.Date_Of_Birth__c) / 365), 0) &lt;= 29, 2,
+IF( 30 &lt;= ROUND(((TODAY() -  Sales_Agreement__r.Date_Of_Birth__c) / 365), 0) &amp;&amp; ROUND(((TODAY() - Sales_Agreement__r.Date_Of_Birth__c) / 365), 0) &lt;= 39, 3, 
+IF( 40 &lt;= ROUND(((TODAY() -  Sales_Agreement__r.Date_Of_Birth__c) / 365), 0) &amp;&amp; ROUND(((TODAY() - Sales_Agreement__r.Date_Of_Birth__c) / 365), 0) &lt;= 49, 4, 
+IF( 50 &lt;= ROUND(((TODAY() -  Sales_Agreement__r.Date_Of_Birth__c) / 365), 0) &amp;&amp; ROUND(((TODAY() - Sales_Agreement__r.Date_Of_Birth__c) / 365), 0) &lt;= 59, 5, 
+IF( 60 &lt;= ROUND(((TODAY() -  Sales_Agreement__r.Date_Of_Birth__c) / 365), 0), 6, 7))))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>DQ020</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

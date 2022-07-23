@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsWalkin__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Flag to tell if Test Drive record is from Walkin Test Drive module</description>
+    <externalId>false</externalId>
+    <label>Is Walkin</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

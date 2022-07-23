@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Credit_Reward_RT</fullName>
+    <active>true</active>
+    <label>Credit Reward RT</label>
+    <picklistValues>
+        <picklist>Approval_Status__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Open</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending for Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Branch__c</picklist>
+        <values>
+            <fullName>CCA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CCF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CCI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CCK</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Brand__c</picklist>
+        <values>
+            <fullName>CIT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KIA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MIT</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Source__c</picklist>
+        <values>
+            <fullName>Aftersales - FOC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Aftersales - Goodwill</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Car Purchase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales - Goodwill</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sold Credits</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Consumed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Expired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Provisioning</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Valid</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type__c</picklist>
+        <values>
+            <fullName>Accessories</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Accessories Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Birthday Voucher</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Boutique</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CMP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Discount Voucher</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Grooming Package</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service Credit Voucher</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service Package</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

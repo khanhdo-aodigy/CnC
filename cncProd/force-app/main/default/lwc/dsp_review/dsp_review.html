@@ -1,0 +1,1336 @@
+<!--
+  @File Name          : dsp_review.html
+  @Description        : 
+  @Author             : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Group              : 
+  @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Last Modified On   : 1/21/2020, 1:45:37 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    1/21/2020   ChangeMeIn@UserSettingsUnder.SFDoc     Initial Version
+-->
+<template>
+  <template if:true={salesRec}>
+  <main role="main" style="padding-top: 55px;">
+    <section class="section-wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title top-title">
+              <h1>Review Order</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="customerDetails" class="container">
+        <div class="section-title">
+          <h2>Customer Details</h2>
+          <template if:false={isLocked}><a href="#" class="edit Customer" onclick={navigateOutFromEdit}>Edit</a></template>
+        </div>
+        
+        <template if:true={isCompany}>
+        <div class="review-section">
+            <div class="row my-4">
+              <div class="col-4">
+                <span class="review-field">
+                  Company Name
+                </span>
+              </div>
+              <div class="col-8">
+                <span class="review-value">
+                    {salesRec.Company_Name__c.value}
+                </span>
+              </div>
+            </div>
+            <div class="row my-4">
+              <div class="col-4">
+                <span class="review-field">
+                  ARCA Number
+                </span>
+              </div>
+              <div class="col-8">
+                <span class="review-value">
+                    {salesRec.ARCA_Number__c.value} 
+                </span>
+              </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-4">
+                  <span class="review-field">
+                      Registered Address
+                  </span>
+                </div>
+                <div class="col-8">
+                  <span class="review-value">
+                      {salesRec.Street_NameRA__c.value}
+                      { salesRec.Floor_UnitRA__c.value}
+                      { salesRec.Building_NameRA__c.value}
+                      { salesRec.Postal_CodeRA__c.value}
+                  </span>
+                </div>
+              </div>
+              <div class="row my-4">
+                  <div class="col-4">
+                    <span class="review-field">
+                        Mailing Address
+                    </span>
+                  </div>
+                  <div class="col-8">
+                    <span class="review-value">
+                      {salesRec.Street_NameMA__c.value}
+                      { salesRec.Floor_UnitMA__c.value}
+                      { salesRec.Building_NameMA__c.value}
+                      { salesRec.Postal_CodeMA__c.value}
+                    </span>
+                  </div>
+                </div>
+
+        </div>
+
+      </template>
+        <div class="review-section">
+          <template if:true={isCompany}><h3 style="padding-bottom : 1em">Contact Person for Company Registered Vehicle</h3></template>
+
+          <template if:false={isCompany}>
+            <div class="row my-4">
+              <div class="col-4">
+                
+                <span class="review-field">
+                  Full Name (as per NRIC/FIN)
+                </span>
+              </div>
+              <div class="col-8">
+                <span class="review-value">
+                  {salesRec.Customer_Full_Name__c.value}
+                </span>
+              </div>
+            </div>
+          </template>
+
+          <template if:false={isCompany}>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Customer ID
+              </span>
+            </div>
+            <div class="col-8">
+              <span class="review-value">
+                  {salesRec.NRIC_Number__c.value}
+              </span>
+            </div>
+          </div>
+          </template>
+          <!-- ADDED BY THIEU DANG VU 24/02/2021 - Customer Type - START -->
+          <template if:true={isCompany}>
+            <div class="row my-4">
+              <div class="col-4">
+                <span class="review-field">
+                  Customer Type
+                </span>
+              </div>
+              <div class="col-8">
+                <span id="ctype" class="review-value">
+                    {salesRec.Customer_Type__c.value}
+                </span>
+              </div>
+            </div>
+          </template>
+          <!-- ADDED BY THIEU DANG VU 24/02/2021 - Customer Type - END -->
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Salutation
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="salutation" class="review-value">
+                  {salesRec.Salutation__c.value}
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                First Name
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="fname" class="review-value">
+                  {salesRec.FirstName__c.value}
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Surname
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="surname" class="review-value">
+                    {salesRec.Surname__c.value}
+              </span>
+            </div>
+          </div>
+          <template if:false={isCompany}>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Supporting Documents
+              </span>
+            </div>
+            <div class="col-8">
+                 <div class="upload-docs row">
+
+                      <div class="col-12 pl-0">
+                          <c-file-upload-cmp label="NRIC/FIN (front)" api-name="icFront" object-name="Sales_Agreement__c"
+                            record-id={recordId}
+                            file-name-format="\{RecordName}_NRIC/FIN (front)" supported-file-type=".pdf,.jpg,.jpeg,.png"
+                            file-prefix="NRIC/FIN (front)" display-only=true>
+                          </c-file-upload-cmp>
+
+                          <c-file-upload-cmp label="NRIC/FIN (back)" api-name="icFront" object-name="Sales_Agreement__c"
+                          record-id={recordId}
+                          file-name-format="\{RecordName}_NRIC/FIN (back)" supported-file-type=".pdf,.jpg,.jpeg,.png"
+                          file-prefix="NRIC/FIN (back)" display-only=true>
+                        </c-file-upload-cmp>
+                      </div>
+
+                      <div class="col-12 pl-0">
+                          <c-file-upload-cmp label="Driving License (front)" api-name="icFront" object-name="Sales_Agreement__c"
+                          record-id={recordId}
+                          file-name-format="\{RecordName}_Driving License (front)" supported-file-type=".pdf,.jpg,.jpeg,.png"
+                          file-prefix="Driving License (front)" display-only=true>
+                          </c-file-upload-cmp>
+                        <c-file-upload-cmp label="Driving License (back)" api-name="icFront" object-name="Sales_Agreement__c"
+                          record-id={recordId}
+                          file-name-format="\{RecordName}_Driving License (back)" supported-file-type=".pdf,.jpg,.jpeg,.png"
+                          file-prefix="Driving License (back)" display-only=true>
+                        </c-file-upload-cmp>
+                      </div>
+                      <div class="col-12 pl-0">
+                          <c-file-upload-cmp label="Passport" api-name="icFront" object-name="Sales_Agreement__c"
+                          record-id={recordId}
+                          file-name-format="\{RecordName}_Passport" supported-file-type=".pdf,.jpg,.jpeg,.png"
+                          file-prefix="Passport" display-only=true>
+                          </c-file-upload-cmp>
+                      </div>
+
+                          <div class="col-12 pl-0">
+                              <c-file-upload-cmp label="Supporting Document" api-name="icFront" object-name="Sales_Agreement__c"
+                              record-id={recordId}
+                              file-name-format="\{RecordName}_SupportingDocument" supported-file-type=".pdf,.jpg,.jpeg,.png"
+                              file-prefix="Supporting Document" display-only=true>
+                              </c-file-upload-cmp>
+                      
+                          </div>
+                      
+              </div>
+
+            </div>
+          </div>
+        </template>
+
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Mobile Number
+              </span>
+            </div>
+            <div class="col-8">
+              <span class="review-value">
+                {salesRec.MobileSA__c.value}
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Secondary Contact Number
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="secondaryContact" class="review-value">
+                {salesRec.Secondary_Contact_No__c.value}
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Email
+              </span>
+            </div>
+            <div class="col-8">
+              <span class="review-value">
+                {salesRec.emailaddress__c.value}
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Date of Birth
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="dob" class="review-value">
+                {salesRec.Date_Of_Birth__c.value}
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Gender
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="sex" class="review-value">
+                {salesRec.Gender__c.value}
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Marital Status
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="marital" class="review-value">
+                {salesRec.Marital_Status__c.value}
+              </span>
+            </div>
+          </div>
+
+          <template if:false={isCompany}>
+            <div class="row my-4">
+              <div class="col-4">
+                <span class="review-field">
+                  Registered Address
+                </span>
+              </div>
+              <div class="col-8">
+                <span id="mainAddress" class="review-value">
+                  {salesRec.Street_NameRA__c.value}
+                  { salesRec.Floor_UnitRA__c.value}
+                  { salesRec.Building_NameRA__c.value}
+                  { salesRec.Postal_CodeRA__c.value}
+                </span>
+              </div>
+            </div>
+            <div class="row my-4">
+              <div class="col-4">
+                <span class="review-field">
+                  Mailing Address
+                </span>
+              </div>
+              <div class="col-8">
+                <span id="mailAddress" class="review-value">
+                  {salesRec.Street_NameMA__c.value}
+                  { salesRec.Floor_UnitMA__c.value}
+                  { salesRec.Building_NameMA__c.value}
+                  { salesRec.Postal_CodeMA__c.value}
+                </span>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <div id="vehiclePurchaseDetails" class="container">
+          <div class="section-title">
+            <h2>Vehicle Purchase Details</h2>
+            <template if:false={isLocked}><a href="#" class="edit VehiclePurchase" onclick={navigateOutFromEdit}>Edit</a></template>
+
+           
+          </div>
+          <div class="review-section">
+            <div class="row my-4">
+              <div class="col-4">
+                <span class="review-field">
+                  Model
+                </span>
+              </div>
+              <div class="col-8">
+                <span class="review-value">
+                  {salesRec.Model__c.value}
+                </span>
+              </div>
+            </div>
+            <div class="row my-4">
+              <div class="col-4">
+                <span class="review-field">
+                  Color
+                </span>
+              </div>
+              <div class="col-8">
+                <span class="review-value">
+                    {salesRec.Color__c.value}
+                </span>
+              </div>
+            </div>
+            <div class="row my-4">
+              <div class="col-4">
+                <span class="review-field">
+                  Trim
+                </span>
+              </div>
+              <div class="col-8">
+                <span class="review-value">
+                    {salesRec.Trim__c.value}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="review-section">
+
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <!--Vehicle List Price-->
+              <div data-name="Vehicle List Price" class="panel panel-default">
+                <div class="panel-heading" role="tab" id="vehicleListPriceHeader">
+                    <a role="button" data-name="vehicleListPriceRow" data-toggle="collapse" data-parent="#accordion" href="#" onclick={onExpand} aria-expanded="true" aria-controls="vehicleListPriceRow">
+                    <div class="container">
+                        <div class="row">
+                          <div class="col-10">
+                            <h3> <span>Vehicle List Price</span></h3>
+                          </div>
+
+                          <div class="col row justify-content-end">
+                            <!-- Start of RN2020Q1010 -->
+                            <h3><span>{salesRec.Package_List_Price__c.displayValue}</span></h3>
+                            <!--<h3><span>{salesRec.Package_Header__r.value.fields.PKH_PKGPRICE__c.displayValue}</span></h3>-->
+
+                            <!-- End of RN2020Q1010 -->
+                          </div>
+                          <div class="col row justify-content-end">
+                              <c-img-cmp data-name="vehicleListPriceRow" url-to-resource='/BootStrap/images/icons/arrow.svg'></c-img-cmp>
+                          </div>
+                          </div>
+                      </div>
+                      </a>
+                  </div>
+                <div id="vehicleListPriceRow" data-name="vehicleListPriceRow" class="panel-collapse collapse" role="tabpanel" aria-labelledby="vehicleListPriceHeader">
+                  <div class="panel-body">
+                      <c-accessory-list-display record-id={salesRec.Id.value} list-items={packageItemList} row-style="row padding"></c-accessory-list-display>                    </div>
+                </div>
+              </div>
+              <!--Total Add-On Price -->
+              <div  data-name="Total Add-On Price" class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="addOnsHeader">
+                      <a role="button" data-name="addOnsRow" data-toggle="collapse" data-parent="#accordion" href="#"  onclick={onExpand} aria-expanded="true" aria-controls="vehicleListPriceRow">
+                        <div class="container">
+                            <div class="row">
+                              <div class="col-10">
+                                <h3> <span>Add-Ons (Optional)</span></h3>
+                              </div>
+                              <div class="col row justify-content-end">
+                                <h3><span>{salesRec.Total_Addon_Price__c.displayValue}</span>       </h3>
+                              </div>
+                              <div class="col row justify-content-end">
+                                  <c-img-cmp data-name="addOnsRow" url-to-resource='/BootStrap/images/icons/arrow.svg'></c-img-cmp>
+                              </div>
+                            </div>
+                        </div>
+                      </a>
+                  </div>
+                  <div id="addOnsRow" data-name="addOnsRow" class="panel-collapse collapse" role="tabpanel" aria-labelledby="addOnsHeader">
+                    <div class="panel-body">
+                        <template if:true={addOnList}>
+                            <ul class="list-default">
+                                <template for:each={addOnList} for:item="eachItem">
+                                    <li key={eachItem.Description__c}>
+                                      <div class="container">
+                                        <div class="row panel-row-text">
+                                            <div class="col-10">
+                                              <span>{eachItem.Description__c}</span>
+                                            </div>
+                                            <div class="col row justify-content-end">
+                                                <div class="list-delete--price ml-auto">$<span class="currency checkisEmpty">{eachItem.SAC_ACCSVALUE__c}</span></div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                    </li>
+                                  </template>
+                            </ul>
+                          </template>
+                    </div>
+                  </div>
+              </div>
+
+              <!--Road Tax-->
+              <div data-name="Road Price" class="panel panel-default">
+                <div class="panel-heading" role="tab" id="roadTaxPriceHeader">
+                    <a role="button" data-name="roadTaxPriceRow" data-toggle="collapse" data-parent="#accordion" href="#" onclick={onExpand} aria-expanded="true" aria-controls="roadTaxPriceRow">
+                    <div class="container">
+                        <div class="row">
+                          <div class="col-10">
+                            <h3> <span>Road Tax, Licenses & Fees (WIP)</span></h3>
+                          </div>
+
+                          <div class="col row justify-content-end">
+                            <h3><span>{salesRec.Total_VES_Roadtax_and_fees__c.displayValue}</span>       </h3>
+                          </div>
+                          <div class="col row justify-content-end">
+                              <c-img-cmp data-name="roadTaxPriceRow" url-to-resource='/BootStrap/images/icons/arrow.svg'></c-img-cmp>
+                          </div>
+                        </div>
+                      </div>
+                      </a>
+                  </div>
+                <div id="roadTaxPriceRow" data-name="roadTaxPriceRow" class="panel-collapse collapse" role="tabpanel" aria-labelledby="roadTaxPriceHeader">
+                  <div class="panel-body">
+                      <template if:true={additionalCharges}>
+                        <ul class="list-default">
+                        <template for:each={additionalCharges} for:item="eachItem">
+                            <li key={eachItem.chargeCode}>
+                                <div class="container">
+                                    <div class="row panel-row-text">
+                                      <div class="col-10">
+                                        <span>{eachItem.description}</span>
+                                      </div>
+                                      <div class="col row justify-content-end">
+                                        <span>{eachItem.displayCharges}</span>
+                                      </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </template>
+                        </ul>
+                      </template>
+
+
+                  </div>
+                </div>
+              </div>
+                <!--Discount Price - Others -->
+              <div data-name="Total Discount Price"  class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="othersHeader">
+                      <a role="button" data-name="othersRow" data-toggle="collapse" data-parent="#accordion" href="#"  onclick={onExpand} aria-expanded="true" aria-controls="othersRow">
+                      <div class="container">
+                          <div class="row">
+                            <div class="col-10">
+                              <h3> <span>Others</span></h3>
+                            </div>
+
+                            <div class="col row justify-content-end">
+                              <h3><span>{salesRec.Total_Discount_Price__c.displayValue}</span></h3>
+                            </div>
+                            <div class="col row justify-content-end">
+                                <c-img-cmp data-name="othersRow" url-to-resource='/BootStrap/images/icons/arrow.svg'></c-img-cmp>
+                            </div>
+                          </div>
+                        </div>
+                        </a>
+                    </div>
+                  <div id="othersRow" data-name="othersRow" class="panel-collapse collapse" role="tabpanel" aria-labelledby="othersHeader">
+                    <div class="panel-body">
+                        <ul class="list-default">
+                          <li>
+                              <div class="container">
+                                  <div class="row panel-row-text">
+                                    <div class="col-10">
+                                      <span>Accessories Discount (if applicable)</span>
+                                    </div>
+                                    <div class="col row justify-content-end">
+                                      <span>{salesRec.Accessories_Discount__c.displayValue}</span>
+                                    </div>
+
+                                  </div>
+                              </div>
+                          </li>
+                          <li>
+                            <div class="container">
+                                <div class="row panel-row-text">
+                                  <div class="col-10">
+                                    <span>Promo Discount (if applicable)</span>
+                                  </div>
+                                  <div class="col row justify-content-end">
+                                    <span>{salesRec.Promo_Discount__c.displayValue}</span>
+                                  </div>
+                                </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="container">
+                                <div class="row panel-row-text">
+                                  <div class="col-10">
+                                    <span>COE Refund (if applicable)</span>
+                                  </div>
+                                  <div class="col row justify-content-end">
+                                    <span>{salesRec.COE_Refund__c.displayValue}</span>
+                                  </div>
+                                </div>
+                            </div>
+
+                          </li>
+                        </ul>
+                    </div>
+                  </div>
+              </div>
+              <!--Total Vehicle Purchase Price-->
+              <div data-name="Total Vehicle Purchase Price" class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="totVehiclePuchasePrice">
+                      <div class="container">
+                          <div class="row">
+                            <div class="col-10">
+                              <h2> <span>Total Vehicle Price </span></h2>
+                            </div>
+                            <div class="col-2">
+                              <h2><span>{salesRec.Vehicle_Purchase_Price__c.displayValue}</span>       </h2>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+
+              </div>
+                <!--Total Vehicle Purchase Price GST-->
+              <div data-name="Total Vehicle Price price GST" class="panel panel-default">
+                  <div class="panel-heading-noborder" role="tab" id="Note">
+                      <div class="container">
+                          <div class="row">
+                            <div class="col-7">
+                            </div>
+                            <div class="col">
+                                <span style="font-size: 15px;">
+                                <p style="text-align:right">Price inclusive of GST & COE, excluding insurance.</p>
+                                <p style="text-align:right">Inclusive of Vehiclar Emission Scheme (VES) Rebate.</p>
+                                <p style="text-align:right">PARF benefit is based on actual ARF paid.</p>
+                                </span>
+                            </div>
+
+                          </div>
+                        </div>
+                    </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+
+
+      <div class="terms-section" data-name="AcknowledgementVehiclePrices__c">
+        <div class="container">
+          <h2>Customer acknowledgement</h2>
+          <div class="custom-control custom-checkbox">
+
+              <input type="checkbox" id="AcknowledgementVehiclePrices__c" name="AcknowledgementVehiclePrices__c" checked={acknowledgeList.AcknowledgementVehiclePrices__c} class="custom-control-input" onclick={onChangeCheckBox}>
+              <label class="custom-control-label" for="AcknowledgementVehiclePrices__c">
+                <!-- <p> I hereby confirm my purchase from {branchEntityName} of the above mentioned vehicle at the prices shown and on the terms and conditions hereinafter appearing and subject to the 
+                    <a href={getConditionOfSales} target="_blank"> Conditions of Sale. </a> </p>
+                <p> I agree that the Total Vehicle Price stated herein has been extended to me by {branchEntityName} as part of a promotional package and that the Total Vehicle Price will not be varied or affected should there be a change in the VES banding of the Vehicle prior to its registration.</p> -->
+                
+                <!-- T&C change as per customer request on 09 Sep 2020 [Mai Dang phap] -->
+                <p> I confirm my purchase from {branchEntityName} of the above vehicle at the prices shown and subject to the terms hereinafter appearing, the 
+                  <a href={getConditionOfSales} target="_blank"> Conditions of Sale</a> and the Service Credits and /or Accessories Credits T&Cs found at 
+                  <a href={creditTC} target="_blank"> {creditTC}</a>.
+                </p>
+                <p> I agree that the Total Vehicle Price stated herein has been extended to me by {salesRec.Branch_Code__c.value} as part of a promotional package and that the Total Vehicle Price will not be varied or affected should there be a change in the VES banding of the Vehicle prior to its registration.</p>
+                
+                <template if:true={isPromotionVehicle}>
+                    {branchEntityName}
+                  <p>
+                      I acknowledge and agree that this display/test drive Vehicle sold will be delivered in its existing condition and shall remain in use for display/test drive purposes until {salesRec.Branch_Code__c.value} is able to replace the Vehicle at its earliest convenience.
+                  </p>
+                </template>
+                <!--I hereby confirm my purchase from Cycle & Carriage Kia Pte Ltd (“{salesRec.Branch_Code__c.value}”) of the above mentioned vehicle at the prices shown and on the terms and conditions hereinafter appearing and subject to the Conditions of Sale. --></label>
+
+          </div>
+        </div>
+      </div> 
+      <div id="coeRegistration" class="container">
+        <div class="section-title">
+          <h2>COE & Registration</h2>
+          <template if:false={isLocked}><a href="#" class="edit VehiclePurchase" onclick={navigateOutFromEdit}>Edit</a></template>
+        </div>
+        <div class="review-section">
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                COE
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="reviewCOE" class="review-value">
+                  Category {salesRec.COECategory__c.value}
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Purchase with COE
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="reviewPurchaseWithCOE" class="review-value">
+                  {salesRec.PurchasewithCOE__c.value}
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                No. of Bids
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="reviewNumOfBids" class="review-value">
+                {salesRec.Number_of_COE_Bids__c.value}
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Package
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="reviewPackage" class="review-value">
+                  {salesRec.COE_Package__c.value}
+              </span>
+            </div>
+          </div>
+
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                COE Charged/Rebate Level
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="reviewCOECharged" class="review-value">
+               {salesRec.COE_Charged_Rebate__c.displayValue}
+              </span>
+            </div>
+          </div>
+<!--
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Open Category (Cat E)
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="openCatCOE" class="review-value">
+                {salesRec.Open_Category_CatE__c.value}
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Corresponding COE Category's Quota Premium
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="openCatPremium" class="review-value">
+                  {salesRec.Open_COE_Quota_Premium__c.value}
+
+              </span>
+            </div>
+          </div>
+-->
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+               Registration No.
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="reviewRegType" class="review-value">
+                  {salesRec.Registration_Number_Method__c.value}
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                  Registration Type
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="reviewRegNo" class="review-value text-uppercase">
+                  {salesRec.Registration_Number_Type__c.value}
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Used Car Registration No.
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="reviewUsedCarRegNo" class="review-value text-uppercase">
+                  {salesRec.DSA_Registration_Number__c.value}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="terms-section" data-name="AcknowledgementCOE__c" >
+        <div class="container">
+          <h2>Customer acknowledgement</h2>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" id="AcknowledgementCOE__c" name="AcknowledgementCOE__c" checked={acknowledgeList.AcknowledgementCOE__c} class="custom-control-input" onclick={onChangeCheckBox}>
+            <label class="custom-control-label" for="AcknowledgementCOE__c">I hereby authorize {salesRec.Branch_Code__c.value} to bid for COE on my behalf. I have read, understood and accepted all terms and conditions, with regards to COE specified in the <a href={getConditionOfSales} target="_blank"> Conditions of Sale. </a>              
+             </label>
+          </div>
+        </div>
+      </div>
+      <div id="financeInsurance" class="container">
+        <div class="section-title">
+          <h2>Finance & Insurance</h2>
+          <template if:false={isLocked}><a href="#" class="edit Finance" onclick={navigateOutFromEdit}>Edit</a></template>
+          
+
+        </div>
+        <div class="review-section">
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Finance Company
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="finCo" class="review-value">
+                  { salesRec.Finance_Company_Lookup__r.displayValue}
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Amount to Finance
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="finAmt" class="review-value">
+                  { salesRec.Amount_to_Finance__c.displayValue}
+
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Term
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="terms" class="review-value">
+                  { salesRec.Terms_Years__c.value} years
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Rate
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="rate" class="review-value">
+                  { salesRec.Rate_p_a__c.value} %
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Monthly Instalment
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="mthInst" class="review-value">
+                  {salesRec.MonthlyInstalment__c.displayValue}
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                New Insurance Company
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="newInsCo" class="review-value">
+                  {salesRec.Insurance_Company_Lookup__r.displayValue}
+
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Old Insurance Company
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="oldInsCo" class="review-value">
+                  {salesRec.Old_Insurance_Company__c.value}
+
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Premium Payable
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="payable" class="review-value">
+                  {salesRec.Premium_Payable__c.displayValue}
+
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                NCD
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="ncd" class="review-value">
+                  {salesRec.NCD__c.value} %
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Insurance Package
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="insPackage" class="review-value">
+                {insurancePackageLabel}
+                  <!--{salesRec.Insurance_Package__c.value}-->
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="terms-section" data-name="AcknowledgementInsurance__c">
+        <div class="container">
+          <h2>Customer acknowledgement</h2>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" id="AcknowledgementInsurance__c" name="AcknowledgementInsurance__c" checked={acknowledgeList.AcknowledgementInsurance__c} class="custom-control-input" onclick={onChangeCheckBox}>
+            <label class="custom-control-label" for="AcknowledgementInsurance__c">
+                <p>I acknowledge that the information in this section is INDICATIVE ONLY and applications made through {salesRec.Branch_Code__c.value} are subject to the approval of the respective finance company and/or insurance company. The grant of such approval shall not be a condition precedent to the Sales Agreement. </p>
+                 <template if:true={isPrivateHire}>
+                   <p>I declare that the Vehicle will be used for the provision of private hire (chauffeur) services.</p>
+                 </template>
+              </label>
+
+                <!--Note: The information in this section is indicative only and insurance applications made through {salesRec.Branch_Code__c.value} are subjected to the approval of the respective finance company and/or insurance company. The grant of such approval shall not be a condition precedent to the Sales Agreement.-->
+          </div>
+        </div>
+      </div>
+      <div id="tradeIn" class="container">
+        <div class="section-title">
+          <h2>Used Car Trade-in</h2>
+          <template if:false={isLocked}><a href="#" class="edit TradeIn" onclick={navigateOutFromEdit}>Edit</a></template>
+        </div>
+        <div class="review-section">
+            <div class="row my-4">
+                <div class="col-4">
+                  <span class="review-field">
+                    Make & Model
+                  </span>
+                </div>
+                <div class="col-8">
+                  <span id="make" class="review-value">
+                      {salesRec.Used_Car_Make__c.value} {salesRec.User_Car_Model__c.value}
+                  </span>
+                </div>
+              </div>
+
+          <!--
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Make
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="make" class="review-value">
+                  {salesRec.Used_Car_Make__c.value}
+              </span>
+            </div>
+          </div>
+
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Model
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="model" class="review-value">
+                {salesRec.User_Car_Model__c.value}
+              </span>
+            </div>
+          </div>
+          -->
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Registration No.
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="regNo" class="review-value text-uppercase">
+                  {salesRec.Trade_In_Used_Car_Registration_Number__c.value}
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Trade-in Value*
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="tradeInValue" class="review-value">
+                  {salesRec.Trade_in_Value__c.displayValue}
+              </span>
+            </div>
+          </div>
+          <!--
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                GMS Package
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="gms" class="review-value">
+                  {salesRec.GMS_Package__c.displayValue}
+
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                  Used Vehicle Finance Company
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="usedVehicleFinanceCo" class="review-value">
+                  {salesRec.Used_Car_Vehicle_Finance_Company__c.value}
+
+              </span>
+            </div>
+          </div>
+
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Full Settlement Amount
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="settlementAmt" class="review-value">
+                  {salesRec.Full_Settlement_Amount__c.displayValue}
+              </span>
+            </div>
+
+          </div>
+        -->
+        </div>
+      </div>
+      <div class="terms-section" data-name="AcknowledgementTradeIn__c">
+        <div class="container">
+          <h2>Customer acknowledgement</h2>
+          <div class="custom-control custom-checkbox">
+            <div></div>
+            <label class="custom-control-label2">
+              <p>
+                I hereby confirm that the Used Vehicle particulars are correct and agree to trade in the Used Vehicle to {salesRec.Branch_Code__c.value} or 
+                its designated Used Car Partner. I undertake to execute or procure that the registered owner of the Used Vehicle executes, a separate agreement 
+                to sell the Used Vehicle to {salesRec.Branch_Code__c.value} or its designated Used Car Partner, failing which any trade-in discount (if applicable) 
+                will not apply. 
+              </p>
+            </label>
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" id="AcknowledgementTradeIn__c" name="AcknowledgementTradeIn__c" checked={acknowledgeList.AcknowledgementTradeIn__c} class="custom-control-input" onclick={onChangeCheckBox}>
+            <label class="custom-control-label" for="AcknowledgementTradeIn__c">
+              <!-- <p>
+                  I hereby confirm that the Used Vehicle particulars are correct and agree to trade in the Used Vehicle to {salesRec.Branch_Code__c.value} or its designated Used Car Partner.
+              </p>
+              <p>I undertake to execute or procure that the registered owner of the Used Vehicle executes, a separate agreement to sell the Used Vehicle to {salesRec.Branch_Code__c.value} or its designated Used Car Partner, failing which the in-house used car trade-in discount (if applicable) will not apply. </p> -->
+              <!-- <p>
+                  I consent to the collection, use and disclosure of my NRIC by/to {salesRec.Branch_Code__c.value} and/or its Used Car Partner for purposes relating to the trade-in of the Used Vehicle, including effecting the transfer of ownership of the Used Vehicle.
+              </p> -->
+              <p>
+                I consent to the collection, use and disclosure of my personal data by Jardine Cycle & Carriage Limited and its subsidiaries and affiliates ("JCCL") 
+                in accordance with the terms of JCCL's Privacy Statement, which can be found at 
+                <a href="https://www.cyclecarriage.com/privacy-statement"> www.cyclecarriage.com/privacy-statement </a>
+                . This includes the collection, use and disclosure of my NRIC number by/to {salesRec.Branch_Code__c.value} and/or its Used Car Partner 
+                for purposes relating to the trade-in of the Used Vehicle, including effecting the transfer of ownership of the Used Vehicle.
+              </p>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div id="deposit" class="container">
+        <div class="section-title">
+          <h2>Deposit Payment</h2>
+          <template if:false={isLocked}><a href="#" class="edit Deposit" onclick={navigateOutFromEdit}>Edit</a></template>
+        </div>
+        <div class="review-section">
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Vehicle Deposit Amount
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="vehDeposit" class="review-value">
+                  {salesRec.Vehicle_Deposit__c.displayValue}
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                COE Deposit Amount
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="coeDeposit" class="review-value">
+                  {salesRec.COE_Deposit__c.displayValue}
+
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Estimated Delivery Period
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="deliveryPeriod" class="review-value">
+                  {salesRec.DeliveryFrom__c.value} to
+                  {salesRec.DeliveryTo__c.value}
+
+              </span>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-4">
+              <span class="review-field">
+                Instructions
+              </span>
+            </div>
+            <div class="col-8">
+              <span id="instructions" class="review-value">
+                <pre>
+                    {salesRec.RegistrationInstruction__c.value}
+                </pre>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="terms-section" data-name="AcknowledgementDeposits__c">
+        <div class="container">
+          <h2>Customer acknowledgement</h2>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" id="AcknowledgementDeposits__c" name="AcknowledgementDeposits__c" checked={acknowledgeList.AcknowledgementDeposits__c} class="custom-control-input" onclick={onChangeCheckBox}>
+
+            <label class="custom-control-label" for="AcknowledgementDeposits__c">
+              <p>
+                VEHICLE DEPOSITS ARE NON-REFUNDABLE.
+              </p>
+              <p>
+                I confirm that I have paid a deposit to {salesRec.Branch_Code__c.value}. Amounts paid as deposits or in partial payment for the Vehicle will not be refunded to me, subject to the Conditons of Sale. I acknowledge that {salesRec.Branch_Code__c.value}'s deposit policy has been explained to me and that I have read and understood and agreed to the same.
+              </p>
+              <p>
+                Please ensure that you receive official receipts for all payments made.
+              </p>
+              <p>
+                For cash payment, please ensure that you receive the Cash Acknowledgement Form immediately upon handover of cash to our Sales Consultant.
+              </p>
+              <p>
+                An official receipt will be issued to you subsequently.
+              </p>
+              <p>
+                First instalment payment and insurance premiums are to be made payable to the respective banks and insurance companies.
+              </p>
+              <p>
+                Other than these, all payments by cheque should be issued in favour of {branchEntityName}.
+              </p>
+            </label>
+          </div>
+        </div>
+      </div>
+    
+      <template if:true={isOffpeakCar}>
+          <div class="terms-section" data-name="AcknowledgementOffPeak__c">
+            <div class="container">
+            <h2>Customer acknowledgement</h2>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" id="AcknowledgementDeposits__opc" name="AcknowledgementOffPeak__c" checked={acknowledgeList.AcknowledgementOffPeak__c} class="custom-control-input" onclick={onChangeCheckBox}>
+              <label class="custom-control-label" for="AcknowledgementDeposits__opc">
+                  <p>
+                  I acknowledge and agree that: 
+                    (a) the maximum rebate under the LTA OPC rebate scheme that may be offset against the COE and ARF payable is an amount not exceeding S$17,000; 
+                    (b) the actual rebate applicable to the Vehicle will be based on the COE and ARF payable for the Vehicle; and 
+                    (c) the maximum allowable rebate of S$17,000 has been reflected as the actual rebate is not known at the time of execution of this Sales Agreement. 
+                  </p>
+                <p>
+                    I agree that in the event that the actual rebate allowable is less than S$17,000, the Total Vehicle Price in this Sales Agreement shall be adjusted to reflect the actual rebate utilised under the OPC rebates scheme without the need to re-execute this Sales Agreement unless such re-execution is requested by {salesRec.Branch_Code__c.value} .
+                </p>
+              </label>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <div class="terms-section" data-name="AcknowledgementPersonalData__c">
+          <div class="container">
+          <!-- <h2>Personal Data</h2> -->
+          <h2>Privacy Statement</h2>
+          <div class="custom-control custom-checkbox">
+            <div></div>
+            <label class="custom-control-label2">
+              <p>
+                I consent to the collection, use and disclosure of my personal data by Jardine Cycle & Carriage Limited and its subsidiaries and affiliates (“JCCL”), in accordance with the terms of JCCL’s Privacy Statement, which can be found at http://www.cyclecarriage.com.sg/privacy-policy.html and hard copies of which are available from JCCL upon request.
+              </p>
+            </label>
+          </div>
+          <h2>Consent to Marketing Purposes</h2>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" id="AcknowledgementPersonalData__c" name="AcknowledgementPersonalData__c" class="custom-control-input" checked={salesRec.AcknowledgementPersonalData__c.value} onclick={onChangeCheckBox}>
+            <label class="custom-control-label" for="AcknowledgementPersonalData__c">
+              <!-- T&C changes as per customer request [Mai Dang Phap] [09 Sep 2020] -->
+              <!-- <p>
+                I consent to the collection, use and disclosure of my personal data by Jardine Cycle & Carriage Limited and its subsidiaries and affiliates (“JCCL”), in accordance with the terms of JCCL’s Privacy Statement, which can be found at http://www.cyclecarriage.com.sg/privacy-policy.html and hard copies of which are available upon request.
+              </p> -->
+              <p>
+                I wish to receive information about promotions, events and products and services and marketing-related customer surveys (“marketing and promotional information”) from JCCL. I consent to the collection, use and disclosure of my personal data for such marketing purposes by JCCL and its agents.
+              </p>
+              <p>
+                I understand that notwithstanding the above, marketing and promotional information may be sent to me by push and/or pop-up notifications through JCCL’s mobile application(s) should i install the application(s) on my mobile device. I agree that by enabling push and/or pop-up notifications in my device or mobile application settings, I consent to receiving such marketing and promotional information.
+              </p>
+              <p>
+                My consent above is voluntarily given and I am aware that I may withdraw my consent at any time by sending notification to {marketingContactUs}. I have read and understood the Privacy Statement and been acquainted with my right to access my personal data. I have checked and do confirm that the personal data i have provided is true, complete and accurate.
+              </p>
+              <template if:true={isCompany}>
+                <p>
+                  The above covers the personal data of all individuals named in this Sales Agreement. The person signing below declares that he / she is validly authorised by all individuals named in this Sales Agreement to consent and agree to all the above on each of their behalves as if each individual had separately checked the above box and signed this Sales Agreement. 
+                </p>
+            </template>
+            </label>
+          </div>
+          <!-- <div class="custom-control custom-checkbox">
+            <input type="checkbox" id="Acknowledgement_Receive_Notification__c" name="Acknowledgement_Receive_Notification__c" class="custom-control-input" checked={salesRec.Acknowledgement_Receive_Notification__c.value} onclick={onChangeCheckBox}>
+            <label class="custom-control-label" for="Acknowledgement_Receive_Notification__c">
+              <p>
+                I wish to receive customer surveys and information about promotions, events and products and services (“marketing and promotional information”) from JCCL. I consent to the collection, use and disclosure of my personal data for such marketing purposes by JCCL and its agents. I wish to receive such marketing and promotional information by email, telephone calls, SMS, and post.
+              </p>
+              <p>
+                I understand that notwithstanding the above, marketing and promotional information may be sent to me by push and/or pop-up notifications through JCCL’s mobile application(s) should i install the application(s) on my mobile device. I agree that by enabling push and/or pop-up notifications in my device or mobile application settings, I consent to receiving such marketing and promotional information.
+              </p>
+              <p>
+                My consent above is voluntarily given and I am aware that I may withdraw my consent at any time by sending notification to {marketingContactUs}. I have read and understood the Privacy Statement and been acquainted with my right to access my personal data. I have checked and do confirm that the personal data i have provided is true, complete and accurate.
+              </p>
+              <template if:true={isCompany}>
+                <p>
+                  The above covers the personal data of all individuals named in this Sales Agreement. The person signing below declares that he / she is validly authorised by all individuals named in this Sales Agreement to consent and agree to all the above on each of their behalves as if each individual had separately checked the above box and signed this Sales Agreement. 
+                </p>
+              </template>
+            </label>
+          </div> -->
+        </div>
+      </div>
+      <div class="terms-section" data-name="AcknowledgementAgreement__c">
+        <div class="container">
+          <h2>Agreement</h2>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" id="AcknowledgementAgreement__c" name="AcknowledgementAgreement__c" class="custom-control-input" checked={acknowledgeList.AcknowledgementAgreement__c} onclick={onChangeCheckBox}>
+            <label class="custom-control-label" for="AcknowledgementAgreement__c">
+              <p>
+                I have read and understood the terms and conditions in this Sales Agreement including the accompanying <a href={getConditionOfSales} target="_blank"> Conditions of Sale </a>and hereby agree to purchase from {salesRec.Branch_Code__c.value} the above mentioned vehicle at the Total Vehicle Price shown above, subject to adjustment.
+              </p>
+              <p>This Sales Agreement is not binding on {salesRec.Branch_Code__c.value} unless signed by a sales manager or other authorised signatory of {salesRec.Branch_Code__c.value}. Upon such signing, a copy of the executed agreement will be forwarded to me.</p>
+            </label>
+          </div>
+        </div>
+      </div>
+      <form class="container">
+            <p>Type of Agreement</p>
+            <div class="custom-control custom-radio">
+              <input type="radio" name="typeOfAgreement" value="salesAgreement" onchange={onOptionChanged} id="salesAgreement" class="custom-control-input" checked>
+              <label for="salesAgreement" class="custom-control-label">Sales Agreement</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" name="typeOfAgreement" value="usedCarAgrmnt" onchange={onOptionChanged} id ="usedCarAgrmnt" class="custom-control-input usedCarAgrmnt" disabled={disabled}>
+              <label for="usedCarAgrmnt" class="custom-control-label">Used Car Trade-In Agreement</label>
+            </div>
+      </form>
+      <!--
+      <template if:true={docuSignObj}>
+          <template if:true={isLoading}>
+
+            <div class="container">
+              <button class="btn btn-primary btn-submit" type="button" disabled>
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Generating document ......
+              </button>
+            </div>
+          </template>
+
+      </template>
+      <template if:false={isLoading}>
+        <div class="container">
+          <button type="button" class="btn btn-primary btn-submit" onclick={onGenerateDocuSign}>Generate PDF</button>
+        </div>
+      </template>
+      <template if:true={docuSignUrl}>
+          <iframe src={docuSignUrl}></iframe>
+      </template>
+      <template if:true={isDocuSignError}>
+          <div class="alert alert-danger" role="alert">
+              {docuSignErrorMsg}
+          </div>
+      </template>
+    -->
+    </section>
+    <template if:true={isLocked}>
+        <div data-name="ErrorHeaderOffsetSticky" class="header-snap scroller sticky" style="top: 20px; background:#0a9cfb">
+            <div class="container">
+      
+                    <div class="row justify-content-md-center">
+                   <span>Processing Sales Agreement - {salesRec.Stage__c.value}</span>
+                </div>
+              </div>
+        </div>
+      </template>
+
+  </main>
+  <br>
+  <!--Show modal-->
+  <template if:true={isShowModal}>
+    <c-dsa_digitial-sales-agreement-modal-edit record-id={salesRec.Id.value}
+                onclose={closeEditModal}
+                section={editSection}></c-dsa_digitial-sales-agreement-modal-edit>
+  </template>
+  </template>
+</template>
