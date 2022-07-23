@@ -615,28 +615,28 @@
                     <div class="panel-body">
                         <div class="container-fluid">
                             <div id="errNRIC1" style="display:none">
-                                <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer&rsquo;s NRIC is mandatory.</font>
+                                <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <!--Customer&rsquo;s--> NRIC/ACRA is mandatory.</font>
                             </div>
                             <div id="errInvalidNRIC1" style="display:none">
                                 <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Invalid NRIC.</font>
                             </div>
-                            <div id="errInvalidNRIC21" style="display:none">
+                            <!--<div id="errInvalidNRIC21" style="display:none">
                                 <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> The first three characters must be digits.</font>
                             </div>
                             <div id="errInvalidNRIC31" style="display:none">
                                 <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> The fourth character must be letter.</font>
-                            </div>
+                            </div>-->
                             <div id="errName1" style="display:none">
-                                <font style="color:red;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer's Name is mandatory.</font>
+                                <font style="color:red;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <!--Customer's--> Name is mandatory.</font>
                             </div>
                             <div id="errcustFirstName1" style="display:none">
-                                <font style="color:red;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer's First  Name is mandatory.</font>
+                                <font style="color:red;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <!--Customer's--> First  Name is mandatory.</font>
                             </div>
                             <div id="errcustLastName1" style="display:none">
-                                <font style="color:red;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer's Last Name is mandatory.</font>
+                                <font style="color:red;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <!--Customer's--> Last Name is mandatory.</font>
                             </div>
                             <div id="errMobile1" style="display:none">
-                                <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer's Mobile Number is mandatory.</font>
+                                <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <!--Customer's--> Mobile Number is mandatory.</font>
                             </div>
                             <div id="errNumberMobile1" style="display:none">
                                 <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Mobile Number can only contain Numbers.</font>
@@ -789,22 +789,31 @@
                             <div class="row">
                                 <div class="form-horizontal">
                                     <div class="form-group">
-                                        <!-- <div class="col-md-6"> -->
-                                            <!-- <label class="control-label col-md-6">Registration Type <font color="red">*</font>:</label>
+                                        <div class="col-md-6">
+                                            <label class="control-label col-md-6">Registration Type <font color="red">*</font>:</label>
                                             <div class="col-md-6">
-                                                <apex:selectList id="regtype" onchange="labelSwitch()" value="{!Reservation.Registration_Type__c}" size="1" multiselect="false" styleClass="redmark form-control"> -->
-                                                    <!--apex:selectOption itemValue="O" itemLabel="Offpeak"></apex:selectOption-->
-                                                    <!-- <apex:selectOption itemValue="P" itemLabel="Private"></apex:selectOption>
-                                                    <apex:selectOption itemValue="C" itemLabel="Company"></apex:selectOption>
+                                                <apex:selectList id="regType" onchange="labelSwitch()" value="{!RegType}" size="1" multiselect="false" styleClass="redmark form-control">
+                                                    <apex:selectOptions value="{!items}"/>
                                                 </apex:selectList>
-                                            </div> -->
-                                        <!-- </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <div class="col-md-6">
                                             <label id="emailLabel" class="control-label col-md-6">Customer Email<font color="red">*</font>:</label>
                                             <div class="col-md-6">
                                                 <apex:inputText id="email1" value="{!Reservation.Customer_Email__c}" label="Email." onblur="custemailenter();" styleClass="redmark nric form-control" tabindex="6"/>
                                                 <div id="errEmail" style="display:none">
-                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer&rsquo;s Email is mandatory.</font>
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <!--Customer&rsquo;s--> Email is mandatory.</font>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label id="nameLabel" class="control-label col-md-6">Full Name (per NRIC/FIN) / Company Name <font color="red">*</font>:</label>
+                                            <div class="col-md-6">
+                                                <apex:inputText value="{!Reservation.Customer_Name__c}" id="name1" label="Name" onblur="checkName()" styleClass="redmark name form-control" tabindex="2" maxlength="80"/>
+                                                <div id="errName" style="display:none">
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <!--Customer&rsquo;s--> Name is mandatory.</font>
                                                 </div>
                                             </div>
                                         </div>
@@ -815,7 +824,7 @@
                                             <div class=" col-md-6">
                                                 <apex:inputText maxlength="8" id="mobile1" onblur="checkMobile()" value="{!Reservation.Customer_Mobile_Number__c}" label="Mobile" tabindex="1" styleClass="mobilenum redmark form-control" />
                                                 <div id="errMobile" style="display:none">
-                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer&rsquo;s Mobile Number is mandatory.</font>
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <!--Customer&rsquo;s--> Mobile Number is mandatory.</font>
                                                 </div>
                                                 <div id="errNumberMobile" style="display:none">
                                                     <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Mobile Number can only contain Numbers.</font>
@@ -829,11 +838,10 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label id="nameLabel" class="control-label col-md-6">Full Name (per NRIC/FIN) / Company Name <font color="red">*</font>:</label>
-                                            <div class="col-md-6">
-                                                <apex:inputText value="{!Reservation.Customer_Name__c}" id="name1" label="Name" onblur="checkName()" styleClass="redmark name form-control" tabindex="2" maxlength="80"/>
-                                                <div id="errName" style="display:none">
-                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer&rsquo;s Name is mandatory.</font>
+                                            <div>
+                                                <label class="control-label col-md-6">Deposit Number:</label>
+                                                <div class="col-md-6">
+                                                    <apex:inputText value="{!Reservation.Downpayment_No__c}" styleClass="form-control" tabindex="6"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -844,12 +852,12 @@
                                             <div class="col-md-6">
                                                 <apex:inputText id="nric1" value="{!Reservation.Customer_Social_ID__c}" label="NRIC/Passport No." onblur="checkNric();" styleClass="redmark nric form-control" tabindex="1" maxlength="15"/>
                                                 <div id="errNRIC" style="display:none">
-                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer&rsquo;s NRIC is mandatory.</font>
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <!--Customer&rsquo;s--> NRIC/ACRA is mandatory.</font>
                                                 </div>
                                                 <div id="errInvalidNRIC" style="display:none">
                                                     <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Invalid NRIC. </font>
                                                 </div>
-                                                <div id="errInvalidNRIC2" style="display:none">
+                                                <!--<div id="errInvalidNRIC2" style="display:none">
                                                     <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> The first three characters must be digits.</font>
                                                 </div>
                                                 <div id="errInvalidNRIC3" style="display:none">
@@ -857,16 +865,13 @@
                                                 </div>
                                                 <div id="warNRIC" style="display:none">
                                                     <font style="color:brown;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Please enter full NRIC of Customer.</font>
-                                                </div>
+                                                </div>-->
                                             </div>
                                             <!-- Added by Vu - 05/07/2022 - Add Date of Birth input - START -->
-                                            <label id="idLabel" class="control-label col-md-6" style="margin-top:15px;">Date of Birth<font color="red">*</font>:</label>
+                                            <label id="idLabel" class="control-label col-md-6" style="margin-top:15px;">Date of Birth<!--<font color="red">*</font>-->:</label>
                                             <div class="col-md-6" style="margin-top:15px;">
-                                                <!--<apex:inputField required="false" type="date" onchange="" onblur="" style="cursor: pointer"
-                                                                id="dateInput" styleClass="form-control cinfo" showDatePicker="false" value="{!custBirthDate}"
-                                                                taborderhint="6" html-placeholder="DD/MM/YYYY" />-->
                                                 <apex:input id="dateInput" type="date" value="{!custBirthDate}" onchange="checkDateofBirth()" onblur="checkDateofBirth()"
-                                                            styleClass="redmark form-control" style="cursor: pointer"/>
+                                                            styleClass="form-control" style="cursor: pointer"/>
                                                 <div id="errDateofBirth" style="display:none">
                                                     <font style="color:red;margin-top:2px;font-weight:bold;">
                                                         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Date cannot be greater than today.</font>
@@ -885,14 +890,14 @@
                                             <div class="col-md-6" style="margin-top:15px;">
                                                 <apex:inputText value="{!custFirstName}"  maxlength="40" id="firstName1" tabindex="4" onblur="checkFirstName()" styleClass="redmark name form-control"/>
                                                 <div id="errcustFirstName" style="display:none">
-                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer&rsquo;s First Name is mandatory.</font>
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <!--Customer&rsquo;s--> First Name is mandatory.</font>
                                                 </div>
                                             </div>
                                             <label id="lastNameLabel" class="control-label col-md-6" style="margin-top:15px;">Customer Last Name<font color="red">*</font>:</label>
                                             <div class="col-md-6" style="margin-top:15px;">
                                                 <apex:inputText value="{!custLastName}" maxlength="40" tabindex="5" id="lastName1" onblur="checkLastName()" styleClass="redmark name form-control"/>
                                                 <div id="errcustLastName" style="display:none">
-                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Customer&rsquo;s Last Name is mandatory.</font>
+                                                    <font style="color:red;margin-top:2px;font-weight:bold;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <!--Customer&rsquo;s--> Last Name is mandatory.</font>
                                                 </div>
                                             </div>
                                         </div>
@@ -902,17 +907,6 @@
                                                 <apex:inputTextarea value="{!Reservation.Comment__c}" styleClass="form-control" tabindex="7" style="height:100px;" html-maxlength="255"/>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-md-6">                                   
-                                        <div>
-                                            <label class="control-label col-md-6">Deposit Number:</label>
-                                            <div class="col-md-6">
-                                                <apex:inputText value="{!Reservation.Downpayment_No__c}" styleClass="form-control" tabindex="6"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
                                     </div>
                                 </div>
                             </div>
@@ -1145,25 +1139,9 @@
     // label change for different registration type
     function labelSwitch() {
         var selectOption = event.target.value;
-        var nameElement = document.getElementById('nameLabel');
-        var emailElement = document.getElementById('emailLabel');
-        var idLabel = document.getElementById('idLabel');
-        var firstNameLabel = document.getElementById('firstNameLabel');
-        var lastNameLabel = document.getElementById('lastNameLabel');
+        var dobEl        = document.getElementById('{!$Component.formBook.dateInput}')
         if (selectOption !== null && selectOption !== "") {
-            if (selectOption === 'P') {
-                nameElement.innerText = 'Full Name (per NRIC/FIN)';
-                emailElement.innerText = 'Customer Email';
-                idLabel.innerText = 'Customer ID (NRIC/FIN)';
-                firstNameLabel.innerText = 'Customer First Name';
-                lastNameLabel.innerText = 'Customer Last Name';
-            } else if (selectOption === 'C') {
-                nameElement.innerText = 'Company Name (per UEN/ACRA)';
-                emailElement.innerText = 'Contact Person Email';
-                idLabel.innerText = 'Customer ID (UEN/ACRA)';
-                firstNameLabel.innerText = 'Contact Person First Name';
-                lastNameLabel.innerText = 'Contact Person Last Name';
-            }
+            dobEl.disabled = selectOption === 'C';
         }
     }
 
@@ -1218,6 +1196,7 @@
     
     //choose focus after search nric
     function chooseFocus(){
+        var regType = document.getElementById('{!$Component.formBook.regType}').value;
         var nric = document.getElementById('{!$Component.formBook.nric1}').value;
         var name3 = document.getElementById('{!$Component.formBook.name1}').value;
         var email3 = document.getElementById('{!$Component.formBook.email1}').value;
@@ -1238,21 +1217,17 @@
             $('.cinfo').attr("disabled", true);
         }
 
-        /*if (nric && nric.length == 12) {
-            document.getElementById('{!$Component.formBook.nric1}').disabled = true;
-            document.getElementById('{!$Component.formBook.dateInput}').disabled = true;
+        if (regType == 'P') {
+            if (dob) {
+                document.getElementById('{!$Component.formBook.dateInput}').disabled = true;
+                $('#warNRIC').show();
+            } else {
+                document.getElementById('{!$Component.formBook.dateInput}').disabled = false;
+                $('#warNRIC').hide();
+            }
         } else {
-            document.getElementById('{!$Component.formBook.nric1}').disabled = false;
-            document.getElementById('{!$Component.formBook.dateInput}').disabled = false;
-        }*/
-
-        // document.getElementById('{!$Component.formBook.dateInput}').disabled = dob ? true : false;
-        if (dob) {
             document.getElementById('{!$Component.formBook.dateInput}').disabled = true;
-            $('#warNRIC').show();
-        } else {
-            document.getElementById('{!$Component.formBook.dateInput}').disabled = false;
-            $('#warNRIC').hide();
+            document.getElementById('{!$Component.formBook.dateInput}').value    = null;
         }
      }
     
@@ -1260,7 +1235,7 @@
     $('.disable').attr("disabled", true);
     
     //validation onblur nric
-    function checkNric(){
+    function checkNric() {
         $('#warNRIC').hide();
         $('#errNRIC').hide();
         $('#errNRIC1').hide();
@@ -1268,36 +1243,29 @@
         $('#errInvalidNRIC').hide();
         $('#errInvalidNRIC1').hide();
 
-        $('#errInvalidNRIC2').hide();
-        $('#errInvalidNRIC21').hide();
+        // $('#errInvalidNRIC2').hide();
+        // $('#errInvalidNRIC21').hide();
 
-        $('#errInvalidNRIC3').hide();
-        $('#errInvalidNRIC31').hide();
+        // $('#errInvalidNRIC3').hide();
+        // $('#errInvalidNRIC31').hide();
 
         $('#errEmail').hide();
+
+        var regType = document.getElementById('{!$Component.formBook.regType}').value;
+        console.log('regType ', regType);
         var nricT = document.getElementById('{!$Component.formBook.nric1}').value;
         var nric = nricT.trim();
         var emailT = document.getElementById('{!$Component.formBook.email1}').value;
         var email = emailT.trim();
-        if (nric==null || nric=='' ){
+        if (nric==null || nric=='') {
             $('#errNRIC').show();
             $('#errNRIC1').show();
-        } else if (nric.length == 9 && !validNRIC(nric) || (nric.length != 12 && nric.length != 9)) {
+        }
+        else if (regType == 'P' && (nric.length == 9 && !validNRIC(nric) || nric.length != 9)) {
+            console.log('aaa');
             $('#errInvalidNRIC').show();
             $('#errInvalidNRIC1').show();
         }
-        /*else if (nric.length == 12) {
-            var nricThreeChars = nric.substr(0, 3);
-            var nricFourthChar = nric.substr(3, 1);
-            if (isNaN(nricThreeChars)) {
-                $('#errInvalidNRIC2, #errInvalidNRIC21').show();
-            }
-            if ((nricFourthChar.charCodeAt(0) >= 32 && nricFourthChar.charCodeAt(0) <= 64) ||
-                (nricFourthChar.charCodeAt(0) >= 91 && nricFourthChar.charCodeAt(0) <= 96) ||
-                (nricFourthChar.charCodeAt(0) >= 123 && nricFourthChar.charCodeAt(0) <= 126)) {
-                    $('#errInvalidNRIC3, #errInvalidNRIC31').show();
-            }
-        }*/
 
         if (email==null || email==''){
             $('#errEmail').show();           
@@ -1401,29 +1369,12 @@
     function validateNRIC(nric) {
         var isValidated = true;
 
-        if (nric.length == 9 && !validNRIC(nric) || (nric.length != 12 && nric.length != 9)) {
+        if (nric.length == 9 && !validNRIC(nric) || nric.length != 9) {
             $('#errInvalidNRIC').show();
             $('#errInvalidNRIC1').show();
 
             isValidated = false;
         }
-        /*else if (nric.length == 12) {
-            var nricThreeChars = nric.substr(0, 3);
-            var nricFourthChar = nric.substr(3, 1);
-
-            if (isNaN(nricThreeChars)) {
-                $('#errInvalidNRIC2, #errInvalidNRIC21').show();
- 
-                isValidated = false;
-            }
-            if ((nricFourthChar.charCodeAt(0) >= 32 && nricFourthChar.charCodeAt(0) <= 64) ||
-                (nricFourthChar.charCodeAt(0) >= 91 && nricFourthChar.charCodeAt(0) <= 96) ||
-                (nricFourthChar.charCodeAt(0) >= 123 && nricFourthChar.charCodeAt(0) <= 126)) {
-                    $('#errInvalidNRIC3, #errInvalidNRIC31').show();
- 
-                    isValidated = false;
-            }
-        }*/
 
         return isValidated;
     }
@@ -1536,11 +1487,12 @@
         $('#errInvalidNRIC').hide();
         $('#errInvalidNRIC1').hide();
         // Added by Vu 18/07/2022 - Add validation for NRIC input
-        $('#errInvalidNRIC2').hide();
+        /*$('#errInvalidNRIC2').hide();
         $('#errInvalidNRIC21').hide();
         $('#errInvalidNRIC3').hide();
-        $('#errInvalidNRIC31').hide();
-        
+        $('#errInvalidNRIC31').hide();*/
+
+        var regType = document.getElementById('{!$Component.formBook.regType}').value;
         var nricT = document.getElementById('{!$Component.formBook.nric1}').value;
         var nric = nricT.trim();
         var emailT = document.getElementById('{!$Component.formBook.email1}').value;
@@ -1583,44 +1535,51 @@
         }
 
         // Added by Vu 06/07/2022 - Validation check for Date of Birth input
-        var date = new Date();
-        date.setHours(0, 0, 0, 0);
-        var dateofbirth = document.getElementById('{!$Component.formBook.dateinput}').value;
-        console.log('dateofbirth--->' + dateofbirth);
         var dobTrue = true;
-        if (dateofbirth != '' && dateofbirth != null) {
-            mydate = new Date(dateofbirth);
-            mydate.setHours(0, 0, 0, 0);
+        var validNRIC = true;
 
-            if (mydate > date) {
-                $('#errDateofBirth').show();
-                $('#errDateofBirth1').show();
+        if (regType == 'P') {
+            var date = new Date();
+            date.setHours(0, 0, 0, 0);
+            var dateofbirth = document.getElementById('{!$Component.formBook.dateinput}').value;
+            console.log('dateofbirth--->' + dateofbirth);
+            
+            if (dateofbirth != '' && dateofbirth != null) {
+                mydate = new Date(dateofbirth);
+                mydate.setHours(0, 0, 0, 0);
+
+                if (mydate > date) {
+                    $('#errDateofBirth').show();
+                    $('#errDateofBirth1').show();
+                    dobTrue = false;
+                }
+                else if (!isValidDate(mydate)) {
+                    $('#errInvalidDateofBirth,#errInvalidDateofBirth1').show();
+                    dobTrue = false;
+                }
+
+            } else {
+                $('#errNoDateofBirth1').show();
+                $('#errNoDateofBirth').show();
                 dobTrue = false;
             }
-            else if (!isValidDate(mydate)) {
-                $('#errInvalidDateofBirth,#errInvalidDateofBirth1').show();
-                dobTrue = false;
-            }
 
-        } else {
-            $('#errNoDateofBirth1').show();
-            $('#errNoDateofBirth').show();
-            dobTrue = false;
+            validNRIC = validateNRIC(nric);
         }
-        
-        var validNRIC = validateNRIC(nric);
 
-        if ((nric==null || nric=='') || !validNRIC || (email==null || email=='') || (name3==null || name3=='') || mobLength == 0 || noNumeric==true || (mobLength != 0 && firstNum !='8' && firstNum !='9') || (mobilee != '' && mobLength !=8)) {
+        if ((nric==null || nric=='') || !validNRIC || !dobTrue || (email==null || email=='') || (name3==null || name3=='') ||
+            mobLength == 0 || noNumeric==true || (mobLength != 0 && firstNum !='8' && firstNum !='9') || (mobilee != '' && mobLength !=8)) {
+
             window.scrollTo(0,0);
             stopLoading();
             return false;
         }
 
-        if (dobTrue == false) {
-            window.scrollTo(0, 0);
-            stopLoading();
-            return false;
-        }
+        // if (dobTrue == false) {
+        //     window.scrollTo(0, 0);
+        //     stopLoading();
+        //     return false;
+        // }
 
         save1();
     }

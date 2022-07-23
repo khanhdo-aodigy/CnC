@@ -34,6 +34,18 @@ OR( ISPICKVAL(Status,&apos;Closed&apos;), ISPICKVAL(Status,&apos;Interim Call Ma
         <milestoneName>Minutes to complete P1 Cases</milestoneName>
         <minutesToComplete>180</minutesToComplete>
         <timeTriggers>
+            <timeLength>5</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>SLA_is_overdue_by_48_hours_2nd_level_escalation</name>
+                <type>Alert</type>
+            </actions>
+            <timeLength>48</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
             <actions>
                 <name>Update_SLA_Reminder_Sent_Date_Time</name>
                 <type>FieldUpdate</type>
@@ -64,18 +76,6 @@ OR( ISPICKVAL(Status,&apos;Closed&apos;), ISPICKVAL(Status,&apos;Interim Call Ma
             </actions>
             <timeLength>0</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <timeLength>5</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
-                <name>SLA_is_overdue_by_48_hours_2nd_level_escalation</name>
-                <type>Alert</type>
-            </actions>
-            <timeLength>48</timeLength>
-            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
@@ -124,10 +124,6 @@ OR( ISPICKVAL(Status,&apos;Closed&apos;), ISPICKVAL(Status,&apos;Interim Call Ma
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <timeTriggers>
-            <timeLength>5</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
             <actions>
                 <name>Send_Email_after_the_SLA_did_not_meet</name>
                 <type>Alert</type>
@@ -145,6 +141,10 @@ OR( ISPICKVAL(Status,&apos;Closed&apos;), ISPICKVAL(Status,&apos;Interim Call Ma
                 <type>Task</type>
             </actions>
             <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <timeLength>5</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
@@ -244,14 +244,6 @@ OR( ISPICKVAL(Status,&apos;Closed&apos;), ISPICKVAL(Status,&apos;Interim Call Ma
         <milestoneName>Minutes to complete P4 Cases</milestoneName>
         <minutesToComplete>2880</minutesToComplete>
         <timeTriggers>
-            <actions>
-                <name>SLA_is_overdue_by_48_hours_P4</name>
-                <type>Alert</type>
-            </actions>
-            <timeLength>48</timeLength>
-            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
             <timeLength>5</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
@@ -286,6 +278,14 @@ OR( ISPICKVAL(Status,&apos;Closed&apos;), ISPICKVAL(Status,&apos;Interim Call Ma
             </actions>
             <timeLength>0</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>SLA_is_overdue_by_48_hours_P4</name>
+                <type>Alert</type>
+            </actions>
+            <timeLength>48</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>

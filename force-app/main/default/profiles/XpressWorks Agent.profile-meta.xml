@@ -23525,10 +23525,6 @@
     </flowAccesses>
     <flowAccesses>
         <enabled>false</enabled>
-        <flow>Update_Portal_User_Info</flow>
-    </flowAccesses>
-    <flowAccesses>
-        <enabled>false</enabled>
         <flow>Update_Survey_Record_Owner</flow>
     </flowAccesses>
     <flowAccesses>

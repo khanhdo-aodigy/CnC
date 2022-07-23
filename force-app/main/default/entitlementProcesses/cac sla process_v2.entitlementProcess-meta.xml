@@ -103,18 +103,6 @@ OR( ISPICKVAL(Status,&apos;Closed&apos;), ISPICKVAL(Status,&apos;Interim Call Ma
         <minutesToComplete>720</minutesToComplete>
         <timeTriggers>
             <actions>
-                <name>Update_SLA_Reminder_Sent_Date_Time</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <actions>
-                <name>You_have_2_hrs_to_work_on_your_case</name>
-                <type>Task</type>
-            </actions>
-            <timeLength>-120</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>Send_Email_after_the_SLA_did_not_meet</name>
                 <type>Alert</type>
             </actions>
@@ -131,6 +119,18 @@ OR( ISPICKVAL(Status,&apos;Closed&apos;), ISPICKVAL(Status,&apos;Interim Call Ma
                 <type>Task</type>
             </actions>
             <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>Update_SLA_Reminder_Sent_Date_Time</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <actions>
+                <name>You_have_2_hrs_to_work_on_your_case</name>
+                <type>Task</type>
+            </actions>
+            <timeLength>-120</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
@@ -229,18 +229,6 @@ OR( ISPICKVAL(Status,&apos;Closed&apos;), ISPICKVAL(Status,&apos;Interim Call Ma
         <minutesToComplete>2880</minutesToComplete>
         <timeTriggers>
             <actions>
-                <name>Update_SLA_Reminder_Sent_Date_Time</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <actions>
-                <name>You_have_2_hrs_to_work_on_your_case</name>
-                <type>Task</type>
-            </actions>
-            <timeLength>-120</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>Send_Email_after_the_SLA_did_not_meet</name>
                 <type>Alert</type>
             </actions>
@@ -257,6 +245,18 @@ OR( ISPICKVAL(Status,&apos;Closed&apos;), ISPICKVAL(Status,&apos;Interim Call Ma
                 <type>Task</type>
             </actions>
             <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>Update_SLA_Reminder_Sent_Date_Time</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <actions>
+                <name>You_have_2_hrs_to_work_on_your_case</name>
+                <type>Task</type>
+            </actions>
+            <timeLength>-120</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>

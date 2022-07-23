@@ -103,6 +103,7 @@ public without sharing class StockReservationCon{
 
     public Boolean showError{get;set;}
     public String modelSelected{get;set;}
+    String RegType = null;
 
     public class wIndent {
         public String IDModel {get;set;}
@@ -126,7 +127,23 @@ public without sharing class StockReservationCon{
             this.Trim        = iTrim;
             this.VmId        = VmId;
         }
-    } 
+    }
+
+    public List<SelectOption> getItems()
+    {
+        List<SelectOption> options = new List<SelectOption>();
+        options.add(new SelectOption('P','Private'));
+        options.add(new SelectOption('C','Company'));
+        
+        return options;
+    }
+                  
+    public String getRegType()
+    {
+        return RegType;
+    }
+                    
+    public void setRegType(String RegType) { this.RegType = RegType; }
 
     public StockReservationCon() {
         showPopUp = false;
@@ -911,7 +928,7 @@ public without sharing class StockReservationCon{
                                     newNRIC = nricVal.substring(nricVal.length()-4,nricVal.length());
                                 }
 
-                                Database.update( new Account(Id = sr.Opportunity__r.Account__c, NRIC__pc = newNRIC),false);
+                                Database.update( new Account(Id = sr.Opportunity__r.Account__c, NRIC__pc = newNRIC, NRIC_Passport_No__pc = newNRIC),false);
                             }
                         }
 
@@ -1078,8 +1095,14 @@ public without sharing class StockReservationCon{
                         // personAccount.NRIC_Passport_No__pc = Reservation.Customer_Social_ID__c.subString(5);
 
                         // Modified by Vu 06/07/2022 - Change format for NRIC_Passport_No__pc field value
-                        System.debug('ID:' + Reservation.Customer_Social_ID__c + 'DOB: ' + custBirthDate);
-                        personAccount.NRIC_Passport_No__pc = formatNRIC(Reservation.Customer_Social_ID__c, custBirthDate);
+                        if (String.isBlank(personAccount.NRIC_Passport_No__pc))
+                        {
+                            if (RegType == 'P') {
+                                personAccount.NRIC_Passport_No__pc = formatNRIC(Reservation.Customer_Social_ID__c, custBirthDate);
+                            } else if (Reservation.Customer_Social_ID__c.length() > 4) {
+                                personAccount.NRIC_Passport_No__pc = Reservation.Customer_Social_ID__c.subString(5);
+                            }
+                        }
                     }
                 }
 
@@ -1107,7 +1130,9 @@ public without sharing class StockReservationCon{
                 // }
                 /**          END                 */
 
-                personAccount.PersonBirthdate = custBirthDate;                     // Added by Vu 06/07/2022 - Store value from Date of birth input
+                if (RegType == 'P') {
+                    personAccount.PersonBirthdate = custBirthDate;                     // Added by Vu 06/07/2022 - Store value from Date of birth input
+                }
 
                 update personAccount;
                 
@@ -1133,7 +1158,6 @@ public without sharing class StockReservationCon{
                 newProspect.Branch_Code__pc    = SalesUser.Branch_Code__c;
                 newProspect.Franchise_Code__pc = SalesUser.Franchise_Code__c;
                 newProspect.PersonEmail        = Reservation.Customer_Email__c;
-                newProspect.PersonBirthdate    = custBirthDate;                     // Added by Vu 06/07/2022 - Store value from Date of birth input
 
                 // if (!Test.isRunningTest())
                 // {
@@ -1165,8 +1189,13 @@ public without sharing class StockReservationCon{
 
                 // newNRIC = nricVal.substring(nricVal.length()-4, nricVal.length()) + Dob.replaceAll('/', '');
 
-                // Added by Vu 06/07/2022 - Format and save value for NRIC_Passport_No__pc
-                newProspect.NRIC_Passport_No__pc = formatNRIC(Reservation.Customer_Social_ID__c, custBirthDate);
+                // Added by Vu 06/07/2022 - Format and save value for NRIC_Passport_No__pc, DOB
+                if (RegType == 'P') {
+                    newProspect.PersonBirthdate      = custBirthDate;
+                    newProspect.NRIC_Passport_No__pc = formatNRIC(Reservation.Customer_Social_ID__c, custBirthDate);
+                } else if (Reservation.Customer_Social_ID__c.length() > 4) {
+                    newProspect.NRIC_Passport_No__pc = Reservation.Customer_Social_ID__c.subString(5);
+                }
 
                 insert newProspect;
 

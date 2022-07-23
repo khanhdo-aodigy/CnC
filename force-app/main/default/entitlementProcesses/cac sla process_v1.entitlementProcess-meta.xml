@@ -41,18 +41,6 @@
         <minutesToComplete>180</minutesToComplete>
         <timeTriggers>
             <actions>
-                <name>Update_SLA_Reminder_Sent_Date_Time</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <actions>
-                <name>You_have_2_hrs_to_work_on_your_case</name>
-                <type>Task</type>
-            </actions>
-            <timeLength>-120</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>Update_as_did_not_meet_SLA</name>
                 <type>FieldUpdate</type>
             </actions>
@@ -61,6 +49,18 @@
                 <type>Task</type>
             </actions>
             <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>Update_SLA_Reminder_Sent_Date_Time</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <actions>
+                <name>You_have_2_hrs_to_work_on_your_case</name>
+                <type>Task</type>
+            </actions>
+            <timeLength>-120</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
@@ -91,18 +91,6 @@
         <minutesToComplete>720</minutesToComplete>
         <timeTriggers>
             <actions>
-                <name>Update_SLA_Reminder_Sent_Date_Time</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <actions>
-                <name>You_have_2_hrs_to_work_on_your_case</name>
-                <type>Task</type>
-            </actions>
-            <timeLength>-120</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>Update_as_did_not_meet_SLA</name>
                 <type>FieldUpdate</type>
             </actions>
@@ -111,6 +99,18 @@
                 <type>Task</type>
             </actions>
             <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>Update_SLA_Reminder_Sent_Date_Time</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <actions>
+                <name>You_have_2_hrs_to_work_on_your_case</name>
+                <type>Task</type>
+            </actions>
+            <timeLength>-120</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
