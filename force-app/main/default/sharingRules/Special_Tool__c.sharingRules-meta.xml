@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Special_Tools_Sharing_Leng_Kee</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Special Tools Sharing Leng Kee</label>
+        <sharedTo>
+            <group>Service_Center_Leng_Kee</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Service_Centre__c</field>
+            <operation>equals</operation>
+            <value>Leng Kee Service Centre</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Special_Tools_Sharing_MB_Alexandra</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Special Tools Sharing MB Alexandra</label>
+        <sharedTo>
+            <group>MB_Service_Center_Alexandra</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Service_Centre__c</field>
+            <operation>equals</operation>
+            <value>Mercedes Benz Service Center Alexandra</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Special_Tools_Sharing_MB_Eunos</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Special Tools Sharing MB Eunos</label>
+        <sharedTo>
+            <group>MB_Service_Center_Eunos</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Service_Centre__c</field>
+            <operation>equals</operation>
+            <value>Mercedes Benz Service Center Eunos</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Special_Tools_Sharing_MB_PG</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Special Tools Sharing MB PG</label>
+        <sharedTo>
+            <group>MB_CV_Service_Center_PG</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Service_Centre__c</field>
+            <operation>equals</operation>
+            <value>Mercedes-Benz Commercial Vehicle Service Center Pandan Garden</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Special_Tools_Sharing_MB_PL</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Special Tools Sharing MB PL</label>
+        <sharedTo>
+            <group>MB_Service_Center_Pandan_Loop</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Service_Centre__c</field>
+            <operation>equals</operation>
+            <value>Mercedes Benz Service Center Pandan Loop</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Special_Tools_Sharing_Sin_Ming</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Special Tools Sharing Sin Ming</label>
+        <sharedTo>
+            <group>Service_Center_Sin_Ming</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Service_Centre__c</field>
+            <operation>equals</operation>
+            <value>Sin Ming Service Centre</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

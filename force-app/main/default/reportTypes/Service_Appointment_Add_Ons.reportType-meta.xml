@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>Service_Appointment_Add_On__c</baseObject>
+    <category>other</category>
+    <deployed>true</deployed>
+    <description>Service Appointment Add Ons</description>
+    <label>Service Appointment Add Ons</label>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Id</field>
+            <table>Service_Appointment_Add_On__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Name</field>
+            <table>Service_Appointment_Add_On__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedDate</field>
+            <table>Service_Appointment_Add_On__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedBy</field>
+            <table>Service_Appointment_Add_On__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedDate</field>
+            <table>Service_Appointment_Add_On__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedBy</field>
+            <table>Service_Appointment_Add_On__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Service_Appointment__c</field>
+            <table>Service_Appointment_Add_On__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Add_On_ID__c</field>
+            <table>Service_Appointment_Add_On__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Add_On_Name__c</field>
+            <table>Service_Appointment_Add_On__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>BookingAndAddonID__c</field>
+            <table>Service_Appointment_Add_On__c</table>
+        </columns>
+        <masterLabel>Service Appointment Add-Ons</masterLabel>
+    </sections>
+</ReportType>

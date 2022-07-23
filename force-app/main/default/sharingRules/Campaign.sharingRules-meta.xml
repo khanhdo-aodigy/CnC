@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>KIA_Campaign_Sharing</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>KIA Campaign Sharing</label>
+        <sharedTo>
+            <group>CITPC_KIA_Sales_Manager</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Branch_Code__c</field>
+            <operation>equals</operation>
+            <value>CCK</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Branch_Code__c</field>
+            <operation>equals</operation>
+            <value>CCA</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_to_CIT_Mktg</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share to CIT Mktg</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>CITPC_Sales_Manager</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>Branch_Code__c</field>
+            <operation>equals</operation>
+            <value>CCF</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_to_KIA_Cmp</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share to KIA</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>KIAPC_Sales_Manager</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>Branch_Code__c</field>
+            <operation>equals</operation>
+            <value>CCK</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_to_MIT_Mgr</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share to MIT</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>MITPC_Sales_Manager</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>Branch_Code__c</field>
+            <operation>equals</operation>
+            <value>CCA</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingOwnerRules>
+        <fullName>CITPC_Campaign_Sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>CITPC Campaign Sharing</label>
+        <sharedTo>
+            <role>CITPC_Marketing_User</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>CITPC_Marketing_User</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Campaign_Sharing_KIAPC</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Campaign Sharing - KIAPC</label>
+        <sharedTo>
+            <role>KIAPC_Marketing_User</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>KIAPC_Marketing_User</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>KIA_Campaign_Sharing</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>KIA Campaign Sharing</label>
+        <sharedTo>
+            <group>CITPC_KIA_Sales_Manager</group>
+        </sharedTo>
+        <sharedFrom>
+            <role>KIAPC_Marketing_User</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

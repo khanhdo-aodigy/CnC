@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>CAC_see_each_other_cases</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>CAC see each other cases</label>
+        <sharedTo>
+            <group>CAC_Users</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Management</roleAndSubordinatesInternal>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

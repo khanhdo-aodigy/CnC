@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>CIT_Send_notification_meeting_log_creation</fullName>
+        <description>Send notification meeting log creation - CIT</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>CITPC_Sales_Managers</recipient>
+            <type>group</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Meeting_Log_created</template>
+    </alerts>
+    <alerts>
+        <fullName>MIT_Send_notification_meeting_log_creation</fullName>
+        <description>Send notification meeting log creation - MIT</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>MITPC_Sales_Managers</recipient>
+            <type>group</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Meeting_Log_created</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_notification_meeting_log_creation</fullName>
+        <description>Send notification meeting log creation</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>KIAPC_Sales_Manager</recipient>
+            <type>group</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Meeting_Log_created</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>MeetingLog_Update_Branch_Code</fullName>
+        <description>Update the Branch Code field of the  Meeting Log record to the User&apos;s Branch Code value.</description>
+        <field>BranchCode__c</field>
+        <formula>TEXT($User.Branch_Code__c)</formula>
+        <name>MeetingLog - Update Branch Code</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Meeting_Log_Name</fullName>
+        <field>Meeting_Log__c</field>
+        <formula>text(Type_of_Meeting_Logs__c)&amp;&quot; &quot;&amp;&quot;(&quot;&amp;text(Date__c)&amp;&quot;)&quot;</formula>
+        <name>Update Meeting Log Name</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>MeetingLog_PopulateBranchCode</fullName>
+        <actions>
+            <name>MeetingLog_Update_Branch_Code</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Meeting Log - Populate Branch Code</description>
+        <formula>NOT( ISNULL( TEXT($User.Branch_Code__c) ) ) &amp;&amp; NOT($Setup.Bypass_Automation_Settings__c.Bypass_Workflows__c )</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Meeting Log Name</fullName>
+        <actions>
+            <name>Update_Meeting_Log_Name</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>true &amp;&amp; NOT($Setup.Bypass_Automation_Settings__c.Bypass_Workflows__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

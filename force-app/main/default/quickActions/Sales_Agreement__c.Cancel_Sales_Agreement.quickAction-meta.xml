@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>For SC to cancel the sales agreement when the stage is Draft</description>
+    <fieldOverrides>
+        <field>Stage__c</field>
+        <literalValue>Cancelled</literalValue>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Stock_Reservation__c</field>
+        <formula>Sales_Agreement__c.Stock_Reservation__c</formula>
+    </fieldOverrides>
+    <label>Cancel Sales Agreement</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <quickActionLayout>
+        <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>SOH_SONO__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>LastModifiedById</field>
+                <uiBehavior>Readonly</uiBehavior>
+            </quickActionLayoutItems>
+        </quickActionLayoutColumns>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Name</field>
+                <uiBehavior>Readonly</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>CreatedById</field>
+                <uiBehavior>Readonly</uiBehavior>
+            </quickActionLayoutItems>
+        </quickActionLayoutColumns>
+    </quickActionLayout>
+    <successMessage>Sales Agreement Has Been Cancelled</successMessage>
+    <type>Update</type>
+</QuickAction>

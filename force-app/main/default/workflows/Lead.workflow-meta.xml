@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Sample_Email</fullName>
+        <description>Sample Email</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/LeadsNewassignmentnotificationSAMPLE</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>SalesAdminLeadAssign</fullName>
+        <field>OwnerId</field>
+        <lookupValue>juliana.lim@cyclecarriage.com.sg</lookupValue>
+        <lookupValueType>User</lookupValueType>
+        <name>SalesAdminLeadAssign</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>SalesAdmin</fullName>
+        <actions>
+            <name>SalesAdminLeadAssign</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Lead.LeadSource</field>
+            <operation>equals</operation>
+            <value>TestDrive</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

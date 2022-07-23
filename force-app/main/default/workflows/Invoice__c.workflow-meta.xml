@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Invoice_Customer_Email</fullName>
+        <description>Invoice Customer Email</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Customer_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>comms@cyclecarriage.com.sg</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Invoice_PromoPurchase_Email</template>
+    </alerts>
+    <alerts>
+        <fullName>Invoice_Customer_Email_CCI</fullName>
+        <description>Invoice Customer Email CCI</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Customer_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>comms@cyclecarriage.com.sg</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Invoice_CCI_Email</template>
+    </alerts>
+    <alerts>
+        <fullName>Invoice_Email_CCI</fullName>
+        <description>Invoice Email CCI</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>comms@cyclecarriage.com.sg</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Invoice_CCI_Email</template>
+    </alerts>
+    <alerts>
+        <fullName>Test_Invoice_Email</fullName>
+        <description>Test_Invoice_Email</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Invoice_PromoPurchase_Email</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Populate_Date_Settled_or_Voided</fullName>
+        <description>Populate Date Settled or Voided</description>
+        <field>DateSettledVoided__c</field>
+        <formula>NOW()</formula>
+        <name>Populate Date Settled or Voided</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Invoice - Populate Date Settled%2FVoided</fullName>
+        <actions>
+            <name>Populate_Date_Settled_or_Voided</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Populate Date Settled/Voided</description>
+        <formula>OR( AND(TEXT(Transaction_Status__c) = &apos;settled&apos;,ISCHANGED(Transaction_Status__c)), AND(TEXT(Transaction_Status__c) = &apos;voided&apos;, ISCHANGED(Transaction_Status__c)) ) &amp;&amp; NOT($Setup.Bypass_Automation_Settings__c.Bypass_Workflows__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

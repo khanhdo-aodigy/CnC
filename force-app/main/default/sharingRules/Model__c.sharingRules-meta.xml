@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>CITPC_Sales</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>CITPC Sales</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>CITPC_Sales_Manager</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>Branch_Code__c</field>
+            <operation>equals</operation>
+            <value>CCF</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CIT_MIT_Model_Sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>CIT + MIT Model Sharing</label>
+        <sharedTo>
+            <group>CIT_MIT_Sales_Manager</group>
+        </sharedTo>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <field>Branch_Code__c</field>
+            <operation>equals</operation>
+            <value>CCA</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Branch_Code__c</field>
+            <operation>equals</operation>
+            <value>CCF</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>MIT_Model1</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>MIT Model</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>MITPC_Sales_Manager</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>Branch_Code__c</field>
+            <operation>equals</operation>
+            <value>CCA</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Model_MB_Sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Share MB Models to MB Sales Managers, Admin and Executive</description>
+        <label>Model MB Sharing</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>MB_Sales</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>Branch_Code__c</field>
+            <operation>equals</operation>
+            <value>CCI</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_to_KIA</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share to KIA</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>KIAPC_Sales_Manager</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>Branch_Code__c</field>
+            <operation>equals</operation>
+            <value>CCK</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

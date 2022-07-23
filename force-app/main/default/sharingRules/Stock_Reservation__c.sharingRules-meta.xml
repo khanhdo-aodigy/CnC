@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>CIT_MIT_Stock_Reservation</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>CIT + MIT Stock Reservation</label>
+        <sharedTo>
+            <group>CIT_MIT_Sales_Manager</group>
+        </sharedTo>
+        <booleanFilter>1 or 2 or 3 or 4</booleanFilter>
+        <criteriaItems>
+            <field>Branch_Code__c</field>
+            <operation>equals</operation>
+            <value>CCA</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Branch_Code__c</field>
+            <operation>equals</operation>
+            <value>CCF</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Franchise_Code__c</field>
+            <operation>equals</operation>
+            <value>MITPC</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Franchise_Code__c</field>
+            <operation>equals</operation>
+            <value>CITPC</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>KIA_Stock_Reservation</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Share with KIAPC Sales Admin</description>
+        <label>KIA Stock Reservation</label>
+        <sharedTo>
+            <role>KIAPC_Sales_Admin</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Branch_Code__c</field>
+            <operation>equals</operation>
+            <value>CCK</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Stock_Reservation_to_Mgr</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Share Stock Reservation to Mgr</label>
+        <sharedTo>
+            <role>MITPC_Sales_Manager</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Branch_Code__c</field>
+            <operation>equals</operation>
+            <value>CCA</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_to_CITPC</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share to CITPC</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>CITPC_Sales_Manager</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>Branch_Code__c</field>
+            <operation>equals</operation>
+            <value>CCF</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_to_Consultant</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share to Consultant</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>MITPC_Sales_Consultant</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>Branch_Code__c</field>
+            <operation>equals</operation>
+            <value>CCA</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

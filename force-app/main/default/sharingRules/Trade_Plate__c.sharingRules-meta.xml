@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>CITCV_share</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>CITCV share</label>
+        <sharedTo>
+            <role>CITCV_Sales_Consultant</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Franchise_Code__c</field>
+            <operation>equals</operation>
+            <value>CITCV</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CITPC_share</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>CITPC share</label>
+        <sharedTo>
+            <role>CITPC_Sales_Consultant</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Franchise_Code__c</field>
+            <operation>equals</operation>
+            <value>CITPC</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>KIACV_share</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>KIACV share</label>
+        <sharedTo>
+            <role>KIACV_Sales_Consultant</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Franchise_Code__c</field>
+            <operation>equals</operation>
+            <value>KIACV</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>KIAPC_share</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>KIAPC share</label>
+        <sharedTo>
+            <role>KIAPC_Sales_Consultant</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Franchise_Code__c</field>
+            <operation>equals</operation>
+            <value>KIAPC</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

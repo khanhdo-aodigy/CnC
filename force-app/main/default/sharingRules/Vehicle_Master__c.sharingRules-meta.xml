@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>CITCV_share</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>CITCV share</label>
+        <sharedTo>
+            <role>CITCV_Sales_Consultant</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Franchise_Code__c</field>
+            <operation>equals</operation>
+            <value>CITCV</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CITPC_share</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>CITPC share</label>
+        <sharedTo>
+            <role>CITPC_Sales_Consultant</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Franchise_Code__c</field>
+            <operation>equals</operation>
+            <value>CITPC</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CIT_MIT_Vehicle_Master_sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>CIT + MIT Vehicle Master sharing</label>
+        <sharedTo>
+            <group>CIT_MIT_Sales_Manager</group>
+        </sharedTo>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <field>Branch_Code__c</field>
+            <operation>equals</operation>
+            <value>CCA</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Branch_Code__c</field>
+            <operation>equals</operation>
+            <value>CCF</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Franchise_Code</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Franchise Code</label>
+        <sharedTo>
+            <role>MITPC_Sales_Consultant</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Franchise_Code__c</field>
+            <operation>equals</operation>
+            <value>MITPC</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>KIACV_share</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>KIACV share</label>
+        <sharedTo>
+            <role>KIACV_Sales_Consultant</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Franchise_Code__c</field>
+            <operation>equals</operation>
+            <value>KIACV</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>KIAPC_share</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>KIAPC share</label>
+        <sharedTo>
+            <role>KIAPC_Sales_Consultant</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Franchise_Code__c</field>
+            <operation>equals</operation>
+            <value>KIAPC</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

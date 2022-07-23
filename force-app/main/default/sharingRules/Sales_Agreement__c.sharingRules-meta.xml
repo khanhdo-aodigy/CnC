@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>CIT_share_with_BSD</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>CIT share with BSD</label>
+        <sharedTo>
+            <role>BSD</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>CITPC_Sales_Consultant</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Delivery_Bay_IC</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share with Delivery Bay IC</label>
+        <sharedTo>
+            <role>New_Car_Logistic</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>CITPC_Sales_Consultant</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>KIA_share_with_BSD</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>KIA share with BSD</label>
+        <sharedTo>
+            <role>BSD</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>KIAPC_Sales_Consultant</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>MIT_CIT_Sharing</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>MIT &amp; CIT Sharing</label>
+        <sharedTo>
+            <group>Mits_Cits_Sales_Manager</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>MITPC_Sales_Manager</roleAndSubordinatesInternal>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>MIT_share_with_BSD</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>MIT share with BSD</label>
+        <sharedTo>
+            <role>BSD</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>MITPC_Sales_Consultant</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Mitsubishi_Citroen</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>For Mitsubishi and Citoren Sales manager to access both set of records</description>
+        <label>Mitsubishi + Citroen</label>
+        <sharedTo>
+            <group>Mits_Cits_Sales_Manager</group>
+        </sharedTo>
+        <sharedFrom>
+            <role>CITPC_Sales_Manager</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Mitsubishi_Citroen_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Mitsubishi &amp;Citroen</label>
+        <sharedTo>
+            <group>Mits_Cits_Sales_Manager</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>CITPC_Sales_Manager</roleAndSubordinatesInternal>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Share_with_Delivery_Bay_IC</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share with Delivery Bay IC</label>
+        <sharedTo>
+            <role>New_Car_Logistic</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>MITPC_Sales_Consultant</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Share_with_Delivery_Bay_IC_2</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share with Delivery Bay IC</label>
+        <sharedTo>
+            <role>New_Car_Logistic</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>KIAPC_Sales_Consultant</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

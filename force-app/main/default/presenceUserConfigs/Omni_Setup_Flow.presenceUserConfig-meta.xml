@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PresenceUserConfig xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignments>
+        <users>
+            <user>ben.see@cyclecarriage.com.sg</user>
+            <user>ryan.chen@cyclecarriage.com.sg</user>
+            <user>vanessa.ho@cyclecarriage.com.sg</user>
+            <user>yickjie.tien@cyclecarriage.com.sg</user>
+        </users>
+    </assignments>
+    <capacity>40</capacity>
+    <enableAutoAccept>true</enableAutoAccept>
+    <enableDecline>false</enableDecline>
+    <enableDeclineReason>false</enableDeclineReason>
+    <enableDisconnectSound>true</enableDisconnectSound>
+    <enableRequestSound>false</enableRequestSound>
+    <label>Omni_Setup_Flow</label>
+</PresenceUserConfig>

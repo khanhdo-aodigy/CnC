@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Update_BR_CCF</fullName>
+        <field>Branch_Code__c</field>
+        <literalValue>CCF</literalValue>
+        <name>Update BR CCF</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_BR_CCK</fullName>
+        <field>Branch_Code__c</field>
+        <literalValue>CCK</literalValue>
+        <name>Update BR CCK</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_BR_none</fullName>
+        <field>Branch_Code__c</field>
+        <name>Update BR none</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_FR_CITCV</fullName>
+        <field>Franchise_Code__c</field>
+        <literalValue>CITCV</literalValue>
+        <name>Update FR CITCV</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_FR_CITPC</fullName>
+        <field>Franchise_Code__c</field>
+        <literalValue>CITPC</literalValue>
+        <name>Update FR CITPC</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_FR_KIACV</fullName>
+        <field>Franchise_Code__c</field>
+        <literalValue>KIACV</literalValue>
+        <name>Update FR KIACV</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_FR_KIAPC</fullName>
+        <field>Franchise_Code__c</field>
+        <literalValue>KIAPC</literalValue>
+        <name>Update FR KIAPC</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_FR_None</fullName>
+        <field>Franchise_Code__c</field>
+        <name>Update FR None</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Update User to CITCV</fullName>
+        <actions>
+            <name>Update_BR_CCF</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_FR_CITCV</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>User.UserRoleId</field>
+            <operation>equals</operation>
+            <value>CITCV Sales Consultant,CITCV Sales Manager</value>
+        </criteriaItems>
+        <description>Give default BR=CCF, FR=CITCV 
+where ROLE=CITCV SC and CITCV SM</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update User to CITPC</fullName>
+        <actions>
+            <name>Update_BR_CCF</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_FR_CITPC</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>User.UserRoleId</field>
+            <operation>equals</operation>
+            <value>CITPC Sales Consultant,CITPC Sales Manager</value>
+        </criteriaItems>
+        <description>Give default BR=CCF, FR=CITPC
+where ROLE=CITPC SC and CITPC SM</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update User to KIACV</fullName>
+        <actions>
+            <name>Update_BR_CCK</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_FR_KIACV</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>User.UserRoleId</field>
+            <operation>equals</operation>
+            <value>KIACV Sales Consultant,KIACV Sales Manager</value>
+        </criteriaItems>
+        <description>Give default BR=CCK, FR=KIAPC 
+where ROLE=KIAPC SC and KIAPC SM</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update User to KIAPC</fullName>
+        <actions>
+            <name>Update_BR_CCK</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_FR_KIAPC</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>User.UserRoleId</field>
+            <operation>equals</operation>
+            <value>KIAPC Sales Consultant,KIAPC Sales Manager</value>
+        </criteriaItems>
+        <description>Give default BR=CCK, FR=KIAPC
+where ROLE=KIAPC SC and KIAPC SM</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update User to Management</fullName>
+        <actions>
+            <name>Update_BR_none</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_FR_None</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>User.UserRoleId</field>
+            <operation>equals</operation>
+            <value>C&amp;C Management,Management</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

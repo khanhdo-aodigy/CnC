@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>CITCV_share</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>CITCV share</label>
+        <sharedTo>
+            <role>CITCV_Sales_Consultant</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Franchise_Code__c</field>
+            <operation>equals</operation>
+            <value>CITCV</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CITPC_share</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>CITPC share</label>
+        <sharedTo>
+            <role>CITPC_Sales_Consultant</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Franchise_Code__c</field>
+            <operation>equals</operation>
+            <value>CITPC</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>KIACV_share</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>KIACV share</label>
+        <sharedTo>
+            <role>KIACV_Sales_Consultant</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Franchise_Code__c</field>
+            <operation>equals</operation>
+            <value>KIACV</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>KIAPC_share</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>KIAPC share</label>
+        <sharedTo>
+            <role>KIAPC_Sales_Consultant</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Franchise_Code__c</field>
+            <operation>equals</operation>
+            <value>KIAPC</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>MIT_CIT_Sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>MIT &amp; CIT Sharing</label>
+        <sharedTo>
+            <group>CIT_MIT_Sales_Manager</group>
+        </sharedTo>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <field>Franchise_Code__c</field>
+            <operation>equals</operation>
+            <value>CITPC</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Franchise_Code__c</field>
+            <operation>equals</operation>
+            <value>MITPC</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_to_MITPC_Consultant</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Share to MITPC Consultant</description>
+        <label>Share to MITPC Consultant</label>
+        <sharedTo>
+            <role>MITPC_Sales_Consultant</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Franchise_Code__c</field>
+            <operation>equals</operation>
+            <value>MITPC</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingOwnerRules>
+        <fullName>Mitsubishi_Citroen</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>For Mitsubishi and Citoren Sales manager to access both set of records</description>
+        <label>Mitsubishi + Citroen</label>
+        <sharedTo>
+            <group>Mits_Cits_Sales_Manager</group>
+        </sharedTo>
+        <sharedFrom>
+            <role>CITPC_Sales_Manager</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

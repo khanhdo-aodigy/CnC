@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>TestDrive_Update_Post_TestDrive_Email</fullName>
+        <description>Tick the &apos;Send Post Test Drive Email&apos; checkbox one day after successful test drive.
+Test Drive data will be sent to MC to Trigger Feedback Email.</description>
+        <field>SendPostTestDrive__c</field>
+        <literalValue>1</literalValue>
+        <name>TestDrive_Update_Post_TestDrive_Email</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Digital_Signature</fullName>
+        <description>Delete current digital signature</description>
+        <field>Digital_Signature__c</field>
+        <formula>&quot;&quot;</formula>
+        <name>Update Digital Signature</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Test_Drive_Owner</fullName>
+        <field>OwnerId</field>
+        <lookupValue>juliana.lim@cyclecarriage.com.sg</lookupValue>
+        <lookupValueType>User</lookupValueType>
+        <name>Update Test Drive Owner</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>change_Send_SMS</fullName>
+        <description>Change send sms in test drive</description>
+        <field>send_Sms__c</field>
+        <literalValue>1</literalValue>
+        <name>change Send SMS</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Delete Digital Signature</fullName>
+        <active>true</active>
+        <description>Delete Digital Signature After 5 menit created</description>
+        <formula>NOT(ISBLANK( Digital_Signature__c )) &amp;&amp; NOT($Setup.Bypass_Automation_Settings__c.Bypass_Workflows__c )</formula>
+        <triggerType>onCreateOnly</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Update_Digital_Signature</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Test_Drive__c.Time_Trigger_05__c</offsetFromField>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Test Drive Send Sms</fullName>
+        <active>true</active>
+        <description>time based workflow to trigger send_sms which trigger the sending sms</description>
+        <formula>AND(  send_Sms__c &lt;&gt; true, 	NOT(ISBLANK(Check_In__c)),  NOT($Setup.Bypass_Automation_Settings__c.Bypass_Workflows__c )					 )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>change_Send_SMS</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Test_Drive__c.sms_date_trigger__c</offsetFromField>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Tick Send Post Test Drive Feedback</fullName>
+        <active>false</active>
+        <criteriaItems>
+            <field>Test_Drive__c.Status__c</field>
+            <operation>equals</operation>
+            <value>In</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Test_Drive__c.Check_In__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Hidden Field to trigger Post test drive email asking for Feedback.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>TestDrive_Update_Post_TestDrive_Email</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Tick Send Post Test Drive Feedback Send</fullName>
+        <active>true</active>
+        <description>Hidden Field to trigger Post test drive email asking for Feedback.</description>
+        <formula>ISPICKVAL( Status__c, &apos;In&apos;) 
+	&amp;&amp; NOT(ISBLANK(Check_In__c))	
+	&amp;&amp; NOT(ISBLANK(Check_Out__c))
+	&amp;&amp; NOT( $Setup.Bypass_Automation_Settings__c.Bypass_Workflows__c )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>TestDrive_Update_Post_TestDrive_Email</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>2</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Update Test Drive Owner</fullName>
+        <actions>
+            <name>Update_Test_Drive_Owner</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Test_Drive__c.Source__c</field>
+            <operation>equals</operation>
+            <value>Website</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

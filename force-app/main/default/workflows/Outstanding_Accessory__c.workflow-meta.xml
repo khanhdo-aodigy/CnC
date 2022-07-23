@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Update_unique_Key</fullName>
+        <field>Unique_Key__c</field>
+        <formula>SAAccessory__r.Name + &quot;_&quot; +Sales_Agreement__r.Name</formula>
+        <name>Update unique Key</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Update unique Key</fullName>
+        <actions>
+            <name>Update_unique_Key</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND( 				NOT(ISBLANK(AccessoryName__c)), 				NOT(ISBLANK(Sales_Agreement__r.Name)), 				NOT($Setup.Bypass_Automation_Settings__c.Bypass_Workflows__c ) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Button for the SM to enable the DSA</description>
+    <fieldOverrides>
+        <field>Stage__c</field>
+        <literalValue>Booking</literalValue>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Stock_Reservation__c</field>
+        <formula>Sales_Agreement__c.Stock_Reservation__c</formula>
+    </fieldOverrides>
+    <label>Enable DSA</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <quickActionLayout>
+        <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Name</field>
+                <uiBehavior>Readonly</uiBehavior>
+            </quickActionLayoutItems>
+        </quickActionLayoutColumns>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Sales_Consultant__c</field>
+                <uiBehavior>Readonly</uiBehavior>
+            </quickActionLayoutItems>
+        </quickActionLayoutColumns>
+    </quickActionLayout>
+    <successMessage>DSA is now editable</successMessage>
+    <type>Update</type>
+</QuickAction>

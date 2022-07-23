@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>MB_Variant_Sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Share MB Variants to respective parties</description>
+        <label>MB Variant Sharing</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>MB_Sales</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>Branch__c</field>
+            <operation>equals</operation>
+            <value>CCI</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_to_CITPC_Sales_Manager</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share to CITPC Sales Manager</label>
+        <sharedTo>
+            <role>MITPC_Sales_Manager</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Branch__c</field>
+            <operation>equals</operation>
+            <value>CCF</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>VariantShare_to_MITPC_Manager</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share to MITPC Manager</label>
+        <sharedTo>
+            <role>MITPC_Sales_Manager</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Branch__c</field>
+            <operation>equals</operation>
+            <value>CCA</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

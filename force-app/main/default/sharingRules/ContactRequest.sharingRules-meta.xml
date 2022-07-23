@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>Contact_Access_to_Everyone</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Contact Access to Everyone</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>CAC_Manager</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Management</roleAndSubordinatesInternal>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

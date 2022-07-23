@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Allow the Sales Executive to Indent selected variants on Digital Sales Agreement</description>
+    <fieldOverrides>
+        <field>Branch__c</field>
+        <literalValue>CCI</literalValue>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Franchise__c</field>
+        <formula>Text(Variant__c.Franchise__c)</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Model_ID__c</field>
+        <formula>Variant__c.Model_ID__c</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Name</field>
+        <formula>Variant__c.Name</formula>
+    </fieldOverrides>
+    <label>Indent Status</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <quickActionLayout>
+        <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Allow_Indent__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+        </quickActionLayoutColumns>
+        <quickActionLayoutColumns/>
+    </quickActionLayout>
+    <successMessage>Indent Status Have Been Modified!</successMessage>
+    <type>Update</type>
+</QuickAction>

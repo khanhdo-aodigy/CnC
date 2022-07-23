@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Inactive_campaign</fullName>
+        <field>IsActive</field>
+        <literalValue>0</literalValue>
+        <name>Inactive campaign</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>count_Message</fullName>
+        <field>Length_Message__c</field>
+        <formula>LEN( Marketing_Message__c )</formula>
+        <name>count Message</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Count Marketing Message</fullName>
+        <actions>
+            <name>count_Message</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>NOT($Setup.Bypass_Automation_Settings__c.Bypass_Workflows__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Inactive campaign</fullName>
+        <active>true</active>
+        <description>Inactive campaign where end date has pass</description>
+        <formula>IsActive = true &amp;&amp; NOT($Setup.Bypass_Automation_Settings__c.Bypass_Workflows__c )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Inactive_campaign</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Campaign.EndDate</offsetFromField>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+</Workflow>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Cancel_Stock_Reservation_1</fullName>
+        <field>Cancellation_Reason__c</field>
+        <formula>&quot;SYSTEM CANCELED DUE TO NO AGREEMENT&quot;</formula>
+        <name>Cancel Stock Reservation 1</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Cancel_Stock_Reservation_2</fullName>
+        <field>Reservation_Status__c</field>
+        <literalValue>Cancel</literalValue>
+        <name>Cancel Stock Reservation 2</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Cancel Stock Reservation after 24 hours</fullName>
+        <active>false</active>
+        <criteriaItems>
+            <field>Stock_Reservation__c.Reservation_Status__c</field>
+            <operation>equals</operation>
+            <value>Reserve</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Cancel_Stock_Reservation_1</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <actions>
+                <name>Cancel_Stock_Reservation_2</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Stock_Reservation__c.CreatedDate</offsetFromField>
+            <timeLength>24</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+</Workflow>

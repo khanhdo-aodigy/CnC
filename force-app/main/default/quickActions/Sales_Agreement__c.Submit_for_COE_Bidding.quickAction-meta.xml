@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldOverrides>
+        <field>Stock_Reservation__c</field>
+        <formula>Sales_Agreement__c.Stock_Reservation__c</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Submit_COE_Bidding__c</field>
+        <formula>true</formula>
+    </fieldOverrides>
+    <label>Submit for COE Bidding</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <quickActionLayout>
+        <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Loan_Approval_Status__c</field>
+                <uiBehavior>Required</uiBehavior>
+            </quickActionLayoutItems>
+        </quickActionLayoutColumns>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Submit_COE_Bidding__c</field>
+                <uiBehavior>Readonly</uiBehavior>
+            </quickActionLayoutItems>
+        </quickActionLayoutColumns>
+    </quickActionLayout>
+    <successMessage>Sales Agreement Has Been Submitted for COE Bidding</successMessage>
+    <type>Update</type>
+</QuickAction>

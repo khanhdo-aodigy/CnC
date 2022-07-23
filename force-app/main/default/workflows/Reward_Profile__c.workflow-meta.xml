@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Create_RP_Unique_Key</fullName>
+        <field>Unique_Key__c</field>
+        <formula>IF(RecordType.DeveloperName == &apos;Individual&apos;, (CASESAFEID( Account__r.Id ) + &apos;_&apos; + CASESAFEID( Contact__r.Id ) + &apos;_&apos; + TEXT(Brand__c) + &apos;_&apos; + TEXT(Branch__c) + &apos;_&apos; + TEXT(Type__c) ),(CASESAFEID( Account__r.Id ) + &apos;_&apos; + CASESAFEID( Registered_Vehicle__r.Id ) + &apos;_&apos; + TEXT(Brand__c) + &apos;_&apos; + TEXT(Branch__c) + &apos;_&apos; + TEXT(Type__c)) )</formula>
+        <name>Create RP Unique Key</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Generate RP Unique Key</fullName>
+        <actions>
+            <name>Create_RP_Unique_Key</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Generate Reward Profile Unique Key</description>
+        <formula>ISBLANK(Unique_Key__c) &amp;&amp; NOT($Setup.Bypass_Automation_Settings__c.Bypass_Workflows__c )</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>
