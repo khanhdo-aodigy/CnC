@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Credit_No_Credit_Date_cannot_be_empty</fullName>
-    <active>false</active>
-    <description>When COE Buy Back checked, Credit No and Credit Date can&apos;t be empty</description>
-    <errorConditionFormula>AND( COE_Buy_Back__c == true, OR(ISBLANK(Credit_No__c), ISBLANK(Credit_Date__c)) , NOT($Setup.Bypass_Automation_Settings__c.Bypass_Validation_Rules__c))</errorConditionFormula>
-    <errorMessage>Credit No and Credit Date can&apos;t be empty.</errorMessage>
-</ValidationRule>

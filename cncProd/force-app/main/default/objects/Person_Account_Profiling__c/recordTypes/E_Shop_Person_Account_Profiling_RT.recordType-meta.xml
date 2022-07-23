@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>E_Shop_Person_Account_Profiling_RT</fullName>
-    <active>true</active>
-    <description>Customer has purchased car via MyC&amp;C/ MyMB app</description>
-    <label>E-Shop Person Account Profiling RT</label>
-</RecordType>

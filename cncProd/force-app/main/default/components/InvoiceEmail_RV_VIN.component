@@ -1,4 +1,0 @@
-<apex:component controller="InvoiceEmail_RV_VIN" access="global">
-    <apex:attribute name="srv_id" type="string" assignTo="{!rv_id}" description="Registration numbber"/>
-    {!VIN_Val}
-</apex:component>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>From_Date_Less_Than_To_Date</fullName>
-    <active>true</active>
-    <description>From Date cannot exceed To Date</description>
-    <errorConditionFormula>(From_Date__c &gt; To_Date__c)
-&amp;&amp; NOT($Setup.Bypass_Automation_Settings__c.Bypass_Validation_Rules__c)</errorConditionFormula>
-    <errorMessage>&quot;From Date&quot; cannot exceed &quot;To Date&quot;</errorMessage>
-</ValidationRule>

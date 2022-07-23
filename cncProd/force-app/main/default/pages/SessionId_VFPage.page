@@ -1,4 +1,0 @@
-<apex:page >
-    <apex:outputText >Hi {!$User.FirstName}, your session id is: </apex:outputText> <br/>
-    <apex:outputText >{!$Api.Session_ID}</apex:outputText>
-</apex:page>

@@ -1,4 +1,0 @@
-<design:component>
-    <design:attribute name="selectedAddr" label="Selected Address"/>
-    <!--    <design:attribute name="postalcode" label="Postal Code" /> -->
-</design:component>

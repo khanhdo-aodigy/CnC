@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>RA_Used_Car_Stock_Reservation_RT</fullName>
-    <active>true</active>
-    <label>RA Used Car Stock Reservation RT</label>
-</RecordType>

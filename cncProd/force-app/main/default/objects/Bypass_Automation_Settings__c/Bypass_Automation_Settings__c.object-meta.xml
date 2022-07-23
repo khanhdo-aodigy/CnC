@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <customSettingsType>Hierarchy</customSettingsType>
-    <description>Custom setting for bypass all automation (Flows, Workflows, Triggers, Validation Rules,...)</description>
-    <enableFeeds>false</enableFeeds>
-    <label>Bypass Automation Settings</label>
-    <visibility>Public</visibility>
-</CustomObject>

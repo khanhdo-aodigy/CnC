@@ -1,2 +1,0 @@
-<apex:page controller="TextDrivePDFPortal" action="{!goNext}" >
-</apex:page>

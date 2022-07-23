@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>NRIC_Check__c</fullName>
-    <externalId>false</externalId>
-    <formula>NRIC__c =  Contact.NRIC__c</formula>
-    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-    <label>NRIC Check</label>
-    <type>Checkbox</type>
-</CustomField>

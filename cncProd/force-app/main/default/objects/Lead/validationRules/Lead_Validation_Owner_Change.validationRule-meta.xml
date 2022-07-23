@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Lead_Validation_Owner_Change</fullName>
-    <active>false</active>
-    <errorConditionFormula>IF(AND(NOT(ISNEW()), ISCHANGED(OwnerId), $Profile.Name != &apos;System Administrator&apos;, OwnerId != $Setup.global_var__c.Default_Owner_C_C__c), true, false)</errorConditionFormula>
-    <errorMessage>Sorry, you are not allowed to change lead owner.</errorMessage>
-</ValidationRule>
