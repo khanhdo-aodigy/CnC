@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Daimler_Id_Required</fullName>
+    <active>false</active>
+    <description>Daimler SF Lead ID is compulsory before Docusign is being sent out</description>
+    <errorConditionFormula>AND( !ISNEW() , AND( ISPICKVAL(Status__c, &apos;Draft&apos;) , ISBLANK(Daimler_LeadID__c) ) )</errorConditionFormula>
+    <errorDisplayField>Daimler_LeadID__c</errorDisplayField>
+    <errorMessage>Please fill in Daimler Lead Id.</errorMessage>
+</ValidationRule>
