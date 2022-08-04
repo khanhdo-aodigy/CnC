@@ -1,0 +1,32 @@
+<template>
+    <template if:true={ready}>
+        <h1 class="slds-text-heading_small slds-var-p-bottom_medium slds-var-p-top_medium">
+            <b>Line Items Status Summary</b>
+        </h1>
+
+        <div class="slds-box">
+            <lightning-datatable data={lineItems} columns={lineItemColumns} onrowaction={handleRowAction} key-field="id" hide-checkbox-column></lightning-datatable>
+        </div>
+        
+
+        <template if:true={displayHistoryTracking}>
+            <h1 class="slds-text-heading_small slds-var-p-bottom_medium slds-var-p-top_medium">
+                <b>History of Selected Line Item</b>
+            </h1>
+            <div class="slds-box">
+                <lightning-datatable data={history} columns={historyColumns} key-field="id" hide-checkbox-column></lightning-datatable>
+            </div>
+            
+        </template>
+
+        <template if:true={displaySnapshotCompare}>
+            <h1 class="slds-text-heading_small slds-var-p-bottom_medium slds-var-p-top_medium">
+                <b>Compare with Approved Version</b>
+            </h1>
+            <div class="slds-box">
+                <lightning-datatable data={compare} columns={compareColumns} key-field="id" hide-checkbox-column></lightning-datatable>
+            </div>
+            
+        </template>
+    </template>
+</template>
