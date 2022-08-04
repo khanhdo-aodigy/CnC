@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <apiVersion>55.0</apiVersion>
+    <assignments>
+        <name>Update_VPO_Stage_Sales_Admin</name>
+        <label>Update VPO Stage (Sales Admin)</label>
+        <locationX>314</locationX>
+        <locationY>518</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Vehicle_Purchase_Order.Stage__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Stage_Input_Sales_Admin</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Vehicle_Purchase_Order.Cancellation_Reason__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Cancellation_Reason_Sales_Admin</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Commit_VPO_Stage_Changes</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Update_VPO_Stage_System_Admin</name>
+        <label>Update VPO Stage (System Admin)</label>
+        <locationX>50</locationX>
+        <locationY>518</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Vehicle_Purchase_Order.Stage__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Stage_Input_System_Admin</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Vehicle_Purchase_Order.Cancellation_Reason__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Cancellation_Reason_System_Admin</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Commit_VPO_Stage_Changes</targetReference>
+        </connector>
+    </assignments>
+    <choices>
+        <name>Cancelled_Stage</name>
+        <choiceText>Cancelled</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Cancelled</stringValue>
+        </value>
+    </choices>
+    <decisions>
+        <name>User_Profile_Checking</name>
+        <label>User Profile Checking</label>
+        <locationX>314</locationX>
+        <locationY>278</locationY>
+        <defaultConnector>
+            <targetReference>Ineligible_Profile_Screen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>System_Administrator</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Profile.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>System Administrator</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Stage_Update_System_Admin</targetReference>
+            </connector>
+            <label>System Administrator</label>
+        </rules>
+        <rules>
+            <name>Sales_Admin</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Profile.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>KIAPC Sales Admin</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Stage_Update_Sales_Admin</targetReference>
+            </connector>
+            <label>Sales Admin</label>
+        </rules>
+    </decisions>
+    <dynamicChoiceSets>
+        <name>StageOptions</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Stage__c</picklistField>
+        <picklistObject>Vehicle_Purchase_Order__c</picklistObject>
+    </dynamicChoiceSets>
+    <interviewLabel>Vehicle Purchase Order Stage Updating Screen {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Vehicle Purchase Order Stage Updating Screen</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordLookups>
+        <name>Get_Vehicle_Purchase_Order</name>
+        <label>Get Vehicle Purchase Order</label>
+        <locationX>314</locationX>
+        <locationY>158</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>User_Profile_Checking</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Vehicle_Purchase_Order__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Commit_VPO_Stage_Changes</name>
+        <label>Commit VPO Stage Changes</label>
+        <locationX>314</locationX>
+        <locationY>734</locationY>
+        <faultConnector>
+            <targetReference>Update_Exception_Screen</targetReference>
+        </faultConnector>
+        <inputReference>Get_Vehicle_Purchase_Order</inputReference>
+    </recordUpdates>
+    <runInMode>SystemModeWithSharing</runInMode>
+    <screens>
+        <name>Ineligible_Profile_Screen</name>
+        <label>Ineligible Profile Screen</label>
+        <locationX>578</locationX>
+        <locationY>398</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Ineligible_Profile_Message</name>
+            <fieldText>&lt;p&gt;Your profile is ineligible for stage editting. Please contact your System Administrator or Sales Admin.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Stage_Update_Sales_Admin</name>
+        <label>Stage Update (Sales Admin)</label>
+        <locationX>314</locationX>
+        <locationY>398</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Update_VPO_Stage_Sales_Admin</targetReference>
+        </connector>
+        <fields>
+            <name>Stage_Input_Sales_Admin</name>
+            <choiceReferences>Cancelled_Stage</choiceReferences>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference>Get_Vehicle_Purchase_Order.Stage__c</elementReference>
+            </defaultValue>
+            <fieldText>Stage Input (Sales Admin)</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Cancellation_Reason_Sales_Admin</name>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference>Get_Vehicle_Purchase_Order.Cancellation_Reason__c</elementReference>
+            </defaultValue>
+            <fieldText>Cancellation Reason</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Stage_Update_System_Admin</name>
+        <label>Stage Update (System Admin)</label>
+        <locationX>50</locationX>
+        <locationY>398</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Update_VPO_Stage_System_Admin</targetReference>
+        </connector>
+        <fields>
+            <name>Stage_Input_System_Admin</name>
+            <choiceReferences>StageOptions</choiceReferences>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference>Get_Vehicle_Purchase_Order.Stage__c</elementReference>
+            </defaultValue>
+            <fieldText>Stage Input (System Admin)</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Cancellation_Reason_System_Admin</name>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference>Get_Vehicle_Purchase_Order.Cancellation_Reason__c</elementReference>
+            </defaultValue>
+            <fieldText>Cancellation Reason</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Stage_Input_System_Admin</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <stringValue>Cancelled</stringValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Update_Exception_Screen</name>
+        <label>Update Exception Screen</label>
+        <locationX>842</locationX>
+        <locationY>854</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Update_Exception_Message</name>
+            <fieldText>&lt;p&gt;Unexpected error on Vehicle Purchase Order: {!$Flow.FaultMessage}.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Please contact your System Administrator.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>188</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Vehicle_Purchase_Order</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>
