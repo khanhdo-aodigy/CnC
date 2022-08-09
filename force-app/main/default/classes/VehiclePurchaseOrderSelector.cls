@@ -21,24 +21,26 @@ public inherited sharing class VehiclePurchaseOrderSelector extends ADGLIB_SObje
 
     public List<Schema.SObjectField> getSObjectFieldList()
     {
-        return new List<Schema.SObjectField>
-        {
-            Vehicle_Purchase_Order__c.Currency_Code__c,
-            Vehicle_Purchase_Order__c.Franchise_Code__c,
-            Vehicle_Purchase_Order__c.PI_Uploaded__c,
-            Vehicle_Purchase_Order__c.PO_Approved_Date__c,
-            Vehicle_Purchase_Order__c.Production_Month__c,
-            Vehicle_Purchase_Order__c.Remarks__c,
-            Vehicle_Purchase_Order__c.Stage__c,
-            Vehicle_Purchase_Order__c.Supplier_Account__c,
-            Vehicle_Purchase_Order__c.Total_PO_Value__c,
-            Vehicle_Purchase_Order__c.Total_Units_Confirmed__c,
-            Vehicle_Purchase_Order__c.Total_Units_Ordered__c,
-            Vehicle_Purchase_Order__c.Name,
-            Vehicle_Purchase_Order__c.OwnerId,
-            Vehicle_Purchase_Order__c.LastModifiedById,
-            Vehicle_Purchase_Order__c.CreatedById
-        };
+        // return new List<Schema.SObjectField>
+        // {
+        //     Vehicle_Purchase_Order__c.Currency_Code__c,
+        //     Vehicle_Purchase_Order__c.Franchise_Code__c,
+        //     Vehicle_Purchase_Order__c.PI_Uploaded__c,
+        //     Vehicle_Purchase_Order__c.PO_Approved_Date__c,
+        //     Vehicle_Purchase_Order__c.Production_Month__c,
+        //     Vehicle_Purchase_Order__c.Remarks__c,
+        //     Vehicle_Purchase_Order__c.Stage__c,
+        //     Vehicle_Purchase_Order__c.Supplier_Account__c,
+        //     Vehicle_Purchase_Order__c.Total_PO_Value__c,
+        //     Vehicle_Purchase_Order__c.Total_Units_Confirmed__c,
+        //     Vehicle_Purchase_Order__c.Total_Units_Ordered__c,
+        //     Vehicle_Purchase_Order__c.Name,
+        //     Vehicle_Purchase_Order__c.OwnerId,
+        //     Vehicle_Purchase_Order__c.LastModifiedById,
+        //     Vehicle_Purchase_Order__c.CreatedById
+        // };
+
+        return getSObjectType().getDescribe().fields.getMap().values();
     }
 
     /**
@@ -55,6 +57,13 @@ public inherited sharing class VehiclePurchaseOrderSelector extends ADGLIB_SObje
         // select line items
         adglib_QueryFactory lineItemsQueryFactory       = orderQueryFactory.subselectQuery(Vehicle_Purchase_Order_Line_Items__c.sObjectType);
         lineItemsQueryFactory.selectFields(new VPOLineItemsSelector().getSObjectFieldList());
+
+        // get POLI parents name
+        lineItemsQueryFactory.selectField('Color_Master__r.Color_Description__c');
+        lineItemsQueryFactory.selectField('Model_Color_Trim_Master__r.Name');
+        lineItemsQueryFactory.selectField('Trim_Master__r.Trim_Description__c');
+        lineItemsQueryFactory.selectField('Model_Master__r.Model_Description__c');
+        lineItemsQueryFactory.selectField('Model_Year_Master__r.Name');
 
         // select converted stock vehicle master
         adglib_QueryFactory convertedStockQueryFactory  = orderQueryFactory.subselectQuery(Vehicle_Master2__c.sObjectType);
