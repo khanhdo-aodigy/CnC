@@ -6,6 +6,8 @@
 ||
 Units_Confirmed__c &lt; 0
 ||
-Units_Cancelled__c &lt;0</errorConditionFormula>
-    <errorMessage>Units ordered, units confirmed and units cancelled can not be negative</errorMessage>
+Units_Cancelled__c &lt;0
+||
+Unit_Price__c &lt; 0</errorConditionFormula>
+    <errorMessage>FOB Price, Units Ordered, Units Confirmed and Units Cancelled can not be negative.</errorMessage>
 </ValidationRule>
