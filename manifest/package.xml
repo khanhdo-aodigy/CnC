@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     
-    <types>
-        <members>Vehicle_Purchase_Order_Line_Items__c.Model_Color_and_Trim_must_be_correct</members>
+     <types>
+        <members>Vehicle_Purchase_Order__c.Only_Sales_Admin_can_edit_Closed_VPO</members>
         <name>ValidationRule</name>
     </types>
-
     <version>55.0</version>
 </Package>
