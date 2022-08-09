@@ -104,18 +104,24 @@ export default class Vpo_LineItemsHistoryDashboard extends LightningElement
 
     processLineItems(lineItems)
     {
-        this.lineItems = JSON.parse(JSON.stringify(lineItems));
+        if (lineItems)
+        {
+            this.lineItems = JSON.parse(JSON.stringify(lineItems));
 
-        // replace the lookup field value with lookup field's description
-        this.replaceLookupFieldWithDescription(this.lineItems);
+            // replace the lookup field value with lookup field's description
+            this.replaceLookupFieldWithDescription(this.lineItems);
+        }   
     }
 
     processSnapshotLineItems(lineItems)
     {
-        this.snapshotLineItems = JSON.parse(JSON.stringify(lineItems));
+        if (lineItems)
+        {
+            this.snapshotLineItems = JSON.parse(JSON.stringify(lineItems));
 
-        // replace the lookup field value with lookup field's description
-        this.replaceLookupFieldWithDescription(this.snapshotLineItems);
+            // replace the lookup field value with lookup field's description
+            this.replaceLookupFieldWithDescription(this.snapshotLineItems);
+        }
     }
 
     replaceLookupFieldWithDescription(lineItems)
