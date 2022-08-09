@@ -2,33 +2,9 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     
     <types>
-        <members>*</members>
-        <name>ApexClass</name>
-    </types>
-    <types>
-        <members>*</members>
-        <name>ApexComponent</name>
-    </types>
-    <types>
-        <members>*</members>
-        <name>ApexPage</name>
-    </types>
-    <types>
-        <members>*</members>
-        <name>ApexTestSuite</name>
-    </types>
-    <types>
-        <members>*</members>
-        <name>ApexTrigger</name>
-    </types>
-    <types>
-        <members>*</members>
-        <name>AuraDefinitionBundle</name>
-    </types>
-    <types>
-        <members>*</members>
-        <name>LightningComponentBundle</name>
+        <members>Vehicle_Purchase_Order_Line_Items__c.Model_Color_and_Trim_must_be_correct</members>
+        <name>ValidationRule</name>
     </types>
 
-    <version>53.0</version>
+    <version>55.0</version>
 </Package>
