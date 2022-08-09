@@ -1,0 +1,27 @@
+.cuf-content {
+    padding:  0 0rem !important;
+}     
+.slds-p-around--medium {
+    padding: 0rem !important;
+}
+.slds-modal__content{
+    overflow: auto;           
+    height:inherit !important;    
+}
+.slds-form--stacked {
+    width: 96% !important;
+    padding-top: 25px !important;
+    padding-bottom: 25px !important;
+}   
+.slds-modal__container{
+    width: 80% !important;
+    max-width: 80% !important;                      
+}
+.isLoading{
+    text-align: center;
+    padding-bottom: 25px !important;
+    padding-top: 25px !important;
+}
+.toastMessage.forceActionsText{
+    white-space : pre-line !important;
+}
