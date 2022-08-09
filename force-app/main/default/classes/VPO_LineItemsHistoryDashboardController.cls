@@ -45,6 +45,29 @@ public without sharing class VPO_LineItemsHistoryDashboardController
             throw new AuraHandledException('Invalid Vehicle Purchase Order Id');
         }
 
+        result.lineItemFieldLabels = getLineItemFieldLabels();
+
+        return result;
+    }
+
+    /**
+     * ==================================================================================================================================================
+     * Get VPO Line Item field labels by field name
+     * Created By: dangphap.mai@aodigy.com
+     * Create Date 08 Aug 2022
+     * ==================================================================================================================================================
+     */
+    private static Map<String, String> getLineItemFieldLabels()
+    {
+        Map<String, Schema.SObjectField> fields = Schema.getGlobalDescribe().get('Vehicle_Purchase_Order_Line_Items__c').getDescribe().fields.getMap();
+
+        Map<String, String> result = new Map<String, String>();
+
+        for (Schema.SObjectField field : fields.values())
+        {
+            result.put(field.getDescribe().getName(), field.getDescribe().getLabel());
+        }
+
         return result;
     }
 
@@ -58,5 +81,8 @@ public without sharing class VPO_LineItemsHistoryDashboardController
 
         @AuraEnabled
         public Vehicle_Purchase_Order__c snapshot;
+
+        @AuraEnabled
+        public Map<String, String> lineItemFieldLabels = new Map<String, String>();
     }
 }
