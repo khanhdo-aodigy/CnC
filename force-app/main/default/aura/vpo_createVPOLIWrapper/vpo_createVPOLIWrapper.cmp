@@ -1,0 +1,50 @@
+<aura:component implements="lightning:actionOverride,flexipage:availableForRecordHome,force:hasRecordId,lightning:isUrlAddressable,lightning:hasPageReference" access="global"> 
+    <aura:attribute name="parentId" type="String"></aura:attribute>
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+    <div aura:id="editDialog" role="dialog" tabindex="-1" aria-labelledby="header43" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header">
+                <h2 class="slds-text-heading--medium">New Vehicle Purchase Order Line Items</h2>
+            </div>
+            <div class="slds-modal__content slds-p-horizontal_xx-large slds-size_1-of-1">     
+                <form class="slds-form--stacked">
+                    <c:vpo_createVPOLIDetails parentId="{!v.parentId}"></c:vpo_createVPOLIDetails>    
+                </form>             
+            </div>
+            <div class="slds-modal__footer">                
+                <lightning:button variant="neutral" label="Close" onclick="{!c.cancelDialog}"/>
+            </div>
+        </div>
+    </div>
+    <div aura:id="overlay" class="slds-backdrop slds-backdrop--open"></div>
+
+    <aura:html tag="style">
+        .cuf-content {
+            padding:  0 0rem !important;
+        }     
+        .slds-p-around--medium {
+            padding: 0rem !important;
+        }
+        .slds-modal__content{
+            overflow: auto;           
+            height:inherit !important;    
+        }
+        .slds-form--stacked {
+            width: 96% !important;
+            padding-top: 25px !important;
+            padding-bottom: 25px !important;
+        }   
+        .slds-modal__container{
+            width: 80% !important;
+            max-width: 80% !important;                      
+        }
+        .isLoading{
+            text-align: center;
+            padding-bottom: 25px !important;
+            padding-top: 25px !important;
+        }
+        .toastMessage.forceActionsText{
+            white-space : pre-line !important;
+        }
+    </aura:html> 
+</aura:component>

@@ -1,0 +1,94 @@
+<template>      
+    <div class="slds-grid slds-wrap">
+        <template if:true={spinner}>
+            <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+        </template>
+        <template if:false={spinner}>
+            <template if:false={isError}>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-record-edit-form object-api-name="Vehicle_Purchase_Order_Line_Items__c">
+                            <div class="slds-m-around_medium">
+                                <lightning-input-field
+                                            field-name="Model_Master__c"
+                                            onchange={onValueChanged}
+                                            variant="label-inline"        
+                                            required="true">
+                                </lightning-input-field>
+                            </div>
+                            <div class="slds-m-around_medium">                         
+                                <c-custom-combobox label="Color" 
+                                                name="Color_Master__c" 
+                                                required=true
+                                                autocomplete=true
+                                                multiselect=false
+                                                placeholder="Enter a Color" 
+                                                options={colorMasters} 
+                                                variant="label-inline"
+                                                validation=false
+                                                onchange={onValueChanged}
+                                                disabled={isColorDisabled}>
+                                </c-custom-combobox>               
+                            </div>
+                            <div class="slds-m-around_medium">
+                                <c-custom-combobox label="Trim" 
+                                                    name="Trim_Master__c" 
+                                                    required=true
+                                                    autocomplete=true
+                                                    multiselect=false
+                                                    placeholder="Enter a Trim" 
+                                                    options={trimMasters} 
+                                                    variant="label-inline"
+                                                    validation=false
+                                                    onchange={onValueChanged}
+                                                    disabled={isTrimDisabled}>
+                                </c-custom-combobox>
+                            </div>
+                    </lightning-record-edit-form>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-record-edit-form object-api-name="Vehicle_Purchase_Order_Line_Items__c">
+                        <div class="slds-m-around_medium">
+                            <c-custom-combobox label="Variant Year" 
+                                                name="Model_Year_Master__c" 
+                                                required=true
+                                                autocomplete=true
+                                                multiselect=false
+                                                placeholder="Enter a Model Year" 
+                                                options={modelYearMasters} 
+                                                value={details.Model_Year_Master__c}
+                                                variant="label-inline"
+                                                validation=false
+                                                onchange={onValueChanged}
+                                                disabled={isModelYearDisabled}>
+                            </c-custom-combobox>
+                        </div>
+                        <div class="slds-m-around_medium">
+                            <lightning-input-field
+                                            required="true"
+                                            field-name="Units_Ordered__c"
+                                            onchange={onValueChanged}
+                                            variant="label-inline">
+                            </lightning-input-field>
+                        </div>
+                        <div class="slds-m-around_medium">
+                            <lightning-input-field
+                                            field-name="Remarks__c"
+                                            onchange={onValueChanged}
+                                            variant="label-inline">
+                            </lightning-input-field>
+                        </div>
+                    </lightning-record-edit-form>
+                </div>
+                <div  class="slds-col slds-size_1-of-1 slds-align_absolute-center">
+                    <lightning-button label="Create" onclick={onSave} variant="brand" class="slds-m-around_medium"></lightning-button>
+                </div>
+            </template>
+            <template if:true={isError}>
+                <div class="slds-col slds-size_1-of-1 slds-align_absolute-center">{errorMessage}</div>
+            </template>
+        </template>
+    </div>
+    <div class="slds-grid slds-wrap">
+        <c-vpo_get-V-P-O-L-I-Details parent-id={parentId} onchange={onValueChanged}></c-vpo_get-V-P-O-L-I-Details>
+    </div>
+</template>
