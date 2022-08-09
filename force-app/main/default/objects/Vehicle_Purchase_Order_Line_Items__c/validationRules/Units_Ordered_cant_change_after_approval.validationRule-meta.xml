@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Units_Ordered_cant_change_after_approval</fullName>
+    <active>true</active>
+    <description>Once Vehicle Purchase Order has been approved, Units Ordered can&apos;t be changed.</description>
+    <errorConditionFormula>AND( 
+				ISCHANGED(Units_Ordered__c), 
+				OR 
+				(
+				    ISPICKVAL(Vehicle_Purchase_Order__r.Stage__c, &apos;Approved&apos;),
+								ISPICKVAL(Vehicle_Purchase_Order__r.Stage__c, &apos;Manufacturer Confirmed&apos;),
+								ISPICKVAL(Vehicle_Purchase_Order__r.Stage__c, &apos;Closed&apos;)
+				)
+)</errorConditionFormula>
+    <errorDisplayField>Units_Ordered__c</errorDisplayField>
+    <errorMessage>Once Vehicle Purchase Order has been approved, Units Ordered can&apos;t be changed.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>No_Negative_Units</fullName>
+    <active>true</active>
+    <errorConditionFormula>Units_Ordered__c &lt; 0
+||
+Units_Confirmed__c &lt; 0
+||
+Units_Cancelled__c &lt;0
+||
+Unit_Price__c &lt; 0</errorConditionFormula>
+    <errorMessage>FOB Price, Units Ordered, Units Confirmed and Units Cancelled can not be negative.</errorMessage>
+</ValidationRule>

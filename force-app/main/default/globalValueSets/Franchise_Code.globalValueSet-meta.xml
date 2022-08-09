@@ -11,6 +11,11 @@
         <label>CITPC</label>
     </customValue>
     <customValue>
+        <fullName>DPS</fullName>
+        <default>false</default>
+        <label>DPS</label>
+    </customValue>
+    <customValue>
         <fullName>KIACV</fullName>
         <default>false</default>
         <label>KIACV</label>
@@ -21,14 +26,9 @@
         <label>KIAPC</label>
     </customValue>
     <customValue>
-        <fullName>MITCV</fullName>
+        <fullName>Maxus</fullName>
         <default>false</default>
-        <label>MITCV</label>
-    </customValue>
-    <customValue>
-        <fullName>MITPC</fullName>
-        <default>false</default>
-        <label>MITPC</label>
+        <label>Maxus</label>
     </customValue>
     <customValue>
         <fullName>MBCV</fullName>
@@ -39,6 +39,16 @@
         <fullName>MBPC</fullName>
         <default>false</default>
         <label>MBPC</label>
+    </customValue>
+    <customValue>
+        <fullName>MITCV</fullName>
+        <default>false</default>
+        <label>MITCV</label>
+    </customValue>
+    <customValue>
+        <fullName>MITPC</fullName>
+        <default>false</default>
+        <label>MITPC</label>
     </customValue>
     <masterLabel>Franchise Code</masterLabel>
     <sorted>false</sorted>

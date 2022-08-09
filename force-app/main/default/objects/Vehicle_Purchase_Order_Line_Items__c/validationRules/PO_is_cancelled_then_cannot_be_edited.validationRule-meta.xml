@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PO_is_cancelled_then_cannot_be_edited</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND
+(
+NOT(ISNEW()),
+ISPICKVAL(Vehicle_Purchase_Order__r.Stage__c, &apos;Cancelled&apos;)
+)</errorConditionFormula>
+    <errorMessage>After PO stage  is cancelled, PO and POLI cannot be edited or reverted to previous stage.</errorMessage>
+</ValidationRule>
