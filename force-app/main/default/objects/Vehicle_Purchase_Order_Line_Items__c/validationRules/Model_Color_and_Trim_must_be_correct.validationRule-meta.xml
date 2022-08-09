@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Model_Color_and_Trim_must_be_correct</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR (
+					Model_Color_Trim_Master__r.Color_Code__c  &lt;&gt; Color_Master__c,  
+     Model_Color_Trim_Master__r.Model_Code__c 	&lt;&gt; Model_Master__c, 
+		   Model_Color_Trim_Master__r.Trim_Code__c 	 &lt;&gt; Trim_Master__c 
+	)</errorConditionFormula>
+    <errorMessage>Model, Color and Trim must be correctly selected based on Model Color Trim Master.</errorMessage>
+</ValidationRule>

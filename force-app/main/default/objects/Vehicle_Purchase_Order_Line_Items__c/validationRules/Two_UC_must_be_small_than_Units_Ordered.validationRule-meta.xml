@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Two_UC_must_be_small_than_Units_Ordered</fullName>
+    <active>true</active>
+    <description>Units Confirmed + Unit Cancelled can&apos;t be larger than Units Ordered.</description>
+    <errorConditionFormula>OR(( Units_Confirmed__c  +  Units_Cancelled__c )    &gt;   Units_Ordered__c|| Units_Confirmed__c &gt; Units_Ordered__c || Units_Cancelled__c  &gt; Units_Ordered__c )</errorConditionFormula>
+    <errorMessage>Units Confirmed + Unit Cancelled can&apos;t be larger than Units Ordered.</errorMessage>
+</ValidationRule>
