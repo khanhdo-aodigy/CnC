@@ -1,0 +1,4 @@
+<p>To whom it may concern,</p>
+<p>The following Vehicle Purchase Order Line Item in the approved Purchase Order {!Vehicle_Purchase_Order_Line_Items__c.Vehicle_Purchase_Order__c} has been edited. Please click on the link for more details.</p>
+<p><a href={!Vehicle_Purchase_Order_Line_Items__c.Link}>{!Vehicle_Purchase_Order_Line_Items__c.Name}</a></p>
+<p>Thank you!</p>

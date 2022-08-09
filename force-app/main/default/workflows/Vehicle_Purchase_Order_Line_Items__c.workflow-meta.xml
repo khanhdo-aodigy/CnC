@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Notification_Email_to_Sales_Admin_and_Manager</fullName>
+        <description>Notification Email to Sales Admin and Manager</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Vehicle_Purchase_Order</recipient>
+            <type>group</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>comms@cyclecarriage.com.sg</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Purchase_Requisition_Emails/Vehicle_Purchase_Order_Line_Item_Changed</template>
+    </alerts>
+</Workflow>
