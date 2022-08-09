@@ -1,0 +1,33 @@
+<apex:page id="massEdit" standardController="Vehicle_Purchase_Order_Line_Items__c" recordSetVar="VPO"  extensions="VPO_EditVPOLIPageExtension">
+    <apex:includeLightning />
+    <apex:slds />
+    <html>
+        <body>
+            <div id = "editVPOLI">
+                <script>
+                    $Lightning.use("c:VPOApp", function () 
+                    {
+                        $Lightning.createComponent("c:vpo_editVPOLI", 
+                        {
+                            parentId: '{!$CurrentPage.parameters.id}',
+                            navigateToURL: navigateToURL
+                        },
+                            "editVPOLI", function(component){});
+                    });  
+
+                    function navigateToURL(url) 
+                    {
+                        if(typeof sforce != 'undefined' && sforce && sforce.one)
+                        {
+                            sforce.one.navigateToURL(url);
+                        } 
+                        else 
+                        {
+                            window.location.href = url;
+                        }
+                    }                
+                </script>
+            </div>
+        </body>
+    </html>
+</apex:page>
