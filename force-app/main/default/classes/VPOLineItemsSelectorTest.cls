@@ -62,9 +62,11 @@ private with sharing class VPOLineItemsSelectorTest
     }
     @isTest 
     private static void VPOLineItemsSelector_Success(){
-       List<Vehicle_Purchase_Order__c> orders = [SELECT Id, Stage__c FROM Vehicle_Purchase_Order__c];
        Test.startTest();
-       update orders;
+       List<Vehicle_Purchase_Order__c> orders = [SELECT Id, Stage__c FROM Vehicle_Purchase_Order__c];
+       VPOLineItemsSelector selector = new VPOLineItemsSelector();
+       selector.getSObjectType();
+       selector.getSObjectFieldList();
        Test.stopTest();
        
     }
