@@ -1,0 +1,5 @@
+<p>To whom it may concern,</p>
+
+<p>Unfortunately, your recent position request has been rejected.</p>
+<p>Please click on the link for more details.</p>
+<p><a href={!Vehicle_Purchase_Order__c.Link}>{!Vehicle_Purchase_Order__c.Name}</a></p>
