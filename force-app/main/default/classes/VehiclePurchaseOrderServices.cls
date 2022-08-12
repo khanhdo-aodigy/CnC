@@ -108,7 +108,9 @@ public inherited sharing class VehiclePurchaseOrderServices
                     Description = '#snapshot'
                 ));
             }
-            insert snapshots;
+
+            new Helper().insertAttachments(snapshots);
+            // insert snapshots;
         }
     }
 
@@ -166,6 +168,17 @@ public inherited sharing class VehiclePurchaseOrderServices
                     throw new VehiclePurchaseOrderServicesException().invalidConversionNoModelYearMaster(item.Name);
                 }
             }
+        }
+    }
+
+    /**
+     * inner without sharing class to help by pass sharing setting in some special cases
+     */
+    private without sharing class Helper
+    {
+        private void insertAttachments(List<Attachment> attachments)
+        {
+            insert attachments;
         }
     }
     
