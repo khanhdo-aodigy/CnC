@@ -1,57 +1,32 @@
 <template>
-    <div aura:id="editDialog" role="dialog" tabindex="-1" aria-labelledby="header43" class="slds-modal slds-fade-in-open">
-        <div class="slds-modal__container">
-            <div class="slds-modal__header">
-                <h2 class="slds-text-heading--medium">Mass Edit Stock Vehicle Masters</h2>
-            </div>
-            <div class="slds-modal__content slds-p-horizontal_x-large slds-size_1-of-1">   
-                <template if:true={stockVehicleMasters.data}>
-                    <lightning-datatable
-                                key-field="Id"
-                                data={stockVehicleMasters.data}
-                                show-row-number-column
-                                row-number-offset={rowOffset}
-                                columns={columns}
-                                onsave={handleSave}
-                                draft-values={draftValues}
-                                hide-checkbox-column>
-                    </lightning-datatable>            
-                </template>  
-            </div>
-            <div class="slds-modal__footer">      
-                <lightning-button label="Close" onclick={onClose} variant="brand-outline" class="slds-m-around_medium"></lightning-button>          
-            </div>
-        </div>
-    </div>
-    <template if:true={showSuccessToast}>
-        <div class="slds-notify_container slds-is-relative">
-            <div class="slds-notify slds-notify_toast slds-theme_success" role="status">
-                <span class="slds-assistive-text">success</span>
-                <span class="slds-icon_container slds-icon-utility-success slds-m-right_small slds-no-flex slds-align-top" title="Description of icon when needed">
-                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
-                        <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#success"></use>
-                    </svg>
-                </span>
-                <div class="slds-notify__content">
-                    <h2 class="slds-text-heading_small ">Stock Vehicle Masters have been successfully updated!</h2>
+    <template if:false={isError}>
+        <div aura:id="editDialog" role="dialog" tabindex="-1" aria-labelledby="header43" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    <h2 class="slds-text-heading--medium">Mass Edit Stock Vehicle Masters</h2>
+                </div>
+                <div class="slds-modal__content slds-p-horizontal_x-large slds-size_1-of-1">   
+                    <template if:true={stockVehicleMasters.data}>
+                        <lightning-datatable
+                                    key-field="Id"
+                                    data={stockVehicleMasters.data}
+                                    show-row-number-column
+                                    row-number-offset={rowOffset}
+                                    columns={columns}
+                                    onsave={handleSave}
+                                    draft-values={draftValues}
+                                    hide-checkbox-column>
+                        </lightning-datatable>            
+                    </template>  
+                </div>
+                <div class="slds-modal__footer">      
+                    <lightning-button label="Close" onclick={onClose} variant="brand-outline" class="slds-m-around_medium"></lightning-button>          
                 </div>
             </div>
         </div>
     </template>
-    <template if:true={showErrorToast}>
-        <div class="slds-notify_container slds-is-relative">
-            <div class="slds-notify slds-notify_toast slds-theme_error" role="status">
-                <span class="slds-assistive-text">error</span>
-                <span class="slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top" title="Description of icon when needed">
-                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
-                        <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#error"></use>
-                    </svg>
-                </span>
-                <div class="slds-notify__content">
-                    <h2 class="slds-text-heading_small ">Stock Vehicle Masters cannot be successfully updated! Please contact your administrator.</h2>
-                </div>
-            </div>
-        </div>
+    <template if:true={isError}>
+        <div class="slds-col slds-size_1-of-1 slds-align_absolute-center">{errorMessage}</div>
     </template>
     <div aura:id="overlay" class="slds-backdrop slds-backdrop--open"></div>
 </template>
