@@ -1,0 +1,4 @@
+<p>To whom it may concern,</p>
+<p>Vehicle Purchase Order {!Vehicle_Purchase_Order__c.Name} is cancelled. Please click on the link for more details.</p>
+<p><a href={!Vehicle_Purchase_Order__c.Link}>{!Vehicle_Purchase_Order__c.Name}</a></p>
+<p>Thank you!</p>
