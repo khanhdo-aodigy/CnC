@@ -1,9 +1,9 @@
 @isTest
-public class VehiclePurchaseOrderConversionTest {
-@TestSetup
-    static void setUp()
+public with sharing class VehiclePurchaseOrderConversionTest {
+    @TestSetup
+    private static void setUp()
     {
-        // create model master
+		// create model master
         Model_Master__c modelMaster = Test_DataFactory.createModelCode(true, 'Model Master');
         
         // create model year master
@@ -40,13 +40,11 @@ public class VehiclePurchaseOrderConversionTest {
             Currency_Code__c = 'USD'
         );
         insert order;
-        
+
         // create SVM
         Vehicle_Master2__c vm2 = Test_DataFactory.createVehicleMaster2(false, modelMaster.Id, colorMaster.Id, trimMaster.Id, modelYearCode.Id, 'originalCommacase', 'systemCommcase');
-		vm2.Vehicle_Purchase_Order__c = order.Id;
-        vm2.Vehicle_Purchase_Status__c = 'In Shipment';
-        vm2.Vehicle_Status__c = 'ORD';
-        vm2.ProductionMonth__c= Date.today().addDays(5);
+            vm2.Vehicle_Purchase_Order__c = order.Id;
+            vm2.ProductionMonth__c = Date.today().addDays(5);
         insert vm2;
 
         // create POLIs
@@ -68,5 +66,15 @@ public class VehiclePurchaseOrderConversionTest {
         }
 
         insert polis;
+    }
+
+    @isTest 
+    private static void stockVehicleMasterConversion_Success()
+    {
+       Test.startTest();
+       List<Vehicle_Purchase_Order__c> orders = [SELECT Id, Stage__c FROM Vehicle_Purchase_Order__c];
+       List<Id> purchaseOrderIds = new List<Id>();
+       VehiclePurchaseOrderConversion.stockVehicleMasterConversion(purchaseOrderIds);  
+       Test.stopTest(); 
     }
 }
