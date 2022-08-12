@@ -14,7 +14,7 @@ public without sharing class VPO_VPOLIController
     public static List<Vehicle_Purchase_Order_Line_Items__c> getVPOLIDetail(String parentId) {
         try {
             List<Vehicle_Purchase_Order_Line_Items__c> poList = [SELECT Name, Model_Master__r.name, 
-            Colour_Description__c, Trim_Master__r.Name, Units_Ordered__c, Units_Confirmed__c, Unit_Price__c, 
+            Colour_Description__c, Trim_Master__r.Trim_Description__c, Units_Ordered__c, Units_Confirmed__c, Unit_Price__c, 
             Total_Price__c, Remarks__c FROM Vehicle_Purchase_Order_Line_Items__c WHERE Vehicle_Purchase_Order__c =: parentId ORDER BY Name DESC];
             
             return poList; 
@@ -120,9 +120,9 @@ public without sharing class VPO_VPOLIController
     public static List<Vehicle_Purchase_Order_Line_Items__c> getVPOLI(String parentId){
         try {
             return (List<Vehicle_Purchase_Order_Line_Items__c>) fetchRecords('Vehicle_Purchase_Order_Line_Items__c',
-                                                            'Id, Name, Model_Master__r.name,Colour_Description__c, Trim_Master__r.Name,'+
+                                                            'Id, Name, Model_Master__r.name,Colour_Description__c, Trim_Master__r.Trim_Description__c,'+
                                                             'Units_Ordered__c, Units_Confirmed__c, Units_Cancelled__c,  Unit_Price__c,'+
-                                                            'Total_Price__c, Remarks__c',
+                                                            'Total_Price__c, Remarks__c, Vehicle_Purchase_Order__r.Stage__c',
                                                             'Vehicle_Purchase_Order__c = \'' + parentId +'\'',
                                                             false,'Name','DESC');
         } catch (Exception e) {

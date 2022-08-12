@@ -12,7 +12,7 @@ export default class Vpo_getVPOLIDetails extends LightningElement
         {label:'Vehicle Purchase Order Line Items Name', fieldName:'Name' , type:'text'} ,
         {label:'Model Master', fieldName:'model_Master_Name_' , type:'text'} ,
         {label:'Colour Description', fieldName:'Colour_Description__c' , type:'text'},
-        {label:'Trim Master', fieldName:'trim_Master_Name_' , type:'text'} ,
+        {label:'Trim Master', fieldName:'trim_Master_Description_' , type:'text'} ,
         {label:'Units Ordered', fieldName:'Units_Ordered__c' , type:'text'} ,
         {label:'Units Confirmed', fieldName:'Units_Confirmed__c' , type:'text'},
         {label:'FOB Price', fieldName:'Unit_Price__c' , type:'text'} ,
@@ -28,7 +28,7 @@ export default class Vpo_getVPOLIDetails extends LightningElement
             this.items= JSON.parse(JSON.stringify(result.data));
             this.items && this.items.forEach(element => {
                 element.model_Master_Name_ = element.Model_Master__r.Name;
-                element.trim_Master_Name_ = element.Trim_Master__r.Name
+                element.trim_Master_Description_ = element.Trim_Master__r.Trim_Description__c
 
             });
         }
