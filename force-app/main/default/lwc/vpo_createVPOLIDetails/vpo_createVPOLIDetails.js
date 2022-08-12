@@ -1,13 +1,16 @@
 import { LightningElement, api, wire, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { getRecord } from 'lightning/uiRecordApi';
+
 import getColorMasters from '@salesforce/apex/VPO_VPOLIController.getColorMasters';
 import getTrimMasters from '@salesforce/apex/VPO_VPOLIController.getTrimMasters';
 import getModelYearMasters from '@salesforce/apex/VPO_VPOLIController.getModelYearMasters';
 import upsertVPOLI from '@salesforce/apex/VPO_VPOLIController.upsertVPOLI';
+
 import Id from '@salesforce/user/Id';
 import BRANCH_CODE from '@salesforce/schema/User.Branch_Code__c';
 import FRANCHISE_CODE from '@salesforce/schema/User.Franchise_Code__c';
-import {getRecord} from 'lightning/uiRecordApi';
+import STAGE from '@salesforce/schema/Vehicle_Purchase_Order__c.Stage__c';
 
 export default class Vpo_createVPOLIDetails extends LightningElement 
 {
@@ -18,9 +21,26 @@ export default class Vpo_createVPOLIDetails extends LightningElement
 
     franchiseCode = '';
     branchCode    = '';
+    stage         = '';
     spinner       = false;
     isError       = false;
     errorMessage;
+
+    @wire(getRecord, {recordId: '$parentId', fields: [STAGE]})
+    wiredVPO({error, data})
+    {
+        if (data)
+        {
+            this.stage = data.fields.Stage__c.value;
+
+            if (this.stage === 'Closed' || this.stage === 'Cancelled' || this.stage === 'Submitted for Approval')
+            {
+                this.isError      = true;
+                this.showNotification('Sorry!', 'You cannot create new Vehicle Purchase Order Line Items when Vehicle Purchase Order Stage is Closed or Cancelled or Submitted for Approval! Please contact your Administrator.', 'warning', 'sticky');
+                this.dispatchEvent(new CustomEvent('close', {}));
+            }
+        }
+    }
 
     @wire(getRecord, {recordId: Id, fields: [BRANCH_CODE, FRANCHISE_CODE]}) 
     wiredUser({error, data}) 
@@ -204,7 +224,7 @@ export default class Vpo_createVPOLIDetails extends LightningElement
         catch((error) =>
         {
             console.log('upsertVPOLI - Error: ' + error.body.message);  
-            this.showNotification('Error!', 'An error has occurred! Please contact your administrator.', 'error', 'dismissible');
+            this.showNotification('Error!', 'An error has occurred! Please contact your Administrator.', 'error', 'dismissible');
             this.isError      = true;
             this.errorMessage = error.body.message;
             this.spinner = false;
