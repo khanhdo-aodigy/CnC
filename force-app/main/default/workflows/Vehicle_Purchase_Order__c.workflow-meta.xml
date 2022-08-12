@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <!-- <alerts>
+    <alerts>
         <fullName>Request_Submitted</fullName>
         <description>Request Submitted</description>
         <protected>false</protected>
@@ -37,8 +37,8 @@
         <senderAddress>comms@cyclecarriage.com.sg</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>Purchase_Requisition_Emails/Vehicle_Purchase_Order_Rejected</template>
-    </alerts> -->
-    <!-- <alerts>
+    </alerts>
+    <alerts>
         <fullName>Send_approved_email_to_Sales_Admin_Royston_Dawn</fullName>
         <ccEmails>n.pham20499@gmail.com</ccEmails>
         <description>Send approved email to Sales Admin/ Royston/ Dawn</description>
@@ -50,7 +50,7 @@
         <senderAddress>comms@cyclecarriage.com.sg</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>Purchase_Requisition_Emails/VPO_Approved</template>
-    </alerts> -->
+    </alerts>
     <alerts>
         <fullName>Send_email_to_Sales_Manager_Sales_Admin_Royston_Dawn</fullName>
         <ccEmails>n.pham20499@gmail.com</ccEmails>
@@ -71,7 +71,7 @@
         <senderType>OrgWideEmailAddress</senderType>
         <template>Purchase_Requisition_Emails/Update_SVM_when_VPO_cancel</template>
     </alerts>
-    <!-- <alerts>
+    <alerts>
         <fullName>Send_rejection_email_to_Sales_Admin_Royston_Dawn</fullName>
         <ccEmails>n.pham20499@gmail.com</ccEmails>
         <description>Send rejection email to Sales Admin/ Royston/ Dawn</description>
@@ -123,5 +123,5 @@
         <operation>Formula</operation>
         <protected>false</protected>
         <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates> -->
+    </fieldUpdates>
 </Workflow>
