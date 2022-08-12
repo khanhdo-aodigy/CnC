@@ -1,18 +1,18 @@
-@IsTest
-private with sharing class VPOLineItemsSelectorTest
-{
-    @TestSetup
-    private static void setUp()
-    {
-        // create model master
+@isTest
+public class VPO_LIHDControllerTest {
+	@testSetup static void setUp(){
+		// create model master
         Model_Master__c modelMaster = Test_DataFactory.createModelCode(true, 'Model Master');
+        
+        // create model year master
+        Model_Year_Master__c  modelYearCode = Test_DataFactory.createModelYearCode(true, modelMaster.Id);
 
         // create color master
         Color_Master__c colorMaster = Test_DataFactory.createColorCode(true, 'Color Master', 'CM', 'KIA', 'KIAPC');
 
         // create trim master
         Trim_Master__c trimMaster = Test_DataFactory.createTrimCode(true, 'Trim Master');
-
+               
         // create model color trim master
         Model_Color_Trim_Master__c modelColorTrimMaster = new Model_Color_Trim_Master__c(
             Name = 'Model Color Trim Master',
@@ -38,7 +38,7 @@ private with sharing class VPOLineItemsSelectorTest
             Currency_Code__c = 'USD'
         );
         insert order;
-
+        
         // create POLIs
         final Integer POLI_NO = 10;
 
@@ -59,14 +59,26 @@ private with sharing class VPOLineItemsSelectorTest
 
         insert polis;
 
+        Attachment snapshot = new Attachment(
+                Name = 'snapshot.txt',
+                Description = '#snapshot',
+                Body = Blob.valueOf('{"Color_Master__c": "a0C1e0000016xYZEAY"}'),
+                ParentId = order.Id
+            );
+        insert snapshot;
+        
     }
+
+    /**
+     *  test 
+     *  expected: 
+     */
     @isTest 
-    private static void VPOLineItemsSelector_Success(){
-       Test.startTest();
+    private static void VehiclePurchaseOrderHistoryTest(){
        List<Vehicle_Purchase_Order__c> orders = [SELECT Id, Stage__c FROM Vehicle_Purchase_Order__c];
-       VPOLineItemsSelector selector = new VPOLineItemsSelector();
-       selector.getSObjectType();
-       selector.getSObjectFieldList();
+       List<Attachment> snapshots = [SELECT Id, Body, Description FROM Attachment];
+       Test.startTest();
+       VPO_LineItemsHistoryDashboardController.init(orders[0].Id);
        Test.stopTest();
        
     }
