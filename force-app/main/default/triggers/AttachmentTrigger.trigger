@@ -1,35 +1,20 @@
-/**
- -- Create Date: 27 March 2020
- -- Create By: Mai Phap
- -- Changelog v1.0: prevent __History__.txt & __Changelog__.txt of Sales Agreement record from deleting unless by Admin user
- -- Changelog v1.0: prevent __History__.txt & __Changelog__.txt of Sales Agreement record from changing parentId or Name unless by Admin user
- -- Changelog v1.0: ensure the uniqueness of above files, only 1 attachment of each type per SA record
+/**================================================================================================================================
+ * Created Date: 08 Aug 2022
+ * Created By: dangphap.mai@aodigy.com
+ * Changelog
+ *              DATE::                              BY::                                        DETAIL::
+ *              08 Aug 2022                         dangphap.mai@aodigy.com                     init
  */
-trigger AttachmentTrigger on Attachment (before delete, before insert, before update) {
+trigger AttachmentTrigger on Attachment (before delete, before insert, before update)
+{
+    Bypass_Automation_Settings__c automationSetting = Bypass_Automation_Settings__c.getOrgDefaults();
 
-    // if (Trigger.isBefore && Trigger.isInsert) {
-        
-    // }
+    if (TriggerExclusion.isTriggerExclude('Attachment')
+        || TriggerExclusion.isBypassTriggerExecution('Attachment')
+            || automationSetting.Bypass_Triggers__c)
+    {
+        return;
+    }
 
-    // if (Trigger.isBefore && Trigger.isUpdate) {
-
-    // }
-
-    // if (Trigger.isBefore && Trigger.isDelete) {
-    //     // boolean isAdmin = [SELECT Name FROM Profile WHERE Id = :UserInfo.getProfileId()].Name == 'System Administrator';
-    //     // if (isAdmin) return;
-
-    //     list<Attachment> validTriggeredRec = new list<Attachment>();
-
-    //     for (Attachment rec : Trigger.new) {
-    //         system.debug('***');
-    //         boolean isAttachToSA = rec.parentId.getSobjectType().getDescribe().getName() == 'Sales_Agreement__c';
-    //         if (rec.Name != '__History__.txt' || rec.Name != '__Changelog__.txt' || !isAttachToSA) continue;
-    //         validTriggeredRec.add(rec);
-    //     }
-        
-    //     if (validTriggeredRec.size() < 1) return;
-
-    //     for (Attachment rec: validTriggeredRec) rec.addError('Unable to delete History or Changelog attachment');
-    // }
+    adglib_SObjectDomain.triggerHandler(AttachmentDomain.class);
 }

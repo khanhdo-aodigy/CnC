@@ -1,0 +1,33 @@
+<apex:page id="massEditSVM" standardController="Vehicle_Master2__c"  recordSetVar="vehicleMasters" extensions="VPO_massEditSVMExtension">
+    <apex:includeLightning />
+    <apex:slds />
+    <html>
+        <body>
+            <div id = "massEdit">
+                <script>
+                    $Lightning.use("c:VPOApp", function () 
+                    {
+                        $Lightning.createComponent("c:vpo_massEditSVM", 
+                        {
+                            parentId: '{!$CurrentPage.parameters.id}', 
+                            navigateToURL: navigateToURL
+                        },
+                            "massEdit", function(component){});
+                    });  
+                    
+                    function navigateToURL(url) 
+                    {
+                        if(typeof sforce != 'undefined' && sforce && sforce.one)
+                        {
+                            sforce.one.navigateToURL(url);
+                        } 
+                        else 
+                        {
+                            window.location.href = url;
+                        }
+                    }
+                </script>
+            </div>
+        </body>
+    </html>
+</apex:page>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Invoke_Conversion_Action</name>
+        <label>Invoke Conversion Action</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
+        <actionName>VehiclePurchaseOrderConversion</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Convert_Success_Screen</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Rollback_Conversion</targetReference>
+        </faultConnector>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>purchaseOrderIds</name>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>55.0</apiVersion>
+    <interviewLabel>Vehicle Purchase Order Conversion Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Vehicle Purchase Order Conversion Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordRollbacks>
+        <name>Rollback_Conversion</name>
+        <label>Rollback Conversion</label>
+        <locationX>440</locationX>
+        <locationY>278</locationY>
+        <connector>
+            <targetReference>Conversion_Error_Screen</targetReference>
+        </connector>
+    </recordRollbacks>
+    <runInMode>SystemModeWithoutSharing</runInMode>
+    <screens>
+        <name>Conversion_Error_Screen</name>
+        <label>Conversion Error Screen</label>
+        <locationX>440</locationX>
+        <locationY>398</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Conversion_Error</name>
+            <fieldText>&lt;p&gt;Error on Purchase Order conversion:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Please contact your admin for support.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <nextOrFinishButtonLabel>Done</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Convert_Success_Screen</name>
+        <label>Convert Success Screen</label>
+        <locationX>176</locationX>
+        <locationY>278</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Success_Message</name>
+            <fieldText>&lt;p&gt;The Purchase Order has been successfully converted to Stock Vehicle Master&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <nextOrFinishButtonLabel>Done</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Invoke_Conversion_Action</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

@@ -1,0 +1,42 @@
+<template>
+    <template if:true={ready}>
+        
+        <div class="slds-box">
+            <h1 class="slds-text-heading_small slds-var-p-bottom_medium slds-var-p-top_medium">
+                <b>Line Items Status Summary</b>
+            </h1>
+            <lightning-datatable data={lineItems} columns={lineItemColumns} onrowaction={handleRowAction} key-field="id" hide-checkbox-column></lightning-datatable>
+        </div>
+        
+
+        <template if:true={displayHistoryTracking}>
+            <div class="slds-box slds-var-m-top_medium">
+                <h1 class="slds-text-heading_small slds-var-p-bottom_medium slds-var-p-top_medium">
+                    <b>
+                        <span>History of Selected Line Item ({selectedPOLI}) </span> <span style="color: rgb(1, 118, 211); cursor: pointer; text-decoration: underline;" onclick={toggleHistoryTracking}>Close</span>
+                    </b>
+                </h1>
+                <lightning-datatable data={history} columns={historyColumns} key-field="id" hide-checkbox-column></lightning-datatable>
+            </div>
+        </template>
+
+        <template if:true={displaySnapshotCompare}>
+            <div class="slds-box slds-var-m-top_medium">
+                <!-- <h1 class="slds-text-heading_small slds-var-p-bottom_medium slds-var-p-top_medium">
+                    <span>
+                        <b>Compare with Approved Version ({selectedPOLI})</b>
+                    </span>
+                    <span style="margin-left: 1rem;">
+                        <lightning-icon icon-name="action:close" size="small" style="cursor: pointer" onclick={toggleSnapshotCompare}></lightning-icon>
+                    </span>
+                </h1> -->
+                <h1 class="slds-text-heading_small slds-var-p-bottom_medium slds-var-p-top_medium">
+                    <b>
+                        <span>Compare with Approved Version ({selectedPOLI}) </span> <span style="color: rgb(1, 118, 211); cursor: pointer; text-decoration: underline;" onclick={toggleSnapshotCompare}>Close</span>
+                    </b>
+                </h1>
+                <lightning-datatable data={compare} columns={compareColumns} key-field="id" hide-checkbox-column></lightning-datatable>
+            </div>
+        </template>
+    </template>
+</template>

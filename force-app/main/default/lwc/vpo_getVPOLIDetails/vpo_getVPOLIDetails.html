@@ -1,0 +1,14 @@
+<template>
+    <template if:true={items}>
+        <lightning-layout multiple-rows="true" vertical-align="end">
+            <lightning-layout-item size="12" padding="around-small">
+                <lightning-datatable 
+                    key-field="Id" 
+                    data={items} 
+                    columns={cols} 
+                    hide-checkbox-column="true">
+                </lightning-datatable>
+            </lightning-layout-item>
+        </lightning-layout>
+    </template>
+</template>

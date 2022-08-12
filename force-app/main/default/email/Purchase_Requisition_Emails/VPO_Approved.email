@@ -1,0 +1,5 @@
+<p>To whom it may concern,</p>
+
+<p>Good news! Your recent Vehicle Purchase Order request has been approved.</p>
+<p>Please click on the link for more details.</p>
+<p><a href={!Vehicle_Purchase_Order__c.Link}>{!Vehicle_Purchase_Order__c.Name}</a></p>
