@@ -20,10 +20,6 @@
                 <field>Model_Master__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Variant_Description__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Required</behavior>
                 <field>Model_Year_Master__c</field>
             </layoutItems>
@@ -38,10 +34,6 @@
             <layoutItems>
                 <behavior>Required</behavior>
                 <field>Trim_Master__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Trim_Description__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
