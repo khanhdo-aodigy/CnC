@@ -124,6 +124,11 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
+            <actionName>Vehicle_Purchase_Order__c.Stage_Update</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>22</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
             <actionName>Submit</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>0</sortOrder>
@@ -233,13 +238,9 @@
             <actionType>QuickAction</actionType>
             <sortOrder>21</sortOrder>
         </platformActionListItems>
-        <platformActionListItems>
-            <actionName>Vehicle_Purchase_Order__c.Stage_Update</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>22</sortOrder>
-        </platformActionListItems>
     </platformActionList>
     <relatedLists>
+        <customButtons>Mass_Edit</customButtons>
         <excludeButtons>MassChangeOwner</excludeButtons>
         <fields>NAME</fields>
         <fields>Model_Master__c</fields>
@@ -254,6 +255,8 @@
     </relatedLists>
     <relatedLists>
         <customButtons>Mass_Edit</customButtons>
+        <excludeButtons>MassChangeOwner</excludeButtons>
+        <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
         <fields>Vehicle_Purchase_Status__c</fields>
         <fields>Manufacturer_Ref_No__c</fields>
