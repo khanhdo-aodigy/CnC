@@ -87,7 +87,6 @@ public inherited sharing class VehiclePurchaseOrders extends ADGLIB_SObjectDomai
         Map<Id, Vehicle_Master2__c> totalConvertedStocks = new Map<Id, Vehicle_Master2__c>([SELECT Id, Vehicle_Purchase_Status__c, Vehicle_Status__c, Vehicle_Purchase_Order__c
                                                                                             FROM Vehicle_Master2__c
                                                                                             WHERE Vehicle_Purchase_Order__c IN :applicableOrders.keySet()]);
-        //
         
         // boring early quit
         if (totalConvertedStocks.size() == 0) return;
