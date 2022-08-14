@@ -8440,7 +8440,7 @@
         <field>Vehicle_Request__c.Year_of_Ownership__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>true</editable>
         <field>Vehicle_Shipment__c.B_L_No__c</field>
         <readable>true</readable>
@@ -8484,7 +8484,7 @@
         <editable>true</editable>
         <field>Vehicle_Shipment__c.Vessel_Name__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>Wallet_Entry__c.Expiry__c</field>
@@ -8588,13 +8588,13 @@
         <layout>Vehicle_Purchase_Order__c-Vehicle Purchase Order Layout</layout>
         <recordType>Vehicle_Purchase_Order__c.MF_PO</recordType>
     </layoutAssignments>
-    <layoutAssignments>
+    <!-- <layoutAssignments>
         <layout>Vehicle_Shipment__c-Shipment Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
+    </layoutAssignments> -->
+    <!-- <layoutAssignments>
         <layout>Vehicle_Shipment__c-Shipment Layout</layout>
         <recordType>Vehicle_Shipment__c.MF_Shipment</recordType>
-    </layoutAssignments>
+    </layoutAssignments> -->
     <layoutAssignments>
         <layout>Vehicle_Stock_Reservation__c-Used Car Stock Reservation %28RA%29 Layout</layout>
         <recordType>Vehicle_Stock_Reservation__c.RA_Used_Car_Stock_Reservation_RT</recordType>
@@ -9083,7 +9083,7 @@
         <object>Vehicle_Request__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
-    <objectPermissions>
+    <!-- <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
@@ -9091,7 +9091,7 @@
         <modifyAllRecords>true</modifyAllRecords>
         <object>Vehicle_Shipment__c</object>
         <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
+    </objectPermissions> -->
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
@@ -9378,11 +9378,11 @@
         <recordType>Vehicle_Request__c.MB_Test_Drive_Request</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
-    <recordTypeVisibilities>
+    <!-- <recordTypeVisibilities>
         <default>false</default>
         <recordType>Vehicle_Shipment__c.MF_Shipment</recordType>
         <visible>false</visible>
-    </recordTypeVisibilities>
+    </recordTypeVisibilities> -->
     <recordTypeVisibilities>
         <default>true</default>
         <recordType>Vehicle_Stock_Reservation__c.RA_Used_Car_Stock_Reservation_RT</recordType>
@@ -9604,10 +9604,10 @@
         <tab>Vehicle_Request__c</tab>
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
-    <tabVisibilities>
+    <!-- <tabVisibilities>
         <tab>Vehicle_Shipment__c</tab>
         <visibility>DefaultOn</visibility>
-    </tabVisibilities>
+    </tabVisibilities> -->
     <tabVisibilities>
         <tab>et4ae5__Configuration__c</tab>
         <visibility>Hidden</visibility>
