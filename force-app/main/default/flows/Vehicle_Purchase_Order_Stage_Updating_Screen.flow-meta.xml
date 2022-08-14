@@ -103,6 +103,7 @@
         <picklistField>Stage__c</picklistField>
         <picklistObject>Vehicle_Purchase_Order__c</picklistObject>
     </dynamicChoiceSets>
+    <environments>Default</environments>
     <interviewLabel>Vehicle Purchase Order Stage Updating Screen {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Vehicle Purchase Order Stage Updating Screen</label>
     <processMetadataValues>
