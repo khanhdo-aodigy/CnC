@@ -3010,7 +3010,7 @@
         <field>Invoice__c.Invoice_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>true</editable>
         <field>JIT_Day__c.Franchise__c</field>
         <readable>true</readable>
@@ -3039,7 +3039,7 @@
         <editable>true</editable>
         <field>JIT_Day__c.Utilised_Slots__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>Lead.Brand__c</field>
@@ -8531,9 +8531,9 @@
     <layoutAssignments>
         <layout>Custom_Exchange_Rate__c-Custom Exchange Rate Layout</layout>
     </layoutAssignments>
-    <layoutAssignments>
+    <!-- <layoutAssignments>
         <layout>JIT_Day__c-JIT Day Layout</layout>
-    </layoutAssignments>
+    </layoutAssignments> -->
     <layoutAssignments>
         <layout>Model_Color_Trim_Master__c-ModelColor Layout</layout>
     </layoutAssignments>
@@ -8759,7 +8759,7 @@
         <object>IndividualEmailTracking__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
-    <objectPermissions>
+    <!-- <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
@@ -8767,7 +8767,7 @@
         <modifyAllRecords>true</modifyAllRecords>
         <object>JIT_Day__c</object>
         <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
+    </objectPermissions> -->
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
@@ -9456,10 +9456,10 @@
         <tab>Invoice_Promo_Line_Item__c</tab>
         <visibility>Hidden</visibility>
     </tabVisibilities>
-    <tabVisibilities>
+    <!-- <tabVisibilities>
         <tab>JIT_Day__c</tab>
         <visibility>DefaultOn</visibility>
-    </tabVisibilities>
+    </tabVisibilities> -->
     <tabVisibilities>
         <tab>Loan_Car_Booking</tab>
         <visibility>Hidden</visibility>
