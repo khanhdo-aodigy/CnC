@@ -3760,16 +3760,16 @@
         <field>Purchase_Order__c.Production_Month__c</field>
         <readable>true</readable>
     </fieldPermissions> -->
-    <fieldPermissions>
+    <!-- <fieldPermissions>
         <editable>true</editable>
         <field>Purchase_Order__c.Status__c</field>
         <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
+    </fieldPermissions> -->
+    <!-- <fieldPermissions>
         <editable>true</editable>
         <field>Purchase_Requisition__c.Production_Month__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions> -->
     <fieldPermissions>
         <editable>true</editable>
         <field>Reassign_Helper__c.Assign_to__c</field>
@@ -8559,9 +8559,9 @@
     <layoutAssignments>
         <layout>Purchase_Order__c-Purchase Order Layout</layout>
     </layoutAssignments>
-    <layoutAssignments>
+    <!-- <layoutAssignments>
         <layout>Purchase_Requisition__c-Purchase Requisition Layout</layout>
-    </layoutAssignments>
+    </layoutAssignments> -->
     <layoutAssignments>
         <layout>SA_COE_Bid_Period__c-SA COE Bid Period Layout</layout>
     </layoutAssignments>
@@ -8858,7 +8858,7 @@
         <object>Purchase_Order__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
-    <objectPermissions>
+    <!-- <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
@@ -8866,7 +8866,7 @@
         <modifyAllRecords>true</modifyAllRecords>
         <object>Purchase_Requisition__c</object>
         <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
+    </objectPermissions> -->
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
@@ -9512,10 +9512,10 @@
         <tab>Purchase_Order__c</tab>
         <visibility>Hidden</visibility>
     </tabVisibilities>
-    <tabVisibilities>
+    <!-- <tabVisibilities>
         <tab>Purchase_Requisition__c</tab>
         <visibility>DefaultOn</visibility>
-    </tabVisibilities>
+    </tabVisibilities> -->
     <tabVisibilities>
         <tab>Registered_Vehicle_Owner_History__c</tab>
         <visibility>Hidden</visibility>
