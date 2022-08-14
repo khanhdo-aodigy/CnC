@@ -8515,10 +8515,10 @@
         <field>Wallet_Entry__c.Usage_Type__c</field>
         <readable>false</readable>
     </fieldPermissions>
-    <layoutAssignments>
+    <!--<layoutAssignments>
         <layout>Account-Business Associates</layout>
         <recordType>Account.Business_Associates</recordType>
-    </layoutAssignments>
+    </layoutAssignments>-->
     <layoutAssignments>
         <layout>Blocked_Off_Day__c-Blocked Off Day Layout</layout>
     </layoutAssignments>
@@ -8878,11 +8878,11 @@
         <apexPage>site_robots</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
-    <recordTypeVisibilities>
+    <!--<recordTypeVisibilities>
         <default>false</default>
         <recordType>Account.Business_Associates</recordType>
         <visible>true</visible>
-    </recordTypeVisibilities>
+    </recordTypeVisibilities>-->
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>Campaign_Promo_Line_Item__c.Sales_Targeted_Promo_Line_Item_RT</recordType>
