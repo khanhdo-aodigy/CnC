@@ -6445,7 +6445,7 @@
         <field>Service_Packages__c.VehicleId_Historical__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>false</editable>
         <field>Shipment_Line_Item__c.Custom_Exchange_Rate__c</field>
         <readable>true</readable>
@@ -6539,7 +6539,7 @@
         <editable>true</editable>
         <field>Shipment_Line_Item__c.Trim__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>Stock_Reservation__c.API_Status__c</field>
@@ -8973,11 +8973,11 @@
         <recordType>Registration_Date_Slot__c.Registration_Date_Slot</recordType>
         <visible>false</visible>
     </recordTypeVisibilities>
-    <recordTypeVisibilities>
+    <!--<recordTypeVisibilities>
         <default>true</default>
         <recordType>Shipment_Line_Item__c.MF_Shipment_Line_Items</recordType>
         <visible>true</visible>
-    </recordTypeVisibilities>
+    </recordTypeVisibilities>-->
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>UAT_Log__c.CM_UAT</recordType>
