@@ -8896,11 +8896,11 @@
         <apexPage>site_robots</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
-    <!--<!--<recordTypeVisibilities>
+    <!--<recordTypeVisibilities>
         <default>false</default>
         <recordType>Account.Business_Associates</recordType>
         <visible>true</visible>
-    </recordTypeVisibilities>-->-->
+    </recordTypeVisibilities>-->
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>Campaign_Promo_Line_Item__c.Sales_Targeted_Promo_Line_Item_RT</recordType>
@@ -8991,11 +8991,11 @@
         <recordType>Registration_Date_Slot__c.Registration_Date_Slot</recordType>
         <visible>false</visible>
     </recordTypeVisibilities>
-    <!--<!--<recordTypeVisibilities>
+    <!--<recordTypeVisibilities>
         <default>true</default>
         <recordType>Shipment_Line_Item__c.MF_Shipment_Line_Items</recordType>
         <visible>true</visible>
-    </recordTypeVisibilities>-->-->
+    </recordTypeVisibilities>-->
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>UAT_Log__c.CM_UAT</recordType>
@@ -9037,12 +9037,12 @@
         <recordType>Vehicle_Request__c.MB_Test_Drive_Request</recordType>
         <visible>false</visible>
     </recordTypeVisibilities>
-    <recordTypeVisibilities>
+    <!--<recordTypeVisibilities>
         <default>true</default>
         <personAccountDefault>true</personAccountDefault>
         <recordType>Vehicle_Shipment__c.MF_Shipment</recordType>
         <visible>true</visible>
-    </recordTypeVisibilities>
+    </recordTypeVisibilities>-->
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>Vehicle_Stock_Reservation__c.RA_Used_Car_Stock_Reservation_RT</recordType>
@@ -9060,18 +9060,18 @@
         <tab>Additional_Charges_Master__c</tab>
         <visibility>Hidden</visibility>
     </tabVisibilities>
-    <tabVisibilities>
+    <!--<tabVisibilities>
         <tab>Blocked_Off_Day__c</tab>
         <visibility>DefaultOff</visibility>
-    </tabVisibilities>
-    <tabVisibilities>
+    </tabVisibilities>-->
+    <!--<tabVisibilities>
         <tab>COE_Bidding</tab>
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>
         <tab>COE_Landing</tab>
         <visibility>DefaultOn</visibility>
-    </tabVisibilities>
+    </tabVisibilities>-->
     <tabVisibilities>
         <tab>Campaign_Invited_members__c</tab>
         <visibility>Hidden</visibility>
@@ -9088,10 +9088,10 @@
         <tab>Courtesy_Vehicle__c</tab>
         <visibility>DefaultOff</visibility>
     </tabVisibilities>
-    <tabVisibilities>
+    <!--<tabVisibilities>
         <tab>Custom_Exchange_Rate__c</tab>
         <visibility>DefaultOff</visibility>
-    </tabVisibilities>
+    </tabVisibilities>-->
     <tabVisibilities>
         <tab>Defect_Communication__c</tab>
         <visibility>Hidden</visibility>
@@ -9116,10 +9116,10 @@
         <tab>Invoice_Promo_Line_Item__c</tab>
         <visibility>Hidden</visibility>
     </tabVisibilities>
-    <tabVisibilities>
+    <!--<tabVisibilities>
         <tab>JIT_Day__c</tab>
         <visibility>DefaultOn</visibility>
-    </tabVisibilities>
+    </tabVisibilities>-->
     <tabVisibilities>
         <tab>Loan_Car_Booking</tab>
         <visibility>Hidden</visibility>
@@ -9164,7 +9164,7 @@
         <tab>Promo_Line_Item_Model__c</tab>
         <visibility>Hidden</visibility>
     </tabVisibilities>
-    <tabVisibilities>
+    <!--<tabVisibilities>
         <tab>Purchase_Order_Line_Item__c</tab>
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
@@ -9175,7 +9175,7 @@
     <tabVisibilities>
         <tab>Purchase_Requisition__c</tab>
         <visibility>DefaultOn</visibility>
-    </tabVisibilities>
+    </tabVisibilities>-->
     <tabVisibilities>
         <tab>Registered_Vehicle_Owner_History__c</tab>
         <visibility>Hidden</visibility>
@@ -9264,10 +9264,10 @@
         <tab>Vehicle_Request__c</tab>
         <visibility>DefaultOff</visibility>
     </tabVisibilities>
-    <tabVisibilities>
+    <!--<tabVisibilities>
         <tab>Vehicle_Shipment__c</tab>
         <visibility>DefaultOn</visibility>
-    </tabVisibilities>
+    </tabVisibilities>-->
     <tabVisibilities>
         <tab>et4ae5__Configuration__c</tab>
         <visibility>Hidden</visibility>
