@@ -3730,7 +3730,7 @@
         <field>Preferred_Model__c.PromoId__c</field>
         <readable>false</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>true</editable>
         <field>Purchase_Order_Line_Item__c.Model_del__c</field>
         <readable>true</readable>
@@ -3744,7 +3744,7 @@
         <editable>false</editable>
         <field>Purchase_Order_Line_Item__c.Total_Price__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>Purchase_Order__c.Franchise__c</field>
@@ -8553,9 +8553,9 @@
         <layout>PersonAccount-Person Account Layout</layout>
         <recordType>PersonAccount.Prospect</recordType>
     </layoutAssignments>
-    <layoutAssignments>
+    <!-- <layoutAssignments>
         <layout>Purchase_Order_Line_Item__c-Purchase Requisition Line Item Layout</layout>
-    </layoutAssignments>
+    </layoutAssignments> -->
     <layoutAssignments>
         <layout>Purchase_Order__c-Purchase Order Layout</layout>
     </layoutAssignments>
@@ -8840,7 +8840,7 @@
         <object>Promo_Line_Item_Model__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
-    <objectPermissions>
+    <!-- <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
@@ -8848,7 +8848,7 @@
         <modifyAllRecords>true</modifyAllRecords>
         <object>Purchase_Order_Line_Item__c</object>
         <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
+    </objectPermissions> -->
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
@@ -9504,10 +9504,10 @@
         <tab>Promo_Line_Item_Model__c</tab>
         <visibility>Hidden</visibility>
     </tabVisibilities>
-    <tabVisibilities>
+    <!-- <tabVisibilities>
         <tab>Purchase_Order_Line_Item__c</tab>
         <visibility>DefaultOn</visibility>
-    </tabVisibilities>
+    </tabVisibilities> -->
     <tabVisibilities>
         <tab>Purchase_Order__c</tab>
         <visibility>Hidden</visibility>
