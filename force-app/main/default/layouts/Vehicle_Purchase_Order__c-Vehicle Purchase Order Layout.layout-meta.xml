@@ -124,11 +124,6 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
-            <actionName>Vehicle_Purchase_Order__c.Stage_Update</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>22</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
             <actionName>Submit</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>0</sortOrder>
@@ -229,12 +224,12 @@
             <sortOrder>19</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>Vehicle_Purchase_Order__c.Line_Item_History_LWC</actionName>
+            <actionName>Vehicle_Purchase_Order__c.Line_Item_History</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>20</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>Vehicle_Purchase_Order__c.Line_Item_History</actionName>
+            <actionName>Vehicle_Purchase_Order__c.Stage_Update</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>21</sortOrder>
         </platformActionListItems>
