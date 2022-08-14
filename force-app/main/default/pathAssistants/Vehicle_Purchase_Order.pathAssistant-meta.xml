@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Vehicle_Purchase_Order__c</entityName>
+    <fieldName>Stage__c</fieldName>
+    <masterLabel>Vehicle Purchase Order</masterLabel>
+    <pathAssistantSteps>
+        <fieldNames>Cancellation_Reason__c</fieldNames>
+        <info>&lt;p&gt;Input reason for cancellation to cancel the PO&lt;/p&gt;</info>
+        <picklistValueName>Cancelled</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Franchise_Code__c</fieldNames>
+        <fieldNames>Production_Month__c</fieldNames>
+        <fieldNames>Supplier_Account__c</fieldNames>
+        <fieldNames>Currency_Code__c</fieldNames>
+        <info>&lt;p&gt;Input Franchise Code, Supplier Account, Production Month and Currency Code&lt;/p&gt;</info>
+        <picklistValueName>Draft</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>PI_Uploaded__c</fieldNames>
+        <info>&lt;p&gt;Upload PI&lt;/p&gt;</info>
+        <picklistValueName>Manufacturer_Confirmed</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>__MASTER__</recordTypeName>
+</PathAssistant>
