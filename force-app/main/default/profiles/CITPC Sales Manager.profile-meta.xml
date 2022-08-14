@@ -15,11 +15,11 @@
         <default>false</default>
         <visible>false</visible>
     </applicationVisibilities>
-    <applicationVisibilities>
+    <!--<applicationVisibilities>
         <application>Vehicle_Purchase_Shipment</application>
         <default>false</default>
         <visible>true</visible>
-    </applicationVisibilities>
+    </applicationVisibilities>-->
     <applicationVisibilities>
         <application>standard__AllTabSet</application>
         <default>false</default>
@@ -81,10 +81,10 @@
         <apexClass>BatchDataPool_Purge_Batch</apexClass>
         <enabled>false</enabled>
     </classAccesses>
-    <classAccesses>
+    <!--<classAccesses>
         <apexClass>BatchEmailCOEBiddingReport</apexClass>
         <enabled>false</enabled>
-    </classAccesses>
+    </classAccesses>-->
     <classAccesses>
         <apexClass>BatchProcessRegisteredVehicles</apexClass>
         <enabled>false</enabled>
@@ -145,22 +145,22 @@
         <apexClass>COE</apexClass>
         <enabled>false</enabled>
     </classAccesses>
-    <classAccesses>
+    <!--<classAccesses>
         <apexClass>COEBidCreationController</apexClass>
         <enabled>false</enabled>
-    </classAccesses>
+    </classAccesses>-->
     <classAccesses>
         <apexClass>COEBidPeriods</apexClass>
         <enabled>false</enabled>
     </classAccesses>
-    <classAccesses>
+    <!--<classAccesses>
         <apexClass>COEBiddingController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>COEBiddingControllerTest</apexClass>
         <enabled>false</enabled>
-    </classAccesses>
+    </classAccesses>-->
     <classAccesses>
         <apexClass>COEBiddingUploadCtrl</apexClass>
         <enabled>false</enabled>
@@ -485,7 +485,7 @@
         <apexClass>JCCResetPasswordRequest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
-    <classAccesses>
+    <!--<classAccesses>
         <apexClass>JITController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -504,7 +504,7 @@
     <classAccesses>
         <apexClass>JITDaysSelectorTest</apexClass>
         <enabled>false</enabled>
-    </classAccesses>
+    </classAccesses>-->
     <classAccesses>
         <apexClass>JSON2Apex</apexClass>
         <enabled>false</enabled>
@@ -681,10 +681,10 @@
         <apexClass>PAMigrationServiceTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
-    <classAccesses>
+    <!--<classAccesses>
         <apexClass>PO_CreateVPOLIController</apexClass>
         <enabled>false</enabled>
-    </classAccesses>
+    </classAccesses>-->
     <classAccesses>
         <apexClass>PaidEventsSFMC</apexClass>
         <enabled>false</enabled>
@@ -745,10 +745,10 @@
         <apexClass>Rewards_Test</apexClass>
         <enabled>false</enabled>
     </classAccesses>
-    <classAccesses>
+    <!--<classAccesses>
         <apexClass>SACOEBidPeriodsSelector</apexClass>
         <enabled>false</enabled>
-    </classAccesses>
+    </classAccesses>-->
     <classAccesses>
         <apexClass>SW_CreateLeadsBatch</apexClass>
         <enabled>false</enabled>
@@ -805,14 +805,14 @@
         <apexClass>SavitaTestSendEmail</apexClass>
         <enabled>false</enabled>
     </classAccesses>
-    <classAccesses>
+    <!--<classAccesses>
         <apexClass>ScheduleBatchEmailCOEBiddingReport</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>ScheduleBatchEmailCOEBiddingReport_Test</apexClass>
         <enabled>false</enabled>
-    </classAccesses>
+    </classAccesses>-->
     <classAccesses>
         <apexClass>ScheduleSendFinanceEmail</apexClass>
         <enabled>false</enabled>
@@ -1061,14 +1061,14 @@
         <apexClass>VehiclePurchaseOrderConversionTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
-    <classAccesses>
+    <!--<classAccesses>
         <apexClass>VehiclePurchaseOrderLineItemService</apexClass>
         <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
+    </classAccesses>-->
+    <!--<classAccesses>
         <apexClass>VehiclePurchaseOrderLineItems</apexClass>
         <enabled>false</enabled>
-    </classAccesses>
+    </classAccesses>-->
     <classAccesses>
         <apexClass>VehiclePurchaseOrderSelector</apexClass>
         <enabled>false</enabled>
@@ -1117,10 +1117,10 @@
         <apexClass>callMCAutomationPUSH</apexClass>
         <enabled>false</enabled>
     </classAccesses>
-    <classAccesses>
+    <!--<classAccesses>
         <apexClass>coeBiddingLandingController</apexClass>
         <enabled>false</enabled>
-    </classAccesses>
+    </classAccesses>-->
     <classAccesses>
         <apexClass>connectedAppAdditionalCheckMyMB</apexClass>
         <enabled>false</enabled>
@@ -1420,7 +1420,7 @@
         <field>Additional_Charges_Master__c.Retail_Price__c</field>
         <readable>false</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!-- <fieldPermissions>
         <editable>false</editable>
         <field>Blocked_Off_Day__c.Date__c</field>
         <readable>false</readable>
@@ -1434,7 +1434,7 @@
         <editable>false</editable>
         <field>Blocked_Off_Day__c.Is_Active__c</field>
         <readable>false</readable>
-    </fieldPermissions>
+    </fieldPermissions> -->
     <fieldPermissions>
         <editable>false</editable>
         <field>COE_Bidding__mdt.End_Date__c</field>
@@ -3010,7 +3010,7 @@
         <field>Invoice__c.Invoice_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>true</editable>
         <field>JIT_Day__c.Franchise__c</field>
         <readable>true</readable>
@@ -3039,7 +3039,7 @@
         <editable>true</editable>
         <field>JIT_Day__c.Utilised_Slots__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>Lead.Brand__c</field>
@@ -3730,7 +3730,7 @@
         <field>Preferred_Model__c.PromoId__c</field>
         <readable>false</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>true</editable>
         <field>Purchase_Order_Line_Item__c.Model_del__c</field>
         <readable>true</readable>
@@ -3744,7 +3744,7 @@
         <editable>false</editable>
         <field>Purchase_Order_Line_Item__c.Total_Price__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>Purchase_Order__c.Franchise__c</field>
@@ -3755,7 +3755,7 @@
         <field>Purchase_Order__c.PO_Number__c</field>
         <readable>false</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!-- <fieldPermissions>
         <editable>true</editable>
         <field>Purchase_Order__c.Production_Month__c</field>
         <readable>true</readable>
@@ -3769,7 +3769,7 @@
         <editable>true</editable>
         <field>Purchase_Requisition__c.Production_Month__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions> -->
     <fieldPermissions>
         <editable>true</editable>
         <field>Reassign_Helper__c.Assign_to__c</field>
@@ -4160,7 +4160,7 @@
         <field>SA_Additional_Charge__c.SAD_DESC__c</field>
         <readable>false</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!-- <fieldPermissions>
         <editable>true</editable>
         <field>SA_COE_Bid_Period__c.Bid_Amount__c</field>
         <readable>true</readable>
@@ -4169,17 +4169,17 @@
         <editable>true</editable>
         <field>SA_COE_Bid_Period__c.Bid_Category__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions> -->
     <fieldPermissions>
         <editable>false</editable>
         <field>SA_COE_Bid_Period__c.COE_Bid_Period__c</field>
         <readable>false</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>false</editable>
         <field>SA_COE_Bid_Period__c.Customer_NRIC__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>SA_COE_Bid_Period__c.MB_Sales_Agreement__c</field>
@@ -4190,11 +4190,11 @@
         <field>SA_COE_Bid_Period__c.Sales_Agreement__c</field>
         <readable>false</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>true</editable>
         <field>SA_COE_Bid_Period__c.Status__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>SA_Receipt__c.Bank_Code__c</field>
@@ -4250,11 +4250,11 @@
         <field>Sales_Agreement__c.ARCA_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.ARF__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.A_C_Name__c</field>
@@ -4335,11 +4335,11 @@
         <field>Sales_Agreement__c.Acknowledgement_Vehicle_Delivery__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>true</editable>
         <field>Sales_Agreement__c.Additional_Charges__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.Agreement_Date__c</field>
@@ -4375,7 +4375,7 @@
         <field>Sales_Agreement__c.Bank_support_document__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!-- <fieldPermissions>
         <editable>true</editable>
         <field>Sales_Agreement__c.Bid_10_Amount__c</field>
         <readable>true</readable>
@@ -4439,17 +4439,17 @@
         <editable>true</editable>
         <field>Sales_Agreement__c.Bid_Category__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions> -->
     <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.Bid_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>true</editable>
         <field>Sales_Agreement__c.Bid_Price__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.Billing_City__c</field>
@@ -4475,21 +4475,21 @@
         <field>Sales_Agreement__c.Building_NameRA__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.CIF__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.COECategory__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>true</editable>
         <field>Sales_Agreement__c.COEThresHold__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.COE_Charged_Rebate__c</field>
@@ -4540,11 +4540,11 @@
         <field>Sales_Agreement__c.COE__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.CPF_on_Comm__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.CUM_FIRSTNAME__c</field>
@@ -4570,11 +4570,11 @@
         <field>Sales_Agreement__c.Car_Collection_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>true</editable>
         <field>Sales_Agreement__c.Car_Ready_Date__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.Chassis_No__c</field>
@@ -4615,16 +4615,16 @@
         <field>Sales_Agreement__c.Contact__c</field>
         <readable>false</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>true</editable>
         <field>Sales_Agreement__c.Cost_of_Accessories_Traded_Sold__c</field>
         <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
+    </fieldPermissions>-->
+    <!--<fieldPermissions>
         <editable>true</editable>
         <field>Sales_Agreement__c.Cost_of_Standard_Accessories__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.Create_in_Drive__c</field>
@@ -4865,11 +4865,11 @@
         <field>Sales_Agreement__c.Expected_Delivery_From__c</field>
         <readable>false</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!-- <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.Expected_Delivery_Month__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions> -->
     <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.Expected_Delivery_To__c</field>
@@ -4945,11 +4945,11 @@
         <field>Sales_Agreement__c.GMS_Package__c</field>
         <readable>false</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>true</editable>
         <field>Sales_Agreement__c.GST_Charge__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.GST_Rate__c</field>
@@ -5010,21 +5010,21 @@
         <field>Sales_Agreement__c.JIT_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.JIT_Day__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.JIT_Repair_Order_ID__c</field>
         <readable>false</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.JIT_Status__c</field>
         <readable>false</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.Last_save_on_form__c</field>
@@ -5220,11 +5220,11 @@
         <field>Sales_Agreement__c.Package_Service_Credit__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>true</editable>
         <field>Sales_Agreement__c.Paid_Accessories__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.Payment__c</field>
@@ -5415,11 +5415,11 @@
         <field>Sales_Agreement__c.SA_Vehicle_Purchase_Price__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>true</editable>
         <field>Sales_Agreement__c.SC_Remarks__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.SFD_FIRSTINSTDT__c</field>
@@ -6185,11 +6185,11 @@
         <field>Sales_Agreement__c.VDC_Registration_Date__c</field>
         <readable>false</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>true</editable>
         <field>Sales_Agreement__c.VES__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.Validity_Date__c</field>
@@ -6295,11 +6295,11 @@
         <field>Sales_Agreement__c.Vehicle_Purchase_Price__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.Verified_by_Sales_Consultant__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.emailaddress__c</field>
@@ -7010,11 +7010,11 @@
         <field>Vehicle_Master2__c.Duty_Request_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>true</editable>
         <field>Vehicle_Master2__c.Duty_Request_Type__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>true</editable>
         <field>Vehicle_Master2__c.Duty_Sale_Date__c</field>
@@ -7155,7 +7155,7 @@
         <field>Vehicle_Master2__c.IsSold__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!-- <fieldPermissions>
         <editable>false</editable>
         <field>Vehicle_Master2__c.JIT_Date__c</field>
         <readable>false</readable>
@@ -7169,7 +7169,7 @@
         <editable>true</editable>
         <field>Vehicle_Master2__c.JIT_Remark__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions> -->
     <fieldPermissions>
         <editable>false</editable>
         <field>Vehicle_Master2__c.KCL_Module_ID__c</field>
@@ -7340,11 +7340,11 @@
         <field>Vehicle_Master2__c.Shipment_ID__c</field>
         <readable>false</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>true</editable>
         <field>Vehicle_Master2__c.Shipment_Line_Item__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>true</editable>
         <field>Vehicle_Master2__c.Standard_Accural__c</field>
@@ -7480,11 +7480,11 @@
         <field>Vehicle_Master2__c.Vehicle_Purchase_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!--<fieldPermissions>
         <editable>true</editable>
         <field>Vehicle_Master2__c.Vehicle_Shipment__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions>-->
     <fieldPermissions>
         <editable>true</editable>
         <field>Vehicle_Master2__c.Vehicle_Status__c</field>
@@ -8440,7 +8440,7 @@
         <field>Vehicle_Request__c.Year_of_Ownership__c</field>
         <readable>false</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!-- <fieldPermissions>
         <editable>false</editable>
         <field>Vehicle_Shipment__c.B_L_No__c</field>
         <readable>true</readable>
@@ -8484,7 +8484,7 @@
         <editable>false</editable>
         <field>Vehicle_Shipment__c.Vessel_Name__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions> -->
     <fieldPermissions>
         <editable>false</editable>
         <field>Wallet_Entry__c.Expiry__c</field>
@@ -8519,9 +8519,9 @@
         <layout>Account-Business Associates</layout>
         <recordType>Account.Business_Associates</recordType>
     </layoutAssignments>-->
-    <layoutAssignments>
+    <!--<layoutAssignments>
         <layout>Blocked_Off_Day__c-Blocked Off Day Layout</layout>
-    </layoutAssignments>
+    </layoutAssignments>-->
     <layoutAssignments>
         <layout>Case-Case Layout</layout>
     </layoutAssignments>
@@ -8560,12 +8560,12 @@
     <layoutAssignments>
         <layout>Contact-Contact Layout</layout>
     </layoutAssignments>
-    <layoutAssignments>
+    <!--<layoutAssignments>
         <layout>Custom_Exchange_Rate__c-Custom Exchange Rate Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
+    </layoutAssignments>-->
+    <!--<layoutAssignments>
         <layout>JIT_Day__c-JIT Day Layout</layout>
-    </layoutAssignments>
+    </layoutAssignments>-->
     <layoutAssignments>
         <layout>Model_Color_Trim_Master__c-ModelColor Layout</layout>
     </layoutAssignments>
@@ -8585,15 +8585,15 @@
         <layout>PersonAccount-Person Account Layout</layout>
         <recordType>PersonAccount.Prospect</recordType>
     </layoutAssignments>
-    <layoutAssignments>
+    <!--<layoutAssignments>
         <layout>Purchase_Order_Line_Item__c-Purchase Requisition Line Item Layout</layout>
-    </layoutAssignments>
+    </layoutAssignments>-->
     <layoutAssignments>
         <layout>Purchase_Order__c-Purchase Order Layout</layout>
     </layoutAssignments>
-    <layoutAssignments>
+    <!--<layoutAssignments>
         <layout>Purchase_Requisition__c-Purchase Requisition Layout</layout>
-    </layoutAssignments>
+    </layoutAssignments>-->
     <layoutAssignments>
         <layout>SA_COE_Bid_Period__c-SA COE Bid Period Layout</layout>
     </layoutAssignments>
@@ -8620,13 +8620,13 @@
         <layout>Vehicle_Purchase_Order__c-Vehicle Purchase Order Layout</layout>
         <recordType>Vehicle_Purchase_Order__c.MF_PO</recordType>
     </layoutAssignments>
-    <layoutAssignments>
+    <!--<layoutAssignments>
         <layout>Vehicle_Shipment__c-Shipment Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
+    </layoutAssignments>-->
+    <!--<layoutAssignments>
         <layout>Vehicle_Shipment__c-Shipment Layout</layout>
         <recordType>Vehicle_Shipment__c.MF_Shipment</recordType>
-    </layoutAssignments>
+    </layoutAssignments>-->
     <layoutAssignments>
         <layout>Vehicle_Stock_Reservation__c-Vehicle Stock Reservation Layout</layout>
     </layoutAssignments>
@@ -8706,7 +8706,7 @@
         <object>Vehicle_Master2__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
-    <objectPermissions>
+    <!-- <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>true</allowEdit>
@@ -8714,7 +8714,7 @@
         <modifyAllRecords>false</modifyAllRecords>
         <object>Vehicle_Shipment__c</object>
         <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
+    </objectPermissions> -->
     <pageAccesses>
         <apexPage>AccountActivationRequestMyMB</apexPage>
         <enabled>false</enabled>
@@ -8851,11 +8851,11 @@
         <apexPage>site_robots</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
-    <!-- <recordTypeVisibilities>
+    <!-- <!--<recordTypeVisibilities>
         <default>false</default>
         <recordType>Account.Business_Associates</recordType>
         <visible>false</visible>
-    </recordTypeVisibilities> -->
+    </recordTypeVisibilities>--> -->
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>Campaign_Promo_Line_Item__c.Sales_Targeted_Promo_Line_Item_RT</recordType>
@@ -8946,11 +8946,11 @@
         <recordType>Registration_Date_Slot__c.Registration_Date_Slot</recordType>
         <visible>false</visible>
     </recordTypeVisibilities>
-    <!--<recordTypeVisibilities>
+    <!--<!--<recordTypeVisibilities>
         <default>false</default>
         <recordType>Shipment_Line_Item__c.MF_Shipment_Line_Items</recordType>
         <visible>false</visible>
-    </recordTypeVisibilities>-->
+    </recordTypeVisibilities>-->-->
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>UAT_Log__c.CM_UAT</recordType>
