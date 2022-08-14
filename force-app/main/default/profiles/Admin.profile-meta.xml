@@ -4160,26 +4160,26 @@
         <field>SA_Additional_Charge__c.SAD_DESC__c</field>
         <readable>false</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!-- <fieldPermissions>
         <editable>true</editable>
         <field>SA_COE_Bid_Period__c.Bid_Amount__c</field>
         <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
+    </fieldPermissions> -->
+    <!-- <fieldPermissions>
         <editable>true</editable>
         <field>SA_COE_Bid_Period__c.Bid_Category__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions> -->
     <fieldPermissions>
         <editable>true</editable>
         <field>SA_COE_Bid_Period__c.COE_Bid_Period__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!-- <fieldPermissions>
         <editable>false</editable>
         <field>SA_COE_Bid_Period__c.Customer_NRIC__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions> -->
     <fieldPermissions>
         <editable>true</editable>
         <field>SA_COE_Bid_Period__c.MB_Sales_Agreement__c</field>
@@ -4190,11 +4190,11 @@
         <field>SA_COE_Bid_Period__c.Sales_Agreement__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!-- <fieldPermissions>
         <editable>true</editable>
         <field>SA_COE_Bid_Period__c.Status__c</field>
         <readable>true</readable>
-    </fieldPermissions>
+    </fieldPermissions> -->
     <fieldPermissions>
         <editable>false</editable>
         <field>SA_Receipt__c.Bank_Code__c</field>
