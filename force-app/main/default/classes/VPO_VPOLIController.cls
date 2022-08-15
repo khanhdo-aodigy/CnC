@@ -125,7 +125,21 @@ public without sharing class VPO_VPOLIController
                                                             'Total_Price__c, Remarks__c, Vehicle_Purchase_Order__r.Stage__c',
                                                             'Vehicle_Purchase_Order__c = \'' + parentId +'\'',
                                                             false,'Name','DESC');
-        } catch (Exception e) {
+        } catch (Exception e) 
+        {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled(cacheable = true)
+    public static Vehicle_Purchase_Order__c getVPO(String recordId){
+        try {
+            return (Vehicle_Purchase_Order__c) fetchRecords('Vehicle_Purchase_Order__c',
+                                                            'Id, Stage__c',
+                                                            'Id = \'' + recordId +'\'',
+                                                            true,'','').get(0);
+        } catch (Exception e) 
+        {
             throw new AuraHandledException(e.getMessage());
         }
     }

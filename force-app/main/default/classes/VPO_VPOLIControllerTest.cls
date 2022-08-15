@@ -200,6 +200,12 @@ public with sharing class VPO_VPOLIControllerTest {
         {
             System.assertEquals('Script-thrown exception', e.getMessage());
         }
+    }
 
+    @IsTest
+    private static void getVPO_Test()
+    {
+       Vehicle_Purchase_Order__c vpo = [SELECT Id FROM Vehicle_Purchase_Order__c LIMIT 1];
+       System.assertEquals(vpo.Id, VPO_VPOLIController.getVPO(vpo.Id).Id);
     }
 }
