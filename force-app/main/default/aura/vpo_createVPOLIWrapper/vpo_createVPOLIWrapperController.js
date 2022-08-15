@@ -4,17 +4,13 @@
         var value = helper.getParameterByName(component , event, 'inContextOfRef');
         var context = JSON.parse(window.atob(value));
         console.log('###context : ' + JSON.stringify(context));
-        component.set("v.parentId", context.attributes.recordId);      
+        component.set("v.parentId", context.attributes.recordId);
+        
+        helper.getVPO(component.get("v.parentId"), component);
     },
 
-    cancelDialog : function(component, helper) 
+    closeModal : function(component, event, helper) 
     {
-        $A.get('e.force:refreshView').fire();
-        var navEvt = $A.get("e.force:navigateToSObject");
-        navEvt.setParams({
-          "recordId": component.get("v.parentId")
-        });
-        navEvt.fire();
-    }
-    
+        helper.cancelDialog(component);
+    },
 })
