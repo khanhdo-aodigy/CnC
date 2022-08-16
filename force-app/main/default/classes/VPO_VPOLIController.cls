@@ -132,7 +132,8 @@ public without sharing class VPO_VPOLIController
     }
 
     @AuraEnabled(cacheable = true)
-    public static Vehicle_Purchase_Order__c getVPO(String recordId){
+    public static Vehicle_Purchase_Order__c getVehiclePurChaseOrder(String recordId)
+    {
         try {
             return (Vehicle_Purchase_Order__c) fetchRecords('Vehicle_Purchase_Order__c',
                                                             'Id, Stage__c',
@@ -145,17 +146,36 @@ public without sharing class VPO_VPOLIController
     }
 
     @AuraEnabled
-    public static Boolean upsertVPOLI(Vehicle_Purchase_Order_Line_Items__c vPOLItem)
+    public static Boolean upsertVPOLI(Vehicle_Purchase_Order_Line_Items__c vPOLItem, Boolean checkStage)
     {
         ADGLIB_SObjectUnitOfWork uow = new ADGLIB_SObjectUnitOfWork(new Schema.SObjectType[] {Vehicle_Purchase_Order_Line_Items__c.SObjectType});
         try 
         {
+            if (checkStage)
+            {
+                if (Approval.isLocked(vPOLItem.Vehicle_Purchase_Order__c))
+                {
+                    throwError('Invalid Stage');
+                }
+                else 
+                {
+                    Vehicle_Purchase_Order__c vpo = (Vehicle_Purchase_Order__c) fetchRecords('Vehicle_Purchase_Order__c',
+                                                                                            'Id, Stage__c',
+                                                                                            'Id = \'' + vPOLItem.Vehicle_Purchase_Order__c +'\'',
+                                                                                            true,'','').get(0);
+                    if (vpo.Stage__c == 'Closed' ||  vpo.Stage__c == 'Cancelled')
+                    {
+                        throwError('Invalid Stage');
+                    }
+                }
+            }
+
             uow.registerUpsert(vPOLItem);
             uow.commitWork();
         } 
         catch (Exception e) 
         {
-            throw new AuraHandledException(e.getMessage());
+            throwError(e.getMessage());
         }
 
         return true;
@@ -183,5 +203,12 @@ public without sharing class VPO_VPOLIController
         System.debug('fetchRecords - query: ' + query);
 
         return Database.query(query);
+    }
+
+    private static void throwError (String errorMsg)
+    {
+        AuraHandledException e = new AuraHandledException(errorMsg);
+        e.setMessage(errorMsg);
+        throw e;
     }
 }

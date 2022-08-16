@@ -3,7 +3,6 @@
     {
         var value = helper.getParameterByName(component , event, 'inContextOfRef');
         var context = JSON.parse(window.atob(value));
-        console.log('###context : ' + JSON.stringify(context));
         component.set("v.parentId", context.attributes.recordId);
         
         helper.getVPO(component.get("v.parentId"), component);
