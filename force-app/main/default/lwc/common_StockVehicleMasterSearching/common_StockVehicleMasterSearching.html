@@ -1,0 +1,47 @@
+<template>
+    <article class="slds-card">
+        <div class="slds-grid slds-einstein-header slds-card__header">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-grid slds-grid_vertical-align-center slds-size_3-of-4 slds-medium-size_2-of-3">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-custom-custom31">
+                            <lightning-icon icon-name="custom:custom31" alternative-text="Car" title="custom31"></lightning-icon>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-truncate" title="Stock Vehicle Masters">
+                            <a href="#" class="slds-card__header-link" title="Stock Vehicle Masters">
+                                <span class="slds-text-heading_small">Stock Vehicle Masters</span>
+                            </a>
+                        </h2>
+                    </div>
+                </div>
+                <div class="slds-einstein-header__figure slds-size_1-of-4 slds-medium-size_1-of-3"></div>
+            </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <template if:true={spinner}>
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </template>
+            <template if:false={spinner}>
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col">
+                        <c-common_-lookup-input object-name={objectName} search-fields={searchFields} display-fields={displayFields} onselected={variantSelected}></c-common_-lookup-input>
+                    </div>
+                    <div class="slds-col">
+                        <lightning-combobox label="Color Code" options={colorOptions} onchange={colorSelected} value={selectedColorId}></lightning-combobox>
+                    </div>
+                    <div class="slds-col">
+                        <lightning-combobox label="Trim Code" options={trimOptions} onchange={trimSelected} value={selectedTrimId}></lightning-combobox>
+                    </div>
+                </div>
+                <div class="slds-align_absolute-center slds-var-p-top_x-large slds-var-p-bottom_x-large">
+                    <lightning-button variant="brand" label="Get Stock Vehicle Master" class="slds-var-p-around_medium" onclick={getStockVehicleMaster}></lightning-button>
+                </div>
+                <template if:true={hasData}>
+                    <lightning-datatable key-field="Id" data={stocks} columns={columns} onrowselection={handleSelectedRow} max-row-selection="1"></lightning-datatable>
+                </template>
+            </template>
+        </div>
+    </article>
+</template>

@@ -1,0 +1,21 @@
+table th {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+table tr:first-child {
+    border-bottom: 3px solid black;
+}
+
+table tr {
+    border-bottom: 1px dotted black;
+}
+
+table td {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+table {
+    border-collapse: collapse
+}
