@@ -40,7 +40,6 @@
     </alerts>
     <alerts>
         <fullName>Send_approved_email_to_Sales_Admin_Royston_Dawn</fullName>
-        <ccEmails>n.pham20499@gmail.com</ccEmails>
         <description>Send approved email to Sales Admin/ Royston/ Dawn</description>
         <protected>false</protected>
         <recipients>
@@ -53,7 +52,6 @@
     </alerts>
     <alerts>
         <fullName>Send_email_to_Sales_Manager_Sales_Admin_Royston_Dawn</fullName>
-        <ccEmails>n.pham20499@gmail.com</ccEmails>
         <description>Send email to Sales Manager/ Sales Admin/ Royston/ Dawn</description>
         <protected>false</protected>
         <recipients>
@@ -63,17 +61,12 @@
         <recipients>
             <type>owner</type>
         </recipients>
-        <recipients>
-            <recipient>dangphap.mai@aodigy.com</recipient>
-            <type>user</type>
-        </recipients>
         <senderAddress>comms@cyclecarriage.com.sg</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>Purchase_Requisition_Emails/Update_SVM_when_VPO_cancel</template>
     </alerts>
     <alerts>
         <fullName>Send_rejection_email_to_Sales_Admin_Royston_Dawn</fullName>
-        <ccEmails>n.pham20499@gmail.com</ccEmails>
         <description>Send rejection email to Sales Admin/ Royston/ Dawn</description>
         <protected>false</protected>
         <recipients>
