@@ -1,7 +1,7 @@
 ({
     getVPO : function(recordId, component) 
     {
-        const getVPOController = component.get("c.getVPO");
+        const getVPOController = component.get("c.getVehiclePurChaseOrder");
         getVPOController.setParams({ recordId: recordId});
         this.executeAction(component, getVPOController)
         .then(result => 

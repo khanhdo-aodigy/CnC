@@ -190,7 +190,8 @@ export default class Vpo_createVPOLIDetails extends LightningElement
         });
 
         upsertVPOLI({
-            vPOLItem: this.details
+            vPOLItem: this.details,
+            checkStage: true
         }).then((result) =>
         {
             if (result === true)
@@ -206,10 +207,23 @@ export default class Vpo_createVPOLIDetails extends LightningElement
         catch((error) =>
         {
             console.log('upsertVPOLI - Error: ' + error.body.message);  
-            this.showNotification('Error!', 'An error has occurred! Please contact your Administrator.', 'error', 'dismissible');
-            this.isError      = true;
-            this.errorMessage = error.body.message;
-            this.spinner = false;
+            this.refreshAllValues();
+            this.template.querySelector('c-vpo_get-V-P-O-L-I-Details').refreshTable();
+            
+            if (error.body.message === 'Invalid Stage')
+            {
+                this.showNotification('Sorry!', 'You can\'t create new Vehicle Purchase Order Line Items when Vehicle Purchase Order stage is Closed or Cancelled or Submitted for Approval! Please contact your Administrator.', 'warning', 'sticky');
+                this.dispatchEvent(new CustomEvent('close', {}));
+                this.isError = false;
+                this.spinner = false;
+            }
+            else
+            {
+                this.showNotification('Error!', 'An error has occurred! Please contact your Administrator.', 'error', 'dismissible');
+                this.isError      = true;
+                this.errorMessage = error.body.message;
+                this.spinner = false;
+            }
         })
     }
 
@@ -221,7 +235,7 @@ export default class Vpo_createVPOLIDetails extends LightningElement
         this.template.querySelectorAll('lightning-input-field').forEach(el => el.reset());
     }
 
-    @api showNotification(title, message, variant, mode)
+    showNotification(title, message, variant, mode)
     {
         const evt = new ShowToastEvent({
             title: title,

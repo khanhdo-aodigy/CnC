@@ -196,6 +196,11 @@ public with sharing class VPO_VPOLIControllerTest {
         {
             Boolean vpoliTest = VPO_VPOLIController.upsertVPOLI(null, null);
 
+        Vehicle_Purchase_Order_Line_Items__c vpoli = [SELECT Id, Vehicle_Purchase_Order__c FROM  Vehicle_Purchase_Order_Line_Items__c];
+
+        try
+        {
+            Boolean vpoliTest = VPO_VPOLIController.upsertVPOLI(vpoli, true);
         }
         catch (Exception e) 
         {
