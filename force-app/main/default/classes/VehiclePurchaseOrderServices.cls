@@ -4,7 +4,7 @@
  * Create Date: July 2022
  * History
  *              DATE::                              BY::                                TICKET::                                            CHANGELOG
- *      27 July 2022                        dangphap.mai@aodigy.com                 US-VPO-000016                                              init
+ *      27 July 2022                        dangphap.mai@aodigy.com                 US-VPO-000016                                              init 
  * ========================================================================================================================================================================== 
  */
 public inherited sharing class VehiclePurchaseOrderServices
@@ -28,7 +28,7 @@ public inherited sharing class VehiclePurchaseOrderServices
         
         Map<Id, List<Vehicle_Master2__c>> convertedStocksByLineItemId = new Map<Id, List<Vehicle_Master2__c>>();
 
-        
+
         for (Vehicle_Purchase_Order__c order : orders)
         {
             // get the Model Master Ids
