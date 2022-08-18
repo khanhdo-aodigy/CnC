@@ -37,7 +37,9 @@ public with sharing class VPO_VPOLIControllerTest {
         Account supplier = Test_DataFactory.createAccount(true, 'Supplier Account');
 
         //create PO
-        Vehicle_Purchase_Order__c order = Test_DataFactory.createVehiclePurchaseOrder(True, supplier.Id);
+        Vehicle_Purchase_Order__c order = Test_DataFactory.createVehiclePurchaseOrder(false, supplier.Id);
+        order.Stage__c = 'Closed';
+        insert order;
 
         // create Vehicle master2 
         Vehicle_Master2__c vm2 = Test_DataFactory.createVehicleMaster2(false, modelMaster.Id, colorMaster.Id, trimMaster.Id, modelYearMaster.Id, 'originalCommacase', 'systemCommcase');
@@ -47,7 +49,6 @@ public with sharing class VPO_VPOLIControllerTest {
 
         //create VPOLI
         Vehicle_Purchase_Order_Line_Items__c vpoli = Test_DataFactory.createVehiclePurchaseOrderedLineItems(true, order.Id, modelMaster.Id, colorMaster.Id, trimMaster.Id, modelColorTrimMaster.Id, modelYearMaster.Id);
-
     }
 
     @IsTest
@@ -184,8 +185,8 @@ public with sharing class VPO_VPOLIControllerTest {
     
     @IsTest
     private static void upsertVPOLI_Test(){
-        Vehicle_Purchase_Order_Line_Items__c vpoli= [SELECT Id FROM  Vehicle_Purchase_Order_Line_Items__c];
-        Boolean vpoliTest = VPO_VPOLIController.upsertVPOLI(vpoli, false);
+        Vehicle_Purchase_Order_Line_Items__c vpoli= [SELECT Id, Vehicle_Purchase_Order__c FROM  Vehicle_Purchase_Order_Line_Items__c];
+        Boolean vpoliTest = VPO_VPOLIController.upsertVPOLI(vpoli,true);
     }
 
     @IsTest
@@ -193,22 +194,7 @@ public with sharing class VPO_VPOLIControllerTest {
         Vehicle_Purchase_Order_Line_Items__c vpoli= [SELECT Id FROM  Vehicle_Purchase_Order_Line_Items__c];
         try
         {
-            Boolean vpoliTest = VPO_VPOLIController.upsertVPOLI(null, false);
-
-        }
-        catch (Exception e) 
-        {
-            System.assertEquals('Attempt to de-reference a null object', e.getMessage());
-        }
-    }
-
-    @IsTest
-    private static void upsertVPOLI_Error_InvalidStage()
-    {
-        Vehicle_Purchase_Order__c vpo = [SELECT Id, Stage__c, Cancellation_Reason__c FROM  Vehicle_Purchase_Order__c LIMIT 1];
-        vpo.Stage__c = 'Cancelled';
-        vpo.Cancellation_Reason__c = 'Test';
-        update vpo;
+            Boolean vpoliTest = VPO_VPOLIController.upsertVPOLI(null, null);
 
         Vehicle_Purchase_Order_Line_Items__c vpoli = [SELECT Id, Vehicle_Purchase_Order__c FROM  Vehicle_Purchase_Order_Line_Items__c];
 
@@ -218,27 +204,15 @@ public with sharing class VPO_VPOLIControllerTest {
         }
         catch (Exception e) 
         {
-            System.assertEquals('Invalid Stage', e.getMessage());
+            System.assertEquals('Attempt to de-reference a null object', e.getMessage());
         }
     }
 
     @IsTest
-    private static void getVehiclePurchaseOrder_Test()
+    private static void getVehiclePurChaseOrder_Test()
     {
        Vehicle_Purchase_Order__c vpo = [SELECT Id FROM Vehicle_Purchase_Order__c LIMIT 1];
-       System.assertEquals(vpo.Id, VPO_VPOLIController.getVehiclePurchaseOrder(vpo.Id).Id);
-    }
-
-    @IsTest
-    private static void getVehiclePurchaseOrder_Error()
-    {
-        try 
-        {
-            VPO_VPOLIController.getVehiclePurchaseOrder('a');
-        } 
-        catch (Exception e) 
-        {
-            System.assertEquals('Script-thrown exception', e.getMessage());   
-        }
+       Vehicle_Purchase_Order__c getVPO = VPO_VPOLIController.getVehiclePurChaseOrder(vpo.Id);
+       System.assertEquals(vpo.Id, getVPO.Id);
     }
 }
