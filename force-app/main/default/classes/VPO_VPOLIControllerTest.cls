@@ -37,9 +37,9 @@ public with sharing class VPO_VPOLIControllerTest {
         Account supplier = Test_DataFactory.createAccount(true, 'Supplier Account');
 
         //create PO
-        Vehicle_Purchase_Order__c order = Test_DataFactory.createVehiclePurchaseOrder(false, supplier.Id);
-        order.Stage__c = 'Closed';
-        insert order;
+        Vehicle_Purchase_Order__c order = Test_DataFactory.createVehiclePurchaseOrder(true, supplier.Id);
+        // order.Stage__c = 'Closed';
+        // insert order;
 
         // create Vehicle master2 
         Vehicle_Master2__c vm2 = Test_DataFactory.createVehicleMaster2(false, modelMaster.Id, colorMaster.Id, trimMaster.Id, modelYearMaster.Id, 'originalCommacase', 'systemCommcase');
@@ -191,16 +191,11 @@ public with sharing class VPO_VPOLIControllerTest {
 
     @IsTest
     private static void upsertVPOLI_Error(){
-        Vehicle_Purchase_Order_Line_Items__c vpoli= [SELECT Id FROM  Vehicle_Purchase_Order_Line_Items__c];
+        Vehicle_Purchase_Order_Line_Items__c vpoli= [SELECT Id, Vehicle_Purchase_Order__c FROM  Vehicle_Purchase_Order_Line_Items__c];
         try
         {
             Boolean vpoliTest = VPO_VPOLIController.upsertVPOLI(null, null);
 
-        Vehicle_Purchase_Order_Line_Items__c vpoli = [SELECT Id, Vehicle_Purchase_Order__c FROM  Vehicle_Purchase_Order_Line_Items__c];
-
-        try
-        {
-            Boolean vpoliTest = VPO_VPOLIController.upsertVPOLI(vpoli, true);
         }
         catch (Exception e) 
         {
