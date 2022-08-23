@@ -11,6 +11,7 @@ public inherited sharing class VPOLineItemsSelector extends ADGLIB_SObjectSelect
 {
     public VPOLineItemsSelector() {
 
+        
     }
 
     public Schema.SObjectType getSObjectType()

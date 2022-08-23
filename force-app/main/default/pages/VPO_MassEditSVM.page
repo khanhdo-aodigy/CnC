@@ -10,7 +10,8 @@
                         $Lightning.createComponent("c:vpo_massEditSVM", 
                         {
                             parentId: '{!$CurrentPage.parameters.id}', 
-                            navigateToURL: navigateToURL
+                            navigateToURL: navigateToURL,
+                            showToastNotification: showToastNotification
                         },
                             "massEdit", function(component){});
                     });  
@@ -25,6 +26,15 @@
                         {
                             window.location.href = url;
                         }
+                    }
+
+                    function showToastNotification(title, message, variant) 
+                    {
+                        sforce.one.showToast({
+                            'title': title,
+                            'message': message ,
+                             'type': variant
+                        });
                     }
                 </script>
             </div>

@@ -211,22 +211,66 @@ public with sharing class Test_DataFactory {
         return modelCode;
     }
     
+    private static Integer VSMS_COMPOUND_KEY_COUNTER = 0;
     /** This method is test data for create Model_Year_Master__c **/ 
     public static  Model_Year_Master__c createModelYearCode (Boolean doInsert, String ModelmasteId){
         Model_Year_Master__c modelYearCode = new Model_Year_Master__c();
         modelYearCode.ModelYear__c = Date.today().addYears(-1);
         modelYearCode.Model_Master__c = ModelmasteId;
-        
+        modelYearCode.VSMS_Compound_Primary_Key__c = 'VSMS_' + String.valueOf(VSMS_COMPOUND_KEY_COUNTER++);
         
         if(doInsert)
             insert modelYearCode;
         
         return modelYearCode;
     } 
+
+    /** This method is test data for create Vehicle_Purchase_Ordered__c**/
+    public static Vehicle_Purchase_Order__c createVehiclePurchaseOrder(Boolean doInSert, String SupplierId ){
+        Vehicle_Purchase_Order__c VehiclePurchaseOrder = new Vehicle_Purchase_Order__c();
+        VehiclePurchaseOrder.Franchise_Code__c ='KIAPC';
+        VehiclePurchaseOrder.Currency_Code__c = 'USD';
+        VehiclePurchaseOrder.Production_Month__c = Date.today();
+        VehiclePurchaseOrder.Supplier_Account__c = SupplierId;
+        if (doInSert) 
+            insert VehiclePurchaseOrder;
+            return VehiclePurchaseOrder;
+    }
+
+    /**Create Method is test data for create Model_Color_Trim_Master__c**/
+    public static Model_Color_Trim_Master__c createModelColorTrimMaster(Boolean doInsert, String ColorCodeId, String ModelCodeId, String TrimCodeId){
+        Model_Color_Trim_Master__c modelColorTrimMaster = new Model_Color_Trim_Master__c();
+        modelColorTrimMaster.Name = 'Model Color Trim Master';
+        modelColorTrimMaster.Branch_Code__c= 'KIA';
+        modelColorTrimMaster.Franchise_Code__c = 'KIAPC';
+        modelColorTrimMaster.Color_Code__c = ColorCodeId;
+        modelColorTrimMaster.Model_Code__c = ModelCodeId;
+        modelColorTrimMaster.Trim_Code__c = TrimCodeId;
+        if (doInsert) 
+            insert modelColorTrimMaster;
+            return modelColorTrimMaster;
+    }
+
+    /**Create Method is test data for create Vehicle_Purchase_Ordered_Line_Items__c **/
+    public static Vehicle_Purchase_Order_Line_Items__c createVehiclePurchaseOrderedLineItems(Boolean doInsert, String VehiclePurchaseOrderId, String modelMasterId, String colorMasterId, String trimMasterId, String modelColorTrimMasterId, String ModelYearMasterId){
+        Vehicle_Purchase_Order_Line_Items__c VehiclePurchaseOrderedLineItems = new Vehicle_Purchase_Order_Line_Items__c();
+        VehiclePurchaseOrderedLineItems.Vehicle_Purchase_Order__c = VehiclePurchaseOrderId;
+        VehiclePurchaseOrderedLineItems.Model_Master__c = modelMasterId;
+        VehiclePurchaseOrderedLineItems.Color_Master__c = colorMasterId;
+        VehiclePurchaseOrderedLineItems.Trim_Master__c = trimMasterId;
+        VehiclePurchaseOrderedLineItems.Model_Color_Trim_Master__c = modelColorTrimMasterId;
+        VehiclePurchaseOrderedLineItems.Model_Year_Master__c = ModelYearMasterId;
+        VehiclePurchaseOrderedLineItems.Units_Ordered__c = 5;
+
+        if (doInsert) 
+            insert VehiclePurchaseOrderedLineItems;
+            return VehiclePurchaseOrderedLineItems;
+    }
     
     /** This method is test data for create Color_Master__c **/ 
     public static Color_Master__c createColorCode (Boolean doInsert,String colorCodeName, String colorCodeValue, String branchCode, String franchiseCode){
         Color_Master__c colorCode = new Color_Master__c();
+
         colorCode.name = colorCodeName;
         colorCode.ColorCode__c = colorCodeValue;
         colorCode.Branch_Code__c = branchCode;
@@ -1389,4 +1433,46 @@ public with sharing class Test_DataFactory {
         return ucq;
 
     }
+    
+    public static List<Sales_Agreement__c> create_List_Sales_Agreement(Integer listSize){
+        List<Sales_Agreement__c> listSA = new List<Sales_Agreement__c>();
+        for(Integer i; i < listSize;i++){
+            listSA.add(new Sales_Agreement__c(
+                 // create sales agreement                
+                Branch_Code__c = 'branchCode_' + i,
+                SOH_SONO__c = 'agreementNo',
+                Stock_Reservation__c = 'stockReservationId'
+            ));
+        }
+        insert listSA;
+        return listSA;
+    }
+
+    public static COE_Bid_Period__c createCOEPeriod(Boolean doInsert, Date startDate, Date endDate){
+        COE_Bid_Period__c coePeriod = new COE_Bid_Period__c();
+        coePeriod.From_Date__c = startDate;
+        coePeriod.To_Date__c = endDate;
+
+        if(doInsert){
+            insert coePeriod;
+        }
+
+        return coePeriod;
+    }
+
+    // public static JIT_Day__c createJITDay(Boolean doInsert, String name, String franchise){
+    //     JIT_Day__c jitDay = new JIT_Day__c();
+    //     jitDay.Name = name;
+    //     jitDay.JIT_Date__c = Date.today();
+    //     jitDay.No_of_Slots__c = 10;
+    //     jitDay.Opened_Slots__c = 6;
+    //     jitDay.Utilised_Slots__c = 2;
+    //     jitDay.Franchise__c = franchise;
+
+    //     if(doInsert){
+    //         insert jitDay;
+    //     }
+
+    //     return jitDay;
+    // }
 }

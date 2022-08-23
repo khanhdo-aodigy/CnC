@@ -10,7 +10,8 @@
                         $Lightning.createComponent("c:vpo_editVPOLI", 
                         {
                             parentId: '{!$CurrentPage.parameters.id}',
-                            navigateToURL: navigateToURL
+                            navigateToURL: navigateToURL,
+                            showToastNotification: showToastNotification
                         },
                             "editVPOLI", function(component){});
                     });  
@@ -25,7 +26,16 @@
                         {
                             window.location.href = url;
                         }
-                    }                
+                    }   
+                           
+                    function showToastNotification(title, message, variant) 
+                    {
+                        sforce.one.showToast({
+                            'title': title,
+                            'message': message ,
+                             'type': variant
+                        });
+                    }      
                 </script>
             </div>
         </body>

@@ -8,7 +8,7 @@
             </div>
             <div class="slds-modal__content slds-p-horizontal_xx-large slds-size_1-of-1">     
                 <form class="slds-form--stacked">
-                    <c:vpo_createVPOLIDetails parentId="{!v.parentId}"></c:vpo_createVPOLIDetails>    
+                    <c:vpo_createVPOLIDetails parentId="{!v.parentId}" onclose="{!c.cancelDialog}"></c:vpo_createVPOLIDetails>    
                 </form>             
             </div>
             <div class="slds-modal__footer">                
