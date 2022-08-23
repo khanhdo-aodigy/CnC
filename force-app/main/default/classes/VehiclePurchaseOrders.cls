@@ -158,7 +158,7 @@ public inherited sharing class VehiclePurchaseOrders extends ADGLIB_SObjectDomai
                                                                                             WHERE Vehicle_Purchase_Order__c IN :applicableOrders.keySet()]);
         
         // boring early quit
-        
+        if (totalConvertedStocks.size() == 0) return;
 
         // re-arrange by order id
         Map<Id, List<Vehicle_Master2__c>> convertedStocksByOrderId = new Map<Id, List<Vehicle_Master2__c>>();
