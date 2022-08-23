@@ -1,7 +1,7 @@
 <template>
     <div class="slds-form-element" data-id="lookup-element">
 
-        <label class="slds-form-element__label" for="combobox-id-1" id="combobox-label-id-32">Model Master (Variant)</label>
+        <!-- <label class="slds-form-element__label" for="combobox-id-1" id="combobox-label-id-32">Model Master (Variant)</label> -->
         
         <div class="slds-form-element__control">
             <div class="slds-combobox_container">
@@ -9,14 +9,9 @@
 
                     <!-- input text with search icon -->
                     <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
-
-                        <input type="text" onkeyup={updateSearchKey} value={searchKey} class="slds-input slds-combobox__input" role="combobox" placeholder="Search..." data-id="lookup-input"/>
                         
-                        <span class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
-                            <svg class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default" aria-hidden="true">
-                                <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#search"></use>
-                            </svg>
-                        </span>
+                        <lightning-input oncommit={handleCommitEvent} required={required} type="search" label={label} is-loading={searching} onkeyup={updateSearchKey} value={searchKey} placeholder="Search..." data-id="lookup-input" variant={labelStyle}> </lightning-input>
+                        
                     </div>
 
 
@@ -42,66 +37,6 @@
                                     </div>
                                 </li>
                             </template>
-                            <!-- <li role="presentation" class="slds-listbox__item">
-                                <div class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">
-                                    <span class="slds-media__figure slds-listbox__option-icon">
-                                        <span class="slds-icon_container slds-icon-standard-account">
-                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
-                                                <use xlink:href="/_slds/icons/standard-sprite/svg/symbols.svg#account">
-                                                </use>
-                                            </svg>
-                                        </span>
-                                    </span>
-                                    <span class="slds-media__body">
-                                        <span
-                                            class="slds-listbox__option-text slds-listbox__option-text_entity">Burlington
-                                            Textiles Corp of America</span>
-                                        <span class="slds-listbox__option-meta slds-listbox__option-meta_entity">Account
-                                            • Burlington, NC</span>
-                                    </span>
-                                </div>
-                            </li> -->
-                            <!-- <li role="presentation" class="slds-listbox__item">
-                                <div id="option2"
-                                    class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
-                                    role="option">
-                                    <span class="slds-media__figure slds-listbox__option-icon">
-                                        <span class="slds-icon_container slds-icon-standard-account">
-                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
-                                                <use xlink:href="/_slds/icons/standard-sprite/svg/symbols.svg#account">
-                                                </use>
-                                            </svg>
-                                        </span>
-                                    </span>
-                                    <span class="slds-media__body">
-                                        <span
-                                            class="slds-listbox__option-text slds-listbox__option-text_entity">Dickenson
-                                            plc</span>
-                                        <span class="slds-listbox__option-meta slds-listbox__option-meta_entity">Account
-                                            • Lawrence, KS</span>
-                                    </span>
-                                </div>
-                            </li>
-                            <li role="presentation" class="slds-listbox__item">
-                                <div id="option3"
-                                    class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
-                                    role="option">
-                                    <span class="slds-media__figure slds-listbox__option-icon">
-                                        <span class="slds-icon_container slds-icon-standard-account">
-                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
-                                                <use xlink:href="/_slds/icons/standard-sprite/svg/symbols.svg#account">
-                                                </use>
-                                            </svg>
-                                        </span>
-                                    </span>
-                                    <span class="slds-media__body">
-                                        <span class="slds-listbox__option-text slds-listbox__option-text_entity">Edge
-                                            Communications</span>
-                                        <span class="slds-listbox__option-meta slds-listbox__option-meta_entity">Account
-                                            • Austin, TX</span>
-                                    </span>
-                                </div>
-                            </li> -->
                         </ul>
                     </div>
                 </div>

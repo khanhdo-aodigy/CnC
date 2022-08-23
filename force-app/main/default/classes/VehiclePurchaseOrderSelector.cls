@@ -52,6 +52,7 @@ public inherited sharing class VehiclePurchaseOrderSelector extends ADGLIB_SObje
         Boolean assertCRUD                              = false;    // by pass CRUD
         Boolean enforceFLS                              = false;    // by pass FLS
         Boolean includeSelectorFields                   = true;     // include fields from getSObjectFieldList()
+        
         adglib_QueryFactory orderQueryFactory           = this.newQueryFactory(assertCRUD, enforceFLS, includeSelectorFields).setCondition('Id IN :orderIds');
         
         // select line items

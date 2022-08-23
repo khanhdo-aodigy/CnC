@@ -1,5 +1,6 @@
 ({
-    myAction : function(component, event, helper) {
-
+    quitMatching : function(component, event, helper)
+    {
+        $A.get("e.force:closeQuickAction").fire();
     }
 })

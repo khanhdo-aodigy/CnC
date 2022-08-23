@@ -14,57 +14,110 @@ const COLUMNS =
     { label: 'Model Description', fieldName: 'Model_Description__c', editable: false },
     { label: 'Color Description', fieldName: 'Color_Description__c', editable: false },
     { label: 'Trim Description', fieldName: 'Trim_Description__c', editable: false },
-    // { label: 'Manufacturer Ref. No.', fieldName: 'Manufacturer_Ref_No__c', type: 'text', editable: true },
+    { label: 'Production Month', fieldName: 'Production_Month__c', editable: false },
+    { label: 'Manufacturer Ref. No.', fieldName: 'Manufacturer_Ref_No__c', type: 'text', editable: false },
 ];
 
 export default class Common_StockVehicleMasterSearching extends LightningElement
 {
-    @track columns = COLUMNS;
-    @track spinner = false;
-
+    /**
+     * Conditions for vehicle stock master searching, can be set by parent
+     */
     @api conditions = '';
 
-    // main inputs
+    /**
+     * Vehicle Stock Master table settings
+     */
+    @track columns = COLUMNS;
+
+    /**
+     * Flag for spinner
+     */
+    @track spinner = false;
+
+    /**
+     * Selected variant record
+     */
+    @track selectedVariant;
+
+    /**
+     * Selected variant id
+     */
     @track selectedVariantId;
+
+    /**
+     * Selected color id
+     */
     @track selectedColorId;
+
+    /**
+     * selected trim id
+     */
     @track selectedTrimId;
 
+    /**
+     * Production Month input
+     */
+    @track productionMonth;
+
+    /**
+     * Stock Vehicle Master retrieved
+     */
     @track stocks = [];
 
+    /**
+     * Combination of possible variant-color-trim options
+     */
     @track variantCombinations = [];
 
+    /**
+     * Color options
+     */
     @track colorOptions = [];
 
+    /**
+     * Trim options
+     */
     @track trimOptions = [];
 
-    // @track disableColorSelect = true;
-    // @track disableTrimSelect = true;
-
-    @track objectName = VARIANT.objectApiName;
-
-    @track searchFields = [
-        VARIANT_NAME.fieldApiName,
-        VARIANT_MODEL_DESCRIPTION.fieldApiName
-    ];
-
-    @track displayFields = [
-        VARIANT_NAME.fieldApiName,
-        VARIANT_MODEL_DESCRIPTION.fieldApiName,
-    ];
-
+    /**
+     * Flag to enable Stock Vehicle Master table
+     */
     get hasData()
     {
         return this.stocks && this.stocks.length > 0;
     }
 
+    /**
+     * Handler for variant selected event
+     * @param {*} e 
+     */
     variantSelected(e)
     {
-        this.selectedVariantId_ = e.detail.Id;
-        this.selectedVariantId && this.getVariantCombinations();
-
-        // TODO: toast when !this.selectedVariantId
+        // console.log('varian selected');
+        if (!this.selectedVariant_ || (this.selectedVariant_.Id !== e.detail.Id))
+        {
+            this.selectedVariant_ = e.detail
+        
+            this.selectedVariantId && this.getVariantCombinations();
+        }
     }
 
+    /**
+     * Handler for variant selected event
+     * @param {*} e 
+     */
+    variantUnselected(e)
+    {
+        console.log('varian unselected');
+
+        this.selectedVariant_ = null;
+        
+    }
+
+    /**
+     * Call backend to retrieve possible variant-color-trim combination for selected variant. These combinations are foundation for color & trim options
+     */
     getVariantCombinations()
     {
         getVariantCombinationsById({
@@ -79,17 +132,17 @@ export default class Common_StockVehicleMasterSearching extends LightningElement
             }
             else
             {
-                console.log(123);
-                // TODO: have warning 
-                this.showNotification('Sorry!', 'No Color and Trim can be found for this Variant! Please try another Variant or contact your Administrator!', 'warning', 'sticky');
+                this.showNotification_('Warning', 'No Color and Trim can be found for this Variant! Please try another Variant or contact your Administrator!', 'warning', 'sticky');
             }
-            
         })
         .catch(error => {
             console.error(error);
         })
     }
 
+    /**
+     * Get color options from variant-color-trim combinations
+     */
     getColorOptions()
     {
         this.colorOptions = [];
@@ -98,12 +151,15 @@ export default class Common_StockVehicleMasterSearching extends LightningElement
         let optionIds = [];
 
         this.variantCombinations.forEach(combination => {
-            if (combination.Color_Code__r)
+            if (combination.Color_Code__r && combination.Color_Code__r.Color_Description__c)
             {
                 if (!optionIds.includes(combination.Color_Code__r.Id))
                 {
+                    let colorDescription    = combination.Color_Code__r.Color_Description__c;
+                    let colorCode           = combination.Color_Code__r.ColorCode__c? `(${combination.Color_Code__r.ColorCode__c})` : '';
+
                     this.colorOptions.push({
-                        label : `${combination.Color_Code__r.Color_Description__c} (${combination.Color_Code__r.ColorCode__c || ''})`,
+                        label : `${colorDescription} ${colorCode}`,
                         value : combination.Color_Code__r.Id
                     })
 
@@ -112,9 +168,15 @@ export default class Common_StockVehicleMasterSearching extends LightningElement
             }
         })
 
-        // this.disableColorSelect = !(this.colorOptions.length > 0);
+        if (this.colorOptions.length === 0)
+        {
+            this.showNotification_('Warning', 'This variant do not have any color options', 'warning', 'sticky');
+        }
     }
 
+    /**
+     * Get color options from variant-color-trim combinations and selected variant + color
+     */
     getTrimOptions()
     {
         this.trimOptions = [];
@@ -123,12 +185,15 @@ export default class Common_StockVehicleMasterSearching extends LightningElement
         let optionIds = [];
 
         this.variantCombinations.forEach(combination => {
-            if (combination.Color_Code__r && combination.Trim_Code__r)
+            if (combination.Color_Code__r && combination.Trim_Code__r && combination.Trim_Code__r.Trim_Description__c)
             {
                 if (!optionIds.includes(combination.Trim_Code__r.Id) && combination.Color_Code__r.Id == this.selectedColorId)
                 {
+                    let trimDescription    = combination.Trim_Code__r.Trim_Description__c;
+                    let trimCode           = combination.Trim_Code__r.Name? `(${combination.Trim_Code__r.Name})` : '';
+
                     this.trimOptions.push({
-                        label : `${combination.Trim_Code__r.Trim_Description__c} (${combination.Trim_Code__r.Name || ''})`,
+                        label : `${trimDescription} ${trimCode}`,
                         value : combination.Trim_Code__r.Id
                     })
 
@@ -137,20 +202,38 @@ export default class Common_StockVehicleMasterSearching extends LightningElement
             }
         })
 
-        console.log(this.trimOptions);
-
-        // this.disableTrimSelect = !(this.trimOptions.length > 0);
+        if (this.trimOptions.length === 0)
+        {
+            this.showNotification_('Warning', 'This variant and color do not have any trim options', 'warning', 'sticky');
+        }
     }
 
+    /**
+     * Handler for color selected event
+     * @param {*} e 
+     */
     colorSelected(e)
     {
         this.selectedColorId_ = e.currentTarget.value;
         this.getTrimOptions();
     }
 
+    /**
+     * Handler for trim selected event
+     * @param {*} e 
+     */
     trimSelected(e)
     {
         this.selectedTrimId_ = e.currentTarget.value;
+    }
+
+    /**
+     * Handler for production month updated
+     * @param {*} e 
+     */
+    updateProductionMonth(e)
+    {
+        this.productionMonth_ = e.currentTarget.value;
     }
 
     /**
@@ -159,36 +242,81 @@ export default class Common_StockVehicleMasterSearching extends LightningElement
      */
     getStockVehicleMaster(e)
     {
+        // check input validity
+        let inputs = [...this.template.querySelectorAll('[data-node-type="input"]')];
+
+        let isValid = inputs.reduce((validSoFar, input) => {
+            return validSoFar && input.reportValidity();
+        }, true);
+
+        if (!isValid)
+        {
+            return;
+        }
+
         this.spinner = true;
+
         getStockVehicleMaster(
             {
                 variantId : this.selectedVariantId,
                 colorId : this.selectedColorId,
                 trimId : this.selectedTrimId,
+                productionMonth : this.productionMonth,
                 conditions : this.conditions
             }
         )
         .then(result => {
-            console.log(result);
             this.stocks = result;
-            this.spinner = false;
         })
         .catch(error => {
-            console.error('getStockVehicleMaster - error: ' + error);
+            this.showNotification_('Error!', 'An error has occured! Please contact your Administrator!', 'error', 'sticky');
+            console.error(error);
+        })
+        .finally(() => {
             this.spinner = false;
-            this.showNotification('Error!', 'An error has occured! Please contact your Administrator!', 'error', 'sticky');
         })
     }
 
+    /**
+     * Handler for Stock Vehicle Master row selected
+     * @param {*} e 
+     */
     handleSelectedRow(e)
     {
         const selectedRows = e.detail.selectedRows;
+
         this.dispatchEvent(new CustomEvent('selected', {detail : selectedRows}));
     }
 
-    // on new model selected: reset selected color / trim id and reset color / trim options
+    /**
+     * Clear selected stock and fire event to parent
+     * @param {*} e 
+     */
+    clearSelectedStocks(e)
+    {
+        let table = this.template.querySelector('lightning-datatable');
+
+        if (table)
+        {
+            table && (table.selectedRows = []);
+            this.dispatchEvent(new CustomEvent('unselected'));
+        }
+    }
+
+    set selectedVariant_(value)
+    {
+        this.selectedVariant = value? value : {};
+        this.selectedVariantId_ = value? value.Id : null;
+    }
+
+    get selectedVariant_()
+    {
+        return this.selectedVariant;
+    }
+
     set selectedVariantId_(value)
     {
+        // on new model selected: reset selected color / trim id and reset color / trim options
         if (this.selectedVariantId != value)
         {
             this.selectedVariantId = value;
@@ -204,9 +332,9 @@ export default class Common_StockVehicleMasterSearching extends LightningElement
         return this.selectedVariantId;
     }
 
-    // on new color selected: reset selected trim id and reset trim options
     set selectedColorId_(value)
     {
+        // if selected color change, reset trim option and selected trim id
         if (this.selectedColorId != value)
         {
             this.selectedColorId = value;
@@ -230,7 +358,17 @@ export default class Common_StockVehicleMasterSearching extends LightningElement
         return this.selectedTrimId
     }
 
-    showNotification(title, message, variant, mode)
+    set productionMonth_(value)
+    {
+        this.productionMonth = value;
+    }
+
+    get productionMonth_()
+    {
+        return this.productionMonth;
+    }
+
+    showNotification_(title, message, variant, mode)
     {
         const evt = new ShowToastEvent({
             title: title,
@@ -241,4 +379,19 @@ export default class Common_StockVehicleMasterSearching extends LightningElement
 
         this.dispatchEvent(evt);
     }
+
+    @track objectName = VARIANT.objectApiName;
+
+    @track searchFields = [
+        VARIANT_NAME.fieldApiName,
+        VARIANT_MODEL_DESCRIPTION.fieldApiName
+    ];
+
+    @track displayFields = [
+        VARIANT_NAME.fieldApiName,
+        VARIANT_MODEL_DESCRIPTION.fieldApiName,
+    ];
+
+    @track isVariantRequired_ = true;
+    @track variantLookupLabel_ = 'Model Master (Variant)';
 }

@@ -1,5 +1,23 @@
+/*==========================================================================================================================================================================
+ * Controller class for Shipment Matching component
+ * Created By: Aodigy Team
+ * Create Date: Aug 2022
+ * History
+ *          DATE::                              BY::                                TICKET::                                            CHANGELOG
+ *          18 Aug 2022                         dangphap.mai@aodigy.com             US-Ship-000008                                       init
+ * ========================================================================================================================================================================== 
+ */
 public with sharing class ShipmentLineItemsMatchingController
 {
+    /**
+     * ============================================================================================
+     * Get vehicle shipment details on component init
+     * @param shipmentIds: target vehicle shipment ids
+     * History
+     *          DATE::                              BY::                                CHANGELOG
+     *          18 Aug 2022                         dangphap.mai@aodigy.com             init
+     * ============================================================================================
+     */
     @AuraEnabled(cacheable=true)
     public static VehicleShipmentDetail init(String vehicleShipmentId)
     {
@@ -19,7 +37,7 @@ public with sharing class ShipmentLineItemsMatchingController
             //
             List<Vehicle_Master2__c> shipmentMatchedStocks = [ SELECT   Name, Model_Code__c, Model_Year_Code__c, Color_Description__c, Trim_Description__c,
                                                                         Engine_No__c, Chassis__c, Franchise_Code__c, Manufacturer_Ref_No__c, ProductionMonth__c, 
-                                                                        Shipment_Line_Item__c
+                                                                        Shipment_Line_Item__c, Vehicle_Status__c, Vehicle_Purchase_Status__c
                                                                 FROM Vehicle_Master2__c
                                                                 WHERE Shipment_Line_Item__r.Vehicle_Shipment__c = :shipment.Id
                                                             ];
@@ -32,39 +50,61 @@ public with sharing class ShipmentLineItemsMatchingController
         }
         catch(Exception e)
         {
-            System.debug('ShipmentLineItemsMatchingController::init::Exception Message > ' + e.getMessage());
-            System.debug('ShipmentLineItemsMatchingController::init::Exception Stack Trace > ' + e.getStackTraceString());
+            System.debug('ShipmentLineItemsMatchingController :: init :: Exception Message > ' + e.getMessage());
+            System.debug('ShipmentLineItemsMatchingController :: init :: Exception Stack Trace > ' + e.getStackTraceString());
             throw new AuraHandledException(e.getMessage());
         }
         
     }
 
+    /**
+     * ============================================================================================
+     * Manual match shipment line item and stock vehicle master by Id
+     * @param shipmentLineItemId: shipment line item id for matching
+     * @param stockVehicleMasterId: stock vehicle master id for matching
+     * History
+     *          DATE::                              BY::                                CHANGELOG
+     *          18 Aug 2022                         dangphap.mai@aodigy.com             init
+     * ============================================================================================
+     */
     @AuraEnabled
-    public static void matchingById(String lineItemId, String stockVehicleMasterId)
+    public static void shipmentManualMatchById(String shipmentLineItemId, String stockVehicleMasterId)
     {
-        // TODO: check stock vehicle master eligibility
         try
         {
-            Vehicle_Master2__c stockVehicleMaster = [SELECT Id, Shipment_Line_Item__c FROM Vehicle_Master2__c WHERE Id = :stockVehicleMasterId];
-            
-            stockVehicleMaster.Shipment_Line_Item__c = lineItemId;
-
-            // TODO: remove before deploying
-            TriggerExclusion.excludeTrigger('Vehicle_Master2__c', true);
-
-            update stockVehicleMaster;
-        } catch (Exception e)
+            VehicleShipmentServices.shipmentManualMatchById(shipmentLineItemId, stockVehicleMasterId);
+        }
+        catch (Exception e)
         {
-            System.debug('ShipmentLineItemsMatchingController::matchingById::Exception Message > ' + e.getMessage());
-            System.debug('ShipmentLineItemsMatchingController::matchingById::Exception Stack Trace > ' + e.getStackTraceString());
+            System.debug('ShipmentLineItemsMatchingController :: shipmentManualMatchById :: Exception Message > ' + e.getMessage());
+            System.debug('ShipmentLineItemsMatchingController :: shipmentManualMatchById :: Exception Stack Trace > ' + e.getStackTraceString());
             throw new AuraHandledException(e.getMessage());
         }
+        
     }
 
+    /**
+     * ============================================================================================
+     * Auto match shipment line items
+     * @param vehicleShipmentId: shipment id to match
+     * History
+     *          DATE::                              BY::                                CHANGELOG
+     *          18 Aug 2022                         dangphap.mai@aodigy.com             init
+     * ============================================================================================
+     */
     @AuraEnabled
-    public static void shipmentsAutoMatching(String vehicleShipmentId)
+    public static String shipmentsAutoMatching(String vehicleShipmentId)
     {
-        VehicleShipmentServices.shipmentsAutoMatching(new Set<String> { vehicleShipmentId });
+        try
+        {
+            return VehicleShipmentServices.shipmentsAutoMatching(new Set<String> { vehicleShipmentId });
+        }
+        catch (Exception e)
+        {
+            System.debug('ShipmentLineItemsMatchingController :: shipmentsAutoMatching :: Exception Message > ' + e.getMessage());
+            System.debug('ShipmentLineItemsMatchingController :: shipmentsAutoMatching :: Exception Stack Trace > ' + e.getStackTraceString());
+            throw new AuraHandledException(e.getMessage());
+        }
     }
 
     public class VehicleShipmentDetail

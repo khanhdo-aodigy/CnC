@@ -1,13 +1,15 @@
 public without sharing class common_LookupInputController
 {
+    // TODO: switch to use input wrapper
     @AuraEnabled(cacheable=true)
-    public static List<SObject> simpleSearch(String objectName, List<String> searchFields, String searchKey, List<String> displayFields)
+    public static List<SObject> simpleSearch(String objectName, List<String> searchFields, String searchKey, List<String> displayFields, String conditions)
     {
-        SearchInputs input = new SearchInputs();
-        input.objectName = objectName;
-        input.searchFields = searchFields;
-        input.searchKey = searchKey;
-        input.displayFields = displayFields;
+        SearchInputs input      = new SearchInputs();
+        input.objectName        = objectName;
+        input.searchFields      = searchFields;
+        input.searchKey         = searchKey;
+        input.displayFields     = displayFields;
+        input.conditions        = conditions;
 
         return search(input);
     }
@@ -79,7 +81,7 @@ public without sharing class common_LookupInputController
 
         if (String.isNotEmpty(conditions))
         {
-            result += ' AND ' + conditions;
+            result = '(' + result + ')' + ' AND ' + conditions;
         }
 
         return result;
