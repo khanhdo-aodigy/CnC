@@ -115,28 +115,4 @@ public with sharing class VehiclePurchaseOrdersTest
         System.assertEquals(true, errorMsg.indexOf('PO with non-free vehicle status is not eligible for cancellation')>-1);
     	
     }
-    @Istest
-    private static void checkConvertStock_Success()
-    {
-        String errorMsg = '';
-        Test.startTest();       
-        Vehicle_Purchase_Order__c order = [SELECT Id, Stage__c FROM Vehicle_Purchase_Order__c];
-        List<Vehicle_Master2__c> convertedStock = [ SELECT Id ,Vehicle_Purchase_Order__c
-                                                    FROM Vehicle_Master2__c
-                                                    
-        										 ];
-        try
-        {
-        order.Stage__c = 'Closed';
-        
-        update order;
-        } catch(Exception ex)
-        {
-            errorMsg =ex.getMessage();
-        }
-        Test.stopTest();
-
-        System.assertEquals(true, errorMsg.indexOf('Converted stock vehicle master to be equal Total Units Confirmed before PO closing')>-1);
-    	
-    }
 }
