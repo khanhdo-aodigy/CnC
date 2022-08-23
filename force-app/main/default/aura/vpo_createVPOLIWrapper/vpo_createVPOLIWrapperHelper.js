@@ -36,6 +36,8 @@
 
     cancelDialog: function(component)
     {
+        var vpoDetailCmp = component.find('vpodetails')
+        vpoDetailCmp !== undefined && vpoDetailCmp.refreshAllValues();
         component.set("v.validstage", false);
         var navEvt = $A.get("e.force:navigateToSObject");
         navEvt.setParams({
