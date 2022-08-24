@@ -33,9 +33,9 @@ public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
 
     public override void onBeforeInsert()
     {
-        List<Vehicle_Master2__c> afterUpdateVehicles = Trigger.new;
+        List<Vehicle_Master2__c> insertingVehicles = (List<Vehicle_Master2__c>) Trigger.new;
 
-        onVehicleShipmentMatching(afterUpdateVehicles);
+        onVehicleShipmentMatching(insertingVehicles);
     }
 
     /**
@@ -130,15 +130,26 @@ public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
      * Created Date: Aug 2022
      * ==================================================================================================================
      */
-    private void onVehicleShipmentMatching(List<Vehicle_Master2__c> afterUpdateVehicles)
+    private void onVehicleShipmentMatching(List<Vehicle_Master2__c> insertingVehicles)
     {
-        // arrange matching stock by shipment line item id
-        Map<Id, List<Vehicle_Master2__c>> matchingStocksByShipmentLineItemId = this.groupVehiclesByParent(afterUpdateVehicles, 'Shipment_Line_Item__c');
+        // get vehicles with Shipment_Line_Item__c populated
+        Map<Id, Vehicle_Master2__c> applicableVehicles = new Map<Id, Vehicle_Master2__c>();
 
-        if (matchingStocksByShipmentLineItemId.size() == 0)
+        for (Vehicle_Master2__c insertingVehicle: insertingVehicles)
+        {
+            if (String.isNotBlank(insertingVehicle.Shipment_Line_Item__c))
+            {
+                applicableVehicles.put(insertingVehicle.Id, insertingVehicle);
+            }
+        }
+
+        if (applicableVehicles.size() == 0)
         {
             return;
         }
+
+        // arrange matching stock by shipment line item id
+        Map<Id, List<Vehicle_Master2__c>> matchingStocksByShipmentLineItemId = this.groupVehiclesByParent(applicableVehicles.values(), 'Shipment_Line_Item__c');
 
         // check if there are any 2 inserting stocks link to same shipment line item
         for (List<Vehicle_Master2__c> matchingStocks : matchingStocksByShipmentLineItemId.values())
