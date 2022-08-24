@@ -60,6 +60,12 @@
                 <stringValue>SCL_Cancel</stringValue>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <field>Vehicle_Status__c</field>
+            <value>
+                <stringValue>SCL</stringValue>
+            </value>
+        </inputAssignments>
         <object>Vehicle_Master2__c</object>
     </recordUpdates>
     <start>
