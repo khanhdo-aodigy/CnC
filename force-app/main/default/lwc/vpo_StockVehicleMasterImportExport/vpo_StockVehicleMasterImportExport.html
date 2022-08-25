@@ -1,0 +1,40 @@
+<template>
+    <template if:true={ready}>
+
+        <div class="slds-align_absolute-center">
+
+            <!-- export button -->
+            <template if:true={csvReady}>
+                <lightning-button variant="neutral" label="Download SVM Report" onclick={openDownloadWindow} class="slds-var-p-around_medium"></lightning-button>
+                <a data-id="hidden-link" href={csv} target="_blank" style="display: none;" download="SVM_Report.csv">Download SVM Report</a>
+            </template>
+            
+            <!-- import button -->
+            <lightning-button variant="brand" label="Manuf. No. Mass Upload" onclick={openReportUploader} class="slds-var-p-around_medium"></lightning-button>
+
+        </div>
+
+        <!-- import uploader -->
+        <template if:true={enableReportUploader}>
+            <div class="slds-align_absolute-center">
+                <lightning-file-upload label="Upload updated SVM Report" accept={acceptedFormats_} onuploadfinished={handleUploadFinished}></lightning-file-upload>
+            </div>
+        </template>
+
+        <template if:true={csvReady}>
+            <lightning-datatable
+                        key-field="Id"
+                        data={retrievedStockVehicleMasters.data}
+                        show-row-number-column
+                        columns={columns_}
+                        hide-checkbox-column>
+            </lightning-datatable>
+        </template>
+    </template>
+
+    <template if:false={ready}>
+        <lightning-spinner variant="brand" size="large"></lightning-spinner>
+    </template>
+
+    
+</template>
