@@ -1,8 +1,9 @@
 import { LightningElement, track, api, wire } from 'lwc';
 import { refreshApex } from '@salesforce/apex';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import getStockVehicleMaster from '@salesforce/apex/vpo_StockVehicleMasterIOController.getStockVehicleMaster'
-import updateStockVehicleMaster from '@salesforce/apex/vpo_StockVehicleMasterIOController.updateStockVehicleMaster'
+import { getRecordNotifyChange } from 'lightning/uiRecordApi';
+import getStockVehicleMaster from '@salesforce/apex/vpo_StockVehicleMasterIOController.getStockVehicleMaster';
+import updateStockVehicleMaster from '@salesforce/apex/vpo_StockVehicleMasterIOController.updateStockVehicleMaster';
 
 const columns = 
 [
@@ -121,15 +122,24 @@ export default class vpo_StockVehicleMasterImportExport extends LightningElement
         this.ready = false;
 
         updateStockVehicleMaster({
+            orderId : this.recordId,
             contentDocumentId : uploadedFiles[0]['documentId'],
             contentVersionId : uploadedFiles[0]['contentVersionId']
         })
         .then(success => {
+            this.notifyChangeOnStockVehicleMaster_();
             refreshApex(this.retrievedStockVehicleMasters);
-            this.showNotification_('Success', 'Stock Vehicle Master successfully updated', 'success', 'sticky');
+            this.showNotification_('Success', 'SVM Manufacturer Ref No successfully updated', 'success', 'sticky');
         })
         .catch(error => {
-            this.showNotification_('Error', 'Unexpected error on Stock Vehicle Master updating', 'error', 'sticky');
+            if (error.body && error.body.exceptionType === 'System.AssertException')
+            {
+                this.showNotification_('Error', error.body.message, 'error', 'sticky');
+            }
+            else
+            {
+                this.showNotification_('Error', 'Unexpected error on Stock Vehicle Master updating', 'error', 'sticky');
+            }
             console.error(error);
         })
         .finally(() => {
@@ -154,6 +164,20 @@ export default class vpo_StockVehicleMasterImportExport extends LightningElement
         });
 
         this.dispatchEvent(evt);
+    }
+
+    notifyChangeOnStockVehicleMaster_()
+    {
+        let notifyChangeTargets = [];
+
+        for (let svm of this.retrievedStockVehicleMasters.data)
+        {
+            notifyChangeTargets.push({
+                recordId : svm.Id
+            });
+        }
+
+        getRecordNotifyChange(notifyChangeTargets);
     }
     
 }

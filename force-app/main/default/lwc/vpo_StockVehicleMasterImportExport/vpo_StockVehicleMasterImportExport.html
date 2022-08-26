@@ -16,7 +16,7 @@
 
         <!-- import uploader -->
         <template if:true={enableReportUploader}>
-            <div class="slds-align_absolute-center">
+            <div class="slds-align_absolute-center slds-var-p-bottom_medium">
                 <lightning-file-upload label="Upload updated SVM Report" accept={acceptedFormats_} onuploadfinished={handleUploadFinished}></lightning-file-upload>
             </div>
         </template>

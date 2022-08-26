@@ -2,15 +2,65 @@ public with sharing class ADGLIB_CommaSeparatedValuesFileReader
 {
     private String fileContent;
 
-    private Boolean hasHeader = true;
+    private Boolean hasHeader = false;
 
     private List<List<String>> table = new List<List<String>>();
+
+    private Boolean strictMode = false;
 
     public ADGLIB_CommaSeparatedValuesFileReader(String fileContent, Boolean hasHeader)
     {
         this.fileContent    = fileContent;
-        System.debug('fileContent :: ' + JSON.serialize(fileContent));
         this.hasHeader      = hasHeader;
+    }
+
+    public ADGLIB_CommaSeparatedValuesFileReader(String fileContent)
+    {
+        this.fileContent    = fileContent;
+    }
+
+    /**
+     * ====================================================================================================================
+     * setting header mode for reader
+     * ====================================================================================================================
+     */
+    public ADGLIB_CommaSeparatedValuesFileReader withHeader()
+    {
+        this.hasHeader      = true;
+        return this;
+    }
+
+    /**
+     * ====================================================================================================================
+     * setting non-header mode for reader
+     * ====================================================================================================================
+     */
+    public ADGLIB_CommaSeparatedValuesFileReader withoutHeader()
+    {
+        this.hasHeader      = false;
+        return this;
+    }
+
+    /**
+     * ====================================================================================================================
+     * setting strict mode for reader
+     * ====================================================================================================================
+     */
+    public ADGLIB_CommaSeparatedValuesFileReader withStrictMode()
+    {
+        this.strictMode     = true;
+        return this;
+    }
+
+    /**
+     * ====================================================================================================================
+     * setting non-strict mode for reader
+     * ====================================================================================================================
+     */
+    public ADGLIB_CommaSeparatedValuesFileReader withoutStrictMode()
+    {
+        this.strictMode     = false;
+        return this;
     }
 
     /**
@@ -26,11 +76,21 @@ public with sharing class ADGLIB_CommaSeparatedValuesFileReader
         return this;
     }
 
+    /**
+     * ====================================================================================================================
+     * export @table as a 2 dimensional matrix
+     * ====================================================================================================================
+     */
     public List<List<String>> exportResult()
     {
         return this.table;
     }
 
+    /**
+     * ====================================================================================================================
+     * export @table as a list of object format with header as key
+     * ====================================================================================================================
+     */
     public List<Map<String, String>> exportResultAsMap()
     {
         System.assert(this.hasHeader, 'File reader must be set @hasHeader=true before getting result as map');
@@ -40,7 +100,6 @@ public with sharing class ADGLIB_CommaSeparatedValuesFileReader
         List<Map<String, String>> result = new List<Map<String, String>>();
 
         // TODO: perform validate
-        System.debug('table before exporting :: ' + JSON.serialize(this.table));
         
         List<String> headers = this.table[0];
 
@@ -57,8 +116,6 @@ public with sharing class ADGLIB_CommaSeparatedValuesFileReader
 
             result.add(row);
         }
-
-        System.debug('table after exporting :: ' + JSON.serialize(result));
 
         return result;
     }
@@ -178,7 +235,29 @@ public with sharing class ADGLIB_CommaSeparatedValuesFileReader
      */
     private void validate()
     {
+        if (this.strictMode)
+        {
+            this.validateMatrixShape();
+        }
+    }
 
+    /**
+     * ====================================================================================================================
+     * validate whether @table is a (n x m) matrix
+     * ====================================================================================================================
+     */
+    private void validateMatrixShape()
+    {
+        Set<Integer> rowLengths = new Set<Integer>();
+
+        for (List<String> row : this.table)
+        {
+            Integer rowLength = row == null? 0 : row.size();
+
+            rowLengths.add(rowLength);
+        }
+
+        System.assert(rowLengths.size() == 1, 'Invalid table shape: rows have different length');
     }
 
     

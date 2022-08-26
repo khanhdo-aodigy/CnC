@@ -17,15 +17,20 @@ public with sharing class vpo_StockVehicleMasterIOController
     }
 
     @AuraEnabled
-    public static void updateStockVehicleMaster(String contentDocumentId, String contentVersionId)
+    public static void updateStockVehicleMaster(String orderId, String contentDocumentId, String contentVersionId)
     {
-        System.debug('updateStockVehicleMaster');
-
         try
         {
             System.assert(contentDocumentId != null, 'Invalid Content Document Id');
 
             System.assert(contentVersionId != null, 'Invalid Content Version Id');
+
+            System.assert(orderId != null, 'Invalid Vehicle Purchase Order Id');
+
+            // get shipment's stock vehicle master
+            Map<Id, Vehicle_Master2__c> stockVehicleMasters = new Map<Id, Vehicle_Master2__c>([SELECT Id FROM Vehicle_Master2__c WHERE Vehicle_Purchase_Order__c = :orderId]);
+
+            System.assert(stockVehicleMasters.size() > 0, 'This shipment do not have any related Stock Vehicle Master');
 
             ContentVersion uploadedReport = [SELECT Id, VersionData FROM ContentVersion WHERE ContentDocumentId = :contentDocumentId];
 
@@ -34,15 +39,21 @@ public with sharing class vpo_StockVehicleMasterIOController
 
             String csv = uploadedReport.VersionData.toString();
 
-            List<Map<String, String>> consumedData = new ADGLIB_CommaSeparatedValuesFileReader(csv, true).read().exportResultAsMap();
+            List<Map<String, String>> consumedTable = new ADGLIB_CommaSeparatedValuesFileReader(csv).withHeader().withStrictMode().read().exportResultAsMap();
 
             List<Vehicle_Master2__c> updatingStockVehicleMaster = new List<Vehicle_Master2__c>();
 
-            for (Map<String, String> data : consumedData)
+            for (Map<String, String> row : consumedTable)
             {
-                System.debug(JSON.serialize(data));
+                System.assert(row.keySet().contains('Id'), 'A row is uploaded without Id field');
+                System.assert(row.keySet().contains('Manufacturer_Ref_No__c'), 'A row is uploaded without Manufacturer_Ref_No__c field');
 
-                updatingStockVehicleMaster.add(new Vehicle_Master2__c(Id = data.get('Id'), Manufacturer_Ref_No__c = data.get('Manufacturer_Ref_No__c')));
+                Id stockId                  = (Id) row.get('Id');
+                String manufacturerRefNo    = row.get('Manufacturer_Ref_No__c');
+
+                System.assert(stockVehicleMasters.keySet().contains(stockId), 'A row is uploaded with stock ID not belong to this purchase order');
+
+                updatingStockVehicleMaster.add(new Vehicle_Master2__c(Id = stockId, Manufacturer_Ref_No__c = manufacturerRefNo));
             }
 
             update updatingStockVehicleMaster;
