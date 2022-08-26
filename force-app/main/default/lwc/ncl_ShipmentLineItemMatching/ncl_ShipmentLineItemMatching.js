@@ -35,7 +35,7 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
     /**
      * Default condition for retrieving eligible Stock Vehicle Master for matching
      */
-    @track conditions = `Vehicle_Purchase_Status__c != 'In Shipment' AND Vehicle_Purchase_Status__c != 'Arrived' AND Vehicle_Purchase_Status__c != 'SCL_Cancel'`;
+    @track conditions = `Vehicle_Purchase_Status__c != 'In Shipment' AND Vehicle_Purchase_Status__c != 'Arrived' AND Vehicle_Purchase_Status__c != 'SCL_Cancel' ${this.franchiseCodeCondition_}`;
 
     /**
      * Indicate the server trip is done
@@ -68,6 +68,11 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
     @track wiredVehicleShipmentDetail;
 
     /**
+     * Shipment details
+     */
+    @track shipment = {};
+
+    /**
      * Shipment Line Items
      */
     @track shipmentLineItems = [];
@@ -98,6 +103,7 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
         {
             this.shipmentLineItems_     = result.data.shipmentLineItems;
             this.shipmentMatchedStocks_ = result.data.shipmentMatchedStocks;
+            console.log('shipment', result.data.shipment);
             this.detectMatchedStocks_();
         }
         else
@@ -295,6 +301,20 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
     {
         return this.startManualAssigning;
     }
+
+    set shipment_(value)
+    {
+        this.shipment = value;
+
+        this.franchiseCodeCondition_ = this.shipment?.Franchise_Code__c? `AND Franchise_Code__c ${this.shipment.Franchise_Code__c}` : '';
+    }
+
+    get shipment_()
+    {
+        return this.shipment;
+    }
+
+    @track franchiseCodeCondition_ = '';
 
     /**
      * Auto detect which line item has been matched
