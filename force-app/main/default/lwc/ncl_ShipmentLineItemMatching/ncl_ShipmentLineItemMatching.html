@@ -1,7 +1,16 @@
 <template>
     <div class="slds-box">
         <template if:true={ready}>
-            <table class="fixed-width-table">
+            <lightning-datatable
+                                    data={shipmentLineItems}
+                                    key-field="Id"
+                                    columns={headers_}
+                                    hide-checkbox-column
+                                    show-row-number-column
+                                    wrap-text-max-lines="5"
+                                    onrowaction={handleRowAction}>
+            </lightning-datatable>
+            <!-- <table class="fixed-width-table">
                 <tr class="slds-theme_shade">
                     <th>Shipment Line Item</th>
                     <th>Prod Mth</th>
@@ -40,7 +49,7 @@
                         </td>
                     </tr>
                 </template>
-            </table>
+            </table> -->
             <div class="slds-align_absolute-center slds-var-p-top_x-large slds-var-p-bottom_x-large">
                 <lightning-button variant="neutral" label="Quit" onclick={quitMatching} class="slds-var-p-around_medium"></lightning-button>
                 <lightning-button variant="brand" label="Auto Matching" onclick={doAutoMatching} class="slds-var-p-around_medium" disabled={disableAutoAssignButton}></lightning-button>
@@ -53,7 +62,7 @@
                         <div class="slds-modal__content slds-var-p-around_medium">
 
                             <!-- stock vehicle master searching component -->
-                            <c-common_-stock-vehicle-master-searching onselected={stockSelected} onunselected={stockUnselected} conditions={conditions}></c-common_-stock-vehicle-master-searching>
+                            <c-common_-stock-vehicle-master-searching onselected={stockSelected} onunselected={stockUnselected} conditions={conditions} model-filters={modelFilters_}></c-common_-stock-vehicle-master-searching>
 
                             <!-- button to assign -->
                             <div class="slds-align_absolute-center slds-var-p-top_x-large slds-var-p-bottom_x-large">

@@ -1,6 +1,11 @@
 import { LightningElement, track, api, wire } from 'lwc';
 
 /**
+ * Notify record change
+ */
+import { getRecordNotifyChange } from 'lightning/uiRecordApi';
+
+/**
  * Display toast notification on screen
  */
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -25,6 +30,51 @@ import shipmentManualMatchById from '@salesforce/apex/ShipmentLineItemsMatchingC
  */
 import { refreshApex } from '@salesforce/apex';
 
+const LINE_ITEM_HEADERS = [
+    {
+        label: 'Shipment Line Item',
+        fieldName: 'lineItemUrl_',
+        type: 'url',
+        typeAttributes: {
+            label: {
+                fieldName: 'Name'
+            },
+            target: '_blank'
+        },
+        wrapText: true
+    },
+    { label: 'Prod Mth', fieldName: 'Production_Month__c', wrapText: true },
+    { label: 'Variant', fieldName: 'Model__c', wrapText: true },
+    { label: 'Color', fieldName: 'Colour_Code__c', wrapText: true },
+    { label: 'Trim', fieldName: 'Trim__c', wrapText: true },
+    { label: 'Engine No', fieldName: 'Engine_No__c', wrapText: true },
+    { label: 'Chassis No', fieldName: 'Chassis_No__c', wrapText: true },
+    { label: 'Manufacturer Ref No', fieldName: 'Manufacturer_Ref_No__c', wrapText: true },
+    {
+        label: 'Stock Vehicle Master',
+        fieldName: 'matchStockUrl_',
+        type: 'url',
+        typeAttributes: {
+            label: {
+                fieldName: 'matchStockName_'
+            },
+            target: '_blank'
+        }
+        , wrapText: true 
+    },
+    {
+        type: 'action',
+        typeAttributes: {
+            rowActions: [
+                {
+                    label: 'Manual Assign',
+                    name: 'manual_assign'
+                }
+            ]
+        }
+    }
+];
+
 export default class ncl_ShipmentLineItemMatching extends LightningElement
 {
     /**
@@ -35,7 +85,11 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
     /**
      * Default condition for retrieving eligible Stock Vehicle Master for matching
      */
-    @track conditions = `Vehicle_Purchase_Status__c != 'In Shipment' AND Vehicle_Purchase_Status__c != 'Arrived' AND Vehicle_Purchase_Status__c != 'SCL_Cancel' ${this.franchiseCodeCondition_}`;
+    @track ignoreEligibilityChecking_ = false;
+    @track stockIsUnmatched_ = `Shipment_Line_Item__c = NULL`;
+    @track stockIsConfirmed_ = `(Vehicle_Purchase_Order_Line_Items__c != NULL AND Vehicle_Purchase_Status__c = 'Confirmed')`;
+    @track stockIsReserved = `(Vehicle_Status__c = 'RESRV')`;
+    @track conditions = this.ignoreEligibilityChecking? this.stockIsUnmatched_ : `${this.stockIsUnmatched_} AND (${this.stockIsConfirmed_} OR ${this.stockIsReserved})`;
 
     /**
      * Indicate the server trip is done
@@ -87,6 +141,49 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
      */
     @track startManualAssigning;
 
+    // constructor()
+    // {
+    //     super();
+    //     // dynamic row action
+    //     this.headers_ = this.headers_.concat({
+    //         type: 'action',
+    //         typeAttributes: {
+    //             rowActions: this.getRowActions_
+    //         }
+    //     });
+    // }
+
+    // renderedCallback()
+    // {
+    //     console.log(this.headers_);
+    // }
+
+    // getRowActions_(row, doneCallback)
+    // {
+    //     const actions = [];
+
+    //     // re-assign action
+    //     if (row.matched_)
+    //     {
+    //         actions.push({
+    //             'label': 'Re-assign',
+    //             'name': 'reassign'
+    //         });
+    //     }
+    //     // manual assign action
+    //     else
+    //     {
+    //         actions.push({
+    //             'label': 'Manual Assign',
+    //             'name': 'manual_assign'
+    //         });
+    //     }
+
+    //     setTimeout(() => {
+    //         doneCallback(actions);
+    //     }, 200);
+    // }
+
     /**
      * On component init, call server to get Vehicle Shipment details include all line items and matched stock vehicle master
      * @param {*} result 
@@ -103,7 +200,7 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
         {
             this.shipmentLineItems_     = result.data.shipmentLineItems;
             this.shipmentMatchedStocks_ = result.data.shipmentMatchedStocks;
-            console.log('shipment', result.data.shipment);
+            this.shipment_              = result.data.shipment;
             this.detectMatchedStocks_();
         }
         else
@@ -113,13 +210,28 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
         }
     }
 
+    handleRowAction(event)
+    {
+        const actionName = event.detail.action.name;
+
+        const row = event.detail.row;
+
+        switch (actionName) {
+            case 'manual_assign':
+                this.beginManualAssign(row);
+                break;
+            default:
+        }
+    }
+
     /**
      * Handler for manual assign and re-assign button click event
-     * @param {*} e 
+     * @param {*} row selected row for manual assign 
      */
-    beginManualAssign(e)
+    beginManualAssign(row)
     {
-        this.selectedLineItemId_ = e.currentTarget.dataset.lineItemId;
+        // this.selectedLineItemId_ = e.currentTarget.dataset.lineItemId;
+        this.selectedLineItemId_ = row.Id;
     }
 
     /**
@@ -159,9 +271,16 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
             stockVehicleMasterId : this.selectedStockVehicleMasterId
         })
         .then(result => {
+            
             this.showNotification_('Success', 'Successfully assign selected stock to shipment line item', 'success', 'dismissible');
+            
             this.endManualAssign();
+
+            // this.refreshDataAndView_();
+            
             refreshApex(this.wiredVehicleShipmentDetail);
+
+            this.refreshStockVehicleMasterRelatedList_();
         })
         .catch(error => {
             this.showNotification_('Unexpected error', 'Unexpected error on manual assigning. Please contact System Administrator.', 'error', 'sticky');
@@ -170,6 +289,12 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
         .finally(() => {
             this.ready = true;
         })
+    }
+
+    async refreshDataAndView_()
+    {
+        await refreshApex(this.wiredVehicleShipmentDetail);
+        await this.refreshStockVehicleMasterRelatedList_();
     }
 
     /**
@@ -197,6 +322,8 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
             
             // refresh line items
             refreshApex(this.wiredVehicleShipmentDetail);
+
+            // this.refreshStockVehicleMasterRelatedList_();
         })
         .catch(error => {
             this.showNotification_('Unexpected error', 'Unexpected error on auto matching. Please contact System Administrator.', 'error', 'sticky');
@@ -272,6 +399,11 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
         }
 
         this.shipmentLineItems = JSON.parse(JSON.stringify(value));
+
+        for (let shipmentLineItem of this.shipmentLineItems)
+        {
+            shipmentLineItem.lineItemUrl_ = `//${window.location.host}/${shipmentLineItem.Id}`;
+        }
     }
 
     get shipmentLineItems_()
@@ -306,7 +438,7 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
     {
         this.shipment = value;
 
-        this.franchiseCodeCondition_ = this.shipment?.Franchise_Code__c? `AND Franchise_Code__c ${this.shipment.Franchise_Code__c}` : '';
+        this.modelFilters_ = this.shipment?.Franchise_Code__c? `Franchise_Code__c = '${this.shipment.Franchise_Code__c}'` : '';
     }
 
     get shipment_()
@@ -314,7 +446,7 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
         return this.shipment;
     }
 
-    @track franchiseCodeCondition_ = '';
+    @track modelFilters_ = '';
 
     /**
      * Auto detect which line item has been matched
@@ -392,4 +524,29 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
     {
         this.startManualAssigning_ = false;
     }
+
+    /**
+     * fire event to refresh stock vehicle master related list
+     */
+    refreshStockVehicleMasterRelatedList_()
+    {
+        let recipients = [];
+
+        for (let shipmentMatchedStock of this.shipmentMatchedStocks)
+        {
+            recipients.push({
+                recordId: shipmentMatchedStock.Id
+            });
+        }
+
+        console.log('recipients', recipients);
+        getRecordNotifyChange(recipients);
+    }
+
+    errorCallback()
+    {
+        this.showNotification_('Warning', 'Unexpected error on Vehicle Shipment module rendering', 'warning', 'sticky');
+    }
+
+    @track headers_ = LINE_ITEM_HEADERS;
 }

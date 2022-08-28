@@ -21,9 +21,14 @@ const COLUMNS =
 export default class Common_StockVehicleMasterSearching extends LightningElement
 {
     /**
-     * Conditions for vehicle stock master searching, can be set by parent
+     * Conditions for vehicle stock master searching, can be set by parent. Must not include WHERE clause.
      */
     @api conditions = '';
+
+    /**
+     * Filter on Model Lookup. Must not include WHERE clause.
+     */
+    @api modelFilters = '';
 
     /**
      * Vehicle Stock Master table settings
