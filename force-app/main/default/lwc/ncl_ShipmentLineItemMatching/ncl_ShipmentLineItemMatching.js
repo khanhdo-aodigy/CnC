@@ -202,6 +202,7 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
             this.shipmentMatchedStocks_ = result.data.shipmentMatchedStocks;
             this.shipment_              = result.data.shipment;
             this.detectMatchedStocks_();
+            this.refreshStockVehicleMasterRelatedList_();
         }
         else
         {
@@ -275,12 +276,8 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
             this.showNotification_('Success', 'Successfully assign selected stock to shipment line item', 'success', 'dismissible');
             
             this.endManualAssign();
-
-            // this.refreshDataAndView_();
             
             refreshApex(this.wiredVehicleShipmentDetail);
-
-            this.refreshStockVehicleMasterRelatedList_();
         })
         .catch(error => {
             this.showNotification_('Unexpected error', 'Unexpected error on manual assigning. Please contact System Administrator.', 'error', 'sticky');
@@ -289,12 +286,6 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
         .finally(() => {
             this.ready = true;
         })
-    }
-
-    async refreshDataAndView_()
-    {
-        await refreshApex(this.wiredVehicleShipmentDetail);
-        await this.refreshStockVehicleMasterRelatedList_();
     }
 
     /**
@@ -322,8 +313,6 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
             
             // refresh line items
             refreshApex(this.wiredVehicleShipmentDetail);
-
-            // this.refreshStockVehicleMasterRelatedList_();
         })
         .catch(error => {
             this.showNotification_('Unexpected error', 'Unexpected error on auto matching. Please contact System Administrator.', 'error', 'sticky');
@@ -530,17 +519,19 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
      */
     refreshStockVehicleMasterRelatedList_()
     {
-        let recipients = [];
+        // let recipients = [];
 
-        for (let shipmentMatchedStock of this.shipmentMatchedStocks)
-        {
-            recipients.push({
-                recordId: shipmentMatchedStock.Id
-            });
-        }
+        // for (let shipmentMatchedStock of this.shipmentMatchedStocks)
+        // {
+        //     recipients.push({
+        //         recordId: shipmentMatchedStock.Id
+        //     });
+        // }
 
-        console.log('recipients', recipients);
-        getRecordNotifyChange(recipients);
+        // console.log('recipients', recipients);
+        // getRecordNotifyChange(recipients);
+
+        this.dispatchEvent(new CustomEvent('refresh'));
     }
 
     errorCallback()

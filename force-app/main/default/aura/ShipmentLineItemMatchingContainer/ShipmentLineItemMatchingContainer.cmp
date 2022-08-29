@@ -3,5 +3,5 @@
     <aura:html tag="style">
         .slds-modal__container{width: 90% !important; max-width: 90% !important}
     </aura:html>
-    <c:ncl_ShipmentLineItemMatching recordId="{!v.recordId}" onclose="{!c.quitMatching}"></c:ncl_ShipmentLineItemMatching>
+    <c:ncl_ShipmentLineItemMatching recordId="{!v.recordId}" onclose="{!c.quitMatching}" onrefresh="{!c.refreshView}"></c:ncl_ShipmentLineItemMatching>
 </aura:component>	
