@@ -62,7 +62,17 @@ public with sharing class vpo_StockVehicleMasterIOController
         {
             System.debug(e.getMessage());
             System.debug(e.getStackTraceString());
-            throw new AuraHandledException(e.getMessage());
+
+            // for DML exception, throw it as a custom exception so that it will be displayed on screen
+            // for non DML exception, throw it as a AuraHandledException and do not display on screen
+            if (e instanceof System.DmlException)
+            {
+                throw new StockVehicleMasterReportException(e.getMessage());
+            }
+            else
+            {
+                throw new AuraHandledException(e.getMessage());
+            }
         }
     }
 
@@ -71,4 +81,6 @@ public with sharing class vpo_StockVehicleMasterIOController
     {
         delete [SELECT Id FROM ContentDocument WHERE Id =:contentDocumentId];
     }
+
+    public class StockVehicleMasterReportException extends Exception {}
 }

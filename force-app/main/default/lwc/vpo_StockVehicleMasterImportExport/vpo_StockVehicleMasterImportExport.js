@@ -112,9 +112,6 @@ export default class vpo_StockVehicleMasterImportExport extends LightningElement
         this.enableReportUploader = true;
     }
 
-    // @track contentDocumentId_;
-    // @track contentVersionId_;
-
     handleUploadFinished(e)
     {
         const uploadedFiles = e.detail.files;
@@ -132,10 +129,17 @@ export default class vpo_StockVehicleMasterImportExport extends LightningElement
             this.showNotification_('Success', 'SVM Manufacturer Ref No successfully updated', 'success', 'sticky');
         })
         .catch(error => {
+            // show system assert error message to guide user on next step
             if (error.body && error.body.exceptionType === 'System.AssertException')
             {
                 this.showNotification_('Error', error.body.message, 'error', 'sticky');
             }
+            // show custom exception message to guide user on next step
+            else if (error.body && error.body.isUserDefinedException)
+            {
+                this.showNotification_('Error', error.body.message, 'error', 'sticky');
+            }
+            // technical exception do not need to show. A generic message will be pop up
             else
             {
                 this.showNotification_('Error', 'Unexpected error on Stock Vehicle Master updating', 'error', 'sticky');
