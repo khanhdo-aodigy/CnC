@@ -237,6 +237,7 @@ public with sharing class Test_DataFactory {
             return VehiclePurchaseOrder;
     }
 
+
     /**Create Method is test data for create Model_Color_Trim_Master__c**/
     public static Model_Color_Trim_Master__c createModelColorTrimMaster(Boolean doInsert, String ColorCodeId, String ModelCodeId, String TrimCodeId){
         Model_Color_Trim_Master__c modelColorTrimMaster = new Model_Color_Trim_Master__c();
@@ -324,7 +325,60 @@ public with sharing class Test_DataFactory {
         
         return vehiclemaster;
     }
-    
+
+    /** This methoc is test data for create TMS_Insurance__c  **/
+    public static TMS_Insurance__c createTMSInsurance (Boolean doInsert){
+        TMS_Insurance__c tms = new TMS_Insurance__c();
+        tms.Franchise_Code__c = 'KIAPC';
+        tms.Insurance_Percentage__c = 0;
+
+        if(doInSert)
+             upsert tms;
+
+        return tms;     
+    }
+
+    /** This method is test data for create Vehicle_Shipment__c */
+    public static Vehicle_Shipment__c createVehicleShipment(Boolean doInsert, String Supplier){
+        Vehicle_Shipment__c vehicleShipment= new Vehicle_Shipment__c();
+        vehicleShipment.Supplier_Account__c = Supplier;
+        vehicleShipment.Franchise_Code__c = 'KIAPC';
+        vehicleShipment.Currency_Code__c = 'USD';
+        vehicleShipment.Brand__c='CIT';
+
+        if (doInsert) {
+            upsert vehicleShipment;
+        }
+        return vehicleShipment;
+    }
+
+    /**This method is test data for create Shipment_Line_Item */
+    public static Shipment_Line_Item__c createShipmentLineItem(Boolean doInsert, String vehicleShipment, String invoiceId){
+        Shipment_Line_Item__c shipmentLineItem = new Shipment_Line_Item__c();
+        shipmentLineItem.Vehicle_Shipment__c = vehicleShipment;
+        shipmentLineItem.Chassis_No__c  = '3423545647653';
+        shipmentLineItem.Engine_No__c = '1232435456546 ';
+        shipmentLineItem.Colour_Code__c ='rwerwet';
+        shipmentLineItem.Production_Month__c = '082022';
+        shipmentLineItem.Shipment_Line_Item_Sequence_No__c = '1232';
+        shipmentLineItem.Invoice_No__c = invoiceId;
+        if (doInsert) {
+            upsert shipmentLineItem;
+        }
+        return shipmentLineItem;
+    }
+
+    /** This method is test data for create Manufacturer_Invoice */
+    public static Manufacturer_Invoice__c createManufacturerInvoice(Boolean doInsert){
+        Manufacturer_Invoice__c  manufacturerInvoice = new Manufacturer_Invoice__c();
+        manufacturerInvoice.Name                     = 'INV-082022-000000007';
+        manufacturerInvoice.Invoice_Date__c          = Date.today();
+        // manufacturerInvoice.Shipment_Line_Items__c   = shipmentLineItem;
+        if (doInsert) {
+            upsert manufacturerInvoice;
+        }
+        return manufacturerInvoice;
+    }
     /** This method is test data for create Model__c **/     
     public static Model__c createmodelId(Boolean doInsert,String modelName, String branchCode, String franchiseCode ){
         Model__c modelId = new Model__c();
