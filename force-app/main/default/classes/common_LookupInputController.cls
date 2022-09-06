@@ -1,6 +1,22 @@
-public without sharing class common_LookupInputController
+/*==========================================================================================================================================================================
+ * Controller for common_LookupInput component
+ * Created By: Aodigy Team
+ * Create Date: Aug 2022
+ * History
+ *          DATE::                              BY::                                TICKET::                                            CHANGELOG
+ *          18 Aug 2022                         dangphap.mai@aodigy.com             US-Ship-000008                                       init
+ * ========================================================================================================================================================================== 
+ */
+public inherited sharing class common_LookupInputController
 {
-    // TODO: switch to use input wrapper
+    /**
+     * Simplify entry for searching with @searchKey and @conditions
+     * @param objectName API name of object for searching
+     * @param searchFields list of fields to apply @searchKey filtering
+     * @param searchKey searching keyword
+     * @param displayFields list of fields to return on result
+     * @param conditions extra conditions beside @searchKey
+     */
     @AuraEnabled(cacheable=true)
     public static List<SObject> simpleSearch(String objectName, List<String> searchFields, String searchKey, List<String> displayFields, String conditions)
     {
@@ -14,6 +30,11 @@ public without sharing class common_LookupInputController
         return search(input);
     }
 
+    /**
+     * Perform searching with @input
+     * @TODO apply @enforceFLS, @enforeceSharingSetting and @enforceCRUD logic
+     * @param input input for searching
+     */
     @AuraEnabled(cacheable=true)
     public static List<SObject> search(SearchInputs input)
     {
@@ -46,12 +67,12 @@ public without sharing class common_LookupInputController
 
         if (searchFields == null || searchFields.isEmpty())
         {
-            searchFields = new List<String> {'Name'};
+            searchFields = new List<String> { 'Name' };
         }
 
         if (displayFields == null || displayFields.isEmpty())
         {
-            displayFields = new List<String> {'Id, Name'};
+            displayFields = new List<String> { 'Id, Name' };
         }
         
         // search
@@ -60,10 +81,18 @@ public without sharing class common_LookupInputController
             objectName,
             generateSearchingCondition(searchFields, searchKey, conditions)
         });
+
         System.debug(soql);
+
         return Database.query(soql);
     }
 
+    /**
+     * Generate searching condition clause
+     * @param searchFields list of fields to apply @searchKey filtering
+     * @param searchKey searching keyword
+     * @param conditions extra conditions beside @searchKey
+     */
     private static String generateSearchingCondition(List<String> searchFields, String searchKey, String conditions)
     {
         String result = '';

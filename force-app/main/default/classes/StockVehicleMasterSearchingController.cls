@@ -110,7 +110,8 @@ public with sharing class StockVehicleMasterSearchingController
             'Vehicle_Purchase_Status__c',
             'Vehicle_Status__c',
             'Production_Month__c',
-            'Manufacturer_Ref_No__c'
+            'Manufacturer_Ref_No__c',
+            'Franchise_Code__c'
         };
     }
 }

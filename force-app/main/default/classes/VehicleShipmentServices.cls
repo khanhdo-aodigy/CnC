@@ -5,6 +5,8 @@
  * History
  *          DATE::                              BY::                                TICKET::                                            CHANGELOG
  *          18 Aug 2022                         dangphap.mai@aodigy.com             US-Ship-000008                                       init
+ *          24 Aug 2022                         phan.thu@aodigy.com                 US-Ship-000027                                       Added getByIds method
+ *          27 Aug 2022                         phan.thu@aodigy.com                 US-Ship-000035                                       Added getByIdWithInvoicesAndLineItems
  * ========================================================================================================================================================================== 
  */
 public inherited sharing class VehicleShipmentServices
@@ -64,12 +66,12 @@ public inherited sharing class VehicleShipmentServices
                                                                         Model_Code__r.Name, Color_Code__r.ColorCode__c, Trim_Code__r.Name, Manufacturer_Ref_No__c,
                                                                         FOB_Amount__c, FOB_Amount_Currency_Code__c, Franchise_Code__c, Freight_Charges__c, Freight_Charges_Currency_Code__c,
                                                                         Insurance_Charges__c, Insurance_Charges_Currency_Code__c, Ex_Factory_Charges__c, Ex_Factory_Charges_Currency_Code__c,
-                                                                        Transport_Charges__c, Transport_Charges_Currency_Code__c, Other_Charges__c, Other_Charges_Currency_Code__c
+                                                                        Transport_Charges__c, Transport_Charges_Currency_Code__c, Other_Charges__c, Other_Charges_Currency_Code__c, Vehicle_Purchase_Order_Line_Items__c
                                                                 FROM Vehicle_Master2__c
                                                                 WHERE Shipment_Line_Item__c = NULL
                                                                 AND (
                                                                         (
-                                                                            Vehicle_Purchase_Order_Line_Items__c != NULL
+                                                                            Vehicle_Purchase_Order_Line_Items__c != null
                                                                             AND
                                                                             Vehicle_Purchase_Status__c = 'Confirmed'
                                                                         )
@@ -312,7 +314,7 @@ public inherited sharing class VehicleShipmentServices
      */
     private static Boolean isTier2(Vehicle_Master2__c stock)
     {
-        return stock.Vehicle_Purchase_Status__c == 'Confirmed';
+        return stock.Vehicle_Purchase_Order_Line_Items__c != null && stock.Vehicle_Purchase_Status__c == 'Confirmed';
     }
 
     /**
@@ -556,6 +558,42 @@ public inherited sharing class VehicleShipmentServices
         matchedStock.Other_Charges_Currency_Code__c = null;
     }
 
+    private static VehicleShipmentSelector sel = new VehicleShipmentSelector();
+
+    /**
+     * ============================================================================================
+     * Get Vehicle Shipment records by Ids
+     * @param shipmentIds: target vehicle shipment ids
+     * @param withLineItems: include shipment line items
+     * @param withMatchedVehicle: include matched stock vehicle master
+     * @return list of vehicle shipments
+     * History
+     *          DATE::                              BY::                                CHANGELOG
+     *          24 Aug 2022                         phan.thu@aodigy.com                   init
+     * ============================================================================================
+     */
+    public static List<Vehicle_Shipment__c> getByIds (Set<Id> shipmentIds, Boolean withLineItems, Boolean withMatchedVehicle)
+    {
+        return sel.selectByIds(shipmentIds, withLineItems, withMatchedVehicle);
+    }
+
+     /**
+     * ============================================================================================
+     * Select Vehicle Shipment by Id with @withInvoices and @withLineItems as optional
+     * @param Id: Vehicle Shipment Id
+     * @param withLineItems: include Shipment Line Items
+     * @param withInvoices: include Manufacturer Invoices
+     * History
+     *          DATE::                              BY::                                CHANGELOG
+     *       27 Aug 2022                         phan.thu@aodigy.com                       init
+     * ============================================================================================
+    */
+
+    public static Vehicle_Shipment__c getByIdWithInvoicesAndLineItems (String Id, Boolean withInvoices, Boolean withLineItems)
+    {
+        return sel.selectByIdWithInvoicesAndLineItems(Id, withInvoices, withLineItems);
+    }
+
     // private static void createTaskOnPartialMatching(Map<Id, Shipment_Line_Item__c> unmatchedShipmentLineItems)
     // {
     //     Set<Id> shipmentIds = new Set<Id>();
@@ -577,6 +615,5 @@ public inherited sharing class VehicleShipmentServices
     //         ));
     //     }
     // }
-
     public class VehicleShipmentException extends Exception{}
 }

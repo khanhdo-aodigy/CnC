@@ -21,7 +21,6 @@ public with sharing class ShipmentLineItemsMatchingController
     @AuraEnabled(cacheable=true)
     public static VehicleShipmentDetail init(String vehicleShipmentId)
     {
-        // TODO: use selector
         try
         {
             VehicleShipmentDetail result = new VehicleShipmentDetail();

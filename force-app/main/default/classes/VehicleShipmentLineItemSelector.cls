@@ -27,4 +27,29 @@ public inherited sharing class VehicleShipmentLineItemSelector extends ADGLIB_SO
      
         return (List<Shipment_Line_Item__c>)(Database.query(query.toSOQL()));
     }
+
+    public List<Shipment_Line_Item__c> selectByVehicleShipmentIds(Set<Id> shipmentIds)
+    {
+        adglib_QueryFactory query = newQueryFactory();  
+        query.selectField('TN_HS_Code__r.Name');    
+        query.setCondition('Vehicle_Shipment__c IN: shipmentIds');
+     
+        return (List<Shipment_Line_Item__c>)(Database.query(query.toSOQL()));
+    }
+
+    public List<Shipment_Line_Item__c> selectByIds(Set<String> Ids)
+    {
+        adglib_QueryFactory query = newQueryFactory();  
+        query.selectField('TN_HS_Code__r.Name');  
+        query.selectField('Invoice_No__r.Invoice_No__c');  
+        query.selectField('Invoice_No__r.TN_Total_Dutiable_Qty__c');
+        query.selectField('Invoice_No__r.TN_Total_Dutiable_Qty_UOM__c');
+        query.selectField('Invoice_No__r.Total_Outer_Pack__c');
+        query.selectField('Invoice_No__r.Total_Outer_Pack_UOM__c');
+        query.selectField('Vehicle_Shipment__r.Brand__c');
+        query.selectField('Vehicle_Shipment__r.Country_of_Origin_Code__c');
+        query.setCondition('Id IN: Ids');
+
+        return (List<Shipment_Line_Item__c>)(Database.query(query.toSOQL()));
+    }
 }
