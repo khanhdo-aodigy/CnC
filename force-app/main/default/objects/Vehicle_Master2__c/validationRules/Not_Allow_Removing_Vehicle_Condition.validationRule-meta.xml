@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Not_Allow_Removing_Vehicle_Condition</fullName>
+    <active>true</active>
+    <description>After Vehicle Condition is populated can not set it to no value</description>
+    <errorConditionFormula>!ISBLANK(TEXT(PRIORVALUE(Vehicle_Condition__c)))
+&amp;&amp;
+ISBLANK(TEXT(Vehicle_Condition__c))</errorConditionFormula>
+    <errorDisplayField>Vehicle_Condition__c</errorDisplayField>
+    <errorMessage>After Vehicle Condition is populated can not set it to no value</errorMessage>
+</ValidationRule>
