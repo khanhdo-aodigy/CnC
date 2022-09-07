@@ -48,7 +48,8 @@ public inherited sharing class VehicleShipmentServices
         List<Shipment_Line_Item__c> shipmentLineItems = [   SELECT  Name, Model__c, Colour_Code__c, Trim__c, Manufacturer_Ref_No__c, Production_Month__c, Vehicle_Shipment__c,
                                                                     FOB_Amount__c, FOB_Amount_Currency_Code__c, Franchise_Code__c, Freight_Charges__c, Freight_Charges_Currency_Code__c,
                                                                     Insurance_Charges__c, Insurance_Charges_Currency_Code__c, Ex_Factory_Charges__c, Ex_Factory_Charges_Currency_Code__c,
-                                                                    Transport_Charges__c, Transport_Charges_Currency_Code__c, Other_Charges__c, Other_Charges_Currency_Code__c
+                                                                    Transport_Charges__c, Transport_Charges_Currency_Code__c, Other_Charges__c, Other_Charges_Currency_Code__c,
+                                                                    TN_HS_Code__c, Product_Code_Description__c, Engine_No__c, Chassis_No__c
                                                             FROM Shipment_Line_Item__c
                                                             WHERE Vehicle_Shipment__c IN :shipmentIds
                                                             AND Id NOT IN :matchedShipmentLineItemIds
@@ -66,7 +67,8 @@ public inherited sharing class VehicleShipmentServices
                                                                         Model_Code__r.Name, Color_Code__r.ColorCode__c, Trim_Code__r.Name, Manufacturer_Ref_No__c,
                                                                         FOB_Amount__c, FOB_Amount_Currency_Code__c, Franchise_Code__c, Freight_Charges__c, Freight_Charges_Currency_Code__c,
                                                                         Insurance_Charges__c, Insurance_Charges_Currency_Code__c, Ex_Factory_Charges__c, Ex_Factory_Charges_Currency_Code__c,
-                                                                        Transport_Charges__c, Transport_Charges_Currency_Code__c, Other_Charges__c, Other_Charges_Currency_Code__c, Vehicle_Purchase_Order_Line_Items__c
+                                                                        Transport_Charges__c, Transport_Charges_Currency_Code__c, Other_Charges__c, Other_Charges_Currency_Code__c, Vehicle_Purchase_Order_Line_Items__c,
+                                                                        TN_HS_Code__c, Product_Code__c, Engine_No__c, Chassis__c
                                                                 FROM Vehicle_Master2__c
                                                                 WHERE Shipment_Line_Item__c = NULL
                                                                 AND (
