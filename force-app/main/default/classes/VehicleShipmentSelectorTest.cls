@@ -4,15 +4,14 @@
  * Create Date: Aug 2022
  * History
  *              DATE::                              BY::                                TICKET::                                            CHANGELOG
- *              24 Aug 2022                         dong.nguyen@aodigy.com              US-Ship-000008                                      init
+ *              24 Aug 2022                         dong.nguyen@aodigy.com             US-Ship-000008                                      init
  * ========================================================================================================================================================================== 
  */
-@isTest
+@IsTest
 private with sharing class VehicleShipmentSelectorTest
 {
     @TestSetup
-    private static void makeData()
-    {
+    private static void makeData(){
         // create model master
         Model_Master__c modelMaster = Test_DataFactory.createModelCode(true, 'Model Master');
 
@@ -50,37 +49,27 @@ private with sharing class VehicleShipmentSelectorTest
     private static void selectByIds_success()
     {
         Vehicle_Shipment__c vh = [SELECT Id, Brand__c FROM Vehicle_Shipment__c];
-
         VehicleShipmentSelector selector = new VehicleShipmentSelector();
-
-        List<Vehicle_Shipment__c> listShipment = selector.selectByIds(new Set<Id>{ vh.Id }, true, true);
-
+        List<Vehicle_Shipment__c> listShipment = selector.selectByIds(new Set<Id>{vh.Id}, true, true);
         System.assertEquals(1, listShipment.size());
     }
 
-    @isTest
+    @IsTest
     private static void selectByIds_InvalidId()
     {
         Vehicle_Shipment__c vh = [SELECT Id, CreatedById FROM Vehicle_Shipment__c];
-
         VehicleShipmentSelector selector = new VehicleShipmentSelector();
-
         list<Vehicle_Shipment__c> listShipment = selector.selectByIds(new Set<Id> {vh.CreatedById}, true, true);
-
         System.assert(listShipment.size()== 0, listShipment.size());
-
-        // System.assertEquals(0, listShipment.size());
+        System.assertEquals(0, listShipment.size());
     }
 
-    @isTest
-    public static void selectByIdWithInvoicesAndLineItems_success()
+    @IsTest
+    private static void selectByIdWithInvoicesAndLineItemsAndSVMs_success()
     {
         Vehicle_Shipment__c vh = [SELECT Id FROM Vehicle_Shipment__c];
-        
         VehicleShipmentSelector selector = new VehicleShipmentSelector();
-
-        Vehicle_Shipment__c listShipment = selector.selectByIdWithInvoicesAndLineItems(vh.Id, true, true);
-        
+        Vehicle_Shipment__c listShipment = selector.selectByIdWithInvoicesAndLineItemsAndSVMs(vh.Id, true, true, true);
         System.assertNotEquals(null, listShipment.Id);
     }
 

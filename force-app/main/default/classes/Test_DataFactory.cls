@@ -217,7 +217,8 @@ public with sharing class Test_DataFactory {
         Model_Year_Master__c modelYearCode = new Model_Year_Master__c();
         modelYearCode.ModelYear__c = Date.today().addYears(-1);
         modelYearCode.Model_Master__c = ModelmasteId;
-        modelYearCode.VSMS_Compound_Primary_Key__c = 'VSMS_' + String.valueOf(VSMS_COMPOUND_KEY_COUNTER++);
+        // modelYearCode.VSMS_Compound_Primary_Key__c = 'VSMS_' + String.valueOf(VSMS_COMPOUND_KEY_COUNTER++);
+        modelYearCode.VSMS_Compound_Primary_Key__c = 'VSMS_' + randomString(10);
         
         if(doInsert)
             insert modelYearCode;
@@ -359,7 +360,7 @@ public with sharing class Test_DataFactory {
         shipmentLineItem.Chassis_No__c  = '3423545647653';
         shipmentLineItem.Engine_No__c = '1232435456546 ';
         shipmentLineItem.Colour_Code__c ='rwerwet';
-        shipmentLineItem.Production_Month__c = '082022';
+        shipmentLineItem.Production_Month__c = '08/2022';
         shipmentLineItem.Shipment_Line_Item_Sequence_No__c = '1232';
         shipmentLineItem.Invoice_No__c = invoiceId;
         if (doInsert) {
@@ -1529,4 +1530,28 @@ public with sharing class Test_DataFactory {
 
     //     return jitDay;
     // }
+
+    /**
+     * Generate a string of @length random characters. This method is for testing purpose so no input validate is applied.
+     * @param length desired length of string. The method expect @length to be greater than 1.
+     */
+    private static String randomString(Integer length)
+    {
+        List<String> ALPHA_NUMERIC_CHARACTERS = new List<String> {
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+        };
+
+        String result = '';
+
+        for (Integer i = 0; i < length; i++)
+        {
+            Integer randomNumber = (Integer) ( Math.random() * (ALPHA_NUMERIC_CHARACTERS.size() - 1) );
+
+            result += ALPHA_NUMERIC_CHARACTERS[randomNumber];
+        }
+
+        return result;
+    }
 }

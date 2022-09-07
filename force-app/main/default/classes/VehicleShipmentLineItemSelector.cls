@@ -44,8 +44,8 @@ public inherited sharing class VehicleShipmentLineItemSelector extends ADGLIB_SO
         query.selectField('Invoice_No__r.Invoice_No__c');  
         query.selectField('Invoice_No__r.TN_Total_Dutiable_Qty__c');
         query.selectField('Invoice_No__r.TN_Total_Dutiable_Qty_UOM__c');
-        query.selectField('Invoice_No__r.Total_Outer_Pack__c');
-        query.selectField('Invoice_No__r.Total_Outer_Pack_UOM__c');
+        query.selectField('Invoice_No__r.TN_Total_Outer_Pack__c');
+        query.selectField('Invoice_No__r.TN_Total_Outer_Pack_UOM__c');
         query.selectField('Vehicle_Shipment__r.Brand__c');
         query.selectField('Vehicle_Shipment__r.Country_of_Origin_Code__c');
         query.setCondition('Id IN: Ids');
