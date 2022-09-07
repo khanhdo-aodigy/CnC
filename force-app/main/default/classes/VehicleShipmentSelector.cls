@@ -87,12 +87,13 @@ public with sharing class VehicleShipmentSelector extends ADGLIB_SObjectSelector
     }
 
     /**
-     * Select Vehicle Shipment by Id with @withInvoices and @withLineItems as optional
+     * Select Vehicle Shipment by Id with @withInvoices and @withLineItems and @withSVMs as optional
      * @param Id: Vehicle Shipment Id
      * @param withLineItems: include Shipment Line Items
      * @param withInvoices: include Manufacturer Invoices
+     * @param withSVMs: include Stock Vehicle Masters
     */
-    public Vehicle_Shipment__c selectByIdWithInvoicesAndLineItems(String Id, Boolean withInvoices, Boolean withLineItems)
+    public Vehicle_Shipment__c selectByIdWithInvoicesAndLineItemsAndSVMs(String Id, Boolean withInvoices, Boolean withLineItems, Boolean withSVMs)
     {
         Boolean assertCRUD = false;              // by pass CRUD
         Boolean enforceFLS = false;              // by pass FLS
@@ -117,6 +118,20 @@ public with sharing class VehicleShipmentSelector extends ADGLIB_SObjectSelector
         {
             ADGLIB_QueryFactory manufacturerInvoiceQueryFactory  = shipmentQueryFactory.subselectQuery(Manufacturer_Invoice__c.sObjectType);
             manufacturerInvoiceQueryFactory.selectFields(new ManufacturerInvoiceSelector().getSObjectFieldList());           
+        }
+
+        if(withSVMs)
+        {
+            ADGLIB_QueryFactory stockVehicleMasterQueryFactory  = shipmentQueryFactory.subselectQuery(Vehicle_Master2__c.sObjectType);
+            stockVehicleMasterQueryFactory.selectField('Id');
+            stockVehicleMasterQueryFactory.selectField('Name');
+            stockVehicleMasterQueryFactory.selectField('Item_Group_Code__c');
+            stockVehicleMasterQueryFactory.selectField('Chassis__c');
+            stockVehicleMasterQueryFactory.selectField('Invoice_No__c');
+            stockVehicleMasterQueryFactory.selectField('Engine_No__c');
+            stockVehicleMasterQueryFactory.selectField('Vehicle_Type__c');
+            stockVehicleMasterQueryFactory.selectField('TN_HS_Code__r.Name');
+            stockVehicleMasterQueryFactory.selectField('Product_Code__r.Product_Code__c');
         }
 
         return Database.query(shipmentQueryFactory.toSOQL());
