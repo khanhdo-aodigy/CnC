@@ -3,5 +3,5 @@
         .slds-modal__container{width: 90% !important; max-width: 90% !important}
     </aura:html>
     <aura:attribute name="recordId" type="Id"></aura:attribute>
-    <c:vpo_LineItemsHistoryDashboard recordId="{!v.recordId}"></c:vpo_LineItemsHistoryDashboard>
+    <c:vpo_LineItemsHistoryDashboard recordId="{!v.recordId}" onrefresh="{!c.refreshView}"></c:vpo_LineItemsHistoryDashboard>
 </aura:component>
