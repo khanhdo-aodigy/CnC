@@ -4,7 +4,9 @@
     <active>true</active>
     <errorConditionFormula>AND
 (
-NOT(ISNEW()),
-ISPICKVAL(PRIORVALUE(Stage__c), &apos;Cancelled&apos;))</errorConditionFormula>
+    NOT(ISNEW()),
+    ISPICKVAL(PRIORVALUE(Stage__c), &apos;Cancelled&apos;),
+				$Profile.Name != &quot;System Administrator&quot;
+)</errorConditionFormula>
     <errorMessage>After PO stage is cancelled, PO and POLI cannot be edited or reverted to previous stage.</errorMessage>
 </ValidationRule>
