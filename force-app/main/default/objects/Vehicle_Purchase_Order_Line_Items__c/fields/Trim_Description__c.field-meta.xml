@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Total_Price__c</fullName>
+    <fullName>Trim_Description__c</fullName>
     <externalId>false</externalId>
-    <formula>Units_Ordered__c * Unit_Price__c</formula>
+    <formula>Trim_Master__r.Trim_Description__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-    <label>Total TMS Estimated FOB</label>
-    <precision>18</precision>
+    <label>Trim Description</label>
     <required>false</required>
-    <scale>0</scale>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Number</type>
+    <type>Text</type>
     <unique>false</unique>
 </CustomField>

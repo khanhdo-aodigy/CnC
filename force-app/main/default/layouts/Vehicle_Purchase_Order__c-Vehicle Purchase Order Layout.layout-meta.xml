@@ -38,10 +38,6 @@
                 <behavior>Required</behavior>
                 <field>Currency_Code__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Remarks__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -61,10 +57,24 @@
                 <field>Total_Units_Pending__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Total_PO_Value__c</field>
+                <behavior>Edit</behavior>
+                <field>Remarks__c</field>
             </layoutItems>
         </layoutColumns>
+        <style>TwoColumnsLeftToRight</style>
+    </layoutSections>
+    <layoutSections>
+        <customLabel>true</customLabel>
+        <detailHeading>true</detailHeading>
+        <editHeading>true</editHeading>
+        <label>TMS Related</label>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>TMS_Purchase_Order__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <layoutColumns/>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
@@ -83,21 +93,21 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Cancellation_Reason__c</field>
+                <field>OwnerId</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Stage__c</field>
+            </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>PI_Uploaded__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>OwnerId</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Stage__c</field>
+                <field>Cancellation_Reason__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -240,6 +250,7 @@
         <fields>NAME</fields>
         <fields>Model_Master__c</fields>
         <fields>Colour_Description__c</fields>
+        <fields>Color_Master__c</fields>
         <fields>Trim_Master__c</fields>
         <fields>Units_Ordered__c</fields>
         <fields>Units_Confirmed__c</fields>
@@ -259,11 +270,16 @@
         <fields>ETA_Date__c</fields>
         <fields>Model_Description__c</fields>
         <fields>Color_Description__c</fields>
-        <fields>Trim_Description__c</fields>
+        <fields>Estimated_FOB__c</fields>
+        <fields>TMS_Insurance__c</fields>
+        <fields>Estimated_Duty__c</fields>
         <relatedList>Vehicle_Master2__c.Vehicle_Purchase_Order__c</relatedList>
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedNoteList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <relatedList>RelatedFileList</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>CreatedDate</fields>
@@ -313,11 +329,6 @@
             <field>Production_Month__c</field>
             <posX>2</posX>
             <posY>0</posY>
-        </summaryLayoutItems>
-        <summaryLayoutItems>
-            <field>Total_PO_Value__c</field>
-            <posX>2</posX>
-            <posY>1</posY>
         </summaryLayoutItems>
         <summaryLayoutItems>
             <field>Total_Units_Ordered__c</field>
