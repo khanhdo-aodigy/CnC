@@ -38,17 +38,18 @@ public with sharing class VehiclePurchaseOrdersTest
             Franchise_Code__c = 'KIAPC',
             Production_Month__c = Date.today(),
             Supplier_Account__c = supplier.Id,
-            Currency_Code__c = 'USD'
+            Currency_Code__c = 'USD',
+            Stage__c = 'Manufacturer_Confirmed'
         );
         insert order;
         
         // create SVM
-        Vehicle_Master2__c vm2 = Test_DataFactory.createVehicleMaster2(false, modelMaster.Id, colorMaster.Id, trimMaster.Id, modelYearCode.Id, 'originalCommacase', 'systemCommcase');
-		vm2.Vehicle_Purchase_Order__c = order.Id;
-        vm2.Vehicle_Purchase_Status__c = 'In Shipment';
-        vm2.Vehicle_Status__c = 'ORD';
-        vm2.ProductionMonth__c= Date.today().addDays(5);
-        insert vm2;
+        // Vehicle_Master2__c vm2 = Test_DataFactory.createVehicleMaster2(false, modelMaster.Id, colorMaster.Id, trimMaster.Id, modelYearCode.Id, 'originalCommacase', 'systemCommcase');
+		// vm2.Vehicle_Purchase_Order__c = order.Id;
+        // vm2.Vehicle_Purchase_Status__c = 'In Shipment';
+        // vm2.Vehicle_Status__c = 'ORD';
+        // vm2.ProductionMonth__c= Date.today().addDays(5);
+        // insert vm2;
 
         // create POLIs
         final Integer POLI_NO = 10;
@@ -75,44 +76,278 @@ public with sharing class VehiclePurchaseOrdersTest
      *  test snapshot capturing when VPO is approved
      *  expected: when VPO is approved appear snapshot capturing 
      */
-    @isTest
-    private static void snapshotCapture_Success ()
-    { 
+    @IsTest
+    private static void snapshotCapture_Success()
+    {
+        // update vehicle purchase order status
         Vehicle_Purchase_Order__c order = [SELECT Id, Stage__c FROM Vehicle_Purchase_Order__c];
-        Test.startTest();
         order.Stage__c = 'Approved';
         update order;
-        List<Vehicle_Purchase_Order__c> orders = [SELECT Id, Stage__c FROM Vehicle_Purchase_Order__c where Stage__c = 'Approved'];
-        System.assert(orders.size() > 0, 'Vehicle Purchase Order update success and aprear snapshot capturing in Note and Document');
-        Test.stopTest();       
+
+        // assert whether vehicle purchase order status successfully updated
+        Vehicle_Purchase_Order__c updatedOrder = [SELECT Id, Stage__c FROM Vehicle_Purchase_Order__c WHERE Id = :order.Id];
+        System.assert(updatedOrder.Stage__c == 'Approved', 'Actual stage: ' + updatedOrder.Stage__c);
+
+        // assert snapshot txt is captured
+        Attachment snapshot = [SELECT Id, Description FROM Attachment WHERE ParentId = :order.Id];
+        System.assert(snapshot.Description == '#snapshot', 'Snapshot do not have correct tagging description');
     }
 
     /**
-     *  test SVM status when VPO is cancelled
-     *  expected: when SVM status is 'In Shipment' or 'Arrived' can not cancelled an VPO 
+     *  Test closing PO with some converted stock are In Shipment
+     *  Expected: PO is no eligible for closing
      */
-    @isTest
-    private static void CancellationEligibility_Success()
+    @IsTest
+    private static void checkCancellationEligibility_InShipment()
     {
-        String errorMsg = '';
-        Test.startTest();       
+        // get vehicle purchase order
         Vehicle_Purchase_Order__c order = [SELECT Id, Stage__c FROM Vehicle_Purchase_Order__c];
-        List<Vehicle_Master2__c> convertedStock = [ SELECT Id, Vehicle_Purchase_Status__c, Vehicle_Status__c, Vehicle_Purchase_Order__c
-                                                    FROM Vehicle_Master2__c
-                                                    WHERE Vehicle_Purchase_Status__c = 'In Shipment' AND Vehicle_Status__c = 'FREE'
-        										 ];
+
+        // update POLI unit confirmed
+        List<Vehicle_Purchase_Order_Line_Items__c> polis = [SELECT Id, Units_Ordered__c, Units_Confirmed__c FROM Vehicle_Purchase_Order_Line_Items__c WHERE Vehicle_Purchase_Order__c = :order.Id];
+
+        for (Vehicle_Purchase_Order_Line_Items__c poli : polis)
+        {
+            poli.Units_Confirmed__c = 1;
+        }
+
+        update polis;
+
+        // convert some stocks for testing
+        VehiclePurchaseOrderServices.stockVehicleMasterConversion(new Set<Id> { order.Id });
+
+        // update some converted stock to 'In Shipment'
+        List<Vehicle_Master2__c> convertedStocks = [SELECT Vehicle_Purchase_Status__c FROM Vehicle_Master2__c WHERE Vehicle_Purchase_Order__c = :order.Id LIMIT 3];
+
+        for (Vehicle_Master2__c convertedStock : convertedStocks)
+        {
+            convertedStock.Vehicle_Purchase_Status__c = 'In Shipment';
+        }
+
+        update convertedStocks;
+
         try
         {
-        order.Stage__c = 'Cancelled';
-        order.Cancellation_Reason__c = 'Change color';
-        update order;
-        } catch(Exception ex)
+            order.Stage__c = 'Cancelled';
+            order.Cancellation_Reason__c = 'Testing';
+            update order;
+        } catch(Exception e)
         {
-            errorMsg =ex.getMessage();
-        }
-        Test.stopTest();
-
-        System.assertEquals(true, errorMsg.indexOf('PO with non-free vehicle status is not eligible for cancellation')>-1);
-    	
+            System.assert(e.getMessage().contains('PO with In Shipment or Arrived vehicle purchase status is not eligible for cancellation'), e.getMessage());
+        }    	
     }
+
+    /**
+     *  Test closing PO with some converted stock are Arrived
+     *  Expected: PO is no eligible for closing
+     */
+    @IsTest
+    private static void checkCancellationEligibility_Arrived()
+    {
+        // get vehicle purchase order
+        Vehicle_Purchase_Order__c order = [SELECT Id, Stage__c FROM Vehicle_Purchase_Order__c];
+
+        // update POLI unit confirmed
+        List<Vehicle_Purchase_Order_Line_Items__c> polis = [SELECT Id, Units_Ordered__c, Units_Confirmed__c FROM Vehicle_Purchase_Order_Line_Items__c WHERE Vehicle_Purchase_Order__c = :order.Id];
+
+        for (Vehicle_Purchase_Order_Line_Items__c poli : polis)
+        {
+            poli.Units_Confirmed__c = 1;
+        }
+
+        update polis;
+
+        // convert some stocks for testing
+        VehiclePurchaseOrderServices.stockVehicleMasterConversion(new Set<Id> { order.Id });
+
+        // update some converted stock to 'Arrived'
+        List<Vehicle_Master2__c> convertedStocks = [SELECT Vehicle_Purchase_Status__c FROM Vehicle_Master2__c WHERE Vehicle_Purchase_Order__c = :order.Id LIMIT 3];
+
+        for (Vehicle_Master2__c convertedStock : convertedStocks)
+        {
+            convertedStock.Vehicle_Purchase_Status__c = 'Arrived';
+        }
+
+        update convertedStocks;
+
+        try
+        {
+            order.Stage__c = 'Cancelled';
+            order.Cancellation_Reason__c = 'Testing';
+            update order;
+        } catch(Exception e)
+        {
+            System.assert(e.getMessage().contains('PO with In Shipment or Arrived vehicle purchase status is not eligible for cancellation'), e.getMessage());
+        }
+    }
+
+    /**
+     *  Test closing PO with some converted stock are Reserved
+     *  Expected: PO is no eligible for closing
+     */
+    @IsTest
+    private static void checkCancellationEligibility_Reserved()
+    {
+        // get vehicle purchase order
+        Vehicle_Purchase_Order__c order = [SELECT Id, Stage__c FROM Vehicle_Purchase_Order__c];
+
+        // update POLI unit confirmed
+        List<Vehicle_Purchase_Order_Line_Items__c> polis = [SELECT Id, Units_Ordered__c, Units_Confirmed__c FROM Vehicle_Purchase_Order_Line_Items__c WHERE Vehicle_Purchase_Order__c = :order.Id];
+
+        for (Vehicle_Purchase_Order_Line_Items__c poli : polis)
+        {
+            poli.Units_Confirmed__c = 1;
+        }
+
+        update polis;
+
+        // convert some stocks for testing
+        VehiclePurchaseOrderServices.stockVehicleMasterConversion(new Set<Id> { order.Id });
+
+        // update some converted stock to 'RESRV'
+        List<Vehicle_Master2__c> convertedStocks = [SELECT Vehicle_Status__c FROM Vehicle_Master2__c WHERE Vehicle_Purchase_Order__c = :order.Id LIMIT 3];
+
+        for (Vehicle_Master2__c convertedStock : convertedStocks)
+        {
+            convertedStock.Vehicle_Status__c = 'RESRV';
+        }
+
+        update convertedStocks;
+
+        try
+        {
+            order.Stage__c = 'Cancelled';
+            order.Cancellation_Reason__c = 'Testing';
+            update order;
+        } catch(Exception e)
+        {
+            System.assert(e.getMessage().contains('PO with non-free vehicle status is not eligible for cancellation'), e.getMessage());
+        }
+    }
+
+    /**
+     *  Test closing PO with no converted stock
+     *  Expected: PO can be cancelled
+     */
+    @IsTest
+    private static void checkCancellationEligibility_NoConvertedStock()
+    {
+        // get vehicle purchase order
+        Vehicle_Purchase_Order__c order = [SELECT Id, Stage__c FROM Vehicle_Purchase_Order__c];
+
+        // update POLI unit confirmed
+        List<Vehicle_Purchase_Order_Line_Items__c> polis = [SELECT Id, Units_Ordered__c, Units_Confirmed__c FROM Vehicle_Purchase_Order_Line_Items__c WHERE Vehicle_Purchase_Order__c = :order.Id];
+
+        for (Vehicle_Purchase_Order_Line_Items__c poli : polis)
+        {
+            poli.Units_Confirmed__c = 1;
+        }
+
+        update polis;
+
+        // update stage to Cancelled
+        order.Stage__c = 'Cancelled';
+        order.Cancellation_Reason__c = 'Testing';
+        update order;
+
+        // assert whether stage is successfully updated
+        Vehicle_Purchase_Order__c updatedOrder = [SELECT Id, Stage__c FROM Vehicle_Purchase_Order__c WHERE Id = :order.Id LIMIT 3];
+
+        System.assert(updatedOrder.Stage__c == 'Cancelled', 'Actual stage: ' + updatedOrder.Stage__c);
+    }
+
+    /**
+     *  Test closing PO with full converted stock
+     *  Expected: PO can be cancelled
+     */
+    @IsTest
+    private static void checkCloseEligibility_NoConvertedStock()
+    {
+        // get vehicle purchase order
+        Vehicle_Purchase_Order__c order = [SELECT Id, Stage__c FROM Vehicle_Purchase_Order__c];
+
+        // close vehicle purchase order
+        order.Stage__c = 'Closed';
+        update order;
+
+        // assert whether stage is successfully updated
+        Vehicle_Purchase_Order__c updatedOrder = [SELECT Id, Stage__c FROM Vehicle_Purchase_Order__c WHERE Id = :order.Id];
+
+        System.assert(updatedOrder.Stage__c == 'Closed', 'Actual stage: ' + updatedOrder.Stage__c);
+    }
+
+    /**
+     *  Test closing PO with full converted stock
+     *  Expected: PO can be cancelled
+     */
+    @IsTest
+    private static void checkCloseEligibility_FullConvertedStock()
+    {
+        // get vehicle purchase order
+        Vehicle_Purchase_Order__c order = [SELECT Id, Stage__c FROM Vehicle_Purchase_Order__c];
+
+        // update POLI unit confirmed
+        List<Vehicle_Purchase_Order_Line_Items__c> polis = [SELECT Id, Units_Ordered__c, Units_Confirmed__c FROM Vehicle_Purchase_Order_Line_Items__c WHERE Vehicle_Purchase_Order__c = :order.Id];
+
+        for (Vehicle_Purchase_Order_Line_Items__c poli : polis)
+        {
+            poli.Units_Confirmed__c = poli.Units_Ordered__c;
+        }
+
+        update polis;
+
+        // convert some stocks for testing
+        VehiclePurchaseOrderServices.stockVehicleMasterConversion(new Set<Id> { order.Id });
+
+        // close vehicle purchase order
+        order.Stage__c = 'Closed';
+        update order;
+
+        // assert whether stage is successfully updated
+        Vehicle_Purchase_Order__c updatedOrder = [SELECT Id, Stage__c FROM Vehicle_Purchase_Order__c WHERE Id = :order.Id];
+
+        System.assert(updatedOrder.Stage__c == 'Closed', 'Actual stage: ' + updatedOrder.Stage__c);
+    }
+
+    /**
+     *  Test closing PO with full converted stock
+     *  Expected: PO can not be cancelled
+     */
+    @IsTest
+    private static void checkCloseEligibility_PartiallyConvertedStock()
+    {
+        // get vehicle purchase order
+        Vehicle_Purchase_Order__c order = [SELECT Id, Stage__c FROM Vehicle_Purchase_Order__c];
+
+        // update POLI unit confirmed
+        List<Vehicle_Purchase_Order_Line_Items__c> polis = [SELECT Id, Units_Ordered__c, Units_Confirmed__c FROM Vehicle_Purchase_Order_Line_Items__c WHERE Vehicle_Purchase_Order__c = :order.Id];
+
+        for (Vehicle_Purchase_Order_Line_Items__c poli : polis)
+        {
+            poli.Units_Confirmed__c = 1;
+        }
+
+        update polis;
+
+        // convert some stocks for testing
+        VehiclePurchaseOrderServices.stockVehicleMasterConversion(new Set<Id> { order.Id });
+
+        // update POLI unit confirmed again but do not convert
+        for (Vehicle_Purchase_Order_Line_Items__c poli : polis)
+        {
+            poli.Units_Confirmed__c = 2;
+        }
+
+        update polis;
+
+        try
+        {
+            order.Stage__c = 'Closed';
+            update order;
+        }
+        catch (Exception e)
+        {
+            System.assert(e.getMessage().contains('Number of converted Stock Vehicle Master do not match Total Unit Confirmed. Please convert stock first or contact System Administrator.'), e.getMessage());
+        }
+    }   
 }
