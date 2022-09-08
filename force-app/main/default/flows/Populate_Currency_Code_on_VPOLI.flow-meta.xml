@@ -34,6 +34,12 @@
                 <elementReference>$Record.Vehicle_Purchase_Order__r.Currency_Code__c</elementReference>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <field>TMS_FOB_Currency_Code__c</field>
+            <value>
+                <elementReference>currency_code</elementReference>
+            </value>
+        </inputAssignments>
         <inputReference>$Record</inputReference>
     </recordUpdates>
     <start>
@@ -47,4 +53,14 @@
         <triggerType>RecordAfterSave</triggerType>
     </start>
     <status>Active</status>
+    <variables>
+        <name>currency_code</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <elementReference>$Record.Vehicle_Purchase_Order__r.Currency_Code__c</elementReference>
+        </value>
+    </variables>
 </Flow>
