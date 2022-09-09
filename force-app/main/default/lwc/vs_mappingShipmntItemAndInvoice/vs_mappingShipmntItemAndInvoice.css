@@ -1,0 +1,15 @@
+@media screen and (min-width: 481px) and (max-width: 1285px) 
+{
+    .slds-card 
+    {
+        height: 73vh !important;
+    }
+}
+
+@media screen and (min-width: 1285px) 
+{
+    .slds-card
+    {
+        height: 45vh !important;
+    }
+}
