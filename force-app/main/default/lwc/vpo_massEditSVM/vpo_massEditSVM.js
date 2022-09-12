@@ -38,10 +38,10 @@ export default class Vpo_massEditSVM extends LightningElement
         {
             this.stage = data.fields.Stage__c.value;
 
-            if (this.stage === 'Closed' || this.stage === 'Cancelled')
+            if (this.stage === 'Cancelled')
             {
                 this.isError = true,
-                this.showNotification('Sorry!', 'You cannot edit Stock Vehicle Master when Vehicle Purchase Order Stage is Closed or Cancelled! Please contact your Administrator.', 'warning');
+                this.showNotification('Sorry!', 'You cannot edit Stock Vehicle Master when Vehicle Purchase Order Stage is Cancelled! Please contact your Administrator.', 'warning');
                 this.onClose();
             }
         }

@@ -13,7 +13,7 @@
             </div>
             <div class="slds-modal__content slds-p-horizontal_xx-large slds-size_1-of-1">     
                 <aura:if isTrue="{!v.validStage}">
-                    <c:vpo_createVPOLIDetails parentId="{!v.parentId}"></c:vpo_createVPOLIDetails>
+                    <c:vpo_createVPOLIDetails aura:id="vpodetails" parentId="{!v.parentId}" onclose="{!c.closeModal}"></c:vpo_createVPOLIDetails>
                 </aura:if>               
             </div>
             <div class="slds-modal__footer">                

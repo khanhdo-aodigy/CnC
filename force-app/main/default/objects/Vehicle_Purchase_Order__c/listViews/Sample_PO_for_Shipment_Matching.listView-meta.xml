@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sample_PO_for_Shipment_Matching</fullName>
+    <columns>NAME</columns>
+    <columns>Production_Month__c</columns>
+    <columns>Supplier_Account__c</columns>
+    <columns>Franchise_Code__c</columns>
+    <columns>Total_Units_Ordered__c</columns>
+    <columns>Total_Units_Confirmed__c</columns>
+    <columns>Total_Units_Cancelled__c</columns>
+    <columns>Total_Units_Pending__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Production_Month__c</field>
+        <operation>greaterOrEqual</operation>
+        <value>1/1/2024</value>
+    </filters>
+    <label>Sample PO for Shipment Matching</label>
+</ListView>

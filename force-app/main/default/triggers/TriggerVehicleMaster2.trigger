@@ -90,4 +90,6 @@ trigger TriggerVehicleMaster2 on Vehicle_Master2__c (before insert, before updat
             }
         }
     }
+
+    adglib_SObjectDomain.triggerHandler(StockVehicleMaster.class);
 }

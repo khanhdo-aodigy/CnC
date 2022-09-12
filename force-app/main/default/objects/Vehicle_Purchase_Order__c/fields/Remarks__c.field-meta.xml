@@ -3,10 +3,8 @@
     <fullName>Remarks__c</fullName>
     <externalId>false</externalId>
     <label>Remarks</label>
-    <length>255</length>
     <required>false</required>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>TextArea</type>
 </CustomField>

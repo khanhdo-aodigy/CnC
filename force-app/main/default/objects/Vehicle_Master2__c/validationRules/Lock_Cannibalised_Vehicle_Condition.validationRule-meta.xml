@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lock_Cannibalised_Vehicle_Condition</fullName>
+    <active>true</active>
+    <description>Cannibalised vehicle is not allow to change vehicle condition</description>
+    <errorConditionFormula>ISPICKVAL(PRIORVALUE(Vehicle_Condition__c), &quot;Cannibalization&quot;)
+&amp;&amp;
+ISCHANGED(Vehicle_Condition__c)</errorConditionFormula>
+    <errorDisplayField>Vehicle_Condition__c</errorDisplayField>
+    <errorMessage>Cannibalised vehicle is not allow to change vehicle condition</errorMessage>
+</ValidationRule>

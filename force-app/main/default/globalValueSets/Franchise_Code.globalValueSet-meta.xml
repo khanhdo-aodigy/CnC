@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <customValue>
-        <fullName>CITCV</fullName>
-        <default>false</default>
-        <label>CITCV</label>
-    </customValue>
-    <customValue>
         <fullName>CITPC</fullName>
         <default>false</default>
         <label>CITPC</label>
     </customValue>
     <customValue>
-        <fullName>DPS</fullName>
+        <fullName>CITCV</fullName>
         <default>false</default>
-        <label>DPS</label>
-    </customValue>
-    <customValue>
-        <fullName>KIACV</fullName>
-        <default>false</default>
-        <label>KIACV</label>
+        <label>CITCV</label>
     </customValue>
     <customValue>
         <fullName>KIAPC</fullName>
@@ -26,14 +16,19 @@
         <label>KIAPC</label>
     </customValue>
     <customValue>
-        <fullName>Maxus</fullName>
+        <fullName>KIACV</fullName>
         <default>false</default>
-        <label>Maxus</label>
+        <label>KIACV</label>
     </customValue>
     <customValue>
-        <fullName>MBCV</fullName>
+        <fullName>MAXUSPC</fullName>
         <default>false</default>
-        <label>MBCV</label>
+        <label>MAXUSPC</label>
+    </customValue>
+    <customValue>
+        <fullName>MAXUSCV</fullName>
+        <default>false</default>
+        <label>MAXUSCV</label>
     </customValue>
     <customValue>
         <fullName>MBPC</fullName>
@@ -41,14 +36,49 @@
         <label>MBPC</label>
     </customValue>
     <customValue>
-        <fullName>MITCV</fullName>
+        <fullName>MBCV</fullName>
         <default>false</default>
-        <label>MITCV</label>
+        <label>MBCV</label>
     </customValue>
     <customValue>
         <fullName>MITPC</fullName>
         <default>false</default>
         <label>MITPC</label>
+    </customValue>
+    <customValue>
+        <fullName>MITCV</fullName>
+        <default>false</default>
+        <label>MITCV</label>
+    </customValue>
+    <customValue>
+        <fullName>DPSEU</fullName>
+        <default>false</default>
+        <label>DPSEU</label>
+    </customValue>
+    <customValue>
+        <fullName>DPSEUCV</fullName>
+        <default>false</default>
+        <label>DPSEUCV</label>
+    </customValue>
+    <customValue>
+        <fullName>DPSJP</fullName>
+        <default>false</default>
+        <label>DPSJP</label>
+    </customValue>
+    <customValue>
+        <fullName>DPSJPCV</fullName>
+        <default>false</default>
+        <label>DPSJPCV</label>
+    </customValue>
+    <customValue>
+        <fullName>DPSUS</fullName>
+        <default>false</default>
+        <label>DPSUS</label>
+    </customValue>
+    <customValue>
+        <fullName>DPSUSCV</fullName>
+        <default>false</default>
+        <label>DPSUSCV</label>
     </customValue>
     <masterLabel>Franchise Code</masterLabel>
     <sorted>false</sorted>

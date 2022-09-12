@@ -1,7 +1,7 @@
 ({
     getVPO : function(recordId, component) 
     {
-        const getVPOController = component.get("c.getVPO");
+        const getVPOController = component.get("c.getVehiclePurChaseOrder");
         getVPOController.setParams({ recordId: recordId});
         this.executeAction(component, getVPOController)
         .then(result => 
@@ -36,6 +36,8 @@
 
     cancelDialog: function(component)
     {
+        var vpoDetailCmp = component.find('vpodetails')
+        vpoDetailCmp !== undefined && vpoDetailCmp.refreshAllValues();
         component.set("v.validstage", false);
         var navEvt = $A.get("e.force:navigateToSObject");
         navEvt.setParams({

@@ -7,68 +7,92 @@ import getTrimMasters from '@salesforce/apex/VPO_VPOLIController.getTrimMasters'
 import getModelYearMasters from '@salesforce/apex/VPO_VPOLIController.getModelYearMasters';
 import upsertVPOLI from '@salesforce/apex/VPO_VPOLIController.upsertVPOLI';
 
-import Id from '@salesforce/user/Id';
-import BRANCH_CODE from '@salesforce/schema/User.Branch_Code__c';
-import FRANCHISE_CODE from '@salesforce/schema/User.Franchise_Code__c';
+import FRANCHISE_CODE from '@salesforce/schema/Vehicle_Purchase_Order__c.Franchise_Code__c';
+import VARIANT from '@salesforce/schema/Model_Master__c';
+import VARIANT_NAME from '@salesforce/schema/Model_Master__c.Name';
+import VARIANT_MODEL_DESCRIPTION from '@salesforce/schema/Model_Master__c.Model_Description__c';
 
 export default class Vpo_createVPOLIDetails extends LightningElement 
 {
     @api parentId;
     
-    @track details        = {};
-    @track trimMasterList = [];
+    @track details         = {};
+    @track trimMasterList  = [];
+    @track colorMasterList = [];
+
+    @track objectName = VARIANT.objectApiName;
+
+    @track searchFields = 
+    [
+        VARIANT_NAME.fieldApiName,
+        VARIANT_MODEL_DESCRIPTION.fieldApiName
+    ];
+
+    @track displayFields = 
+    [
+        VARIANT_NAME.fieldApiName,
+        VARIANT_MODEL_DESCRIPTION.fieldApiName,
+    ];
 
     franchiseCode = '';
-    branchCode    = '';
+    conditions    = '';
     spinner       = false;
     isError       = false;
     errorMessage;  
 
-    @wire(getRecord, {recordId: Id, fields: [BRANCH_CODE, FRANCHISE_CODE]}) 
-    wiredUser({error, data}) 
+    @wire(getRecord, {recordId: '$parentId', fields: [FRANCHISE_CODE]}) 
+    wiredVPO({error, data}) 
     {
         if (data) 
-        {
-            this.branchCode    = data.fields.Branch_Code__c.value;        
+        { 
             this.franchiseCode = data.fields.Franchise_Code__c.value;
+            this.conditions    = 'Active__c = True AND Franchise_Code__c = \'' + this.franchiseCode + '\'';
         }
     }
 
-    @wire (getColorMasters, { modelMasterId: '$details.Model_Master__c', franchiseCode: '$franchiseCode', branchCode: '$branchCode'}) colorMasterList;
+    @wire (getColorMasters, { modelMasterId: '$details.Model_Master__c', franchiseCode: '$franchiseCode', branchCode: ''}) 
+    wiredColorMasters(result)
+    {
+        if (result.data && result.data.length > 0)
+        {
+            this.colorMasterList = result.data;
+        }
+        else
+        {
+            if (this.details.Model_Master__c !== '' && this.details.Model_Master__c !== undefined && this.details.Model_Master__c !== null)
+            {
+                this.showNotification('Sorry!', 'The choosen Variant doesn\'t have any related Color and Trim. Please choose another Variant or contact your Administrator.', 'warning', 'sticky');
+            }
+        }
+    }
 
     @wire (getModelYearMasters, { modelMasterId: '$details.Model_Master__c'}) modelYearMasterList;
     
     get colorMasters()
     {
         let colorMasterOptions = [];
-        this.colorMasterList.data && this.colorMasterList.data.length > 0 && this.colorMasterList.data.forEach(el => colorMasterOptions.push({label: el.Color_Code__r.Color_Description__c, value: el.Color_Code__c}));
+        let uniqueColorOptions = [];
+        
+        this.colorMasterList.length > 0 
+            && this.colorMasterList.forEach(el => colorMasterOptions.push({label: el.Color_Code__r.Color_Description__c, 
+                                                                           value: el.Color_Code__c}));
 
-        return colorMasterOptions;
+        uniqueColorOptions = this.getUniqueListBy(colorMasterOptions, 'value');
+
+        return uniqueColorOptions;
     }
 
     get isColorDisabled()
     {
-        return this.colorMasterList.data && this.colorMasterList.data.length > 0 ? false : true;
+        return this.colorMasterList.length > 0 ? false : true;
     }
-
-    get modelYearMasters()
-    {
-        let modelYearMastersOptions = [];
-        this.modelYearMasterList.data && this.modelYearMasterList.data.length > 0 && this.modelYearMasterList.data.forEach(el => modelYearMastersOptions.push({label: el.Name, value: el.Id}));
-
-        return modelYearMastersOptions;
-    }
-
-    get isModelYearDisabled()
-    {
-        return this.modelYearMasterList.data && this.modelYearMasterList.data.length > 0 ? false : true;
-    }
-
 
     get trimMasters()
     {
         let trimMasterOptions = [];
-        this.trimMasterList.length > 0 && this.trimMasterList.forEach(el => trimMasterOptions.push({label: el.Trim_Code__r.Trim_Description__c, value: el.Trim_Code__c}));
+        this.trimMasterList.length > 0 
+            && this.trimMasterList.forEach(el => trimMasterOptions.push({label: el.Trim_Code__r.Trim_Description__c, 
+                                                                         value: el.Trim_Code__c}));
 
         return trimMasterOptions;
     }
@@ -76,6 +100,21 @@ export default class Vpo_createVPOLIDetails extends LightningElement
     get isTrimDisabled()
     {
         return this.trimMasterList.length > 0 ? false : true;
+    }
+
+    get modelYearMasters()
+    {
+        let modelYearMastersOptions = [];
+        this.modelYearMasterList.data 
+            && this.modelYearMasterList.data.length > 0 
+                && this.modelYearMasterList.data.forEach(el => modelYearMastersOptions.push({label: el.Name, value: el.Id}));
+
+        return modelYearMastersOptions;
+    }
+
+    get isModelYearDisabled()
+    {
+        return this.modelYearMasterList.data && this.modelYearMasterList.data.length > 0 ? false : true;
     }
 
     getTrimMasters()
@@ -96,33 +135,30 @@ export default class Vpo_createVPOLIDetails extends LightningElement
         })
     }
 
+    variantSelected(e)
+    {
+        this.details.Model_Master__c = e.detail.Id;
+    }
+
+    variantUnselected(e)
+    {
+        this.details.Model_Master__c = '';
+        this.refreshAllValues();
+    }
+
     onValueChanged(event)
     {
-        if (event.detail.name === 'Trim_Master__c' || event.detail.name === 'Model_Year_Master__c')
-        {
-            this.details[event.detail.name] = event.detail.value;
-        }
-        else if (event.detail.name === 'Color_Master__c')
-        {   
-            this.details[event.detail.name] = event.detail.value;
+        if (event.target.name === 'Color_Master__c')
+        {   this.details.Color_Master__c = event.target.value;
+            this.details.Trim_Master__c = '';
+            this.trimMasterList         = [];
+            this.template.querySelectorAll('lightning-combobox').forEach(el => {if (el.name === "Trim_Master__c") el.value = ''});
             this.getTrimMasters();
         } 
         else
         {
-            this.details[event.target.fieldName] = event.target.value;
+            this.details[event.target.name] = event.target.value;
         }
-
-        if (this.details.Color_Master__c === '')
-        {
-            this.details.Trim_Master__c = '';
-            this.trimMasterList         = [];
-            this.template.querySelectorAll('c-custom-combobox').forEach(el => {if (el.name==="Trim_Master__c" ) el.refreshSelectedValue()});
-        }
-        
-        if (this.details.Model_Master__c === '')
-        {
-           this.refreshAllValues();
-        } 
     }
 
     onValidate()
@@ -131,11 +167,11 @@ export default class Vpo_createVPOLIDetails extends LightningElement
 
         const inputFieldValid = 
         [
-            ...this.template.querySelectorAll('lightning-input-field')
+            ...this.template.querySelectorAll('lightning-input')
         ]
         .reduce((validSoFar, inputCmp) => 
         { 
-            if (inputCmp.fieldName !== 'Remarks__c' 
+            if (inputCmp.name !== 'Remarks__c' 
                 && (inputCmp.value === ''  
                     || inputCmp.value === undefined 
                         || inputCmp.value === null)) 
@@ -144,20 +180,23 @@ export default class Vpo_createVPOLIDetails extends LightningElement
                 inputCmp.reportValidity();
             }
                         
-            if (inputCmp.fieldName === 'Units_Ordered__c')
+            if (inputCmp.name === 'Units_Ordered__c')
             {
-                if (inputCmp.value !== ''  
-                        && inputCmp.value !== undefined 
-                            && inputCmp.value !== null
-                                && inputCmp.value <= 0)
+                console.log(inputCmp.value);
+                if (inputCmp.value !== ''
+                    && inputCmp.value !== undefined 
+                        && inputCmp.value !== null
+                            && inputCmp.value <= 0)
                 {
                     isValid = false;
-                    inputCmp.setErrors({'body':{'output':{'fieldErrors':{'Units_Ordered__c':[{'message':'Units Ordered must be bigger than 0.'}]}}}});
+                    inputCmp.setCustomValidity('Units Ordered must be larger than 0.');
                 }
                 else
                 {
-                    inputCmp.setErrors({'body':{'output':{'fieldErrors':{'Units_Ordered__c':[{'message':''}]}}}});
-                }    
+                    inputCmp.setCustomValidity('');
+                }
+                
+                inputCmp.reportValidity();
             } 
 
             return validSoFar && isValid;
@@ -165,20 +204,36 @@ export default class Vpo_createVPOLIDetails extends LightningElement
 
         const comboboxValid = 
         [
-            ...this.template.querySelectorAll('c-custom-combobox')
+            ...this.template.querySelectorAll('lightning-combobox')
         ]
         .reduce((validSoFar, inputCmp) => 
         { 
-            isValid = inputCmp.checkValidity();
+            inputCmp.reportValidity();
+            
+            return validSoFar && inputCmp.checkValidity();
+        }, true);
+
+        const lookupFieldValid = 
+        [
+            ...this.template.querySelectorAll('c-common_-lookup-input')
+        ]
+        .reduce((validSoFar, inputCmp) => 
+        { 
+            isValid = inputCmp.reportValidity();
             return validSoFar && isValid
         }, true);
 
-        return inputFieldValid && comboboxValid;
+        return inputFieldValid && comboboxValid && lookupFieldValid;
     }
 
     onSave()
     {
         if (!this.onValidate()) return;
+        if (this.colorMasterList.length === 0 || this.trimMasterList.length === 0)
+        {
+            this.showNotification('Sorry', 'Color and Trim must be choosen. Please choose another Variant or contact your Admistrator!', 'warning', 'sticky');
+            return;
+        }        
 
         this.spinner = true;
         this.details.Vehicle_Purchase_Order__c = this.parentId;
@@ -190,7 +245,8 @@ export default class Vpo_createVPOLIDetails extends LightningElement
         });
 
         upsertVPOLI({
-            vPOLItem: this.details
+            vPOLItem: this.details,
+            checkStage: true
         }).then((result) =>
         {
             if (result === true)
@@ -206,22 +262,35 @@ export default class Vpo_createVPOLIDetails extends LightningElement
         catch((error) =>
         {
             console.log('upsertVPOLI - Error: ' + error.body.message);  
-            this.showNotification('Error!', 'An error has occurred! Please contact your Administrator.', 'error', 'dismissible');
-            this.isError      = true;
-            this.errorMessage = error.body.message;
-            this.spinner = false;
+            this.refreshAllValues();
+            this.template.querySelector('c-vpo_get-V-P-O-L-I-Details').refreshTable();
+            
+            if (error.body.message === 'Invalid Stage')
+            {
+                this.showNotification('Sorry!', 'You can\'t create new Vehicle Purchase Order Line Items when Vehicle Purchase Order stage is Closed or Cancelled or Submitted for Approval! Please contact your Administrator.', 'warning', 'sticky');
+                this.dispatchEvent(new CustomEvent('close', {}));
+                this.isError = false;
+                this.spinner = false;
+            }
+            else
+            {
+                this.showNotification('Error!', 'An error has occurred! Please contact your Administrator. Reason: ' + error.body.message, 'error', 'dismissible');
+                this.isError      = true;
+                this.spinner      = false;
+            }
         })
     }
 
-    refreshAllValues()
+    @api refreshAllValues()
     {
         this.details         = {};
         this.colorMasterList = this.trimMasterList = this.modelYearMasterList = [];
-        this.template.querySelectorAll('c-custom-combobox').forEach(el => el.refreshSelectedValue());
-        this.template.querySelectorAll('lightning-input-field').forEach(el => el.reset());
+        this.template.querySelectorAll('lightning-combobox').forEach(el => el.value = '');
+        this.template.querySelectorAll('lightning-input').forEach(el => {el.value = ''; el.setCustomValidity(''); el.reportValidity();});
+        this.template.querySelectorAll('c-common_-lookup-input').forEach(el => {el.defaultRecord = '';});
     }
 
-    @api showNotification(title, message, variant, mode)
+    showNotification(title, message, variant, mode)
     {
         const evt = new ShowToastEvent({
             title: title,
@@ -232,4 +301,10 @@ export default class Vpo_createVPOLIDetails extends LightningElement
 
         this.dispatchEvent(evt);
     }
+
+    getUniqueListBy(arr, key) 
+    {
+        return [...new Map(arr.map(item => [item[key], item])).values()]
+    }
+    
 }

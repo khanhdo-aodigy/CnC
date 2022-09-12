@@ -42,6 +42,12 @@
                 <elementReference>$Record.Currency_Code__c</elementReference>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <field>TMS_FOB_Currency_Code__c</field>
+            <value>
+                <elementReference>$Record.Currency_Code__c</elementReference>
+            </value>
+        </inputAssignments>
         <object>Vehicle_Purchase_Order_Line_Items__c</object>
     </recordUpdates>
     <start>

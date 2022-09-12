@@ -1,0 +1,7 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" access="global">       
+    <aura:attribute name="recordId" type="Id"></aura:attribute>
+    <aura:html tag="style">
+        .slds-modal__container{width: 90% !important; max-width: 90% !important;}
+    </aura:html>
+    <c:vs_mappingShipmntItemAndInvoice recordId="{!v.recordId}" onclose="{!c.onClose}"></c:vs_mappingShipmntItemAndInvoice>
+</aura:component>

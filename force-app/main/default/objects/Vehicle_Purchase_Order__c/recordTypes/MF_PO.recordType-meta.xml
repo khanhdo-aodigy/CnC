@@ -41,7 +41,27 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>DPS</fullName>
+            <fullName>DPSEU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DPSEUCV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DPSJP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DPSJPCV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DPSUS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DPSUSCV</fullName>
             <default>false</default>
         </values>
         <values>
@@ -50,6 +70,14 @@
         </values>
         <values>
             <fullName>KIAPC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MAXUSCV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MAXUSPC</fullName>
             <default>false</default>
         </values>
         <values>
@@ -66,10 +94,6 @@
         </values>
         <values>
             <fullName>MITPC</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Maxus</fullName>
             <default>false</default>
         </values>
     </picklistValues>

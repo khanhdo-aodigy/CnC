@@ -1,11 +1,14 @@
-/*==========================================================================================================================================================================
+/*===================================================================================================================================================================================================================================
  * Services provider for Vehicle Purchase Order Entity
  * Created By: Aodigy Team
  * Create Date: July 2022
  * History
  *              DATE::                              BY::                                TICKET::                                            CHANGELOG
  *      27 July 2022                        dangphap.mai@aodigy.com                 US-VPO-000016                                              init
- * ========================================================================================================================================================================== 
+ *      16 Aug 2022                         dong.nguyen@aodigy.com                  US-VPO-000036                                              Update field Estimated_FOB__c(SVM) from Unit_Price__c(VPOLI) when user converts.
+ *      17 Aug 2022                         dong.nguyen@aodigy.com                  US-VPO-000037                                              Update field TMS_Estimated_FOB_Currency_Code__c(SVM) from Currency_Code__c(VPOLI).
+ *                                                                                                                                             
+ * ==================================================================================================================================================================================================================================
  */
 public inherited sharing class VehiclePurchaseOrderServices
 {
@@ -25,12 +28,11 @@ public inherited sharing class VehiclePurchaseOrderServices
 
         Set<Id> modelIds = new Set<Id>();
 
-        
         Map<Id, List<Vehicle_Master2__c>> convertedStocksByLineItemId = new Map<Id, List<Vehicle_Master2__c>>();
 
-        
         for (Vehicle_Purchase_Order__c order : orders)
         {
+           
             // get the Model Master Ids
             for (Vehicle_Purchase_Order_Line_Items__c item : order.Vehicle_Purchase_Order_Line_Items__r)
             {
@@ -47,7 +49,9 @@ public inherited sharing class VehiclePurchaseOrderServices
             }
         }
 
-        // get Branch Code and Franchise Code from Model Master
+
+
+        // get Branch Code and Franchise Code from Model Master.
         Map<Id, Model_Master__c> models = new Map<Id, Model_Master__c> ([SELECT Id, Branch_Code__c, Franchise_Code__c FROM Model_Master__c WHERE Id IN :modelIds]);
 
         for (Vehicle_Purchase_Order__c order : orders)
@@ -75,6 +79,8 @@ public inherited sharing class VehiclePurchaseOrderServices
                         Vehicle_Purchase_Order_Line_Items__c = item.Id,
                         ProductionMonth__c = order.Production_Month__c,
                         Vehicle_Purchase_Status__c = 'Confirmed',
+                        TMS_Estimated_FOB_Currency_Code__c = item.Currency_Code__c,
+                        Estimated_FOB__c = item.Unit_Price__c,
                         Branch_Code__c = models.get(item.Model_Master__c)?.get('Branch_Code__c') == null? '' : (String) models.get(item.Model_Master__c)?.get('Branch_Code__c'),
                         Franchise_Code__c = models.get(item.Model_Master__c)?.get('Franchise_Code__c') == null? '' : (String) models.get(item.Model_Master__c)?.get('Franchise_Code__c')
                     ));
@@ -83,6 +89,7 @@ public inherited sharing class VehiclePurchaseOrderServices
         }
 
         insert vehicles;
+
     }
 
     /**
