@@ -228,7 +228,7 @@ public with sharing class VehicleShipmentServicesTest
         String result = VehicleShipmentServices.shipmentsAutoMatching(new Set<String> { shipment.Id });
 
         // assert result
-        System.assert(result == 'FAIL', 'Actual result is: ' + result);
+        System.assert(result == 'PARTIAL', 'Actual result is: ' + result);
     }
 
     /**
