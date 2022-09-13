@@ -4,7 +4,7 @@
  * Create Date: July 2022
  * History
  *              DATE::                              BY::                                TICKET::                                            CHANGELOG
- *      27 July 2022                        dangphap.mai@aodigy.com                 US-VPO-000016                                              init
+ *      27 July 2022                        dangphap.mai@aodigy.com                 US-VPO-000016                                              init 
  * ========================================================================================================================================================================== 
  */
 public inherited sharing class VehiclePurchaseOrderServices
@@ -28,7 +28,7 @@ public inherited sharing class VehiclePurchaseOrderServices
         
         Map<Id, List<Vehicle_Master2__c>> convertedStocksByLineItemId = new Map<Id, List<Vehicle_Master2__c>>();
 
-        
+
         for (Vehicle_Purchase_Order__c order : orders)
         {
             // get the Model Master Ids
@@ -45,7 +45,10 @@ public inherited sharing class VehiclePurchaseOrderServices
                 // the below for loop has already create an empty list for adding
                 convertedStocksByLineItemId.get(convertedStock.Vehicle_Purchase_Order_Line_Items__c)?.add(convertedStock);
             }
+
         }
+
+
 
         // get Branch Code and Franchise Code from Model Master
         Map<Id, Model_Master__c> models = new Map<Id, Model_Master__c> ([SELECT Id, Branch_Code__c, Franchise_Code__c FROM Model_Master__c WHERE Id IN :modelIds]);
@@ -75,6 +78,7 @@ public inherited sharing class VehiclePurchaseOrderServices
                         Vehicle_Purchase_Order_Line_Items__c = item.Id,
                         ProductionMonth__c = order.Production_Month__c,
                         Vehicle_Purchase_Status__c = 'Confirmed',
+                        Estimated_FOB__c = item.Unit_Price__c,
                         Branch_Code__c = models.get(item.Model_Master__c)?.get('Branch_Code__c') == null? '' : (String) models.get(item.Model_Master__c)?.get('Branch_Code__c'),
                         Franchise_Code__c = models.get(item.Model_Master__c)?.get('Franchise_Code__c') == null? '' : (String) models.get(item.Model_Master__c)?.get('Franchise_Code__c')
                     ));
@@ -83,6 +87,7 @@ public inherited sharing class VehiclePurchaseOrderServices
         }
 
         insert vehicles;
+
     }
 
     /**

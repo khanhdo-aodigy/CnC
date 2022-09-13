@@ -1,0 +1,7 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
+    <aura:attribute name="recordId" type="Id"></aura:attribute>
+    <aura:html tag="style">
+        .slds-modal__container{width: 90% !important; max-width: 90% !important}
+    </aura:html>
+    <c:ncl_ShipmentLineItemMatching recordId="{!v.recordId}" onclose="{!c.quitMatching}" onrefresh="{!c.refreshView}"></c:ncl_ShipmentLineItemMatching>
+</aura:component>
