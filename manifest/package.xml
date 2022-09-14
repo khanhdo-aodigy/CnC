@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     
-     <types>
-        <members>Populate_Shipment_Line_Item_Franchise_Code</members>
-        <name>Flow</name>
+    <!--US-TMS-0019-->
+    <types>
+        <members>TreasuryManagementController</members>  <!-- method: TMSPOWrapper/FOBContractWrapper/DutyContractWrapper -->
+        <members>TMSPurchaseOrderSelector</members>  <!-- method: selectTMSPObyFranchiseAndProductionMonth -->
+        <members>ForwardFOBContractSelector</members>  <!-- method: selectFOBAddContract -->        
+        <members>TMSPOWrapper</members>  
+        <members>FOBContractWrapper</members> 
+        <members>DutyContractWrapper</members> 
+        <members>TMSPurchaseOrderSelectorTest</members> 
+        <members>ForwardFOBContractSelectorTest</members> 
+        <members>TreasuryManagementControllerTest</members>
+        <name>ApexClass</name>
+    </types>
+
+    <types>
+        <members>Purchase_Order__c</members> 
+        <members>Search_TMS_PO_Group</members>
+        <name>CustomTab</name>
+    </types>
+
+    <types>
+        <members>treasuryManagement_SearchingTMSPOGroup</members>  
+        <name>LightningComponentBundle</name>
     </types>
     <version>55.0</version>
 </Package>
