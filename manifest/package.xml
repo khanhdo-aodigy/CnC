@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    
+    <!--US-TMS-0047--> 
+    <types>
+        <members>FOB_Additional_Contract__c.Warranty_Claim_Other_Payment_Amount__c</members> 
+        <members>FOB_Additional_Contract__c.Balance_Amount__c</members>         
+        <name>CustomField</name>
+    </types>
+    <version>55.0</version>
+</Package>
