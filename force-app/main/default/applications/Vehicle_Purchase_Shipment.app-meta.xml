@@ -103,11 +103,9 @@
     <tabs>standard-home</tabs>
     <tabs>Vehicle_Purchase_Order__c</tabs>
     <tabs>Vehicle_Master2__c</tabs>
-    <tabs>Stock_Vehicle_Masters_for_Duty_Request</tabs>
     <tabs>Vehicle_Shipment__c</tabs>
     <tabs>Shipment_Line_Item__c</tabs>
     <tabs>standard-report</tabs>
-    <tabs>Custom_Exchange_Rate__c</tabs>
     <tabs>Local_Type_Code__c</tabs>
     <tabs>Port_of_Loading__c</tabs>
     <tabs>Declarant_Name__c</tabs>
@@ -122,7 +120,6 @@
     <tabs>CAR_Type_Code__c</tabs>
     <tabs>Declaration_Type__c</tabs>
     <tabs>Product_Code__c</tabs>
-    <tabs>Duty_Payment__c</tabs>
     <tabs>Inward_Declaration__c</tabs>
     <tabs>TN_Cargo_Pack_Type_Name__c</tabs>
     <tabs>Standard_Accrual__c</tabs>
