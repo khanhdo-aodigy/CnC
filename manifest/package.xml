@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     
-     <types>
-        <members>Populate_Shipment_Line_Item_Franchise_Code</members>
-        <name>Flow</name>
+    <!--US-TMS-0046-->    
+    <types>
+        <members>Forward_FOB_Contract__c.Cover_Percentage__c</members> 
+        <name>CustomField</name>
     </types>
     <version>55.0</version>
 </Package>
