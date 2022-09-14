@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TN_Receipt_Location_Name__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>TN Receipt Location Name</label>
+    <referenceTo>Local_Type_Code__c</referenceTo>
+    <relationshipLabel>Inward Declarations (TN Receipt Location Name)</relationshipLabel>
+    <relationshipName>Inward_Declarations1</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>
