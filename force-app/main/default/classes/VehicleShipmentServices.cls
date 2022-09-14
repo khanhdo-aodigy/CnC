@@ -554,27 +554,27 @@ public inherited sharing class VehicleShipmentServices
         // reset franchise code
         matchedStock.Franchise_Code__c = null;
 
-        // reset reset ex-factory charges
+        // reset ex-factory charges
         matchedStock.Ex_Factory_Charges__c = null;
         matchedStock.Ex_Factory_Charges_Currency_Code__c = null;
 
-        // reset reset transport charges
+        // reset transport charges
         matchedStock.Transport_Charges__c = null;
         matchedStock.Transport_Charges_Currency_Code__c = null;
 
-        // reset reset FOB price
+        // reset FOB price
         matchedStock.FOB_Amount__c = null;
         matchedStock.FOB_Amount_Currency_Code__c = null;
         
-        // reset reset freight charges
+        // reset freight charges
         matchedStock.Freight_Charges__c = null;
         matchedStock.Freight_Charges_Currency_Code__c = null;
 
-        // reset reset insurance charges
+        // reset insurance charges
         matchedStock.Insurance_Charges__c = null;
         matchedStock.Insurance_Charges_Currency_Code__c = null;
 
-        // reset reset other charges
+        // reset other charges
         matchedStock.Other_Charges__c = null;
         matchedStock.Other_Charges_Currency_Code__c = null;
 
@@ -621,16 +621,15 @@ public inherited sharing class VehicleShipmentServices
      * @param withLineItems: include Shipment Line Items
      * @param withInvoices: include Manufacturer Invoices
      * @param withSVMs: include Stock Vehicle Masters
-     * @param withSVMs: include Stock Vehicle Masters
      * History
      *          DATE::                              BY::                                CHANGELOG
      *       27 Aug 2022                         phan.thu@aodigy.com                       init
      * ============================================================================================
     */
 
-    public static Vehicle_Shipment__c getByIdWithInvoicesAndLineItemsAndSVMsAndSVMs (String Id, Boolean withInvoices, Boolean withLineItems, Boolean withSVMs, Boolean withSVMs)
+    public static Vehicle_Shipment__c getByIdWithInvoicesAndLineItemsAndSVMs (String Id, Boolean withInvoices, Boolean withLineItems, Boolean withSVMs)
     {
-        return sel.selectByIdWithInvoicesAndLineItemsAndSVMsAndSVMs(Id, withInvoices, withLineItems, withSVMs, withSVMs);
+        return sel.selectByIdWithInvoicesAndLineItemsAndSVMs(Id, withInvoices, withLineItems, withSVMs);
     }
 
     // private static void createTaskOnPartialMatching(Map<Id, Shipment_Line_Item__c> unmatchedShipmentLineItems)
