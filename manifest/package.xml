@@ -6,6 +6,10 @@
         <members>FOBAdditionalContract</members>  <!-- method: updateAverageExRateOnSVM -->
         <members>FOBContractLineItemsSelector</members>  <!-- method: getRecordsByFOBAdditionalContractIds -->
         <members>StockVehicleMasterSelector</members>  <!-- method: selectRecordsByForUpdateER -->
+        <members>StockVehicleMasterSelectorTest</members>  <!-- method: selectRecordsByForUpdateER -->
+        <members>FOBAdditionalContractTriggerTest</members>
+        <members>FOBContractLineItemsSelectorTest</members>
+       
         <name>ApexClass</name>
     </types>
 
