@@ -2,8 +2,8 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     
      <types>
-        <members>Vehicle_Purchase_Order__c.Only_Sales_Admin_can_edit_Closed_VPO</members>
-        <name>ValidationRule</name>
+        <members>Populate_Shipment_Line_Item_Franchise_Code</members>
+        <name>Flow</name>
     </types>
     <version>55.0</version>
 </Package>

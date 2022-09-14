@@ -109,7 +109,7 @@ public without sharing class VS_UploadShipmentLineItemsController
 
                 try 
                 {
-                    invoiceNo = String.isNotBlank(csvRowData[16]) ? csvRowData[16].trim() : '';
+                    invoiceNo = String.isNotBlank(csvRowData[17]) ? csvRowData[17].trim() : '';
 
                     // Get HS Codes and Product Codes
                     hsCodeSet.add(csvRowData[14]);
@@ -339,34 +339,34 @@ public without sharing class VS_UploadShipmentLineItemsController
         }
 
         // If other fields are passed in, Invoice No must be passed in too
-        if ((String.isNotBlank(csvRowData[17]) 
-            || String.isNotBlank(csvRowData[18]) 
-                || String.isNotBlank(csvRowData[19]))
-                    && String.isBlank(csvRowData[16]))
+        if ((String.isNotBlank(csvRowData[18]) 
+            || String.isNotBlank(csvRowData[19]) 
+                || String.isNotBlank(csvRowData[20]))
+                    && String.isBlank(csvRowData[17]))
         {
             throw new VS_UploadShipmentLineItemsControllerException().invalidInvoiceNo(rowNo);
         }
 
         // If Invoice No is passed in, other fields must be passed in too
-        if (String.isNotBlank(csvRowData[16]))
+        if (String.isNotBlank(csvRowData[17]))
         {
-            if (String.isBlank(csvRowData[17]))
+            if (String.isBlank(csvRowData[18]))
             {
                 throw new VS_UploadShipmentLineItemsControllerException().invalidTotalInvoiceAmount(rowNo);
             }
     
-            if (String.isBlank(csvRowData[18]))
+            if (String.isBlank(csvRowData[19]))
             {
                 throw new VS_UploadShipmentLineItemsControllerException().invalidTotalInvoiceAmtCurrencyCode(rowNo);
             }
     
-            if (String.isBlank(csvRowData[19]))
+            if (String.isBlank(csvRowData[20]))
             {
                 throw new VS_UploadShipmentLineItemsControllerException().invalidInvoiceDate(rowNo);
             }
             else
             {
-                String originalValue = csvRowData[19].trim();
+                String originalValue = csvRowData[20].trim();
                 
                 // Correct format: YYYY-MM-DD
                 String regex        = '[0-9]{4}-[0-9]{0,2}-[0-9]{0,2}';
@@ -376,7 +376,7 @@ public without sharing class VS_UploadShipmentLineItemsController
                 // Check if Invoice Date is in YYYY-MM-DD format.
                 if (matchDate.matches())
                 {
-                    csvRowData[19] = originalValue;
+                    csvRowData[20] = originalValue;
                 }
                 else 
                 {
@@ -389,10 +389,10 @@ public without sharing class VS_UploadShipmentLineItemsController
     private static Manufacturer_Invoice__c initiateManufacturerInvoice(Manufacturer_Invoice__c invoice, List<String> csvRowData, Id shipmentId)
     {
         invoice.Vehicle_Shipment__c                   = shipmentId;
-        invoice.Invoice_No__c                         = csvRowData[16].trim();
-        invoice.Total_Invoice_Amount__c               = Decimal.valueOf(csvRowData[17].replaceAll(',', '').trim());
-        invoice.Total_Invoice_Amount_Currency_Code__c = csvRowData[18].trim();
-        invoice.Invoice_Date__c                       = Date.valueOf(csvRowData[19]);
+        invoice.Invoice_No__c                         = csvRowData[17].trim();
+        invoice.Total_Invoice_Amount__c               = Decimal.valueOf(csvRowData[18].replaceAll(',', '').trim());
+        invoice.Total_Invoice_Amount_Currency_Code__c = csvRowData[19].trim();
+        invoice.Invoice_Date__c                       = Date.valueOf(csvRowData[20]);
 
         return invoice;
     }
@@ -406,7 +406,8 @@ public without sharing class VS_UploadShipmentLineItemsController
         item.Manufacturer_Ref_No__c = csvRowData[4].trim();                                                                                
         item.Chassis_No__c          = csvRowData[5].trim();             
         item.Engine_No__c           = csvRowData[6].trim();    
-        item.Key_No__c              = csvRowData[13].trim();                                                                                
+        item.Key_No__c              = csvRowData[13].trim();      
+        item.Vessel_Name__c         = csvRowData[16].trim();                                                                    
         item.Franchise_Code__c      = shipment.Franchise_Code__c;
         item.Vehicle_Shipment__c    = shipment.Id;   
 
