@@ -1,17 +1,13 @@
-@isTest
-private class StockVehicleMasterSelectorTest {
-    @testSetup
+@isTest(seeAllData=false)
+private class FOBAdditionalContractTriggerTest {
+	@testSetup
     static void setUp() {
-        // Create master data
         Model_Master__c modelCode = Test_DataFactory.createModelCode(true, 'Test Model Code');
-        Model_Rate_Master__c modelRateMaster = new Model_Rate_Master__c(Model_Master__c = modelCode.Id
-                                                                        );
-        insert modelRateMaster;
         Model_Year_Master__c modelYearCode = Test_DataFactory.createModelYearCode(true, modelCode.Id);
         Color_Master__c colorCode = Test_DataFactory.createColorCode(true, 'Test Color Code', 'Test', 'CCK', 'KIAPC');
         Trim_Master__c trimCode = Test_DataFactory.createTrimCode(true, 'Test Trim Code');
-
-        Purchase_Order__c po = new Purchase_Order__c(Franchise__c = 'KIAPC');
+        // Create Purchase Order
+		Purchase_Order__c po = new Purchase_Order__c(Franchise__c = 'KIAPC');
         insert po;
         Date productionMonth = Date.newInstance(2019, 08, 01);  
         Vehicle_Master2__c vMaster = new Vehicle_Master2__c(Original_Commcase__c = 'KIAPC0120190086', 
@@ -23,7 +19,6 @@ private class StockVehicleMasterSelectorTest {
                                                             ProductionMonth__c = productionMonth,
                                                             Color_Code__c = colorCode.ID, 
                                                             Trim_Code__c = trimCode.ID,
-                                                            Duty_Payment_Date__c = Date.today(),
                                                             Purchase_Order__c = po.Id);
         insert vMaster;
         Forward_FOB_Contract__c fobContract = new Forward_FOB_Contract__c(Status__c = 'Active',
@@ -44,34 +39,19 @@ private class StockVehicleMasterSelectorTest {
     }
 
     @isTest
-    static void Test_selectStockVehicleMastersBySystemCommcases() {
-        StockVehicleMasterSelector svmSelector = new StockVehicleMasterSelector();
-        List<Vehicle_Master2__c> vhMasters = svmSelector.selectStockVehicleMastersBySystemCommcases(new Set<String>{'KIAPC0120190086'});
+    static void Test_afterUpdate() {
+        Purchase_Order__c po = [SELECT ID FROM Purchase_Order__c];
+        Vehicle_Master2__c vMaster = [SELECT ID, FOB_Done__c, Duty_Done__c FROM Vehicle_Master2__c WHERE Purchase_Order__c = :po.Id];
+        Forward_FOB_Contract__c fobContract = [SELECT ID, Status__c FROM Forward_FOB_Contract__c WHERE Purchase_Order__c = :po.Id];
+        FOB_Additional_Contract__c addnlContract = [SELECT ID, Status__c FROM FOB_Additional_Contract__c WHERE Forward_FOB_Contract__c = :fobContract.Id];
+        addnlContract.Status__c = 'Completed';
+        update addnlContract;
 
-        System.assertEquals(1, vhMasters.size());
-    }
-
-    @isTest
-    static void selectRecordsByForUpdateER_Test(){
-        Forward_FOB_Contract__c fobContract = [SELECT ID, Status__c FROM Forward_FOB_Contract__c LIMIT 1];
-        Forward_FOB_Contract_Line_Item__c fobItem = [SELECT ID
-                                                     FROM Forward_FOB_Contract_Line_Item__c 
-                                                     WHERE Forward_FOB_Contract__c =: fobContract.Id];
-        StockVehicleMasterSelector svms = new StockVehicleMasterSelector();
-        svms.selectRecordsByForUpdateER(new List<Id>{fobItem.Id});
-    }
-
-    @isTest
-    static void getRecordsByIds_Test(){
-        Vehicle_Master2__c vm2 = [SELECT Id FROM Vehicle_Master2__c];
-        StockVehicleMasterSelector svms = new StockVehicleMasterSelector();
-        svms.getRecordsByIds(new List<Id>{vm2.Id});
-    }
-
-    @isTest
-    static void getStockVehicleMastersForDutyRequest_Test(){
-        Vehicle_Master2__c vm2 = [SELECT Id, Duty_Payment_Date__c  FROM Vehicle_Master2__c];
-        StockVehicleMasterSelector svms = new StockVehicleMasterSelector();
-        svms.getStockVehicleMastersForDutyRequest();
+        Test.startTest();
+        fobContract = [SELECT ID, Status__c FROM Forward_FOB_Contract__c WHERE Purchase_Order__c = :po.Id];
+        vMaster = [SELECT ID, FOB_Done__c, Duty_Done__c FROM Vehicle_Master2__c WHERE Purchase_Order__c = :po.Id];
+        System.assertEquals(true, vMaster.FOB_Done__c);
+        System.assertEquals('Sold', fobContract.Status__c);
+        Test.stopTest(); 
     }
 }
