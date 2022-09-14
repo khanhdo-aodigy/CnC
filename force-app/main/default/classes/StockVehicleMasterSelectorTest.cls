@@ -1,3 +1,13 @@
+/*==========================================================================================================================================================================
+ * Test class for Stock Vehicle Master entity
+ * Created By: Aodigy Team
+ * Create Date: August 2022
+ * History
+ *              DATE::                              BY::                                TICKET::                                            CHANGELOG
+ *          7 Sep 2022                       trung@aodigy.com    
+ *         14 Sep 2022                       nam@aodigy.com                                                                               init
+ * ========================================================================================================================================================================== 
+ */
 @isTest
 private class StockVehicleMasterSelectorTest {
     @testSetup

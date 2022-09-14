@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <content>Sample_Customised_Home_Page_Not_in_Scope_for_Phase_1</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+    </actionOverrides>
+    <brand>
+        <headerColor>#240BEA</headerColor>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>Management of vehicle purchase and shipment</description>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <label>Vehicle Purchase &amp; Shipment</label>
+    <navType>Standard</navType>
+    <profileActionOverrides>
+        <actionName>Tab</actionName>
+        <content>Sample_Customised_Home_Page_Not_in_Scope_for_Phase_1</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>PDI</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>Tab</actionName>
+        <content>Sample_Customised_Home_Page_Not_in_Scope_for_Phase_1</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>Tab</actionName>
+        <content>Sample_Customised_Home_Page_Not_in_Scope_for_Phase_1</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>BSD</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>Tab</actionName>
+        <content>Sample_Customised_Home_Page_Not_in_Scope_for_Phase_1</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>BSD (Platform License)</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>Tab</actionName>
+        <content>Sample_Customised_Home_Page_Not_in_Scope_for_Phase_1</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>CITCV Sales Manager</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>Tab</actionName>
+        <content>Sample_Customised_Home_Page_Not_in_Scope_for_Phase_1</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>CITPC Sales Manager</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>Tab</actionName>
+        <content>Sample_Customised_Home_Page_Not_in_Scope_for_Phase_1</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>KIAPC Sales Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>Tab</actionName>
+        <content>Sample_Customised_Home_Page_Not_in_Scope_for_Phase_1</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>KIAPC Sales Manager</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>Tab</actionName>
+        <content>Sample_Customised_Home_Page_Not_in_Scope_for_Phase_1</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>MITPC Sales Manager</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>Tab</actionName>
+        <content>Sample_Customised_Home_Page_Not_in_Scope_for_Phase_1</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>New Car Logistic</profile>
+    </profileActionOverrides>
+    <tabs>standard-home</tabs>
+    <tabs>Vehicle_Purchase_Order__c</tabs>
+    <tabs>Vehicle_Master2__c</tabs>
+    <tabs>Vehicle_Shipment__c</tabs>
+    <tabs>Shipment_Line_Item__c</tabs>
+    <tabs>standard-report</tabs>
+    <tabs>Local_Type_Code__c</tabs>
+    <tabs>Port_of_Loading__c</tabs>
+    <tabs>Declarant_Name__c</tabs>
+    <tabs>Manufacturer_Invoice__c</tabs>
+    <tabs>standard-Account</tabs>
+    <tabs>Inward_Carrier__c</tabs>
+    <tabs>Transport_Mode__c</tabs>
+    <tabs>Declarant_Person__c</tabs>
+    <tabs>Invoice_Term_Type__c</tabs>
+    <tabs>HS_Type__c</tabs>
+    <tabs>Country_of_Origin__c</tabs>
+    <tabs>CAR_Type_Code__c</tabs>
+    <tabs>Declaration_Type__c</tabs>
+    <tabs>Product_Code__c</tabs>
+    <tabs>Inward_Declaration__c</tabs>
+    <tabs>TN_Cargo_Pack_Type_Name__c</tabs>
+    <tabs>Standard_Accrual__c</tabs>
+    <uiType>Lightning</uiType>
+    <!-- <utilityBar>Vehicle_Purchase_Shipment_UtilityBar</utilityBar> -->
+</CustomApplication>
