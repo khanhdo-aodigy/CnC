@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     
-     <types>
-        <members>Populate_Shipment_Line_Item_Franchise_Code</members>
-        <name>Flow</name>
-    </types>
+    <types>
+        <members>Forward_FOB_Contract__c.Can_not_update_Cover_Percentage</members> 
+        <members>Forward_FOB_Contract__c.Can_not_update_Cover_Percentage_to_100</members>         
+        <name>ValidationRule</name>
+    </types> 
     <version>55.0</version>
 </Package>
