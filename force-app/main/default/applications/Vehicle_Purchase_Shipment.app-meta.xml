@@ -124,5 +124,5 @@
     <tabs>TN_Cargo_Pack_Type_Name__c</tabs>
     <tabs>Standard_Accrual__c</tabs>
     <uiType>Lightning</uiType>
-    <!-- <utilityBar>Vehicle_Purchase_Shipment_UtilityBar</utilityBar> -->
+    <utilityBar>Vehicle_Purchase_Shipment_UtilityBar</utilityBar>
 </CustomApplication>
