@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     
-     <types>
-        <members>Populate_Shipment_Line_Item_Franchise_Code</members>
-        <name>Flow</name>
+   <!--US-TMS-0045-->    
+    <types>
+        <members>TMS_Insurance__c</members> 
+        <members>TMS_Duty__c</members> 
+        <members>ARF_Tier__c</members>         
+        <name>CustomObject</name>
     </types>
+
+    <types>
+        <members>ARF_Tier__c.Min_Value__c</members> 
+        <members>ARF_Tier__c.Max_Value__c</members> 
+        <members>ARF_Tier__c.Tier_Percentage__c</members> 
+        <members>ARF_Tier__c.Increment__c</members>
+        <members>TMS_Duty__c.TMS_Duty_1__c</members>
+        <members>TMS_Insurance__c.Franchise_Code__c</members>
+        <members>TMS_Insurance__c.Insurance_Percentage__c</members>
+        <members>Vehicle_Master2__c.Estimated_Duty__c</members>
+      
+        <name>CustomField</name>
+    </types> 
+
+    <types>
+        <members>Update_Estimated_Duty_on_SVM_Obj</members>         
+        <name>Flow</name>
+    </types> 
     <version>55.0</version>
 </Package>
