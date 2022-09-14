@@ -3,33 +3,11 @@
     
     <!--US-TMS-0001,4,5,6,20,33,49-->        
     <types>
-        <members>TreasuryManagementController</members>  <!-- 1 method: searchVehiclePurchaseOrder/createTMSPurchaseOrder -->
-        <members>COEBiddingController</members>  <!-- 1 method: getFranchisePicklist -->
-        <members>VehiclePurchaseOrderSelector</members>  <!-- 1 method: selectVPObyFranchiseAndProductionMonth/selectVPO_WithRelatedSVM -->        
+        <members>TreasuryManagementControllerTest</members>    
+        <members>VehiclePurchaseOrderSelectorTest</members> 
         <name>ApexClass</name>
     </types>
 
-    <types>
-        <members>treasuryManagement_TMSPOCreation</members>  
-        <name>LightningComponentBundle</name>
-    </types>
-
-    <types>
-        <members>Purchase_Order__c.Total_Quantity__c </members>
-        <members>Purchase_Order__c.Franchise__c </members> 
-        <members>Purchase_Order__c.Production_Month__c </members> 
-        <name>CustomField</name>
-    </types>
-
-    <types>
-        <members>Purchase_Order__c</members> 
-        <name>CustomObject</name>
-    </types>
-
-    <types>
-        <members>Purchase_Order__c</members> 
-        <members>Create_TMS_PO_Group</members>
-        <name>CustomTab</name>
-    </types>
+    
     <version>55.0</version>
 </Package>
