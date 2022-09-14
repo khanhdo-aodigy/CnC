@@ -211,11 +211,11 @@ public with sharing class Test_DataFactory {
         return modelCode;
     }
     
-    private static Integer VSMS_COMPOUND_KEY_COUNTER = 0;
+    private static Integer MODEL_YEAR_COUNTER = -1;
     /** This method is test data for create Model_Year_Master__c **/ 
     public static  Model_Year_Master__c createModelYearCode (Boolean doInsert, String ModelmasteId){
         Model_Year_Master__c modelYearCode = new Model_Year_Master__c();
-        modelYearCode.ModelYear__c = Date.today().addYears(-1);
+        modelYearCode.ModelYear__c = Date.today().addYears(MODEL_YEAR_COUNTER--);
         modelYearCode.Model_Master__c = ModelmasteId;
         // modelYearCode.VSMS_Compound_Primary_Key__c = 'VSMS_' + String.valueOf(VSMS_COMPOUND_KEY_COUNTER++);
         modelYearCode.VSMS_Compound_Primary_Key__c = 'VSMS_' + randomString(10);

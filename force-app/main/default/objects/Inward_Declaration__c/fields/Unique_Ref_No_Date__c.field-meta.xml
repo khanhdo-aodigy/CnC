@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unique_Ref_No_Date__c</fullName>
+    <description>This field is used for integration with getsAsia. Populated in trigger.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field is used for integration with getsAsia. Populated in trigger.</inlineHelpText>
+    <label>Unique Ref. No. Date</label>
+    <precision>8</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>
