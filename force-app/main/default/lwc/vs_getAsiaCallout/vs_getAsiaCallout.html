@@ -1,0 +1,49 @@
+<template>
+    <lightning-quick-action-panel header="Submit to GetsAsia">
+        <template if:true={showSpinner}>
+            <div class="slds-is-relative" style="padding-top: 15px; padding-bottom: 15px;">
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </div> 
+        </template>
+        <template if:false={showSpinner}>
+            <template if:false={showItemDetails}>
+                <div class="slds-p-around_large">
+                    <span class="slds-align_absolute-center" style="padding-bottom: 3px;"><b>Please choose the service you want to submit:</b></span>
+                    <div class="slds-align_absolute-center" style="padding-top: 20px;">
+                        <lightning-radio-group name="serviceType"
+                                                label="Service Type"
+                                                options={options}
+                                                value={selectedServiceType}
+                                                type="button"
+                                                variant="label-hidden"
+                                                onchange={handleChange}>
+                        </lightning-radio-group>
+                    </div>
+                </div>
+            </template>
+            <template if:true={showItemDetails}>
+                <c-vs_gets-Asia-Item-Details 
+                                            vehicle-shipment-id={recordId}
+                                            transaction-type={selectedServiceType} 
+                                            onlastitem={handleLastItem} 
+                                            onsubmititems={handleSubmitItems}
+                                            onnoitem={handleNoItem}>
+                </c-vs_gets-Asia-Item-Details>
+            </template>
+            <div slot="footer">
+                <template if:true={showItemDetails}>
+                    <template if:false={isLastItem}>
+                        <lightning-button variant="brand" class="slds-m-left_x-small" label="Next" type="submit" onclick={onNext} disabled={isDisabledNext}></lightning-button>
+                    </template>
+                    <template if:true={isLastItem}>
+                        <lightning-button variant="brand" class="slds-m-left_x-small" label="Submit" type="submit" onclick={onSubmit} disabled={isDisabledOK}></lightning-button>
+                    </template>
+                </template>
+                <template if:false={showItemDetails}>
+                    <lightning-button variant="neutral" label="Cancel" onclick={onCancel}></lightning-button>
+                    <lightning-button variant="brand" class="slds-m-left_x-small" label="OK" type="submit" onclick={onOK} disabled={isDisabledOK}></lightning-button>
+                </template>
+            </div>
+        </template>
+    </lightning-quick-action-panel>  
+</template>
