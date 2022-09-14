@@ -102,7 +102,6 @@
     </profileActionOverrides>
     <tabs>standard-home</tabs>
     <tabs>Vehicle_Purchase_Order__c</tabs>
-    <tabs>Purchase_Order_Line_Item__c</tabs>
     <tabs>Vehicle_Master2__c</tabs>
     <tabs>Stock_Vehicle_Masters_for_Duty_Request</tabs>
     <tabs>Vehicle_Shipment__c</tabs>
