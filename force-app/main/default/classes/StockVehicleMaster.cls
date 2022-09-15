@@ -6,6 +6,7 @@
  *          DATE::                              BY::                                TICKET::                                            CHANGELOG
  *          23 Aug 2022                         dangphap.mai@aodigy.com             US-Ship-000013                                      init
  *          19 Aug 2022                         nhung.cao@aodigy.com                US-TMS-000013                                      Add sendEmailToTMSMaker/ prepareEmail method
+ *          19 Aug 2022                         nhung.cao@aodigy.com                US-TMS-000013                                      Add sendEmailToTMSMaker/ prepareEmail method
  * ========================================================================================================================================================================== 
  */
 public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
@@ -37,6 +38,15 @@ public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
         List<Vehicle_Master2__c> insertingVehicles = (List<Vehicle_Master2__c>) Trigger.new;
 
         onVehicleShipmentMatching(insertingVehicles);
+    }
+
+    public override void onAfterUpdate(Map<Id,SObject> existingRecords){
+        Map<Id, Vehicle_Master2__c> beforeUpdateVehicles = (Map<Id, Vehicle_Master2__c>) existingRecords;
+
+        List<Vehicle_Master2__c> afterUpdateVehicles = (List<Vehicle_Master2__c>) Trigger.new;
+
+        sendEmail(beforeUpdateVehicles, afterUpdateVehicles);
+        //sendEmailToTMSMaker(afterUpdateVehicles, beforeUpdateVehicles);
     }
 
     public override void onAfterUpdate(Map<Id,SObject> existingRecords){
@@ -278,89 +288,89 @@ public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
      * Created Date: Jul 27 2022
      * ===============================================================================================================================================
      */
-    private void sendEmail(Map<Id, Vehicle_Master2__c> beforeUpdateVehicles, List<Vehicle_Master2__c> afterUpdateVehicles){
-        try{
-            List<Profile> editProfiles = [SELECT Id FROM Profile WHERE Name = 'KIAPC Sales Admin' OR Name = 'CITPC Marketing'];
-            List<Id> editProfileIds = new List<Id>();
-            for (Profile editProfile : editProfiles){
-                editProfileIds.add(editProfile.Id);
-            }
+     private void sendEmail(Map<Id, Vehicle_Master2__c> beforeUpdateVehicles, List<Vehicle_Master2__c> afterUpdateVehicles){
+         try{
+             List<Profile> editProfiles = [SELECT Id FROM Profile WHERE Name = 'KIAPC Sales Admin' OR Name = 'CITPC Marketing'];
+             List<Id> editProfileIds = new List<Id>();
+             for (Profile editProfile : editProfiles){
+                 editProfileIds.add(editProfile.Id);
+             }
             
-            List<User> users = [SELECT Id, Name FROM User WHERE ProfileId IN :editProfileIds AND isActive = true];
-            Map<Id, User> userMap = new Map<Id, User>();
-            if (users.size() > 0){
-                for (User user : users){
-                    userMap.put(user.Id, user);
-                }
-            }
+             List<User> users = [SELECT Id, Name FROM User WHERE ProfileId IN :editProfileIds AND isActive = true];
+             Map<Id, User> userMap = new Map<Id, User>();
+             if (users.size() > 0){
+                 for (User user : users){
+                     userMap.put(user.Id, user);
+                 }
+             }
             
-            List<Messaging.SingleEmailmessage> mails = new List<Messaging.SingleEmailmessage>();
-            Profile mailReceiverProfile = [SELECT Id FROM Profile WHERE Name = 'New Car Logistic']; 
-            List<User> mailReceivers = [SELECT Id, Email FROM User WHERE ProfileId = :mailReceiverProfile.Id AND isActive = true];
-            List<String> emails = new List<String>();
-            if (mailReceivers.size() > 0){
-                for (User mailReceiver : mailReceivers){
-                    emails.add(mailReceiver.Email);
-                }
-                emails.add('thanh.ly@aodigy.com');
-                emails.add('thieudang.vu@aodigy.com');
-                emails.add('trung822299@gmail.com');
-            }
-            System.debug('Emails ::' + emails);
+             List<Messaging.SingleEmailmessage> mails = new List<Messaging.SingleEmailmessage>();
+             Profile mailReceiverProfile = [SELECT Id FROM Profile WHERE Name = 'New Car Logistic']; 
+             List<User> mailReceivers = [SELECT Id, Email FROM User WHERE ProfileId = :mailReceiverProfile.Id AND isActive = true];
+             List<String> emails = new List<String>();
+             if (mailReceivers.size() > 0){
+                 for (User mailReceiver : mailReceivers){
+                     emails.add(mailReceiver.Email);
+                 }
+                 emails.add('thanh.ly@aodigy.com');
+                 emails.add('thieudang.vu@aodigy.com');
+                 emails.add('trung822299@gmail.com');
+             }
+             System.debug('Emails ::' + emails);
             
-            for (Vehicle_Master2__c newRecord : afterUpdateVehicles){
-                // System.debug('New Duty Payment Date: ' + newRecord.Duty_Payment_Date__c + 'Old Duty Payment Date: ' + Trigger.oldMap.get(newRecord.Id).Duty_Payment_Date__c);
-                if (newRecord.Duty_Payment_Date__c <> beforeUpdateVehicles.get(newRecord.Id).Duty_Payment_Date__c
-                    && userMap.containsKey(newRecord.LastModifiedById))
-                {
-                    System.debug('Start here !');
-                    Messaging.SingleEmailmessage mail = new Messaging.SingleEmailmessage();
-                    mail.setToAddresses(emails);
-                    String URL = URL.getSalesforceBaseUrl().toExternalForm() + '/lightning/r/Vehicle_Master2__c/' + newRecord.Id + '/view';
-                    mail.setSubject('Update Sales Duty Request Date on Stock Vehicle Master By ' + userMap.get(newRecord.LastModifiedById).Name);
-                    mail.setHtmlBody(URL);
+             for (Vehicle_Master2__c newRecord : afterUpdateVehicles){
+                 // System.debug('New Duty Payment Date: ' + newRecord.Duty_Payment_Date__c + 'Old Duty Payment Date: ' + Trigger.oldMap.get(newRecord.Id).Duty_Payment_Date__c);
+                 if (newRecord.Duty_Payment_Date__c <> beforeUpdateVehicles.get(newRecord.Id).Duty_Payment_Date__c
+                     && userMap.containsKey(newRecord.LastModifiedById))
+                 {
+                     System.debug('Start here !');
+                     Messaging.SingleEmailmessage mail = new Messaging.SingleEmailmessage();
+                     mail.setToAddresses(emails);
+                     String URL = URL.getSalesforceBaseUrl().toExternalForm() + '/lightning/r/Vehicle_Master2__c/' + newRecord.Id + '/view';
+                     mail.setSubject('Update Sales Duty Request Date on Stock Vehicle Master By ' + userMap.get(newRecord.LastModifiedById).Name);
+                     mail.setHtmlBody(URL);
                     
-                    System.debug('Email Address :' + mail.getToAddresses());
-                    mails.add(mail);
-                }
+                     System.debug('Email Address :' + mail.getToAddresses());
+                     mails.add(mail);
+                 }
 
-                if (newRecord.Duty_Payment_Date__c <> beforeUpdateVehicles.get(newRecord.Id).Duty_Payment_Date__c
-                    && newRecord.Duty_Payment_Date__c == Date.today())
-                    {
-                        Messaging.SingleEmailmessage mail = new Messaging.SingleEmailmessage();
-                        mail.setToAddresses(emails);
-                        String URL = URL.getSalesforceBaseUrl().toExternalForm() + '/lightning/r/Vehicle_Master2__c/' + newRecord.Id + '/view';
-                        mail.setSubject('Duty Payment Date on Stock Vehicle Master By Today');
-                        mail.setHtmlBody(URL);
+                 if (newRecord.Duty_Payment_Date__c <> beforeUpdateVehicles.get(newRecord.Id).Duty_Payment_Date__c
+                     && newRecord.Duty_Payment_Date__c == Date.today())
+                     {
+                         Messaging.SingleEmailmessage mail = new Messaging.SingleEmailmessage();
+                         mail.setToAddresses(emails);
+                         String URL = URL.getSalesforceBaseUrl().toExternalForm() + '/lightning/r/Vehicle_Master2__c/' + newRecord.Id + '/view';
+                         mail.setSubject('Duty Payment Date on Stock Vehicle Master By Today');
+                         mail.setHtmlBody(URL);
                         
-                        System.debug('Email Address :' + mail.getToAddresses());
-                        mails.add(mail);
-                    }
-            }
+                         System.debug('Email Address :' + mail.getToAddresses());
+                         mails.add(mail);
+                     }
+             }
             
-            if (mails.size()>0){
-                Messaging.SendEmailResult[] results = Messaging.sendEmail(mails, false);
-                for (Messaging.SendEmailResult rs : results) 
-                {
-                    if (!rs.isSuccess()) 
-                    {
-                        for (Messaging.SendEmailError err : rs.getErrors()) 
-                        {
-                            System.debug('The following error has occurred.');                    
-                            System.debug(err.getStatusCode() + ': ' + err.getMessage());
-                        }
-                    }
-                    else
-                    {
-                        System.debug('Successfull send email to NCL');  
-                    }
-                }  
-            }
-        }catch(Exception e){
-            System.debug('Error on Vehicle Master: ' + e.getMessage() + e.getLineNumber());
-            System.debug('Error Stack Trace on Vehicle Master: ' + e.getStackTraceString());
-        }
-    }
+             if (mails.size()>0){
+                 Messaging.SendEmailResult[] results = Messaging.sendEmail(mails, false);
+                 for (Messaging.SendEmailResult rs : results) 
+                 {
+                     if (!rs.isSuccess()) 
+                     {
+                         for (Messaging.SendEmailError err : rs.getErrors()) 
+                         {
+                             System.debug('The following error has occurred.');                    
+                             System.debug(err.getStatusCode() + ': ' + err.getMessage());
+                         }
+                     }
+                     else
+                     {
+                         System.debug('Successfull send email to NCL');  
+                     }
+                 }  
+             }
+         }catch(Exception e){
+             System.debug('Error on Vehicle Master: ' + e.getMessage() + e.getLineNumber());
+             System.debug('Error Stack Trace on Vehicle Master: ' + e.getStackTraceString());
+         }
+     }
     
 
     /**

@@ -77,6 +77,7 @@ private class TriggerVehicleMaster2Test
                                                             ProductionMonth__c = productionMonth,
                                                             Color_Code__c = colorCodes[0].ID, 
                                                             Trim_Code__c = trimCodes[0].ID,
+                                                            Duty_Payment_Date__c = Date.today(),
                                                             Duty_Payment_Date__c = Date.today());
         insert vMaster;
 
@@ -243,70 +244,70 @@ private class TriggerVehicleMaster2Test
         TriggerExclusion.excludeTrigger('Vehicle_Master2__c', false);
     }
 
-    // /**
-    //  * Scenario: insert 2 SVM which link to same shipment line item
-    //  * Expected: error on inserting
-    //  */
-    // @IsTest
-    // private static void onVehicleShipmentMatching1()
-    // {
-    //     // create supplier account
-    //     Account supplier = Test_DataFactory.createAccount(true, 'Supplier Account');
+    /**
+     * Scenario: insert 2 SVM which link to same shipment line item
+     * Expected: error on inserting
+     */
+    @IsTest
+    private static void onVehicleShipmentMatching1()
+    {
+        // create supplier account
+        Account supplier = Test_DataFactory.createAccount(true, 'Supplier Account');
 
-    //     // create a vehicle shipment record
-    //     Vehicle_Shipment__c shipment = new Vehicle_Shipment__c(Franchise_Code__c = 'KIAPC', Supplier_Account__c = supplier.Id, Currency_Code__c = 'SGD');
-    //     insert shipment;
+        // create a vehicle shipment record
+        Vehicle_Shipment__c shipment = new Vehicle_Shipment__c(Franchise_Code__c = 'KIAPC', Supplier_Account__c = supplier.Id, Currency_Code__c = 'SGD');
+        insert shipment;
 
-    //     Shipment_Line_Item__c shipmentLineItem = new Shipment_Line_Item__c(
-    //                                                                             Vehicle_Shipment__c = shipment.Id,
-    //                                                                             Chassis_No__c = '15875456455455',
-    //                                                                             Engine_No__c = '458458745845',
-    //                                                                             Model__c = 'Model1',
-    //                                                                             Colour_Code__c = 'Color1',
-    //                                                                             Trim__c = 'Trim1',
-    //                                                                             Production_Month__c = '00/0000'
-    //                                                                         );
-    //     insert shipmentLineItem;
+        Shipment_Line_Item__c shipmentLineItem = new Shipment_Line_Item__c(
+                                                                                Vehicle_Shipment__c = shipment.Id,
+                                                                                Chassis_No__c = '15875456455455',
+                                                                                Engine_No__c = '458458745845',
+                                                                                Model__c = 'Model1',
+                                                                                Colour_Code__c = 'Color1',
+                                                                                Trim__c = 'Trim1',
+                                                                                Production_Month__c = '00/0000'
+                                                                            );
+        insert shipmentLineItem;
 
-    //     Model_Master__c model           = [SELECT Id FROM Model_Master__c LIMIT 1];
-    //     Color_Master__c color           = [SELECT Id FROM Color_Master__c LIMIT 1];
-    //     Trim_Master__c trim             = [SELECT Id FROM Trim_Master__c LIMIT 1];
-    //     Model_Year_Master__c modelYear  = [SELECt Id FROM Model_Year_Master__c LIMIT 1];
+        Model_Master__c model           = [SELECT Id FROM Model_Master__c LIMIT 1];
+        Color_Master__c color           = [SELECT Id FROM Color_Master__c LIMIT 1];
+        Trim_Master__c trim             = [SELECT Id FROM Trim_Master__c LIMIT 1];
+        Model_Year_Master__c modelYear  = [SELECt Id FROM Model_Year_Master__c LIMIT 1];
 
-    //     // insert 2 SVM and link it to same shipment line item
-    //     Vehicle_Master2__c vehicle1 = new Vehicle_Master2__c(
-    //                                                             Original_Commcase__c = 'KIAPC0120190086', 
-    //                                                             Model_Year_Code__c = modelYear.ID,
-    //                                                             System_Commcase__c = 'KIAPC0120190086', 
-    //                                                             Engine_No__c = 'ENGINE279831',
-    //                                                             Chassis__c = 'CHAS279831', 
-    //                                                             Model_Code__c = model.ID, 
-    //                                                             ProductionMonth__c = Date.today(),
-    //                                                             Color_Code__c = color.ID, 
-    //                                                             Trim_Code__c = trim.ID,
-    //                                                             Shipment_Line_Item__c = shipmentLineItem.Id
-    //                                                         );
-    //     //
-    //     Vehicle_Master2__c vehicle2 = new Vehicle_Master2__c(
-    //                                                             Original_Commcase__c = 'KIAPC54545444', 
-    //                                                             Model_Year_Code__c = modelYear.ID,
-    //                                                             System_Commcase__c = 'KIAPC54545444', 
-    //                                                             Engine_No__c = 'ENGINE279831',
-    //                                                             Chassis__c = 'CHAS279831', 
-    //                                                             Model_Code__c = model.ID, 
-    //                                                             ProductionMonth__c = Date.today(),
-    //                                                             Color_Code__c = color.ID, 
-    //                                                             Trim_Code__c = trim.ID,
-    //                                                             Shipment_Line_Item__c = shipmentLineItem.Id
-    //                                                         );
-    //     //
-    //     try
-    //     {
-    //         insert new List<Vehicle_Master2__c> { vehicle1, vehicle2 };
-    //     }
-    //     catch (Exception e)
-    //     {
-    //         System.assert(e.getMessage().contains('This shipment line item already have a linked vehicle'), e.getMessage() + ' > ' + e.getStackTraceString());
-    //     }
-    // }
+        // insert 2 SVM and link it to same shipment line item
+        Vehicle_Master2__c vehicle1 = new Vehicle_Master2__c(
+                                                                Original_Commcase__c = 'KIAPC0120190086', 
+                                                                Model_Year_Code__c = modelYear.ID,
+                                                                System_Commcase__c = 'KIAPC0120190086', 
+                                                                Engine_No__c = 'ENGINE279831',
+                                                                Chassis__c = 'CHAS279831', 
+                                                                Model_Code__c = model.ID, 
+                                                                ProductionMonth__c = Date.today(),
+                                                                Color_Code__c = color.ID, 
+                                                                Trim_Code__c = trim.ID,
+                                                                Shipment_Line_Item__c = shipmentLineItem.Id
+                                                            );
+        //
+        Vehicle_Master2__c vehicle2 = new Vehicle_Master2__c(
+                                                                Original_Commcase__c = 'KIAPC54545444', 
+                                                                Model_Year_Code__c = modelYear.ID,
+                                                                System_Commcase__c = 'KIAPC54545444', 
+                                                                Engine_No__c = 'ENGINE279831',
+                                                                Chassis__c = 'CHAS279831', 
+                                                                Model_Code__c = model.ID, 
+                                                                ProductionMonth__c = Date.today(),
+                                                                Color_Code__c = color.ID, 
+                                                                Trim_Code__c = trim.ID,
+                                                                Shipment_Line_Item__c = shipmentLineItem.Id
+                                                            );
+        //
+        try
+        {
+            insert new List<Vehicle_Master2__c> { vehicle1, vehicle2 };
+        }
+        catch (Exception e)
+        {
+            System.assert(e.getMessage().contains('This shipment line item already have a linked vehicle'), e.getMessage() + ' > ' + e.getStackTraceString());
+        }
+    }
 }
