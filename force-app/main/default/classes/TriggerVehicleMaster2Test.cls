@@ -77,6 +77,10 @@ private class TriggerVehicleMaster2Test
                                                             ProductionMonth__c = productionMonth,
                                                             Color_Code__c = colorCodes[0].ID, 
                                                             Trim_Code__c = trimCodes[0].ID,
+<<<<<<< HEAD
+=======
+                                                            Duty_Payment_Date__c = Date.today(),
+>>>>>>> 89a1cda55f18881ee026999320a59ed8143d63df
                                                             Duty_Payment_Date__c = Date.today());
         insert vMaster;
 

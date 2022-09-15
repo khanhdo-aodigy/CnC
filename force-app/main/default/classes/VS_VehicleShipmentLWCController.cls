@@ -46,11 +46,10 @@ public without sharing class VS_VehicleShipmentLWCController
     {
         try 
         {
-            System.debug('mass'+ vehicleShipmentId);
-		return [SELECT Id, Name, Shipment_Line_Item__r.name, Manufacturer_Ref_No__c, 
+		    return [SELECT Id, Name, Shipment_Line_Item__r.name, Manufacturer_Ref_No__c, 
                        Vehicle_Status__c, Invoice_No__c, Chassis__c, TN_HS_Code__c, Engine_No__c 
-			  	FROM Vehicle_Master2__c 
-			  	WHERE Vehicle_Shipment__c =: vehicleShipmentId];
+                    FROM Vehicle_Master2__c 
+                    WHERE Vehicle_Shipment__c =: vehicleShipmentId];
             
         } 
         catch (Exception e) 
@@ -81,30 +80,30 @@ public without sharing class VS_VehicleShipmentLWCController
         return true;
     }
 
-    @AuraEnabled
-    public static Boolean submitToGetsAsia(String vehicleShipmentId, String serviceType, Map<String, List<String>> grouppedItems)
-    {
-        Boolean result;
+    // @AuraEnabled
+    // public static Boolean submitToGetsAsia(String vehicleShipmentId, String serviceType, Map<String, List<String>> grouppedItems)
+    // {
+    //     Boolean result;
 
-        try 
-        {
-            if (serviceType == 'IPT')
-            {
-               result = !Test.isRunningTest() ? VS_InwardPaymentSVC.submitIPT(vehicleShipmentId, grouppedItems, true) : true;
-            }
+    //     try 
+    //     {
+    //         if (serviceType == 'IPT')
+    //         {
+    //            result = !Test.isRunningTest() ? VS_InwardPaymentSVC.submitIPT(vehicleShipmentId, grouppedItems, true) : true;
+    //         }
 
-            if (serviceType == 'INP')
-            {
-                result = !Test.isRunningTest() ? VS_InwardNonPaymentSVC.submitINP(vehicleShipmentId, grouppedItems) : true;
-            }
-        } 
-        catch (Exception e) 
-        {
-            throwError(e.getMessage());
-        }
+    //         if (serviceType == 'INP')
+    //         {
+    //             result = !Test.isRunningTest() ? VS_InwardNonPaymentSVC.submitINP(vehicleShipmentId, grouppedItems) : true;
+    //         }
+    //     } 
+    //     catch (Exception e) 
+    //     {
+    //         throwError(e.getMessage());
+    //     }
 
-        return result;
-    }
+    //     return result;
+    // }
 
     @AuraEnabled(cacheable = true)
     public static VehicleShipmentWrapper getVehicleShipmentWithInvoicesAndLineItems(String vehicleShipmentId, String transactionType)
@@ -169,7 +168,7 @@ public without sharing class VS_VehicleShipmentLWCController
         } 
         catch (Exception e) 
         {
-            throwError(e.getMessage() + ' -- ' + e.getLineNumber());
+            //throwError(e.getMessage() + ' -- ' + e.getLineNumber());
         }
 
         return shipmentWrapper;
@@ -201,15 +200,15 @@ public without sharing class VS_VehicleShipmentLWCController
         {
             for (Vehicle_Master2__c vh: StockVehicleMasterService.selectByIds(stockVehicleMasterIds))
             {
-                if (vehiclesByVesselCode.containsKey(vh.Vessel_Code__c))
+                if (vehiclesByVesselCode.containsKey(vh.Vessel_Name__c))
                 {
-                    tempVehicleList = vehiclesByVesselCode.get(vh.Vessel_Code__c);
+                    tempVehicleList = vehiclesByVesselCode.get(vh.Vessel_Name__c);
                     tempVehicleList.add(vh);
-                    vehiclesByVesselCode.put(vh.Vessel_Code__c, tempVehicleList);
+                    vehiclesByVesselCode.put(vh.Vessel_Name__c, tempVehicleList);
                 }
                 else 
                 {
-                    vehiclesByVesselCode.put(vh.Vessel_Code__c, new List<Vehicle_Master2__c> {vh});    
+                    vehiclesByVesselCode.put(vh.Vessel_Name__c, new List<Vehicle_Master2__c> {vh});    
                 }
             }
 
@@ -257,8 +256,8 @@ public without sharing class VS_VehicleShipmentLWCController
             Inward_Declaration__c newInwardDec = new Inward_Declaration__c(recordTypeId = recordTypeId);
             uow.registerNew(newInwardDec);
 
-            String vesselName              = vehicleMastersByVessel.values()?.get(0)?.get(0)?.Vessel_Name__c;
-            String invoiceNo               = vehicleMastersByVessel.values()?.get(0)?.get(0)?.Invoice_No__c;
+            String vesselName              = new List<String>(vehicleMastersByVessel?.keySet())?.get(0);
+            String invoiceNo               = vehicleMastersByVessel?.values()?.get(0)?.get(0)?.Invoice_No__c;
             Manufacturer_Invoice__c newInv = new Manufacturer_Invoice__c(Name = vesselName, Invoice_Date__c = Date.today(), Invoice_No__c = invoiceNo);
             uow.registerNew(newInv, Manufacturer_Invoice__c.Inward_Declaration__c, newInwardDec);
 
@@ -276,7 +275,7 @@ public without sharing class VS_VehicleShipmentLWCController
         }
         catch (Exception e) 
         {
-            throwError(e.getMessage() + ' -- ' + e.getLineNumber());
+            //throwError(e.getMessage() + ' -- ' + e.getLineNumber());
         }
 
         return returnedId;
@@ -325,28 +324,28 @@ public without sharing class VS_VehicleShipmentLWCController
         } 
         catch (Exception e) 
         {
-            throwError(e.getMessage() + ' -- ' + e.getLineNumber());
+            //throwError(e.getMessage() + ' -- ' + e.getLineNumber());
         }
 
         return vehicleMasterWrapper;
     }
 
-    @AuraEnabled
-    public static Boolean submitToGetsAsiaIPT(String inwardDeclarationId, Map<String, List<String>> grouppedItems)
-    {
-        Boolean result;
+    // @AuraEnabled
+    // public static Boolean submitToGetsAsiaIPT(String inwardDeclarationId, Map<String, List<String>> grouppedItems)
+    // {
+    //     Boolean result;
 
-        try 
-        {
-            result = !Test.isRunningTest() ? VS_InwardPaymentSVC.submitIPT(inwardDeclarationId, grouppedItems, false) : true;
-        } 
-        catch (Exception e) 
-        {
-            throwError(e.getMessage());
-        }
+    //     try 
+    //     {
+    //         result = !Test.isRunningTest() ? VS_InwardPaymentSVC.submitIPT(inwardDeclarationId, grouppedItems, false) : true;
+    //     } 
+    //     catch (Exception e) 
+    //     {
+    //         throwError(e.getMessage());
+    //     }
 
-        return result;
-    }
+    //     return result;
+    // }
 
     @AuraEnabled(cacheable = true)
     public static List<Manufacturer_Invoice__c> getManufacturerInvoicesByIds(List<Id> invoiceIds)
@@ -361,96 +360,96 @@ public without sharing class VS_VehicleShipmentLWCController
         }
     }
 
-    @AuraEnabled
-    public static Boolean retrievePermitNo(Id inwardDeclarationId)
-    {
-        Boolean result = false;
+    // @AuraEnabled
+    // public static Boolean retrievePermitNo(Id inwardDeclarationId)
+    // {
+    //     Boolean result = false;
         
-        try 
-        {
-            Inward_Declaration__c inwardDec = InwardDeclarationService.getByIdsWithInvoices(new Set<Id> {inwardDeclarationId}, false)?.get(0);
+    //     try 
+    //     {
+    //         Inward_Declaration__c inwardDec = InwardDeclarationService.getByIdsWithInvoices(new Set<Id> {inwardDeclarationId}, false)?.get(0);
 
-            if (String.isNotBlank(inwardDec?.Transaction_ID__c))
-            {
-                List<serviceDataPool.ServiceDataPoolWrapper> serviceWrapper = new List<serviceDataPool.ServiceDataPoolWrapper>();
+    //         if (String.isNotBlank(inwardDec?.Transaction_ID__c))
+    //         {
+    //             List<serviceDataPool.ServiceDataPoolWrapper> serviceWrapper = new List<serviceDataPool.ServiceDataPoolWrapper>();
 
-                VS_HttpCalloutUtil.ResponseWrapper wrapper = VS_HttpCalloutUtil.invokeApiCallToGetResponse(VS_HttpCalloutUtil.generateHttpRequestPayloadForResponseAPI(inwardDec?.Transaction_ID__c), inwardDec?.Transaction_ID__c);
-                HttpResponse httpRes                       = wrapper.res;
-                Map<String, Object> response               = (Map<String, Object>) JSON.deserializeUntyped(httpRes.getBody());
+    //             VS_HttpCalloutUtil.ResponseWrapper wrapper = VS_HttpCalloutUtil.invokeApiCallToGetResponse(VS_HttpCalloutUtil.generateHttpRequestPayloadForResponseAPI(inwardDec?.Transaction_ID__c), inwardDec?.Transaction_ID__c);
+    //             HttpResponse httpRes                       = wrapper.res;
+    //             Map<String, Object> response               = (Map<String, Object>) JSON.deserializeUntyped(httpRes.getBody());
     
-                serviceWrapper.add(wrapper.serviceDataPoolWrapper);
+    //             serviceWrapper.add(wrapper.serviceDataPoolWrapper);
     
-                serviceDataPool.buildListServiceDataPoolHttp(serviceWrapper);
+    //             serviceDataPool.buildListServiceDataPoolHttp(serviceWrapper);
     
-                if (response.get('status') == 'S001')
-                {
-                    List<Object> data = (List<Object>) response.get('data');
+    //             if (response.get('status') == 'S001')
+    //             {
+    //                 List<Object> data = (List<Object>) response.get('data');
 
-                    if (data <> null && data.size() > 0)
-                    {
-                        Map<String, Object> dataMap  = (Map<String, Object>) (data[0]);
-                        Map<String, Object> resMap   = (Map<String, Object>) dataMap.get('Response');
-                        String status                = resMap.get('StatusDesc')?.toString();
+    //                 if (data <> null && data.size() > 0)
+    //                 {
+    //                     Map<String, Object> dataMap  = (Map<String, Object>) (data[0]);
+    //                     Map<String, Object> resMap   = (Map<String, Object>) dataMap.get('Response');
+    //                     String status                = resMap.get('StatusDesc')?.toString();
                         
-                        if (status == 'Declaration Approved')
-                        {
-                            List<Object> remarks = (List<Object>) resMap.get('Remarks');
+    //                     if (status == 'Declaration Approved')
+    //                     {
+    //                         List<Object> remarks = (List<Object>) resMap.get('Remarks');
 
-                            if (remarks <> null && remarks.size() > 0)
-                            {
-                                Map<String, Object> remarksMap  = (Map<String, Object>) (remarks[0]);
-                                Map<String, Object> permitMap   = (Map<String, Object>) remarksMap.get('permit');
-                                String permitNo                 = permitMap.get('pmt_no')?.toString();
+    //                         if (remarks <> null && remarks.size() > 0)
+    //                         {
+    //                             Map<String, Object> remarksMap  = (Map<String, Object>) (remarks[0]);
+    //                             Map<String, Object> permitMap   = (Map<String, Object>) remarksMap.get('permit');
+    //                             String permitNo                 = permitMap.get('pmt_no')?.toString();
 
-                                if (String.isNotBlank(permitNo))
-                                {
-                                    result = updatePermitNo(inwardDec.Id, inwardDec.Vehicle_Shipment__c, permitNo);
-                                }
-                                else 
-                                {
-                                    throwError('Permit has not been approved yet!');
-                                }
-                            }
-                        }
-                        else 
-                        {
-                            throwError('Permit has not been approved yet!');
-                        }
-                    }
-                }
-            }
-        } 
-        catch (Exception e) 
-        {
-            loggerDataPool.buildLogDataPool('retrievePermitNo', e);
-            throwError(e.getMessage() + ' -- ' + e.getLineNumber());
-        }
+    //                             if (String.isNotBlank(permitNo))
+    //                             {
+    //                                 result = updatePermitNo(inwardDec.Id, inwardDec.Vehicle_Shipment__c, permitNo);
+    //                             }
+    //                             else 
+    //                             {
+    //                                 throwError('Permit has not been approved yet!');
+    //                             }
+    //                         }
+    //                     }
+    //                     else 
+    //                     {
+    //                         throwError('Permit has not been approved yet!');
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     } 
+    //     catch (Exception e) 
+    //     {
+    //         loggerDataPool.buildLogDataPool('retrievePermitNo', e);
+    //         throwError(e.getMessage() + ' -- ' + e.getLineNumber());
+    //     }
 
-        return result;
-    }
+    //     return result;
+    // }
 
-    private static Boolean updatePermitNo(Id inwardDecId, Id vehicleShipmentId, String permitNo)
-    {
-        try 
-        {
-            ADGLIB_SObjectUnitOfWork uow = new ADGLIB_SObjectUnitOfWork(new Schema.SObjectType[] {Inward_Declaration__c.SObjectType, Vehicle_Shipment__c.SObjectType});
+    // private static Boolean updatePermitNo(Id inwardDecId, Id vehicleShipmentId, String permitNo)
+    // {
+    //     try 
+    //     {
+    //         ADGLIB_SObjectUnitOfWork uow = new ADGLIB_SObjectUnitOfWork(new Schema.SObjectType[] {Inward_Declaration__c.SObjectType, Vehicle_Shipment__c.SObjectType});
 
-            uow.registerDirty(new Inward_Declaration__c(Id = inwardDecId, TN_Permit_No__c = permitNo));
+    //         uow.registerDirty(new Inward_Declaration__c(Id = inwardDecId, TN_Permit_No__c = permitNo));
             
-            if (String.isNotBlank(vehicleShipmentId))
-            {
-                uow.registerDirty(new Vehicle_Shipment__c(Id = vehicleShipmentId, TN_Permit_No__c = permitNo));
-            } 
+    //         if (String.isNotBlank(vehicleShipmentId))
+    //         {
+    //             uow.registerDirty(new Vehicle_Shipment__c(Id = vehicleShipmentId, TN_Permit_No__c = permitNo));
+    //         } 
                  
-            uow.commitWork();
-        } 
-        catch (Exception e) 
-        {
-            throwError(e.getMessage() + ' -- ' + e.getLineNumber());
-        }
+    //         uow.commitWork();
+    //     } 
+    //     catch (Exception e) 
+    //     {
+    //         throwError(e.getMessage() + ' -- ' + e.getLineNumber());
+    //     }
 
-        return true;
-    }
+    //     return true;
+    // }
 
     public class VehicleShipmentWrapper
     {
@@ -467,11 +466,11 @@ public without sharing class VS_VehicleShipmentLWCController
         public Map<String, Map<String, List<Vehicle_Master2__c>>> grouppedVehicles {get; set;}
     }
 
-    private static void throwError(String errorMsg)
-    {
-        AuraHandledException e = new AuraHandledException(errorMsg);
-        e.setMessage(errorMsg);
+    // private static void throwError(String errorMsg)
+    // {
+    //     AuraHandledException e = new AuraHandledException(errorMsg);
+    //     e.setMessage(errorMsg);
 
-        throw e;
-    }
+    //     throw e;
+    // }
 }
