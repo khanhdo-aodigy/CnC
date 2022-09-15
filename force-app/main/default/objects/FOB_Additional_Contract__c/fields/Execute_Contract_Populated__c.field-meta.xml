@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Execute_Contract_Populated__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( OR( ISBLANK(Bank_Contract_No_Sell_Execute__c) ,ISBLANK(Transaction_Date_Sell_Execute__c),
+ISBLANK(Effective_Date_Sell_Execute__c) , ISNULL(Spot_Rate_Sell_Execute__c) ,ISNULL(Total_Execution_Amount__c), (Total_Execution_Amount__c = 0) , ISNULL(Total_Cover_Amount_Contract_Rate__c), (Total_Cover_Amount_Contract_Rate__c = 0) ), false, true)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Execute Contract Populated</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
