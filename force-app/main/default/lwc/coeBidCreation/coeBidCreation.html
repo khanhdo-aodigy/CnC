@@ -1,0 +1,203 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <template if:true={spinner}>
+        <lightning-spinner alternative-text="Loading" style="height: 200%;"></lightning-spinner>
+    </template>
+    <template if:false={spinner}>
+        <template if:true={isReady}>
+            <div class="slds-m-bottom_large slds-p-top_large" style="height: 20rem;">
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-account" title="account">
+                                    <lightning-icon icon-name="standard:contract" size="medium"
+                                        variant="slds-icon-inverse"></lightning-icon>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">
+                                    <span>Sales Agreements</span>
+                                </h2>
+                            </div>
+
+                        </header>
+                    </div>
+
+                    <div class="slds-grid slds-wrap slds-p-around_large">
+                        <div class="slds-col slds-size_1-of-3">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <label class="slds-form-element__label" for="form-element-02">DSA COE
+                                    Category</label>
+                                <div class="slds-form-element__control">
+                                    <lightning-combobox data-id="filter" name="category" placeholder="Select"
+                                        options={coeCategoryOpt} onchange={handleFilterChange} style="width: 200px">
+                                    </lightning-combobox>
+                                </div>
+                            </div>
+                            <div class="slds-form-element slds-form-element_horizontal slds-float_right">
+                                <label class="slds-form-element__label" for="form-element-01">COE N/NG</label>
+                                <div class="slds-form-element__control">
+                                    <lightning-combobox data-id="filter" name="guaranteeStatus" placeholder="Select"
+                                        options={coeGuaranteeOpt} onchange={handleFilterChange} style="width: 200px">
+                                    </lightning-combobox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <label class="slds-form-element__label" for="form-element-03">SVM Status</label>
+                                <div class="slds-form-element__control">
+                                    <lightning-combobox data-id="filter" name="svmStatus" placeholder="Select"
+                                        options={svmStatusOpt} onchange={handleFilterChange} style="width:200px">
+                                    </lightning-combobox>
+                                </div>
+                            </div>
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <label class="slds-form-element__label" for="form-element-04">Loan Approval</label>
+                                <div class="slds-form-element__control">
+                                    <lightning-combobox data-id="filter" name="approvalStatus" placeholder="Select"
+                                        options={loanApprovalOpt} onchange={handleFilterChange} style="width: 200px">
+                                    </lightning-combobox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <label class="slds-form-element__label" for="form-element-04">Submitted for COE
+                                    Bidding</label>
+                                <div class="slds-form-element__control">
+                                    <lightning-combobox data-id="filter" name="submitStatus" placeholder="Select"
+                                        options={submittedOpt} onchange={handleFilterChange} style="width: 200px">
+                                    </lightning-combobox>
+                                </div>
+                            </div>
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <label class="slds-form-element__label" for="form-element-04">Bid Category</label>
+                                <div class="slds-form-element__control">
+                                    <lightning-combobox data-id="filter" name="bidCategory" placeholder="Select"
+                                        options={bidCategoryOpt} onchange={handleFilterChange} style="width: 200px">
+                                    </lightning-combobox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-align_absolute-center slds-p-bottom_medium slds-p-top_medium"
+                            style="width: 30%;" slot="footer">
+                            <button name="search" class="slds-button slds-button_brand slds-m-left_x-small"
+                                style="width: 47%; float:left" onclick={handleAction}>
+                                Search
+                            </button>
+                            <button name="reset" class="slds-button slds-button_brand slds-m-left_x-small"
+                                style="width: 47%; float:right" onclick={handleAction}>
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="slds-scrollable" style="height: 20rem;">
+                        <table
+                            class="slds-no-row-hover slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                            <thead>
+                                <tr class="slds-line-height_reset first">
+                                    <th class="slds-size_1-of-12">
+                                        <lightning-input type="checkbox" class="" name="" data-id="select-all"
+                                            onchange={handleSelectAll}></lightning-input>
+                                    </th>
+                                    <th class="slds-size_1-of-12">No.</th>
+                                    <template for:each={headers} for:item="h">
+                                        <th key={h.api}>{h.label}</th>
+                                    </template>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={dataForTable} for:item="dsa" for:index="index">
+                                    <tr key={dsa.Id}>
+                                        <td>
+                                            <lightning-input type="checkbox" name="" data-id="select-row"
+                                                data-sa-id={dsa.Id} onchange={handleRowSelect}></lightning-input>
+                                        </td>
+                                        <td>{dsa.idx}</td>
+                                        <template for:each={dsa.props} for:item="prop">
+                                            <template if:true={prop.isPLInput}>
+                                                <td key={prop.api}>
+                                                    <lightning-combobox name={prop.api} placeholder="Select Category"
+                                                        options={prop.options} data-sa-id={dsa.Id}
+                                                        onchange={handleChange} value={prop.value} class="tag-input">
+                                                    </lightning-combobox>
+                                                </td>
+                                            </template>
+                                            <template if:true={prop.isNumInput}>
+                                                <td key={prop.api}>
+                                                    <lightning-input name={prop.api} type="number" step="0.01"
+                                                        data-sa-id={dsa.Id} onchange={handleChange} value={prop.value}
+                                                        class="tag-input"></lightning-input>
+                                                </td>
+                                            </template>
+
+                                            <template if:true={prop.isTextInput}>
+                                                <td key={prop.api}>
+                                                    <lightning-input name={prop.api} data-sa-id={dsa.Id} type="text"
+                                                        onchange={handleChange} value={prop.value} class="tag-input">
+                                                    </lightning-input>
+                                                </td>
+                                            </template>
+                                            <template if:true={prop.isCheckbox}>
+                                                <td key={prop.api}>
+                                                    <lightning-input type="checkbox" name={prop.api} data-sa-id={dsa.Id}
+                                                        onchange={handleChange} checked={prop.value}
+                                                        disabled={prop.disabled}></lightning-input>
+                                                </td>
+                                            </template>
+                                            <template if:true={prop.isTextArea}>
+                                                <td key={prop.api}>
+                                                    <p style="white-space: pre-wrap;">{prop.value}</p>
+                                                </td>
+                                            </template>
+
+                                            <template if:true={prop.isOutput}>
+
+                                                <td key={prop.api}>
+                                                    <template if:true={prop.isNumber}>
+                                                        <lightning-formatted-number value={prop.value}>
+                                                        </lightning-formatted-number>
+                                                    </template>
+                                                    <template if:false={prop.isNumber}>
+                                                        {prop.value}
+                                                    </template>
+                                                </td>
+                                            </template>
+                                        </template>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-center" slot="footer"
+                            style="height: 150px;">
+                            <div class="slds-col slds-size_1-of-3"></div>
+                            <div class="slds-col slds-size_1-of-3">
+                                <button name="save" class="slds-button slds-button_brand slds-m-left_x-small"
+                                    style="width: 47%; float:left" onclick={handleAction} disabled={disableSave}>
+                                    Save
+                                </button>
+                                <button name="submit_coe" class="slds-button slds-button_brand slds-m-left_x-small"
+                                    style="width: 47%; float:right" onclick={handleAction} disabled={disableSubmit}>
+                                    Submit COE Bids to BSD
+                                </button>
+                            </div>
+                            <div class="slds-col slds-size_1-of-3 slds-grid slds-grid_align-center"
+                                style="height:100%;">
+                                <lightning-textarea class="remark-input" style="width:60%" name="Remarks__c"
+                                    label="Remarks" onchange={handleChange}></lightning-textarea>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            </div>
+        </template>
+    </template>
+</template>
