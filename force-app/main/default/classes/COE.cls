@@ -10,54 +10,54 @@ public inherited sharing class COE extends ADGLIB_SObjectDomain {
 		}
 	}    
 
-    // public override void onBeforeInsert() {
-    //     List<String> saIds   = new List<String>();
-    //     List<String> mbSAIds = new List<String>();
-    //     for (COE__c coe : (List<COE__c>)Records)
-    //     {
-    //         if (!String.isEmpty(coe.Sales_Agreement__c))
-    //         {
-    //             saIds.add(coe.Sales_Agreement__c);
-    //             coe.Sales_Agreement_Unique_Id__c = coe.Sales_Agreement__c;
-    //         }
-    //         else if (!String.isEmpty(coe.MB_Sales_Agreement__c))
-    //         {
-    //             mbSAIds.add(coe.MB_Sales_Agreement__c);
-    //             coe.MB_Sales_Agreement_Unique_Id__c = coe.MB_Sales_Agreement__c;
-    //         }
-    //     }
+    public override void onBeforeInsert() {
+        List<String> saIds   = new List<String>();
+        List<String> mbSAIds = new List<String>();
+        for (COE__c coe : (List<COE__c>)Records)
+        {
+            if (!String.isEmpty(coe.Sales_Agreement__c))
+            {
+                saIds.add(coe.Sales_Agreement__c);
+                coe.Sales_Agreement_Unique_Id__c = coe.Sales_Agreement__c;
+            }
+            else if (!String.isEmpty(coe.MB_Sales_Agreement__c))
+            {
+                mbSAIds.add(coe.MB_Sales_Agreement__c);
+                coe.MB_Sales_Agreement_Unique_Id__c = coe.MB_Sales_Agreement__c;
+            }
+        }
 
-	// 	Map<String, COE__c> coeBySAId = new Map<String, COE__c>();
-    //     for (COE__c coe : ([SELECT Id, Name, MB_Sales_Agreement__c, Sales_Agreement__c
-    //                         FROM COE__c
-    //                         WHERE Sales_Agreement__c IN :saIds
-    //                         OR MB_Sales_Agreement__c IN :mbSAIds]))
-    //     {
-    //         if (!String.isEmpty(coe.Sales_Agreement__c))
-    //         {
-    //             coeBySAId.put(coe.Sales_Agreement__c, coe);
-    //         }
-    //         else if (!String.isEmpty(coe.MB_Sales_Agreement__c))
-    //         {
-    //             coeBySAId.put(coe.MB_Sales_Agreement__c, coe);
-    //         }
-    //     }
+		Map<String, COE__c> coeBySAId = new Map<String, COE__c>();
+        for (COE__c coe : ([SELECT Id, Name, MB_Sales_Agreement__c, Sales_Agreement__c
+                            FROM COE__c
+                            WHERE Sales_Agreement__c IN :saIds
+                            OR MB_Sales_Agreement__c IN :mbSAIds]))
+        {
+            if (!String.isEmpty(coe.Sales_Agreement__c))
+            {
+                coeBySAId.put(coe.Sales_Agreement__c, coe);
+            }
+            else if (!String.isEmpty(coe.MB_Sales_Agreement__c))
+            {
+                coeBySAId.put(coe.MB_Sales_Agreement__c, coe);
+            }
+        }
 
-    //     if (!coeBySAId.isEmpty())
-    //     {
-    //         for (COE__c coe : (List<COE__c>)Records)
-    //         {
-    //             if (!String.isEmpty(coe.Sales_Agreement__c) && coeBySAId.containsKey(coe.Sales_Agreement__c))
-    //             {
-    //                 coe.addError('There\'s another COE (' + coeBySAId.get(coe.Sales_Agreement__c).Name + ') has been linked to this Sales Agreement. Please check again!');
-    //             }
-    //             else if (!String.isEmpty(coe.MB_Sales_Agreement__c) && coeBySAId.containsKey(coe.MB_Sales_Agreement__c))
-    //             {
-    //                 coe.addError('There\'s another COE (' + coeBySAId.get(coe.MB_Sales_Agreement__c).Name + ') has been linked to this Sales Agreement. Please check again!');
-    //             }
-    //         }
-    //     }
-    // }
+        if (!coeBySAId.isEmpty())
+        {
+            for (COE__c coe : (List<COE__c>)Records)
+            {
+                if (!String.isEmpty(coe.Sales_Agreement__c) && coeBySAId.containsKey(coe.Sales_Agreement__c))
+                {
+                    coe.addError('There\'s another COE (' + coeBySAId.get(coe.Sales_Agreement__c).Name + ') has been linked to this Sales Agreement. Please check again!');
+                }
+                else if (!String.isEmpty(coe.MB_Sales_Agreement__c) && coeBySAId.containsKey(coe.MB_Sales_Agreement__c))
+                {
+                    coe.addError('There\'s another COE (' + coeBySAId.get(coe.MB_Sales_Agreement__c).Name + ') has been linked to this Sales Agreement. Please check again!');
+                }
+            }
+        }
+    }
 
     public override void onAfterInsert() {
         List<String> saIds   = new List<String>();
@@ -205,66 +205,66 @@ public inherited sharing class COE extends ADGLIB_SObjectDomain {
         }
     }
 
-    // public override void onBeforeUpdate(Map<Id, SObject> existingRecords) {
-    //     List<String> coeIdsForSA   = new List<String>();
-    //     List<String> coeIdsForMBSA = new List<String>(); 
-    //     for (COE__c record : (List<COE__c>)Records)
-    //     {
-    //         COE__c oldRecord = (COE__c)existingRecords.get(record.Id);
-    //         if (record.Sales_Agreement__c != oldRecord.Sales_Agreement__c && !String.isEmpty(record.Sales_Agreement__c))
-    //         {
-    //             coeIdsForSA.add(record.Id);
-    //         }
-    //         if (record.MB_Sales_Agreement__c != oldRecord.MB_Sales_Agreement__c && !String.isEmpty(record.MB_Sales_Agreement__c))
-    //         {
-    //             coeIdsForMBSA.add(record.Id);
-    //         }
-    //     }
+    public override void onBeforeUpdate(Map<Id, SObject> existingRecords) {
+        List<String> coeIdsForSA   = new List<String>();
+        List<String> coeIdsForMBSA = new List<String>(); 
+        for (COE__c record : (List<COE__c>)Records)
+        {
+            COE__c oldRecord = (COE__c)existingRecords.get(record.Id);
+            if (record.Sales_Agreement__c != oldRecord.Sales_Agreement__c && !String.isEmpty(record.Sales_Agreement__c))
+            {
+                coeIdsForSA.add(record.Id);
+            }
+            if (record.MB_Sales_Agreement__c != oldRecord.MB_Sales_Agreement__c && !String.isEmpty(record.MB_Sales_Agreement__c))
+            {
+                coeIdsForMBSA.add(record.Id);
+            }
+        }
 
-    //     Map<String, Sales_Agreement__c> saByCOEId      = new Map<String, Sales_Agreement__c>();
-    //     Map<String, MB_Sales_Agreement__c> mbSAByCOEId = new Map<String, MB_Sales_Agreement__c>();
+        Map<String, Sales_Agreement__c> saByCOEId      = new Map<String, Sales_Agreement__c>();
+        Map<String, MB_Sales_Agreement__c> mbSAByCOEId = new Map<String, MB_Sales_Agreement__c>();
 
-    //     for (Sales_Agreement__c sa : [SELECT Id, COE__c, SOH_SONO__c
-    //                                   FROM Sales_Agreement__c
-    //                                   WHERE COE__c IN :coeIdsForSA])
-    //     {
-    //         saByCOEId.put(sa.COE__c, sa);
-    //     }
+        for (Sales_Agreement__c sa : [SELECT Id, COE__c, SOH_SONO__c
+                                      FROM Sales_Agreement__c
+                                      WHERE COE__c IN :coeIdsForSA])
+        {
+            saByCOEId.put(sa.COE__c, sa);
+        }
 
-    //     for (MB_Sales_Agreement__c mbSA : [SELECT Id, COE__c, Name
-    //                                       FROM MB_Sales_Agreement__c
-    //                                       WHERE COE__c IN :coeIdsForMBSA])
-    //     {
-    //         mbSAByCOEId.put(mbSA.COE__c, mbSA);
-    //     }
+        for (MB_Sales_Agreement__c mbSA : [SELECT Id, COE__c, Name
+                                          FROM MB_Sales_Agreement__c
+                                          WHERE COE__c IN :coeIdsForMBSA])
+        {
+            mbSAByCOEId.put(mbSA.COE__c, mbSA);
+        }
 
-    //     for (COE__c record : (List<COE__c>)Records)
-    //     {
-    //         COE__c oldRecord = (COE__c)existingRecords.get(record.Id);
-    //         if (record.Sales_Agreement__c != oldRecord.Sales_Agreement__c)
-    //         {
-    //             if (saByCOEId.containsKey(record.Id))
-    //             {
-    //                 record.addError('Sales Agreement number ' + saByCOEId.get(record.Id).SOH_SONO__c + ' has been linked to this COE. Please check again!');
-    //             }
-    //             else
-    //             {
-    //                 record.Sales_Agreement_Unique_Id__c = String.isEmpty(record.Sales_Agreement__c) ? null : record.Sales_Agreement__c;
-    //             }
-    //         }
-    //         if (record.MB_Sales_Agreement__c != oldRecord.MB_Sales_Agreement__c)
-    //         {
-    //             if (mbSAByCOEId.containsKey(record.Id))
-    //             {
-    //                 record.addError('Sales Agreement number ' + saByCOEId.get(record.Id).Name + ' has been linked to this COE. Please check again!');
-    //             }
-    //             else
-    //             {
-    //                 record.MB_Sales_Agreement_Unique_Id__c = String.isEmpty(record.MB_Sales_Agreement__c) ? null : record.MB_Sales_Agreement__c;
-    //             }
-    //         }
-    //     }
-    // }
+        for (COE__c record : (List<COE__c>)Records)
+        {
+            COE__c oldRecord = (COE__c)existingRecords.get(record.Id);
+            if (record.Sales_Agreement__c != oldRecord.Sales_Agreement__c)
+            {
+                if (saByCOEId.containsKey(record.Id))
+                {
+                    record.addError('Sales Agreement number ' + saByCOEId.get(record.Id).SOH_SONO__c + ' has been linked to this COE. Please check again!');
+                }
+                else
+                {
+                    record.Sales_Agreement_Unique_Id__c = String.isEmpty(record.Sales_Agreement__c) ? null : record.Sales_Agreement__c;
+                }
+            }
+            if (record.MB_Sales_Agreement__c != oldRecord.MB_Sales_Agreement__c)
+            {
+                if (mbSAByCOEId.containsKey(record.Id))
+                {
+                    record.addError('Sales Agreement number ' + saByCOEId.get(record.Id).Name + ' has been linked to this COE. Please check again!');
+                }
+                else
+                {
+                    record.MB_Sales_Agreement_Unique_Id__c = String.isEmpty(record.MB_Sales_Agreement__c) ? null : record.MB_Sales_Agreement__c;
+                }
+            }
+        }
+    }
 
     public override void onAfterUpdate(Map<Id, sObject> previousMap){
 
