@@ -1,0 +1,9 @@
+<aura:component implements="force:lightningQuickAction,force:hasRecordId">
+    <aura:attribute name="recordId" type="Id"></aura:attribute>
+
+    <aura:html tag="style">
+        .slds-modal__container{width: 75% !important; max-width: 75% !important}
+    </aura:html>
+    
+    <c:vpo_StockVehicleMasterImportExport recordId="{!v.recordId}"></c:vpo_StockVehicleMasterImportExport>
+</aura:component>

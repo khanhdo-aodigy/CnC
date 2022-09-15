@@ -15,7 +15,7 @@
     <filters>
         <field>Stage__c</field>
         <operation>equals</operation>
-        <value>Approved</value>
+        <value>Closed</value>
     </filters>
     <label>Approved - KIAPC</label>
 </ListView>

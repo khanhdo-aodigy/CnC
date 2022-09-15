@@ -1,0 +1,46 @@
+<template>
+    <div class="slds-form-element" data-id="lookup-element">
+
+        <!-- <label class="slds-form-element__label" for="combobox-id-1" id="combobox-label-id-32">Model Master (Variant)</label> -->
+        
+        <div class="slds-form-element__control">
+            <div class="slds-combobox_container">
+                <div class={dropDownClass}>
+
+                    <!-- input text with search icon -->
+                    <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                        
+                        <lightning-input oncommit={handleCommitEvent} required={required} type="search" label={label} is-loading={searching} onkeyup={updateSearchKey} value={searchKey} placeholder="Search..." data-id="lookup-input" variant={labelStyle}> </lightning-input>
+                        
+                    </div>
+
+
+                    <!-- options -->
+                    <div class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid" role="listbox" data-id="lookup-options">
+                        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                            <template for:each={searchResults} for:item="result">
+                                <li role="presentation" class="slds-listbox__item" key={result.Id} data-option-id={result.Id} onclick={selectOption}>
+                                    <div class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">
+                                        <span class="slds-media__figure slds-listbox__option-icon">
+                                            <span class="slds-icon_container slds-icon-standard-account">
+                                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                    <use xlink:href="/_slds/icons/standard-sprite/svg/symbols.svg#account">
+                                                    </use>
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <span class="slds-media__body">
+                                            <span
+                                                class="slds-listbox__option-text slds-listbox__option-text_entity">{result.Name}</span>
+                                            <span class="slds-listbox__option-meta slds-listbox__option-meta_entity">{result.Model_Description__c}</span>
+                                        </span>
+                                    </div>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

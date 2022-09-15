@@ -211,22 +211,68 @@ public with sharing class Test_DataFactory {
         return modelCode;
     }
     
+    private static Integer MODEL_YEAR_COUNTER = -1;
     /** This method is test data for create Model_Year_Master__c **/ 
     public static  Model_Year_Master__c createModelYearCode (Boolean doInsert, String ModelmasteId){
         Model_Year_Master__c modelYearCode = new Model_Year_Master__c();
-        modelYearCode.ModelYear__c = Date.today().addYears(-1);
+        modelYearCode.ModelYear__c = Date.today().addYears(MODEL_YEAR_COUNTER--);
         modelYearCode.Model_Master__c = ModelmasteId;
-        
+        // modelYearCode.VSMS_Compound_Primary_Key__c = 'VSMS_' + String.valueOf(VSMS_COMPOUND_KEY_COUNTER++);
+        modelYearCode.VSMS_Compound_Primary_Key__c = 'VSMS_' + randomString(10);
         
         if(doInsert)
             insert modelYearCode;
         
         return modelYearCode;
     } 
+
+    /** This method is test data for create Vehicle_Purchase_Ordered__c**/
+    public static Vehicle_Purchase_Order__c createVehiclePurchaseOrder(Boolean doInSert, String SupplierId ){
+        Vehicle_Purchase_Order__c VehiclePurchaseOrder = new Vehicle_Purchase_Order__c();
+        VehiclePurchaseOrder.Franchise_Code__c ='KIAPC';
+        VehiclePurchaseOrder.Currency_Code__c = 'USD';
+        VehiclePurchaseOrder.Production_Month__c = Date.today();
+        VehiclePurchaseOrder.Supplier_Account__c = SupplierId;
+        if (doInSert) 
+            insert VehiclePurchaseOrder;
+            return VehiclePurchaseOrder;
+    }
+
+
+    /**Create Method is test data for create Model_Color_Trim_Master__c**/
+    public static Model_Color_Trim_Master__c createModelColorTrimMaster(Boolean doInsert, String ColorCodeId, String ModelCodeId, String TrimCodeId){
+        Model_Color_Trim_Master__c modelColorTrimMaster = new Model_Color_Trim_Master__c();
+        modelColorTrimMaster.Name = 'Model Color Trim Master';
+        modelColorTrimMaster.Branch_Code__c= 'KIA';
+        modelColorTrimMaster.Franchise_Code__c = 'KIAPC';
+        modelColorTrimMaster.Color_Code__c = ColorCodeId;
+        modelColorTrimMaster.Model_Code__c = ModelCodeId;
+        modelColorTrimMaster.Trim_Code__c = TrimCodeId;
+        if (doInsert) 
+            insert modelColorTrimMaster;
+            return modelColorTrimMaster;
+    }
+
+    /**Create Method is test data for create Vehicle_Purchase_Ordered_Line_Items__c **/
+    public static Vehicle_Purchase_Order_Line_Items__c createVehiclePurchaseOrderedLineItems(Boolean doInsert, String VehiclePurchaseOrderId, String modelMasterId, String colorMasterId, String trimMasterId, String modelColorTrimMasterId, String ModelYearMasterId){
+        Vehicle_Purchase_Order_Line_Items__c VehiclePurchaseOrderedLineItems = new Vehicle_Purchase_Order_Line_Items__c();
+        VehiclePurchaseOrderedLineItems.Vehicle_Purchase_Order__c = VehiclePurchaseOrderId;
+        VehiclePurchaseOrderedLineItems.Model_Master__c = modelMasterId;
+        VehiclePurchaseOrderedLineItems.Color_Master__c = colorMasterId;
+        VehiclePurchaseOrderedLineItems.Trim_Master__c = trimMasterId;
+        VehiclePurchaseOrderedLineItems.Model_Color_Trim_Master__c = modelColorTrimMasterId;
+        VehiclePurchaseOrderedLineItems.Model_Year_Master__c = ModelYearMasterId;
+        VehiclePurchaseOrderedLineItems.Units_Ordered__c = 5;
+
+        if (doInsert) 
+            insert VehiclePurchaseOrderedLineItems;
+            return VehiclePurchaseOrderedLineItems;
+    }
     
     /** This method is test data for create Color_Master__c **/ 
     public static Color_Master__c createColorCode (Boolean doInsert,String colorCodeName, String colorCodeValue, String branchCode, String franchiseCode){
         Color_Master__c colorCode = new Color_Master__c();
+
         colorCode.name = colorCodeName;
         colorCode.ColorCode__c = colorCodeValue;
         colorCode.Branch_Code__c = branchCode;
@@ -280,7 +326,60 @@ public with sharing class Test_DataFactory {
         
         return vehiclemaster;
     }
-    
+
+    /** This methoc is test data for create TMS_Insurance__c  **/
+    public static TMS_Insurance__c createTMSInsurance (Boolean doInsert){
+        TMS_Insurance__c tms = new TMS_Insurance__c();
+        tms.Franchise_Code__c = 'KIAPC';
+        tms.Insurance_Percentage__c = 0;
+
+        if(doInSert)
+             upsert tms;
+
+        return tms;     
+    }
+
+    /** This method is test data for create Vehicle_Shipment__c */
+    public static Vehicle_Shipment__c createVehicleShipment(Boolean doInsert, String Supplier){
+        Vehicle_Shipment__c vehicleShipment= new Vehicle_Shipment__c();
+        vehicleShipment.Supplier_Account__c = Supplier;
+        vehicleShipment.Franchise_Code__c = 'KIAPC';
+        vehicleShipment.Currency_Code__c = 'USD';
+        vehicleShipment.Brand__c='CIT';
+
+        if (doInsert) {
+            upsert vehicleShipment;
+        }
+        return vehicleShipment;
+    }
+
+    /**This method is test data for create Shipment_Line_Item */
+    public static Shipment_Line_Item__c createShipmentLineItem(Boolean doInsert, String vehicleShipment, String invoiceId){
+        Shipment_Line_Item__c shipmentLineItem = new Shipment_Line_Item__c();
+        shipmentLineItem.Vehicle_Shipment__c = vehicleShipment;
+        shipmentLineItem.Chassis_No__c  = '3423545647653';
+        shipmentLineItem.Engine_No__c = '1232435456546 ';
+        shipmentLineItem.Colour_Code__c ='rwerwet';
+        shipmentLineItem.Production_Month__c = '08/2022';
+        shipmentLineItem.Shipment_Line_Item_Sequence_No__c = '1232';
+        shipmentLineItem.Invoice_No__c = invoiceId;
+        if (doInsert) {
+            upsert shipmentLineItem;
+        }
+        return shipmentLineItem;
+    }
+
+    /** This method is test data for create Manufacturer_Invoice */
+    public static Manufacturer_Invoice__c createManufacturerInvoice(Boolean doInsert){
+        Manufacturer_Invoice__c  manufacturerInvoice = new Manufacturer_Invoice__c();
+        manufacturerInvoice.Name                     = 'INV-082022-000000007';
+        manufacturerInvoice.Invoice_Date__c          = Date.today();
+        // manufacturerInvoice.Shipment_Line_Items__c   = shipmentLineItem;
+        if (doInsert) {
+            upsert manufacturerInvoice;
+        }
+        return manufacturerInvoice;
+    }
     /** This method is test data for create Model__c **/     
     public static Model__c createmodelId(Boolean doInsert,String modelName, String branchCode, String franchiseCode ){
         Model__c modelId = new Model__c();
@@ -1388,5 +1487,87 @@ public with sharing class Test_DataFactory {
 
         return ucq;
 
+    }
+    
+    public static List<Sales_Agreement__c> create_List_Sales_Agreement(Integer listSize){
+        List<Sales_Agreement__c> listSA = new List<Sales_Agreement__c>();
+        for(Integer i; i < listSize;i++){
+            listSA.add(new Sales_Agreement__c(
+                 // create sales agreement                
+                Branch_Code__c = 'branchCode_' + i,
+                SOH_SONO__c = 'agreementNo',
+                Stock_Reservation__c = 'stockReservationId'
+            ));
+        }
+        insert listSA;
+        return listSA;
+    }
+
+    public static COE_Bid_Period__c createCOEPeriod(Boolean doInsert, Date startDate, Date endDate){
+        COE_Bid_Period__c coePeriod = new COE_Bid_Period__c();
+        coePeriod.From_Date__c = startDate;
+        coePeriod.To_Date__c = endDate;
+
+        if(doInsert){
+            insert coePeriod;
+        }
+
+        return coePeriod;
+    }
+
+    public static JIT_Day__c createJITDay(Boolean doInsert, String name, String franchise){
+        JIT_Day__c jitDay = new JIT_Day__c();
+        jitDay.Name = name;
+        jitDay.JIT_Date__c = Date.today();
+        jitDay.No_of_Slots__c = 10;
+        jitDay.Opened_Slots__c = 6;
+        jitDay.Utilised_Slots__c = 2;
+        jitDay.Franchise__c = franchise;
+
+        if(doInsert){
+            insert jitDay;
+        }
+
+        return jitDay;
+    }
+
+    public static JIT_Day__c createJITDay_NoMoreSlot(Boolean doInsert, String name, String franchise){
+        JIT_Day__c jitDay = new JIT_Day__c();
+        jitDay.Name = name;
+        jitDay.JIT_Date__c = Date.today();
+        jitDay.No_of_Slots__c = 1;
+        jitDay.Opened_Slots__c = 6;
+        jitDay.Utilised_Slots__c = -1;
+        jitDay.Franchise__c = franchise;
+
+        if(doInsert){
+            insert jitDay;
+        }
+
+        return jitDay;
+    }
+
+    /**
+     * Generate a string of @length random characters. This method is for testing purpose so no input validate is applied.
+     * @param length desired length of string. The method expect @length to be greater than 1.
+     */
+    private static String randomString(Integer length)
+    {
+        List<String> ALPHA_NUMERIC_CHARACTERS = new List<String> {
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+        };
+
+        String result = '';
+
+        for (Integer i = 0; i < length; i++)
+        {
+            Integer randomNumber = (Integer) ( Math.random() * (ALPHA_NUMERIC_CHARACTERS.size() - 1) );
+
+            result += ALPHA_NUMERIC_CHARACTERS[randomNumber];
+        }
+
+        return result;
     }
 }

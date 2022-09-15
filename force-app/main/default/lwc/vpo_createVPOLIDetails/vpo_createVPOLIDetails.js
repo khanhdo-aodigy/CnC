@@ -46,7 +46,7 @@ export default class Vpo_createVPOLIDetails extends LightningElement
         if (data) 
         { 
             this.franchiseCode = data.fields.Franchise_Code__c.value;
-            this.conditions    = 'Franchise_Code__c = \'' + this.franchiseCode + '\'';
+            this.conditions    = 'Active__c = True AND Franchise_Code__c = \'' + this.franchiseCode + '\'';
         }
     }
 
