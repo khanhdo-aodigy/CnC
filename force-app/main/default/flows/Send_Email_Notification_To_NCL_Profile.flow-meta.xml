@@ -7,11 +7,41 @@
         <locationY>335</locationY>
         <actionName>Vehicle_Shipment__c.Send_Email_When_a_New_Shipment_Has_Been_Created</actionName>
         <actionType>emailAlert</actionType>
+        <faultConnector>
+            <targetReference>Send_email_to_Aodigy_Projects</targetReference>
+        </faultConnector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>SObjectRowId</name>
             <value>
                 <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_email_to_Aodigy_Projects</name>
+        <label>Send email to Aodigy Projects</label>
+        <locationX>440</locationX>
+        <locationY>455</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <stringValue>projects@aodigy.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Error on Send Email Notification To NCL Profile</stringValue>
             </value>
         </inputParameters>
     </actionCalls>
