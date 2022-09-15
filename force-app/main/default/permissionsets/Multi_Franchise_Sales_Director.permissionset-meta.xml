@@ -22,11 +22,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Vehicle_Purchase_Order__c.Total_PO_Value__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Vehicle_Purchase_Order__c.Total_Units_Confirmed__c</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -1,5 +1,5 @@
 @IsTest
-private with sharing class VehiclePurchaseOrderSelectorTest
+private class VehiclePurchaseOrderSelectorTest
 {
     @TestSetup
     private static void makeData()
@@ -38,6 +38,21 @@ private with sharing class VehiclePurchaseOrderSelectorTest
             Currency_Code__c = 'USD'
         );
         insert order;
+
+        Purchase_Order__c po = new Purchase_Order__c(Franchise__c = 'KIAPC');
+        insert po;
+
+        Vehicle_Master2__c vMaster = new Vehicle_Master2__c(Original_Commcase__c = 'KIAPC0120190086', 
+                                                            Model_Year_Code__c = modelYearMaster.ID,
+                                                            System_Commcase__c = 'KIAPC0120190086', 
+                                                            Engine_No__c = 'ENGINE279831',
+                                                            Chassis__c = 'CHAS279831', 
+                                                            Model_Code__c = modelMaster.ID, 
+                                                            ProductionMonth__c = Date.today(),
+                                                            Color_Code__c = colorMaster.ID, 
+                                                            Trim_Code__c = trimMaster.ID,
+                                                            Purchase_Order__c = po.Id);
+        insert vMaster;
 
         // create POLIs
         final Integer POLI_NO = 10;
@@ -124,5 +139,33 @@ private with sharing class VehiclePurchaseOrderSelectorTest
 
         // result should retrieve all PO's line items
         System.assert(result.get(0).Vehicle_Purchase_Order_Line_Items__r.size() == 0, 'Actual POLI size: ' + result.get(0).Vehicle_Purchase_Order_Line_Items__r.size());
+    }
+
+    @isTest
+    static void selectVPObyFranchiseAndProductionMonth_Test(){
+        Vehicle_Purchase_Order__c order = [SELECT Id, Franchise_Code__c, Production_Month__c FROM Vehicle_Purchase_Order__c];
+        VehiclePurchaseOrderSelector vpos = new VehiclePurchaseOrderSelector();
+        vpos.selectVPObyFranchiseAndProductionMonth(order.Franchise_Code__c, order.Production_Month__c);
+    }
+
+    @isTest
+    static void selectVPO_WithRelatedSVM_Test(){
+        Vehicle_Master2__c vMaster = [SELECT Id FROM Vehicle_Master2__c];
+        VehiclePurchaseOrderSelector vpos = new VehiclePurchaseOrderSelector();
+        vpos.selectVPO_WithRelatedSVM(new List<Id>{vMaster.Id});
+    }
+
+    @isTest
+    static void getRecordsByPOIds_Test(){
+        Purchase_Order__c po = [SELECT ID FROM Purchase_Order__c];
+        VehiclePurchaseOrderSelector vpos = new VehiclePurchaseOrderSelector();
+        vpos.getRecordsByPOIds(new List<Id>{po.Id});
+    }
+
+    @isTest
+    static void getRecordsBySVMIds_Test(){
+        Vehicle_Master2__c vMaster = [SELECT Id FROM Vehicle_Master2__c];
+        VehiclePurchaseOrderSelector vpos = new VehiclePurchaseOrderSelector();
+        vpos.getRecordsBySVMIds(new Set<Id>{vMaster.Id});
     }
 }

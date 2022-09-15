@@ -6,6 +6,7 @@
  *          DATE::                              BY::                                TICKET::                                            CHANGELOG
  *          23 Aug 2022                         dangphap.mai@aodigy.com             US-Ship-000013                                      init
  *          19 Aug 2022                         nhung.cao@aodigy.com                US-TMS-000013                                      Add sendEmailToTMSMaker/ prepareEmail method
+ *          19 Aug 2022                         nhung.cao@aodigy.com                US-TMS-000013                                      Add sendEmailToTMSMaker/ prepareEmail method
  * ========================================================================================================================================================================== 
  */
 public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
@@ -37,6 +38,15 @@ public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
         List<Vehicle_Master2__c> insertingVehicles = (List<Vehicle_Master2__c>) Trigger.new;
 
         onVehicleShipmentMatching(insertingVehicles);
+    }
+
+    public override void onAfterUpdate(Map<Id,SObject> existingRecords){
+        Map<Id, Vehicle_Master2__c> beforeUpdateVehicles = (Map<Id, Vehicle_Master2__c>) existingRecords;
+
+        List<Vehicle_Master2__c> afterUpdateVehicles = (List<Vehicle_Master2__c>) Trigger.new;
+
+        sendEmail(beforeUpdateVehicles, afterUpdateVehicles);
+        //sendEmailToTMSMaker(afterUpdateVehicles, beforeUpdateVehicles);
     }
 
     public override void onAfterUpdate(Map<Id,SObject> existingRecords){

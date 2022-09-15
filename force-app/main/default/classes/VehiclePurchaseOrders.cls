@@ -5,7 +5,8 @@
  * History
  *          DATE::                              BY::                                TICKET::                                            CHANGELOG
  *          27 July 2022                        dangphap.mai@aodigy.com             US-VPO-000016                                       init
- *          08 Aug 2-22                         dangphap.mai@aodigy.com             US-VPO-000029                                       added checkCancellationEligibility
+ *          08 Aug 2022                         dangphap.mai@aodigy.com             US-VPO-000029                                       added checkCancellationEligibility
+ *          23 Aug 2022                         dangphap.mai@aodigy.com             US-VPO-000032                                       added checkCloseEligibility
  * ========================================================================================================================================================================== 
  */
 public inherited sharing class VehiclePurchaseOrders extends ADGLIB_SObjectDomain
@@ -35,8 +36,7 @@ public inherited sharing class VehiclePurchaseOrders extends ADGLIB_SObjectDomai
         Map<Id, Vehicle_Purchase_Order__c> existingOrders = (Map<Id, Vehicle_Purchase_Order__c>) existingRecords;
 
         this.checkCancellationEligibility(Records, existingOrders);
-        this.checkConvertStock(Records, existingOrders);
-        // this.checkCloseEligibility(Records, existingOrders);
+        this.checkCloseEligibility(Records, existingOrders);
     }
 
     /**
@@ -130,16 +130,16 @@ public inherited sharing class VehiclePurchaseOrders extends ADGLIB_SObjectDomai
             }
         }
     }
+    
     /**
      * ===================================================================================
-     * Check if when stage is closed, stock vehicle master to be equal Total Units Confirm
+     * Check if PO is eligible for closing
      * Created By: dangphap.mai@aodigy.com
      * Created Date: Aug 2022
      * ===================================================================================
-     */ 
-
-     private void checkConvertStock(List<Vehicle_Purchase_Order__c> Records, Map<Id, Vehicle_Purchase_Order__c> existingOrders)
-     {
+     */
+    private void checkCloseEligibility(List<Vehicle_Purchase_Order__c> Records, Map<Id, Vehicle_Purchase_Order__c> existingOrders)
+    {
         Map<Id, Vehicle_Purchase_Order__c> applicableOrders = new Map<Id, Vehicle_Purchase_Order__c>();
 
         for (Vehicle_Purchase_Order__c order : Records)
@@ -156,9 +156,6 @@ public inherited sharing class VehiclePurchaseOrders extends ADGLIB_SObjectDomai
         Map<Id, Vehicle_Master2__c> totalConvertedStocks = new Map<Id, Vehicle_Master2__c>([SELECT Id, Vehicle_Purchase_Status__c, Vehicle_Status__c, Vehicle_Purchase_Order__c
                                                                                             FROM Vehicle_Master2__c
                                                                                             WHERE Vehicle_Purchase_Order__c IN :applicableOrders.keySet()]);
-        
-        // boring early quit
-        if (totalConvertedStocks.size() == 0) return;
 
         // re-arrange by order id
         Map<Id, List<Vehicle_Master2__c>> convertedStocksByOrderId = new Map<Id, List<Vehicle_Master2__c>>();
@@ -167,7 +164,7 @@ public inherited sharing class VehiclePurchaseOrders extends ADGLIB_SObjectDomai
         {
             if (!convertedStocksByOrderId.keySet().contains(convertedStock.Vehicle_Purchase_Order__c))
             {
-                convertedStocksByOrderId.put(convertedStock.Vehicle_Purchase_Order__c, new List<Vehicle_Master2__c> { convertedStock });
+                convertedStocksByOrderId.put(convertedStock.Vehicle_Purchase_Order__c, new List<Vehicle_Master2__c> {convertedStock});
             }
             else
             {
@@ -180,67 +177,13 @@ public inherited sharing class VehiclePurchaseOrders extends ADGLIB_SObjectDomai
         {
             List<Vehicle_Master2__c> convertedStocks = convertedStocksByOrderId.get(order.Id);
 
-            if (convertedStocks != null && convertedStocks.size() != order.Total_Units_Confirmed__c)
+            Integer numberOfConvertedStocks = convertedStocks == null? 0 : convertedStocks.size();
+            Integer numberOfUnitsConfirmed = order.Total_Units_Confirmed__c == null? 0 : (Integer) order.Total_Units_Confirmed__c;
+
+            if (numberOfConvertedStocks != numberOfUnitsConfirmed)
             {
-                        order.addError('Converted stock vehicle master to be equal Total Units Confirmed before PO closing');
-                    
+                order.addError('Number of converted Stock Vehicle Master do not match Total Unit Confirmed. Please convert stock first or contact System Administrator.');
             }
         }
-        
-     }
-    /**
-     * ===================================================================================
-     * Check if PO is eligible for closing
-     * Created By: dangphap.mai@aodigy.com
-     * Created Date: Aug 2022
-     * ===================================================================================
-     */
-    // private void checkCloseEligibility(List<Vehicle_Purchase_Order__c> Records, Map<Id, Vehicle_Purchase_Order__c> existingOrders)
-    // {
-    //     Map<Id, Vehicle_Purchase_Order__c> applicableOrders = new Map<Id, Vehicle_Purchase_Order__c>();
-
-    //     for (Vehicle_Purchase_Order__c order : Records)
-    //     {
-    //         if (order.Stage__c == 'Closed' && existingOrders.get(order.Id).Stage__c != 'Closed')
-    //         {
-    //             applicableOrders.put(order.Id, order);
-    //         }
-    //     }
-
-    //     // boring early quit
-    //     if (applicableOrders.size() == 0) return;
-
-    //     Map<Id, Vehicle_Master2__c> totalConvertedStocks = new Map<Id, Vehicle_Master2__c>([SELECT Id, Vehicle_Purchase_Status__c, Vehicle_Status__c, Vehicle_Purchase_Order__c
-    //                                                                                         FROM Vehicle_Master2__c
-    //                                                                                         WHERE Vehicle_Purchase_Order__c IN :applicableOrders.keySet()]);
-
-    //     // re-arrange by order id
-    //     Map<Id, List<Vehicle_Master2__c>> convertedStocksByOrderId = new Map<Id, List<Vehicle_Master2__c>>();
-
-    //     for (Vehicle_Master2__c convertedStock : totalConvertedStocks.values())
-    //     {
-    //         if (!convertedStocksByOrderId.keySet().contains(convertedStock.Vehicle_Purchase_Order__c))
-    //         {
-    //             convertedStocksByOrderId.put(convertedStock.Vehicle_Purchase_Order__c, new List<Vehicle_Master2__c> {convertedStock});
-    //         }
-    //         else
-    //         {
-    //             convertedStocksByOrderId.get(convertedStock.Vehicle_Purchase_Order__c).add(convertedStock);
-    //         }
-    //     }
-
-    //     // start checking
-    //     for (Vehicle_Purchase_Order__c order : applicableOrders.values())
-    //     {
-    //         List<Vehicle_Master2__c> convertedStocks = convertedStocksByOrderId.get(order.Id);
-
-    //         Integer numberOfConvertedStocks = convertedStocks == null? 0 : convertedStocks.size();
-    //         Integer numberOfUnitsConfirmed = order.Total_Units_Confirmed__c == null? 0 : (Integer) order.Total_Units_Confirmed__c;
-
-    //         if (numberOfConvertedStocks < numberOfUnitsConfirmed)
-    //         {
-    //             order.addError('PO with units confirmed pending for stock conversion is not eligible for closing. Please convert all the units confirmed first.');
-    //         }
-    //     }
-    // }
+    }
 }

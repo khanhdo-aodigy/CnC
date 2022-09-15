@@ -4,7 +4,7 @@
     <externalId>false</externalId>
     <formula>Units_Ordered__c * Unit_Price__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-    <label>Total Price</label>
+    <label>Total TMS Estimated FOB</label>
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>
