@@ -48,11 +48,11 @@ private class FOBAdditionalContractTriggerTest {
         update addnlContract;
 
 
-        Test.startTest();
-        fobContract = [SELECT ID, Status__c FROM Forward_FOB_Contract__c WHERE Purchase_Order__c = :po.Id];
-        vMaster = [SELECT ID, FOB_Done__c, Duty_Done__c FROM Vehicle_Master2__c WHERE Purchase_Order__c = :po.Id];
+        // Test.startTest();
+        //fobContract = [SELECT ID, Status__c FROM Forward_FOB_Contract__c WHERE Purchase_Order__c = :po.Id];
+        //vMaster = [SELECT ID, FOB_Done__c, Duty_Done__c FROM Vehicle_Master2__c WHERE Purchase_Order__c = :po.Id];
         // System.assertEquals(true, vMaster.FOB_Done__c);
-        Test.stopTest(); 
+        //Test.stopTest(); 
     }
 
     @isTest
