@@ -3541,10 +3541,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>dsfs__Payment</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>dsfs__Permissions</apexClass>
         <enabled>true</enabled>
     </classAccesses>
