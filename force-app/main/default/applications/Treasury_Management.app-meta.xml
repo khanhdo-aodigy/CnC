@@ -110,7 +110,6 @@
     <tabs>Search_TMS_PO_Group</tabs>
     <tabs>TMS_Duty__c</tabs>
     <tabs>ARF_Tier__c</tabs>
-    <tabs>Sales_Invoice__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Treasure_Management_UtilityBar</utilityBar>
 </CustomApplication>

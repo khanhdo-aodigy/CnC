@@ -37,7 +37,6 @@
     <tabs>standard-report</tabs>
     <tabs>TMS_Duty__c</tabs>
     <tabs>ARF_Tier__c</tabs>
-    <tabs>Sales_Invoice__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>COE_Management_UtilityBar</utilityBar>
 </CustomApplication>
