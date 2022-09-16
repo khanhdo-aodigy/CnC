@@ -6,7 +6,7 @@ public without sharing class JITController {
     public static JITWrapper constructWrapper(String objAPINm, String recordId)
     {
         JITWrapper wrapper = new JITWrapper();
-        wrapper.curRecInfo = getRecords(objAPINm, 'Id', recordId, null)[0];
+        wrapper.curRecInfo = getRecords(objAPINm, new Set<String>{'Id', 'JIT_Date__c', 'JIT_Day__c'}, 'Id = \'' + recordId + '\'', false)[0];
 
         if ((Date)wrapper.curRecInfo.get('JIT_Date__c') == null)
         {
@@ -40,7 +40,7 @@ public without sharing class JITController {
     {
         Savepoint sp = Database.setSavepoint();
 
-        List<sObject> records = getRecords(sObjectName, 'Id', recordId, null);
+        List<sObject> records = getRecords(sObjectName, new Set<String>{'Id', 'JIT_Day__c'}, 'Id = \'' + recordId + '\'', false);
         records[0].put('JIT_Day__c', JIT_recordId);
 
         system.debug(records[0]);
@@ -56,8 +56,9 @@ public without sharing class JITController {
         if (sObjectName == 'Sales_Agreement__c')
         {
             Sales_Agreement__c sa  = SalesAgreementService.getSalesAgrmnt(recordId);
+            String svmId = sa.Stock_Reservation__r.Vehicle_Master__r.Id;
 
-            svm = (Vehicle_Master2__c)getRecords('Vehicle_Master2__c', 'Id', sa.Stock_Reservation__r.Vehicle_Master__r.Id, null)[0];
+            svm = (Vehicle_Master2__c)getRecords('Vehicle_Master2__c', new Set<String>{'Id', 'JIT_Day__c', 'JIT_Date__c'}, 'Id = \'' + svmId + '\'', false)[0];
             svm.JIT_Day__c  = JIT_recordId;
             svm.JIT_Date__c = jitDay.JIT_Date__c;
         }
@@ -84,7 +85,7 @@ public without sharing class JITController {
     {
         Savepoint sp = Database.setSavepoint();
 
-        List<sObject> records = getRecords(objAPINm, 'Id', recordId, null);
+        List<sObject> records = getRecords(objAPINm, new Set<String>{'Id', 'JIT_Day__c'}, 'Id = \'' + recordId + '\'', false);
         Id jitRecordId        = (Id)records[0].get('JIT_Day__c');
         records[0].put('JIT_Day__c', null);
 
@@ -107,8 +108,11 @@ public without sharing class JITController {
 
             if(sa.JIT_Status__c == 'Pending')
             {
-                svm = (Vehicle_Master2__c)getRecords('Vehicle_Master2__c', 'Id', sa.Stock_Reservation__r.Vehicle_Master__r.Id, null)[0];
-                svm.JIT_Day__c = null;                
+                String svmId = sa.Stock_Reservation__r.Vehicle_Master__r.Id;
+
+                svm = (Vehicle_Master2__c)getRecords('Vehicle_Master2__c', new Set<String>{'Id', 'JIT_Day__c', 'Agreement_No__c', 'Chassis__c', 'Name'}, 'Id = \'' + svmId + '\'', false)[0];
+
+                svm.JIT_Day__c = null;
                 sendEmailToNCLUsers(sa.SOH_SONO__c, svm.Agreement_No__c, sa.Sales_Consultant__c, svm.Chassis__c, svm.Name);
             }
             else
@@ -139,20 +143,26 @@ public without sharing class JITController {
             throw e;
         }
     }
-    
-    @testVisible
-    private static List<sObject> getRecords(String objectName, String conditionField, String conditionValue, String additionalCondition) 
-    {
-        String mainQueryCondition = conditionField + ' = ' + '\'' + conditionValue + '\'';
 
-        if (additionalCondition != null && String.isNotBlank(additionalCondition)) 
+    @TestVisible
+    private static List<sObject> getRecords(String SObject_API_Name, Set<String> fieldSet, String condition, Boolean onlyOne) {
+        String fieldQuery = '';
+        fieldQuery = String.join(new List<String> (fieldSet), ',');
+ 
+        if (!fieldSet.contains('Id')) fieldQuery += ',Id';
+
+        String query = 'SELECT ' + fieldQuery + ' FROM ' + SObject_API_Name;
+
+        if (!String.isEmpty(condition))
         {
-            mainQueryCondition += ' ' + additionalCondition;
+            query += ' WHERE ' + condition;
+        }
+        if (onlyOne)
+        {
+            query += ' LIMIT 1';
         }
 
-        List<SObject> result = ADGLIB_UtilityHelper.getSObjectRecords(objectName, mainQueryCondition, false); 
-
-        return result;
+        return Database.query(query);
     }
 
     @testVisible

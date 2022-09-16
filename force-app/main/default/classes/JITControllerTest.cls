@@ -142,14 +142,15 @@ private class JITControllerTest
     {
         Stock_Reservation__c stockReservation = [SELECT Id FROM Stock_Reservation__c];
         Sales_Agreement__c sa = [SELECT Id FROM Sales_Agreement__c WHERE Stock_Reservation__c =: stockReservation.Id];
-        JITController.getRecords('Sales_Agreement__c', 'Id', sa.Id, 'LIMIT 1');       
+        JITController.getRecords('Sales_Agreement__c', new Set<String>{'Id'}, 'Id = \'' + sa.Id + '\'', false);
     }
 
     @isTest
     static void Test_getRecords_onSVM()
     {
         Stock_Reservation__c stockReservation = [SELECT Id FROM Stock_Reservation__c];
-        JITController.getRecords('Stock_Reservation__c', 'Id', stockReservation.Id, 'LIMIT 1');       
+        JITController.getRecords('Stock_Reservation__c', new Set<String>{'Id'}, 'Id = \'' + stockReservation.Id + '\'', false);
+
     }
 
     @isTest
