@@ -1515,21 +1515,37 @@ public with sharing class Test_DataFactory {
         return coePeriod;
     }
 
-    // public static JIT_Day__c createJITDay(Boolean doInsert, String name, String franchise){
-    //     JIT_Day__c jitDay = new JIT_Day__c();
-    //     jitDay.Name = name;
-    //     jitDay.JIT_Date__c = Date.today();
-    //     jitDay.No_of_Slots__c = 10;
-    //     jitDay.Opened_Slots__c = 6;
-    //     jitDay.Utilised_Slots__c = 2;
-    //     jitDay.Franchise__c = franchise;
+    public static JIT_Day__c createJITDay(Boolean doInsert, String name, String franchise){
+        JIT_Day__c jitDay = new JIT_Day__c();
+        jitDay.Name = name;
+        jitDay.JIT_Date__c = Date.today();
+        jitDay.No_of_Slots__c = 10;
+        jitDay.Opened_Slots__c = 6;
+        jitDay.Utilised_Slots__c = 2;
+        jitDay.Franchise__c = franchise;
 
-    //     if(doInsert){
-    //         insert jitDay;
-    //     }
+        if(doInsert){
+            insert jitDay;
+        }
 
-    //     return jitDay;
-    // }
+        return jitDay;
+    }
+
+    public static JIT_Day__c createJITDay_NoMoreSlot(Boolean doInsert, String name, String franchise){
+        JIT_Day__c jitDay = new JIT_Day__c();
+        jitDay.Name = name;
+        jitDay.JIT_Date__c = Date.today();
+        jitDay.No_of_Slots__c = 1;
+        jitDay.Opened_Slots__c = 6;
+        jitDay.Utilised_Slots__c = -1;
+        jitDay.Franchise__c = franchise;
+
+        if(doInsert){
+            insert jitDay;
+        }
+
+        return jitDay;
+    }
 
     /**
      * Generate a string of @length random characters. This method is for testing purpose so no input validate is applied.

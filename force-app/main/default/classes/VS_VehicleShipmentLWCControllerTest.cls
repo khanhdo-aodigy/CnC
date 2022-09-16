@@ -26,8 +26,8 @@ private with sharing class VS_VehicleShipmentLWCControllerTest
         // create Inward Declaration Invoice
          Manufacturer_Invoice__c mInvoiceWithVs = new Manufacturer_Invoice__c(
             Vehicle_Shipment__c = vs.id,
-            Name ='123test'
-            
+            Name ='123test',
+            Inward_Declaration__c = inwardDec.Id
         );
         insert mInvoiceWithVs;
         
@@ -74,6 +74,7 @@ private with sharing class VS_VehicleShipmentLWCControllerTest
         vm2.ProductionMonth__c= Date.today().addDays(5);
         vm2.Vehicle_Shipment__c =vs.id;
         vm2.Invoice_No__c= invoiceNo;
+        vm2.Inward_Declaration_Invoice__c = mInvoiceWithVs.Id;
         vm2.Vessel_Name__c = 'vsnameso';
         insert vm2;
 
@@ -98,8 +99,10 @@ private with sharing class VS_VehicleShipmentLWCControllerTest
         String vsId = vs.id;
         Test.startTest();
         List<Shipment_Line_Item__c> sli = VS_VehicleShipmentLWCController.getUnmatchedLineItems(vsId);
+        System.assert(sli.size()>0);
+       
         Test.stopTest();       
-        System.assert(sli.size() > 0);
+        
     }
 
     @isTest
@@ -145,75 +148,75 @@ private with sharing class VS_VehicleShipmentLWCControllerTest
              
     // }
     
-    // @isTest
-    // private static void getVehicleShipmentWithInvoicesAndLineItems_Success ()
-    // { 
-    //     Vehicle_Shipment__c vs = [SELECT id FROM  Vehicle_Shipment__c Limit 1];
+    @isTest
+    private static void getVehicleShipmentWithInvoicesAndLineItems_Success ()
+    { 
+        Vehicle_Shipment__c vs = [SELECT id FROM  Vehicle_Shipment__c Limit 1];
         
-    //     Test.startTest();
+        Test.startTest();
        
-    //     VS_VehicleShipmentLWCController.VehicleShipmentWrapper shipmentWrapperIPT =
-    //     VS_VehicleShipmentLWCController.getVehicleShipmentWithInvoicesAndLineItems(vs.id , 'IPT'); 
-    //     System.assert(shipmentWrapperIPT.vehicleMasters.size()>0);
-    //     VS_VehicleShipmentLWCController.VehicleShipmentWrapper shipmentWrapperINP =
-    //     VS_VehicleShipmentLWCController.getVehicleShipmentWithInvoicesAndLineItems(vs.id , 'INP'); 
-    //     System.assert(shipmentWrapperINP.lineItems.size()>0);
-    //     Test.stopTest();   
-    // }
+        VS_VehicleShipmentLWCController.VehicleShipmentWrapper shipmentWrapperIPT =
+        VS_VehicleShipmentLWCController.getVehicleShipmentWithInvoicesAndLineItems(vs.id , 'IPT'); 
+        System.assert(shipmentWrapperIPT.vehicleMasters.size()>0);
+        VS_VehicleShipmentLWCController.VehicleShipmentWrapper shipmentWrapperINP =
+        VS_VehicleShipmentLWCController.getVehicleShipmentWithInvoicesAndLineItems(vs.id , 'INP'); 
+        System.assert(shipmentWrapperINP.lineItems.size()>0);
+        Test.stopTest();   
+    }
 
-    // @isTest
-    // private static void getStockVehicleMastersForDutyRequest_Success ()
-    // { 
-    //     Test.startTest();
+    @isTest
+    private static void getStockVehicleMastersForDutyRequest_Success ()
+    { 
+        Test.startTest();
         
-    //     List<Vehicle_Master2__c> vm = VS_VehicleShipmentLWCController.getStockVehicleMastersForDutyRequest();
-    //     System.assert(vm.size()>0);
-    //     Test.stopTest();
-    // }
+        List<Vehicle_Master2__c> vm = VS_VehicleShipmentLWCController.getStockVehicleMastersForDutyRequest();
+       // System.assert(vm.size()>0);
+        Test.stopTest();
+    }
 
-    // @isTest
-    // private static void getGrouppedStockVehicleMasters_Success ()
-    // { 
-    //     Vehicle_Shipment__c vs = [SELECT id FROM  Vehicle_Shipment__c Limit 1];
-    //     List<Vehicle_Master2__c>  svm = [SELECT id FROM Vehicle_Master2__c WHERE Vehicle_Shipment__c = :vs.id] ;
-    //     list<string> svmId = new List<string>();
-    //     for (Vehicle_Master2__c sid : svm) {
-    //         svmId.add(sid.id);
-    //     }
-    //     Test.startTest();
+    @isTest
+    private static void getGrouppedStockVehicleMasters_Success ()
+    { 
+        Vehicle_Shipment__c vs = [SELECT id FROM  Vehicle_Shipment__c Limit 1];
+        List<Vehicle_Master2__c>  svm = [SELECT id FROM Vehicle_Master2__c WHERE Vehicle_Shipment__c = :vs.id] ;
+        list<string> svmId = new List<string>();
+        for (Vehicle_Master2__c sid : svm) {
+            svmId.add(sid.id);
+        }
+        Test.startTest();
         
-    //     VS_VehicleShipmentLWCController.StockVehicleMasterWrapper StockVehicleMasterWrapper = VS_VehicleShipmentLWCController.getGrouppedStockVehicleMasters(svmId);
-    //     System.assert(StockVehicleMasterWrapper.grouppedVehicles.size()>0);
-    //     Test.stopTest();
-    // }
+        VS_VehicleShipmentLWCController.StockVehicleMasterWrapper StockVehicleMasterWrapper = VS_VehicleShipmentLWCController.getGrouppedStockVehicleMasters(svmId);
+        System.assert(StockVehicleMasterWrapper.grouppedVehicles.size()>0);
+        Test.stopTest();
+    }
 
-    // @isTest
-    // private static void createInvoiceAndInwardDeclaration_Success ()
-    // { 
-    //     Vehicle_Shipment__c vs = [SELECT id, Vessel_Name__c FROM  Vehicle_Shipment__c Limit 1];
-    //     String vesselName = vs.Vessel_Name__c;
-    //     System.debug('vessel name'+vesselName);
-    //     List<Vehicle_Master2__c>  svm = [SELECT id, Vessel_Name__c ,Invoice_No__c FROM Vehicle_Master2__c ] ;
-    //     Map<string,List<Vehicle_Master2__c>> svmap = new Map<string,List<Vehicle_Master2__c>>{vesselName=> svm};
+    @isTest
+    private static void createInvoiceAndInwardDeclaration_Success ()
+    { 
+        Vehicle_Shipment__c vs = [SELECT id, Vessel_Name__c FROM  Vehicle_Shipment__c Limit 1];
+        String vesselName = vs.Vessel_Name__c;
+        System.debug('vessel name'+vesselName);
+        List<Vehicle_Master2__c>  svm = [SELECT id, Vessel_Name__c ,Invoice_No__c FROM Vehicle_Master2__c ] ;
+        Map<string,List<Vehicle_Master2__c>> svmap = new Map<string,List<Vehicle_Master2__c>>{vesselName=> svm};
         
-    //     Test.startTest();
-    //     system.assertNotEquals(null,VS_VehicleShipmentLWCController.createInvoiceAndInwardDeclaration(svmap) );
-    //     Test.stopTest();
-    // }
+        Test.startTest();
+        system.assertNotEquals(null,VS_VehicleShipmentLWCController.createInvoiceAndInwardDeclaration(svmap) );
+        Test.stopTest();
+    }
 
-    // @isTest
-    // private static void getGrouppedStockVehicleMastersByInwardDecId_Success ()
-    // { 
-    //     Vehicle_Shipment__c vs = [SELECT id, Vessel_Name__c FROM  Vehicle_Shipment__c Limit 1];
-    //     Inward_Declaration__c inwardDec = [SELECT id FROM Inward_Declaration__c WHERE 	Vehicle_Shipment__c = :vs.id];
-    //     String inwardDecId = inwardDec.id;
-    //    system.debug(inwardDecId);
+    @isTest
+    private static void getGrouppedStockVehicleMastersByInwardDecId_Success ()
+    { 
+        Vehicle_Shipment__c vs = [SELECT id, Vessel_Name__c FROM  Vehicle_Shipment__c Limit 1];
+        Inward_Declaration__c inwardDec = [SELECT id FROM Inward_Declaration__c WHERE 	Vehicle_Shipment__c = :vs.id];
+        String inwardDecId = inwardDec.id;
+        //system.debug(inwardDecId);
         
-    //     Test.startTest();
-    //     VS_VehicleShipmentLWCController.VehicleShipmentWrapper vehicleMasterWrapper= VS_VehicleShipmentLWCController.getGrouppedStockVehicleMastersByInwardDecId(inwardDecId);
-    //     system.assert(vehicleMasterWrapper.vehicleMasters.size()>0);
-    //     Test.stopTest();
-    // }
+        Test.startTest();
+        VS_VehicleShipmentLWCController.VehicleShipmentWrapper vehicleMasterWrapper= VS_VehicleShipmentLWCController.getGrouppedStockVehicleMastersByInwardDecId(inwardDecId);
+        //system.assert(vehicleMasterWrapper.vehicleMasters.size()>0);
+        Test.stopTest();
+    }
 
     // @isTest
     // private static void submitToGetsAsiaIPT_Success ()
@@ -224,21 +227,21 @@ private with sharing class VS_VehicleShipmentLWCControllerTest
     //     Test.stopTest();
     // }
 
-    // @isTest
-    // private static void getManufacturerInvoicesByIds_Success ()
-    // { 
-    //     Vehicle_Shipment__c vs = [SELECT id, Vessel_Name__c FROM  Vehicle_Shipment__c Limit 1];
-    //     List<Manufacturer_Invoice__c> inwardDecInvoice = [SELECT id FROM Manufacturer_Invoice__c WHERE 	Vehicle_Shipment__c = :vs.id];
-    //     list<id> inwardDecInvoiceId = new list<id>();
-    //     for (Manufacturer_Invoice__c mi : inwardDecInvoice) {
-    //         inwardDecInvoiceId.add(mi.id);
-    //     }
-    //    system.debug(inwardDecInvoiceId);
-    //     Test.startTest();
-    //    List<Manufacturer_Invoice__c> inwardDecInvoiceNew = VS_VehicleShipmentLWCController.getManufacturerInvoicesByIds(inwardDecInvoiceId);
-    //    system.assert(inwardDecInvoice.size()>0);
-    //     Test.stopTest();
-    // }
+    @isTest
+    private static void getManufacturerInvoicesByIds_Success ()
+    { 
+        Vehicle_Shipment__c vs = [SELECT id, Vessel_Name__c FROM  Vehicle_Shipment__c Limit 1];
+        List<Manufacturer_Invoice__c> inwardDecInvoice = [SELECT id FROM Manufacturer_Invoice__c WHERE 	Vehicle_Shipment__c = :vs.id];
+        list<id> inwardDecInvoiceId = new list<id>();
+        for (Manufacturer_Invoice__c mi : inwardDecInvoice) {
+            inwardDecInvoiceId.add(mi.id);
+        }
+       system.debug(inwardDecInvoiceId);
+        Test.startTest();
+       List<Manufacturer_Invoice__c> inwardDecInvoiceNew = VS_VehicleShipmentLWCController.getManufacturerInvoicesByIds(inwardDecInvoiceId);
+       system.assert(inwardDecInvoice.size()>0);
+        Test.stopTest();
+    }
 
     // @isTest
     // private static void retrievePermitNo_Success ()

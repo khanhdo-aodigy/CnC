@@ -11,12 +11,13 @@
  * 
  *  ========================================================================================================================================================================== 
  */
-
 public inherited sharing class StockVehicleMasterSelector extends ADGLIB_SObjectSelector 
 {
     public List<Schema.SObjectField> getSObjectFieldList() 
+    
     {
         return new List<Schema.SObjectField> 
+        
         {
             Vehicle_Master2__c.Id,
             Vehicle_Master2__c.Name,
@@ -59,32 +60,39 @@ public inherited sharing class StockVehicleMasterSelector extends ADGLIB_SObject
     }    
     
     public Schema.SObjectType getSObjectType() 
+    
     {
         return Vehicle_Master2__c.sObjectType;
     }    
     
-    // public List<Vehicle_Master2__c> selectStockVehicleMastersBySystemCommcases(Set<String> systemCommcases) 
-    // {
-    //     adglib_QueryFactory query = newQueryFactory();
-    //     query.setCondition('System_Commcase__c In :systemCommcases');
+    public List<Vehicle_Master2__c> selectStockVehicleMastersBySystemCommcases(Set<String> systemCommcases) 
+    {
+        adglib_QueryFactory query = newQueryFactory();
+        query.setCondition('Inward_Declaration_Invoice__c IN: invoiceIds');
+        query.selectField('Name');
+        query.selectField('Inward_Declaration_Invoice__r.Name');
+        query.selectField('Vehicle_Status__c');
+        query.selectField('Chassis__c');
+        query.selectField('Product_Code__r.Product_Code__c');
+        query.selectField('TN_HS_Code__r.Name');
         
-    //     return Database.query(query.toSOQL());
-    // }
+        return Database.query(query.toSOQL());
+    }
 
-    // public List<Vehicle_Master2__c> selectRecordsByForUpdateER(List<Id> fobCtrLineItemIds) 
-    // {
-    //     adglib_QueryFactory query = newQueryFactory();
-    //     query.selectField('Average_Exchange_Rate__c');
-    //     query.setCondition('Id IN :fobCtrLineItemIds');
+    public List<Vehicle_Master2__c> selectRecordsByForUpdateER(List<Id> fobCtrLineItemIds) 
+    {
+        adglib_QueryFactory query = newQueryFactory();
+        query.selectField('Average_Exchange_Rate__c');
+        query.setCondition('Id IN :fobCtrLineItemIds');
 
-    //     FOBContractLineItemsSelector fobCtrLineItemQuery = new FOBContractLineItemsSelector();
-    //     adglib_QueryFactory fobCtrLineItemQueryFactory = fobCtrLineItemQuery.newQueryFactory(false);
-    //     fobCtrLineItemQueryFactory.selectField('Id');
-    //     fobCtrLineItemQueryFactory.selectField('Average_Exchange_Rate__c');
-    //     fobCtrLineItemQuery.addQueryFactorySubselect(query, 'Forward_Contract_FOB_Line_Items__r');
+        FOBContractLineItemsSelector fobCtrLineItemQuery = new FOBContractLineItemsSelector();
+        adglib_QueryFactory fobCtrLineItemQueryFactory = fobCtrLineItemQuery.newQueryFactory(false);
+        fobCtrLineItemQueryFactory.selectField('Id');
+        fobCtrLineItemQueryFactory.selectField('Average_Exchange_Rate__c');
+        fobCtrLineItemQuery.addQueryFactorySubselect(query, 'Forward_Contract_FOB_Line_Items__r');
         
-    //     return Database.query(query.toSOQL());
-    // }
+        return Database.query(query.toSOQL());
+    }
 
     public List<Vehicle_Master2__c> getRecordsByIds(List<Id> Ids) 
     {

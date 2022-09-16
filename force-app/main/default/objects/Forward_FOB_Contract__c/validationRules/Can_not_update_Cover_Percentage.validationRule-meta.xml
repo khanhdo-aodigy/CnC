@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Can_not_update_Cover_Percentage</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(OR((LEFT(TEXT( Purchase_Order__r.Franchise__c ), 3) = &apos;MIT&apos;), (LEFT(TEXT( Purchase_Order__r.Franchise__c ), 5) = &apos;MAXUS&apos;)), ISCHANGED(Cover_Percentage__c ))</errorConditionFormula>
+    <errorMessage>Can not update Cover Percentage when Franchise starts with &apos;MIT&apos; OR &apos;MAXUS&apos;</errorMessage>
+</ValidationRule>

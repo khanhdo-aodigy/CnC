@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <externalId>false</externalId>
+    <label>Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Forward Contract Execute</fullName>
+                <default>false</default>
+                <label>Forward Contract Execute</label>
+            </value>
+            <value>
+                <fullName>Forward Contract Sell</fullName>
+                <default>false</default>
+                <label>Forward Contract Sell</label>
+            </value>
+            <value>
+                <fullName>Spot Rate Contract</fullName>
+                <default>false</default>
+                <label>Spot Rate Contract</label>
+            </value>
+            <value>
+                <fullName>Completed</fullName>
+                <default>false</default>
+                <label>Completed</label>
+            </value>
+            <value>
+                <fullName>Completed (PO Cancel)</fullName>
+                <default>false</default>
+                <label>Completed (PO Cancel)</label>
+            </value>
+            <value>
+                <fullName>PO Cancellation</fullName>
+                <default>false</default>
+                <label>PO Cancellation</label>
+            </value>
+            <value>
+                <fullName>Forward Contract Buy</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Forward Contract Buy</label>
+            </value>
+            <value>
+                <fullName>Forward Contract Sell on Maturity</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Forward Contract Sell on Maturity</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
