@@ -22,21 +22,20 @@ private class ForwardFOBContractTriggerTest {
                                                             Purchase_Order__c = po.Id);
         insert vMaster;
         Forward_FOB_Contract__c fobContract = new Forward_FOB_Contract__c(Status__c = 'Active',
-                                                                         Cover_Percentage__c = 75,
                                                                          Spot_Rate__c = 1.2345663,
                                                                          Premium_Discount__c = 1.1,
-                                                                         Forward_Contract_Buy_Approved__c = false,
-                                                                         Purchase_Order__c = po.Id);
+                                                                         Purchase_Order__c = po.Id,
+                                                                         Cover_Percentage__c = 100);
         insert fobContract;
 
-        FOB_Additional_Contract__c addnlFOBContract = new FOB_Additional_Contract__c(Forward_FOB_Contract__c = fobContract.Id,
+        /*FOB_Additional_Contract__c addnlFOBContract = new FOB_Additional_Contract__c(Forward_FOB_Contract__c = fobContract.Id,
                                                                                       Status__c = 'Forward Contract Sell');
         insert addnlFOBContract;
 
          Forward_FOB_Contract_Line_Item__c fobItem = new Forward_FOB_Contract_Line_Item__c(Forward_FOB_Contract__c = fobContract.Id,
                                                                                            FOB_Additional_Contract__c = addnlFOBContract.Id,
                                                                                            Stock_Vehicle_Master__c = vMaster.Id);
-         insert fobItem;
+         insert fobItem;*/
     }
 
     @isTest
@@ -44,12 +43,11 @@ private class ForwardFOBContractTriggerTest {
         Purchase_Order__c po = [SELECT ID FROM Purchase_Order__c];
         Vehicle_Master2__c vMaster = [SELECT ID, FOB_Done__c, Duty_Done__c FROM Vehicle_Master2__c WHERE Purchase_Order__c = :po.Id];
         Forward_FOB_Contract__c fobContract = [SELECT ID, Forward_Contract_Buy_Approved__c, Cover_Percentage__c FROM Forward_FOB_Contract__c LIMIT 1];
-        fobContract.Forward_Contract_Buy_Approved__c = true;
-        fobContract.Cover_Percentage__c = 100;
+		fobContract.Forward_Contract_Buy_Approved__c = true;
         update fobContract;
         Test.startTest();
         List<FOB_Additional_Contract__c> addnlContract = [SELECT ID, Status__c FROM FOB_Additional_Contract__c WHERE Forward_FOB_Contract__c = :fobContract.Id];
-        System.assertEquals('Completed', addnlContract[1].Status__c);
+        System.assertEquals('Completed', addnlContract[0].Status__c);
         Test.stopTest();
     }
 }

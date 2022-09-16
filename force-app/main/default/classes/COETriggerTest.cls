@@ -124,12 +124,6 @@ private class COETriggerTest {
         salesAgreement.Package_Header__c = pckHeader.Id;
         insert salesAgreement;
 
-        // COE__c coe = new COE__c();
-        // coe.COH_EXPMONTH__c = Date.today();
-        // coe.COH_SOH_SONO__c = '1234';
-        // coe.Sales_Agreement__c = salesAgreement.Id;
-        // insert coe;
-
         COE_Bid_Period__c coePeriod1 = Test_DataFactory.createCOEPeriod(true, Date.today(), Date.today()+7);
         COE_Bid_Period__c coePeriod2 = Test_DataFactory.createCOEPeriod(true, Date.today()+8, Date.today()+15);
 
@@ -265,15 +259,35 @@ private class COETriggerTest {
         insert salesAgreement2;
     }
 
-	// @isTest
-    // static void Test_onBeforeInsert() {
-    //     Sales_Agreement__c sa = [SELECT Id FROM Sales_Agreement__c LIMIT 1];
-    //     COE__c coe = new COE__c();
-    //     coe.COH_EXPMONTH__c = Date.today()+1;
-    //     coe.COH_SOH_SONO__c = '5678';
-    //     coe.Sales_Agreement__c = sa.Id;
-    //     insert coe;
-    // }
+	@isTest
+    static void Test_onBeforeInsert() {
+    	Sales_Agreement__c sa = [SELECT Id FROM Sales_Agreement__c LIMIT 1];
+        COE__c coe = new COE__c();
+        coe.COH_EXPMONTH__c = Date.today()+1;
+        coe.COH_SOH_SONO__c = '5678';
+        coe.Sales_Agreement__c = sa.Id;
+        insert coe;
+
+        coe = [SELECT Id,Sales_Agreement__c FROM COE__c WHERE Sales_Agreement__c = :sa.Id];
+    }
+
+    @isTest
+    static void Test_onBeforeUpdate() {
+        Sales_Agreement__c oldSA = [SELECT Id FROM Sales_Agreement__c WHERE SOH_SONO__c = 'NO9999' LIMIT 1];
+        Sales_Agreement__c newSA = [SELECT Id FROM Sales_Agreement__c WHERE SOH_SONO__c = 'NO9998' LIMIT 1];
+        COE_Bid_Period__c coePeriod = [SELECT Id FROM COE_Bid_Period__c LIMIT 1];
+
+        COE__c coe = new COE__c(COH_EXPMONTH__c = System.today(), COH_SOH_SONO__c = '1234', Sales_Agreement__c = oldSA.Id, COE_Bid_Period__c = coePeriod.Id);
+        insert coe;
+
+        TriggerExclusion.excludeTrigger('Sales_Agreement__c', true);
+        oldSA.COE__c = null;
+        update oldSA;
+        TriggerExclusion.excludeTrigger('Sales_Agreement__c', false);
+
+        coe.Sales_Agreement__c = newSA.Id;
+        update coe;
+    }
 
 	@isTest
     static void Test_afterInsert_SA() {
@@ -363,10 +377,10 @@ private class COETriggerTest {
         Sales_Agreement__c newSA = [SELECT Id FROM Sales_Agreement__c WHERE SOH_SONO__c = 'NO9998' LIMIT 1];
         COE_Bid_Period__c coePeriod = [SELECT Id FROM COE_Bid_Period__c LIMIT 1];
 
-        COE__c coe = new COE__c(COH_EXPMONTH__c = System.today(), COH_SOH_SONO__c = '1234', Sales_Agreement__c = oldSA.Id, COE_Bid_Period__c = coePeriod.Id);
+        COE__c coe = new COE__c(COH_EXPMONTH__c = System.today(), COH_SOH_SONO__c = '1234', COE_Bid_Period__c = coePeriod.Id);
         insert coe;
 
         coe.Sales_Agreement__c = newSA.Id;
         update coe;
-    }  
+    }
 }
