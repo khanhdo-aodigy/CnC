@@ -1312,6 +1312,8 @@ public without sharing class SalesAgreements extends ADGLIB_SObjectDomain
                     salesAgreementMap.put(record.Stock_Reservation__c, record);
                 }
             }
+            
+            if (salesAgreementMap.size() == 0) return;
 
             stockReservations = [SELECT Id, Vehicle_Master__c, Vehicle_Master__r.JIT_Date__c
                                  FROM Stock_Reservation__c
