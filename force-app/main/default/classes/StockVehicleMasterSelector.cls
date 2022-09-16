@@ -68,7 +68,7 @@ public inherited sharing class StockVehicleMasterSelector extends ADGLIB_SObject
     public List<Vehicle_Master2__c> selectStockVehicleMastersBySystemCommcases(Set<String> systemCommcases) 
     {
         adglib_QueryFactory query = newQueryFactory();
-        query.setCondition('Inward_Declaration_Invoice__c IN: invoiceIds');
+        query.setCondition('System_Commcase__c IN: systemCommcases');
         query.selectField('Name');
         query.selectField('Inward_Declaration_Invoice__r.Name');
         query.selectField('Vehicle_Status__c');
