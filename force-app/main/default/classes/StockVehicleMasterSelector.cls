@@ -11,9 +11,6 @@
  * 
  *  ========================================================================================================================================================================== 
  */
-
-public inherited sharing class StockVehicleMasterSelector extends ADGLIB_SObjectSelector 
-{
 public inherited sharing class StockVehicleMasterSelector extends ADGLIB_SObjectSelector 
 {
     public List<Schema.SObjectField> getSObjectFieldList() 
