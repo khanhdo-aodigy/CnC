@@ -47,6 +47,8 @@ private class TreasuryManagementControllerTest {
                                                             ProductionMonth__c = productionMonth,
                                                             Color_Code__c = colorCode.ID, 
                                                             Trim_Code__c = trimCode.ID,
+                                                            FOB_Gain_Loss__c = 0,
+                                                            Duty_Gain_Loss__c = 0,
                                                             Purchase_Order__c = po.Id);
         insert vMaster;
 
@@ -60,6 +62,8 @@ private class TreasuryManagementControllerTest {
                                                             Color_Code__c = colorCode.ID, 
                                                             Trim_Code__c = trimCode.ID,
                                                             Purchase_Order__c = po.Id,
+                                                            FOB_Gain_Loss__c = 0,
+                                                            Duty_Gain_Loss__c = 0,
                                                             Vehicle_Purchase_Order__c = order.Id);
         insert vMaster2;
 
@@ -73,6 +77,8 @@ private class TreasuryManagementControllerTest {
                                                             Color_Code__c = colorCode.ID, 
                                                             Trim_Code__c = trimCode.ID,
                                                             Purchase_Order__c = po.Id,
+                                                            FOB_Gain_Loss__c = 0,
+                                                            Duty_Gain_Loss__c = 0,
                                                             Vehicle_Purchase_Order__c = order2.Id);
         insert vMaster3;
         
@@ -209,6 +215,33 @@ private class TreasuryManagementControllerTest {
         Test.stopTest();
     }
 
+    @isTest
+    static void processBuyContract_Test_Duty(){
+        Map<String, String> buyContractInfo = new Map<String, String>();
+        buyContractInfo.put('Bank_Contract_No__c', '1223');
+        buyContractInfo.put('Currency_Code__c', 'USD');
+        buyContractInfo.put('Bank__c', 'USDAC - USD Account');
+        buyContractInfo.put('Maturity_Date__c', '2022-09-30');
+        buyContractInfo.put('Effective_Date__c', '2022-09-05');
+        buyContractInfo.put('Bank_Contract_Amount__c', '18750');
+        buyContractInfo.put('Spot_Rate__c', '1.39');
+        buyContractInfo.put('Premium_Discount__c', '-0.02');
+        buyContractInfo.put('Remarks__c', '');
+        buyContractInfo.put('Cover_Percentage__c', '50');
+
+        String buyContractObjAPI = 'Forward_Duty_Contract__c';
+        String lineItemObjAPI = 'Forward_Duty_Contract_Line_Item__c';
+        Vehicle_Master2__c vm2 = [SELECT ID FROM Vehicle_Master2__c WHERE System_Commcase__c = 'KIAPC0120190087'];
+        Test.startTest();
+        try {
+            TreasuryManagementController.processBuyContract(buyContractInfo , New List<String>{vm2.Id}, buyContractObjAPI, lineItemObjAPI);
+        } catch (Exception e) {
+            
+        }
+        
+        Test.stopTest();
+    }
+
     //treasuryManagement_FC
     @isTest
     static void processAddnlContract_Test(){
@@ -227,6 +260,44 @@ private class TreasuryManagementControllerTest {
 
         Test.startTest();
         TreasuryManagementController.processAddnlContract(addnlContractInfo, New List<String>{fobItem.Id}, lineItemObjAPI, fobContract.Id);
+        Test.stopTest();
+    }
+
+    @isTest
+    static void calculateGainLoss_Test(){
+        Forward_FOB_Contract__c fobContract = [SELECT ID FROM Forward_FOB_Contract__c];
+        Vehicle_Master2__c vMaster = [SELECT ID, FOB_Gain_Loss__c, Duty_Gain_Loss__c FROM Vehicle_Master2__c WHERE System_Commcase__c = 'KIAPC0120190087'];
+
+        FOB_Additional_Contract__c addnlFOBContract = new FOB_Additional_Contract__c(Forward_FOB_Contract__c = fobContract.Id,
+                                                                                     Status__c = 'PO Cancellation');
+        insert addnlFOBContract;
+        Forward_FOB_Contract_Line_Item__c fobItem = new Forward_FOB_Contract_Line_Item__c(Forward_FOB_Contract__c = fobContract.Id,
+                                                                                          FOB_Additional_Contract__c = addnlFOBContract.Id,
+                                                                                          Stock_Vehicle_Master__c = vMaster.Id);
+        insert fobItem;
+        fobItem = [SELECT Id, Status__c, Gain_Loss__c FROM Forward_FOB_Contract_Line_Item__c WHERE FOB_Additional_Contract__c = :addnlFOBContract.Id];
+        Test.startTest();
+        TreasuryManagementController.calculateGainLoss(new Set<String>{vMaster.Id}, 'Forward_FOB_Contract_Line_Item__c', 'FOB_Additional_Contract__c');
+        Test.stopTest();
+    }
+
+    @isTest
+    static void processAddnlContract_Test_Duty(){
+        String lineItemObjAPI = 'Forward_Duty_Contract_Line_Item__c';
+        Map<String, String> addnlContractInfo = new Map<String, String>();
+        addnlContractInfo.put('Status__c', 'Forward Contract Sell');
+        addnlContractInfo.put('Bank_Contract_No_Sell_Execute__c', '8765432');
+        addnlContractInfo.put('Effective_Date_Sell_Execute__c', '2022-08-30');
+        addnlContractInfo.put('Transaction_Date_Sell_Execute__c', '2022-08-30');
+        addnlContractInfo.put('Spot_Rate_Sell_Execute__c', '1.38');
+
+        Forward_Duty_Contract__c dutyContract = [SELECT ID FROM Forward_Duty_Contract__c];
+        Forward_Duty_Contract_Line_Item__c dutyItem = [SELECT ID
+                                                     FROM Forward_Duty_Contract_Line_Item__c 
+                                                     WHERE Forward_Duty_Contract__c =: dutyContract.Id];
+
+        Test.startTest();
+        TreasuryManagementController.processAddnlContract(addnlContractInfo, New List<String>{dutyItem.Id}, lineItemObjAPI, dutyContract.Id);
         Test.stopTest();
     }
 
