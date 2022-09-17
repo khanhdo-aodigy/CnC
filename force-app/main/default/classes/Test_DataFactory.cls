@@ -328,7 +328,7 @@ public with sharing class Test_DataFactory {
     }
 
     /** This methoc is test data for create TMS_Insurance__c  **/
-    public static TMS_Insurance__c createTMSInsurance (Boolean doInsert){
+    /*public static TMS_Insurance__c createTMSInsurance (Boolean doInsert){
         TMS_Insurance__c tms = new TMS_Insurance__c();
         tms.Franchise_Code__c = 'KIAPC';
         tms.Insurance_Percentage__c = 0;
@@ -337,7 +337,7 @@ public with sharing class Test_DataFactory {
              upsert tms;
 
         return tms;     
-    }
+    }*/
 
     /** This method is test data for create Vehicle_Shipment__c */
     public static Vehicle_Shipment__c createVehicleShipment(Boolean doInsert, String Supplier){
@@ -1569,5 +1569,125 @@ public with sharing class Test_DataFactory {
         }
 
         return result;
+    }
+    /** Adding By Nhung Cao [16092022]**/ 
+   public static List<Vehicle_Master2__c> createListVehicleMaster2 (Boolean doInsert){
+        //full record to send email
+        Purchase_Order__c po = new Purchase_Order__c();
+        po.Franchise__c = 'KIAPC';
+        po.Production_Month__c = Date.valueOf('2022-08-01');
+        insert po;        
+
+        Forward_FOB_Contract__c fobCtr = new Forward_FOB_Contract__c();
+        fobCtr.Purchase_Order__c = po.Id;
+        fobCtr.Status__c = 'Active';
+        insert fobCtr;
+
+        Forward_Duty_Contract__c dutyCtr = new Forward_Duty_Contract__c();
+        dutyCtr.Purchase_Order__c = po.Id;
+        dutyCtr.Status__c = 'Active';
+        insert dutyCtr;
+
+        Account supplierAcc = new Account();
+        supplierAcc.Name = 'test_Name';
+        insert supplierAcc;
+        Vehicle_Purchase_Order__c vpo = new Vehicle_Purchase_Order__c();
+        vpo.TMS_Purchase_Order__c = po.Id;
+        vpo.Franchise_Code__c = 'KIAPC';
+        vpo.Supplier_Account__c = supplierAcc.Id;
+        vpo.Currency_Code__c = 'USD';
+        vpo.Production_Month__c = Date.valueOf('2022-08-01');
+        insert vpo;
+
+        // Purchase_Order__c po1 = new Purchase_Order__c();
+        // po1.Franchise__c = 'KIAPC';
+        // po1.Production_Month__c = Date.valueOf('2022-08-02');
+        // insert po1;        
+
+        // Forward_FOB_Contract__c fobCtr1 = new Forward_FOB_Contract__c();
+        // fobCtr1.Purchase_Order__c = po1.Id;
+        // fobCtr1.Status__c = 'Active';
+        // insert fobCtr1;
+
+        // Forward_Duty_Contract__c dutyCtr1 = new Forward_Duty_Contract__c();
+        // dutyCtr1.Purchase_Order__c = po1.Id;
+        // dutyCtr1.Status__c = 'Sold';
+        // insert dutyCtr1;
+
+        // Account supplierAcc1 = new Account();
+        // supplierAcc1.Name = 'test_Name';
+        // insert supplierAcc1;
+        // Vehicle_Purchase_Order__c vpo1 = new Vehicle_Purchase_Order__c();
+        // vpo1.TMS_Purchase_Order__c = po1.Id;
+        // vpo1.Franchise_Code__c = 'KIAPC';
+        // vpo1.Supplier_Account__c = supplierAcc1.Id;
+        // vpo1.Currency_Code__c = 'USD';
+        // vpo1.Production_Month__c = Date.valueOf('2022-08-02');
+        // insert vpo1;
+
+        //FOB and Duty contract with Status != 'Active'
+        Purchase_Order__c po2 = new Purchase_Order__c();
+        po2.Franchise__c = 'KIAPC';
+        po2.Production_Month__c = Date.valueOf('2022-08-03');
+        insert po2;        
+
+        Forward_FOB_Contract__c fobCtr2 = new Forward_FOB_Contract__c();
+        fobCtr2.Purchase_Order__c = po2.Id;
+        fobCtr2.Status__c = 'Sold';
+        insert fobCtr2;
+
+        Forward_Duty_Contract__c dutyCtr2 = new Forward_Duty_Contract__c();
+        dutyCtr2.Purchase_Order__c = po2.Id;
+        dutyCtr2.Status__c = 'Sold';
+        insert dutyCtr2;
+
+        Account supplierAcc2 = new Account();
+        supplierAcc2.Name = 'test_Name';
+        insert supplierAcc2;
+        Vehicle_Purchase_Order__c vpo2 = new Vehicle_Purchase_Order__c();
+        vpo2.TMS_Purchase_Order__c = po2.Id;
+        vpo2.Franchise_Code__c = 'KIAPC';
+        vpo2.Supplier_Account__c = supplierAcc2.Id;
+        vpo2.Currency_Code__c = 'USD';
+        vpo2.Production_Month__c = Date.valueOf('2022-08-03');
+        insert vpo2;
+
+        List<Vehicle_Master2__c> listSVM = new List<Vehicle_Master2__c>();
+        
+        for(Integer i = 0; i < 5; i++)
+        {   
+            Vehicle_Master2__c vehiclemaster = new Vehicle_Master2__c();
+            vehiclemaster.Purchase_Order__c = po.Id;
+            vehiclemaster.Vehicle_Purchase_Order__c = vpo.Id;
+            vehiclemaster.Vehicle_Purchase_Status__c = 'Confirmed';
+            vehiclemaster.ProductionMonth__c = Date.valueOf('2022-08-01');
+            listSVM.add(vehiclemaster);
+        }   
+        // for(Integer i = 0; i < 5; i++)
+        // {   
+        //     Vehicle_Master2__c vehiclemaster = new Vehicle_Master2__c();
+        //     vehiclemaster.Purchase_Order__c = po1.Id;
+        //     vehiclemaster.Vehicle_Purchase_Order__c = vpo1.Id;
+        //     vehiclemaster.Vehicle_Purchase_Status__c = 'Confirmed';
+        //     vehiclemaster.ProductionMonth__c = Date.valueOf('2022-08-02');
+        //     listSVM.add(vehiclemaster);
+        // } 
+
+        for(Integer i = 0; i < 5; i++)
+        {   
+            Vehicle_Master2__c vehiclemaster = new Vehicle_Master2__c();
+            vehiclemaster.Purchase_Order__c = po2.Id;
+            vehiclemaster.Vehicle_Purchase_Order__c = vpo2.Id;
+            vehiclemaster.Vehicle_Purchase_Status__c = 'Confirmed';
+            vehiclemaster.ProductionMonth__c = Date.valueOf('2022-08-03');
+            listSVM.add(vehiclemaster);
+        } 
+           
+        
+        if(doInsert) {
+            insert listSVM;  
+        }
+                    
+        return listSVM;
     }
 }

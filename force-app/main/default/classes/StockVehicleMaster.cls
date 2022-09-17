@@ -5,7 +5,8 @@
  * History
  *          DATE::                              BY::                                TICKET::                                            CHANGELOG
  *          23 Aug 2022                         dangphap.mai@aodigy.com             US-Ship-000013                                      init
- *          19 Aug 2022                         nhung.cao@aodigy.com                US-TMS-000013                                      Add sendEmailToTMSMaker/ prepareEmail method
+ *          19 Aug 2022                         nhung.cao@aodigy.com                US-TMS-000013                                       Add sendEmailToTMSMaker/ prepareEmail method
+ *          16 Sep 2022                         thieudang.vu@aodigy.com             DSA-US-0024                                         Add allocateSVMForIndentSRs()
  * ========================================================================================================================================================================== 
  */
 public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
@@ -39,13 +40,23 @@ public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
         onVehicleShipmentMatching(insertingVehicles);
     }
 
+    public override void onAfterInsert()
+    {
+        List<Vehicle_Master2__c> insertingVehicles = (List<Vehicle_Master2__c>) Trigger.new;
+
+        // allocateSVMForIndentSRs(insertingVehicles, null);
+    }
+
     public override void onAfterUpdate(Map<Id,SObject> existingRecords){
         Map<Id, Vehicle_Master2__c> beforeUpdateVehicles = (Map<Id, Vehicle_Master2__c>) existingRecords;
 
         List<Vehicle_Master2__c> afterUpdateVehicles = (List<Vehicle_Master2__c>) Trigger.new;
 
         sendEmail(beforeUpdateVehicles, afterUpdateVehicles);
+        updateJITStatusOnSA(afterUpdateVehicles);
         sendEmailToTMSMaker(afterUpdateVehicles, beforeUpdateVehicles);
+
+        // allocateSVMForIndentSRs(afterUpdateVehicles, beforeUpdateVehicles);
     }
 
     /**
@@ -278,14 +289,14 @@ public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
      * Created Date: Jul 27 2022
      * ===============================================================================================================================================
      */
-    private void sendEmail(Map<Id, Vehicle_Master2__c> beforeUpdateVehicles, List<Vehicle_Master2__c> afterUpdateVehicles){
+     private void sendEmail(Map<Id, Vehicle_Master2__c> beforeUpdateVehicles, List<Vehicle_Master2__c> afterUpdateVehicles){
         try{
             List<Profile> editProfiles = [SELECT Id FROM Profile WHERE Name = 'KIAPC Sales Admin' OR Name = 'CITPC Marketing'];
             List<Id> editProfileIds = new List<Id>();
             for (Profile editProfile : editProfiles){
                 editProfileIds.add(editProfile.Id);
             }
-            
+        
             List<User> users = [SELECT Id, Name FROM User WHERE ProfileId IN :editProfileIds AND isActive = true];
             Map<Id, User> userMap = new Map<Id, User>();
             if (users.size() > 0){
@@ -293,7 +304,7 @@ public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
                     userMap.put(user.Id, user);
                 }
             }
-            
+        
             List<Messaging.SingleEmailmessage> mails = new List<Messaging.SingleEmailmessage>();
             Profile mailReceiverProfile = [SELECT Id FROM Profile WHERE Name = 'New Car Logistic']; 
             List<User> mailReceivers = [SELECT Id, Email FROM User WHERE ProfileId = :mailReceiverProfile.Id AND isActive = true];
@@ -307,7 +318,7 @@ public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
                 emails.add('trung822299@gmail.com');
             }
             System.debug('Emails ::' + emails);
-            
+        
             for (Vehicle_Master2__c newRecord : afterUpdateVehicles){
                 // System.debug('New Duty Payment Date: ' + newRecord.Duty_Payment_Date__c + 'Old Duty Payment Date: ' + Trigger.oldMap.get(newRecord.Id).Duty_Payment_Date__c);
                 if (newRecord.Duty_Payment_Date__c <> beforeUpdateVehicles.get(newRecord.Id).Duty_Payment_Date__c
@@ -319,7 +330,7 @@ public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
                     String URL = URL.getSalesforceBaseUrl().toExternalForm() + '/lightning/r/Vehicle_Master2__c/' + newRecord.Id + '/view';
                     mail.setSubject('Update Sales Duty Request Date on Stock Vehicle Master By ' + userMap.get(newRecord.LastModifiedById).Name);
                     mail.setHtmlBody(URL);
-                    
+                
                     System.debug('Email Address :' + mail.getToAddresses());
                     mails.add(mail);
                 }
@@ -332,12 +343,12 @@ public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
                         String URL = URL.getSalesforceBaseUrl().toExternalForm() + '/lightning/r/Vehicle_Master2__c/' + newRecord.Id + '/view';
                         mail.setSubject('Duty Payment Date on Stock Vehicle Master By Today');
                         mail.setHtmlBody(URL);
-                        
+                    
                         System.debug('Email Address :' + mail.getToAddresses());
                         mails.add(mail);
                     }
             }
-            
+        
             if (mails.size()>0){
                 Messaging.SendEmailResult[] results = Messaging.sendEmail(mails, false);
                 for (Messaging.SendEmailResult rs : results) 
@@ -362,6 +373,50 @@ public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
         }
     }
     
+    /**
+     * ==============================================================================================================================================
+     * Add method update JIT Status on SA on After Update
+     * @param afterUpdateVehicles: values of records after update
+     * Created By: thanh.ly@aodigy.com
+     * Created Date: Sep 15 2022
+     * ===============================================================================================================================================
+     */
+    private void updateJITStatusOnSA(List<Vehicle_Master2__c> afterUpdateVehicles){
+        try{
+            List<Id> vehicleMasterIds = new List<Id>();
+            for(Vehicle_Master2__c vm : afterUpdateVehicles){
+                vehicleMasterIds.add(vm.Id);
+            }
+
+            List<Sales_Agreement__c> salesAgreements = [SELECT Id, JIT_Status__c, Stock_Reservation__r.Vehicle_Master__r.Vehicle_Movement_Location__c
+                                                        FROM Sales_Agreement__c
+                                                        WHERE Stock_Reservation__r.Vehicle_Master__c IN :vehicleMasterIds];
+
+            List<Sales_Agreement__c> updatedSAList = new List<Sales_Agreement__c>();
+            if(salesAgreements.size() > 0 && salesAgreements != null){
+                System.debug('Sales Agreement :: ' + salesAgreements);
+                for(Sales_Agreement__c sa : salesAgreements){
+                    if(sa.Stock_Reservation__r.Vehicle_Master__r.Vehicle_Movement_Location__c == 'PDI'){
+                        sa.JIT_Status__c = 'Started';
+                    }
+                    if(sa.Stock_Reservation__r.Vehicle_Master__r.Vehicle_Movement_Location__c == 'Delivery Bay'){
+                        sa.JIT_Status__c = 'Completed';
+                    }
+                    if(sa.Stock_Reservation__r.Vehicle_Master__r.Vehicle_Movement_Location__c == null){
+                        sa.JIT_Status__c = null;
+                    }
+                    updatedSAList.add(sa);
+                }
+            }
+
+            if(updatedSAList.size() > 0 && updatedSAList != null){
+                update updatedSAList;
+            }
+        }catch(Exception e){
+            System.debug('Error on Vehicle Master: ' + e.getMessage() + e.getLineNumber());
+            System.debug('Error Stack Trace on Vehicle Master: ' + e.getStackTraceString());
+        }
+    }
 
     /**
      * ==============================================================================================================================================
@@ -372,6 +427,7 @@ public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
      * Created Date: 19/08/2022
      * ===============================================================================================================================================
      */
+    @TestVisible
     private void sendEmailToTMSMaker(List<Vehicle_Master2__c> afterUpdateVehicles, Map<Id, Vehicle_Master2__c> beforeUpdateVehicles){
         try 
         {
@@ -379,6 +435,8 @@ public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
 
             for (Vehicle_Master2__c newRecord : afterUpdateVehicles)
             {
+                System.debug('Vehicle Master ::' + newRecord);
+                System.debug('Status :: ' + newRecord.Vehicle_Purchase_Status__c + ' Purchase Order :: ' + newRecord.Purchase_Order__c + ' Vehicle Purchase :: ' + newRecord.Vehicle_Purchase_Order__c);
                 if (newRecord.Vehicle_Purchase_Status__c <> beforeUpdateVehicles.get(newRecord.Id).Vehicle_Purchase_Status__c && newRecord.Vehicle_Purchase_Status__c == 'SCL_Cancel' && newRecord.Purchase_Order__c != null && newRecord.Vehicle_Purchase_Order__c != null)
                 {   
                     svmToBeCancelled.add(newRecord);
@@ -417,7 +475,8 @@ public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
             System.debug('Error Stack Trace on Vehicle Master: ' + e.getStackTraceString());
         }
     }
-
+    
+    @TestVisible
     private static List<Messaging.SingleEmailMessage> prepareEmail(List<Vehicle_Master2__c> svmToBeCancelled)
     {
         List<Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEmailMessage>(); 
@@ -510,6 +569,8 @@ public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
             {
                 for(Forward_FOB_Contract__c fobCtr: tmspoSendEmail.get(svm).Forward_Contracts_FOB__r)
                 {
+                    System.debug('fobCtr.Status__c: '  + fobCtr.Status__c);
+                    
                     if(fobCtr.Status__c == 'Active')
                     {
                         fobCtrSendEmail.put(svm,fobCtr);
@@ -524,6 +585,8 @@ public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
             {
                 for(Forward_Duty_Contract__c duty: tmspoSendEmail.get(svm).Forward_Duty_Contracts__r)
                 {
+                    System.debug('duty.Status__c'  + duty.Status__c);
+                    
                     if(duty.Status__c == 'Active')
                     {
                         dutyCtrSendEmail.put(svm,duty);
@@ -578,4 +641,72 @@ public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
         }
         return mails;
     }
+
+    /**
+     * ==================================================================================================================
+     * To find Indent SR based on matching Model, Color, Trim & Year Code and allocate SVM into SR.
+     * Allocating will be based on FIFO logic.
+     * @param beforeUpdateVehicles: values of records before update
+     * @param afterUpdateVehicles: values of records after update
+     * Created By: thieudang.vu@aodigy.com
+     * Created Date: 15th Sep 2022
+     * ==================================================================================================================
+     */
+    // private void allocateSVMForIndentSRs(List<Vehicle_Master2__c> afterInsertOrUpdateVehicles, Map<Id, Vehicle_Master2__c> beforeUpdateVehicles)
+    // {
+    //     List<Id> svmIds = new List<Id>();
+    //     // Construct map vehicle master by Model, Color, Trim, Model Year code and order by CreatedDate
+    //     Map<String, Vehicle_Master2__c> svmByModelColorTrim = new Map<String, Vehicle_Master2__c>();
+    //     for (Vehicle_Master2__c svm : afterInsertOrUpdateVehicles) 
+    //     {            
+    //         if (beforeUpdateVehicles != null) 
+    //         {
+    //             Vehicle_Master2__c beforeUpdateSVM = (Vehicle_Master2__c)beforeUpdateVehicles.get(svm.Id);
+    //             if (svm.Vehicle_Status__c != beforeUpdateSVM.Vehicle_Status__c && svm.Vehicle_Status__c == 'FREE')
+    //             {
+    //                 svmIds.add(svm.Id);
+    //             }
+    //         }
+    //         else
+    //         {
+    //             svmIds.add(svm.Id);
+    //         }
+    //     }
+
+    //     for (Vehicle_Master2__c svm : [SELECT Id, Model_Code__c, Trim_Code__c, Color_Code__c, Model_Year_Code__c, CreatedDate
+    //                                    FROM Vehicle_Master2__c
+    //                                    WHERE Id IN :svmIds
+    //                                    ORDER BY CreatedDate ASC])
+    //     {
+    //         String modelColorTrimKey = String.valueOf(svm.Model_Code__c) + String.valueOf(svm.Color_Code__c) + String.valueOf(svm.Trim_Code__c);
+
+    //         svmByModelColorTrim.put(modelColorTrimKey, svm);
+    //     }
+
+    //     // Query Indent SR and order by Created Date and construct map Indent SR by Model, Color, Trim, Model Year code
+    //     Map<String, Stock_Reservation__c> srByModelColorTrim = new Map<String, Stock_Reservation__c>();
+
+    //     for (Stock_Reservation__c sr : [SELECT Id, Color_Code__c, Model_Code__c, Model_Year_Code__c, Trim_Code__c, Vehicle_Master__c, CreatedDate
+    //                                     FROM Stock_Reservation__c
+    //                                     WHERE Reservation_Status__c = 'Indent'
+    //                                      AND  Vehicle_Master__c = null
+    //                                     ORDER BY CreatedDate ASC])
+    //     {
+    //         String modelColorTrimKey = String.valueOf(sr.Model_Code__c) + String.valueOf(sr.Color_Code__c) + String.valueOf(sr.Trim_Code__c);
+
+    //         srByModelColorTrim.put(modelColorTrimKey, sr);
+    //     }
+
+    //     // Loop to allocate SVM for Indent SR by FIFO logic
+    //     for (String modelColorTrimCode : srByModelColorTrim.keySet())
+    //     {
+    //         Vehicle_Master2__c svm = svmByModelColorTrim.get(modelColorTrimCode);
+
+    //         Stock_Reservation__c sr = srByModelColorTrim.get(modelColorTrimCode);
+    //         sr.Vehicle_Master__c = svm.Id;
+    //     }
+
+    //     // Update
+    //     Database.update(srByModelColorTrim.values(), false);
+    // }
 }
