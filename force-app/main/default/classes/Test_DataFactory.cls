@@ -1571,7 +1571,7 @@ public with sharing class Test_DataFactory {
         return result;
     }
     /** Adding By Nhung Cao [16092022]**/ 
-   public static List<Vehicle_Master2__c> createListVehicleMaster2 (Boolean doInsert){
+   public static List<Vehicle_Master2__c> createListVehicleMaster2 (Boolean doInsert,String modelCode, String colorCode, String trimCode, String modelYearCode, String originalCommacase, String systemCommcase){
         //full record to send email
         Purchase_Order__c po = new Purchase_Order__c();
         po.Franchise__c = 'KIAPC';
@@ -1661,6 +1661,12 @@ public with sharing class Test_DataFactory {
             vehiclemaster.Vehicle_Purchase_Order__c = vpo.Id;
             vehiclemaster.Vehicle_Purchase_Status__c = 'Confirmed';
             vehiclemaster.ProductionMonth__c = Date.valueOf('2022-08-01');
+            vehiclemaster.Original_Commcase__c = originalCommacase;
+            vehiclemaster.System_Commcase__c = systemCommcase;
+            vehiclemaster.Model_Code__c = modelCode;
+            vehiclemaster.Color_Code__c = colorCode;
+            vehiclemaster.Trim_Code__c = trimCode;
+            vehiclemaster.Model_Year_Code__c = modelYearCode;
             listSVM.add(vehiclemaster);
         }   
         // for(Integer i = 0; i < 5; i++)
@@ -1680,6 +1686,12 @@ public with sharing class Test_DataFactory {
             vehiclemaster.Vehicle_Purchase_Order__c = vpo2.Id;
             vehiclemaster.Vehicle_Purchase_Status__c = 'Confirmed';
             vehiclemaster.ProductionMonth__c = Date.valueOf('2022-08-03');
+            vehiclemaster.Original_Commcase__c = originalCommacase;
+            vehiclemaster.System_Commcase__c = systemCommcase;
+            vehiclemaster.Model_Code__c = modelCode;
+            vehiclemaster.Color_Code__c = colorCode;
+            vehiclemaster.Trim_Code__c = trimCode;
+            vehiclemaster.Model_Year_Code__c = modelYearCode;
             listSVM.add(vehiclemaster);
         } 
            
