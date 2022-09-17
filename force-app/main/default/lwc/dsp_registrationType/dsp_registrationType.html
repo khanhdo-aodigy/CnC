@@ -13,11 +13,19 @@
                                 <h1>Sales Agreement</h1>
                                 </div>
                                 <h2>Vehicle Type</h2>
+
+                                <div class="prefilled">
+                                    <!-- NOTED: this is registration type for Stock Reservation -->
+                                    <label for="registypegr" class="active">Registration Group</label>
+                                    <input type="text" class="form-control" name="registypegr" aria-describedby="email" value={srRegistrationTypeLabel} aria-required="true" readonly>
+                                </div>
+
                                 <div class="form-group">
                                     <template if:true={registrationTypeOptions}>
+                                        <!-- NOTED: this is registration type for Sales Agreement -->
                                         <c-pick-list-as-record-list-cmp field-label="Registration Type" obj-name="Registration_Type__c" placeholder="Choose Registration Type"
-                                                                        field-style="form-control select" pick-list-value={registrationTypeOptions}
-                                                                        onvaluechanged={onValueChanged} existing-value={stockReservationRec.Registration_Type__c}>
+                                                                        field-style="form-control select" pick-list-value={registrationTypeOptions} existing-value=""
+                                                                        onvaluechanged={onSalesAgreementValueChanged}>
                                         </c-pick-list-as-record-list-cmp>
                                     </template>
                                 </div>   

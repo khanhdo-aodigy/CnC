@@ -29,24 +29,41 @@
         });
     },
 
-    createInitialSalesAgreement : function(recordId, cmp) {
+    createInitialSalesAgreement : function(recordId, cmp)
+    {
         const createInitialSalesAgreementForm = cmp.get("c.createInitialSalesAgreement");
-        createInitialSalesAgreementForm.setParams({ recordId: recordId});
-        this.executeAction(cmp, createInitialSalesAgreementForm)
-        .then(result => {      
-                cmp.set('v.salesAgreementObject', result);  
-                cmp.set("v.deltaChangesObj", cmp.get("v.salesAgreementObject.Id"));
-                cmp.set("v.recipientEmail", cmp.get("v.salesAgreementObject.emailaddress__c"));
-                typeof result.Last_save_on_form__c === 'undefined' ? (cmp.set('v.currentStage', 'Customer')): (cmp.set('v.currentStage', result.Last_save_on_form__c));
-                result.Lock__c === true && (cmp.set('v.isLocked', result.Lock__c), cmp.set('v.currentStage', 'Review'));  
-                cmp.set('v.finishedLoading', true);
-        }).catch(error => {
 
+        let preConfigurations = cmp.get("v.deltaChangesObj");
+
+        console.log('Pre configurations', preConfigurations);
+
+        createInitialSalesAgreementForm.setParams({
+            recordId : recordId,
+            preConfigurations : preConfigurations
+        });
+        
+        this.executeAction(cmp, createInitialSalesAgreementForm)
+        .then(result => 
+            {
+                cmp.set('v.salesAgreementObject', result);
+
+                // set delta changes object again so it will forget Sales Agreement pre-configurations
+                cmp.set("v.deltaChangesObj", cmp.get("v.salesAgreementObject.Id"));
+
+                cmp.set("v.recipientEmail", cmp.get("v.salesAgreementObject.emailaddress__c"));
+                
+                typeof result.Last_save_on_form__c === 'undefined' ? (cmp.set('v.currentStage', 'Customer')): (cmp.set('v.currentStage', result.Last_save_on_form__c));
+                
+                result.Lock__c === true && (cmp.set('v.isLocked', result.Lock__c), cmp.set('v.currentStage', 'Review'));  
+                
+                cmp.set('v.finishedLoading', true);
+            })
+        .catch(error =>
+            {
             cmp.set('v.hasErrors', true);
             cmp.set("v.errorMsg", 'Error: '  + error.message );
             console.log('Error occurred submitting order : ' + error.message);
-
-        });
+            });
     },
 
     executeAction : function(cmp, action) {

@@ -13,14 +13,124 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>P</fullName>
+                <fullName>CYCLE &amp; CARRIAGE COY VEH</fullName>
                 <default>false</default>
-                <label>Private</label>
+                <label>CYCLE &amp; CARRIAGE COY VEH</label>
+            </value>
+            <value>
+                <fullName>DEMO CAR</fullName>
+                <default>false</default>
+                <label>DEMO CAR</label>
+            </value>
+            <value>
+                <fullName>DIPLOMATIC REGISTRATION</fullName>
+                <default>false</default>
+                <label>DIPLOMATIC REGISTRATION</label>
+            </value>
+            <value>
+                <fullName>EXPORT SALES</fullName>
+                <default>false</default>
+                <label>EXPORT SALES</label>
+            </value>
+            <value>
+                <fullName>INTER COMPANY SALES FOR CV</fullName>
+                <default>false</default>
+                <label>INTER COMPANY SALES FOR CV</label>
+            </value>
+            <value>
+                <fullName>INTER COMPANY SALES</fullName>
+                <default>false</default>
+                <label>INTER COMPANY SALES</label>
+            </value>
+            <value>
+                <fullName>BUS</fullName>
+                <default>false</default>
+                <label>BUS</label>
             </value>
             <value>
                 <fullName>C</fullName>
                 <default>false</default>
-                <label>Company</label>
+                <label>COMPANY REGISTRATION</label>
+            </value>
+            <value>
+                <fullName>CHARITY VEH W/O ARF</fullName>
+                <default>false</default>
+                <label>CHARITY VEH W/O ARF</label>
+            </value>
+            <value>
+                <fullName>HANDICAP</fullName>
+                <default>false</default>
+                <label>HANDICAP</label>
+            </value>
+            <value>
+                <fullName>GOODS CUM PASSENGER (W/O COE)</fullName>
+                <default>false</default>
+                <label>GOODS CUM PASSENGER (W/O COE)</label>
+            </value>
+            <value>
+                <fullName>LIGHT GOODS VEHICLE</fullName>
+                <default>false</default>
+                <label>LIGHT GOODS VEHICLE</label>
+            </value>
+            <value>
+                <fullName>LOCAL SALES</fullName>
+                <default>false</default>
+                <label>LOCAL SALES</label>
+            </value>
+            <value>
+                <fullName>OFF PEAK CAR</fullName>
+                <default>false</default>
+                <label>OFF PEAK CAR</label>
+            </value>
+            <value>
+                <fullName>P</fullName>
+                <default>false</default>
+                <label>PRIVATE REGISTRATION</label>
+            </value>
+            <value>
+                <fullName>RENTAL COMPANY</fullName>
+                <default>false</default>
+                <label>RENTAL COMPANY</label>
+            </value>
+            <value>
+                <fullName>RU SALES W/O COE</fullName>
+                <default>false</default>
+                <label>RU SALES W/O COE</label>
+            </value>
+            <value>
+                <fullName>GOODS CUM PASSENGER</fullName>
+                <default>false</default>
+                <label>GOODS CUM PASSENGER</label>
+            </value>
+            <value>
+                <fullName>INSURANCE CLAIM FOR DAMAGE (NO GST)</fullName>
+                <default>false</default>
+                <label>INSURANCE CLAIM FOR DAMAGE (NO GST)</label>
+            </value>
+            <value>
+                <fullName>CYCLE &amp; CARRIAGE 100% SPONSORSHIP</fullName>
+                <default>false</default>
+                <label>CYCLE &amp; CARRIAGE 100% SPONSORSHIP</label>
+            </value>
+            <value>
+                <fullName>STATUTORY BOARD</fullName>
+                <default>false</default>
+                <label>STATUTORY BOARD</label>
+            </value>
+            <value>
+                <fullName>STAT BOARD INCL GST&amp;COE</fullName>
+                <default>false</default>
+                <label>STAT BOARD INCL GST&amp;COE</label>
+            </value>
+            <value>
+                <fullName>STATUTORY BOARD W/O COE</fullName>
+                <default>false</default>
+                <label>STATUTORY BOARD W/O COE</label>
+            </value>
+            <value>
+                <fullName>TAXI</fullName>
+                <default>false</default>
+                <label>TAXI</label>
             </value>
         </valueSetDefinition>
     </valueSet>
