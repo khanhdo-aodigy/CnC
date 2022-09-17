@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
     <applicationVisibilities>
+        <application>COE_Management</application>
+        <default>false</default>
+        <visible>false</visible>
+    </applicationVisibilities>
+    <applicationVisibilities>
+        <application>Treasury_Management</application>
+        <default>false</default>
+        <visible>false</visible>
+    </applicationVisibilities>
+    <applicationVisibilities>
         <application>Vehicle_Purchase_Shipment</application>
         <default>false</default>
         <visible>true</visible>
@@ -22,6 +32,82 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>BatchEmailCOEBiddingReport</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>COE</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>COEBiddingController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>COEBiddingControllerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>COETriggerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>DutyAdditionalContract</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>DutyAdditionalContractTriggerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FOBAdditionalContract</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FOBAdditionalContractTriggerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FOBAddtionalContractSelector</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FOBAddtionalContractSelectorTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FOBContractLineItemsSelector</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FOBContractLineItemsSelectorTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ForwardDutyContractSelector</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ForwardDutyContractSelectorTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ForwardFOBContract</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ForwardFOBContractSelector</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ForwardFOBContractSelectorTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ForwardFOBContractTriggerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>InwardDeclarationSelector</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -31,6 +117,26 @@
     </classAccesses>
     <classAccesses>
         <apexClass>InwardDeclarationService</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>InwardDeclarationServiceTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>JITController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>JITControllerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>JITDaysSelector</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>JITDaysSelectorTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -47,6 +153,30 @@
     </classAccesses>
     <classAccesses>
         <apexClass>ManufacturerInvoiceServiceTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SalesAgreementSelector</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SalesAgreementSelectorTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SalesAgreementTriggerTest1</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SalesAgreements</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ScheduleBatchEmailCOEBiddingReport</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ScheduleBatchEmailCOEBiddingReport_Test</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -70,6 +200,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>StockVehicleMasterSelectorTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>StockVehicleMasterService</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -82,7 +216,31 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TMSPurchaseOrderSelector</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TMSPurchaseOrderSelectorTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>Test_DataFactory</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TreasuryManagementController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TreasuryManagementControllerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TreasuryManagementService</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TreasuryManagementServiceTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -140,6 +298,10 @@
     <classAccesses>
         <apexClass>VS_VehicleShipmentLWCController</apexClass>
         <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>VS_VehicleShipmentLWCControllerTest</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>VehiclePurchaseOrderConversion</apexClass>
@@ -932,6 +1094,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Credit_Note__c.DB_CR_Note_Date__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Credit_Note__c.Debit_Credit_Note_Amount__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -952,17 +1119,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Credit_Note__c.Issue_Date__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Credit_Note__c.Sales_Agreement__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Credit_Note__c.Update_AR__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Credit_Note__c.Voided_Payment_Receipt__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -993,6 +1160,146 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Debit_Note_Type__c.Update_AR__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Allocation__c.Allocation_Amount__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Allocation__c.Amt_Available_for_Allocation__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Allocation__c.Balance__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Allocation__c.Credit_Doc_No__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Allocation__c.Credit_Doc_Type__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Allocation__c.DB_CR__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Allocation__c.Date_Allocated__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Allocation__c.Debit_Doc_No__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Allocation__c.Debtor_Summary__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Allocation__c.Document_Amount__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Allocation__c.Document_Type__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Line_Item__c.Allocated_Amount__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Line_Item__c.Balance__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Line_Item__c.Credit_Amount__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Line_Item__c.Credit_Debit_Note__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Line_Item__c.D__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Line_Item__c.Debit_Amount__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Line_Item__c.Document_Date__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Line_Item__c.Document_No__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Line_Item__c.Document_Type__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Line_Item__c.Payment_Receipt_Line_Item__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Line_Item__c.Pending_For_Alloc__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Line_Item__c.Sales_Agreement__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger_Line_Item__c.Sales_Invoice_Line_Item__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger__c.Account_Type__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger__c.Outstanding_Amount__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger__c.Total_Credit_Amount__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Debtor_Ledger__c.Total_Debit_Amount__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3252,12 +3559,27 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Payment_Receipt_Line_Item__c.GST_Percentage__c</field>
+        <field>Payment_Receipt_Line_Item__c.Amt_Avail_for_Allocation__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Payment_Receipt_Line_Item__c.Payment_Amount__c</field>
+        <field>Payment_Receipt_Line_Item__c.DB_CR__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Payment_Receipt_Line_Item__c.Document_Amount__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Payment_Receipt_Line_Item__c.Document_Type__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Payment_Receipt_Line_Item__c.GST_Percentage__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3278,6 +3600,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Payment_Receipt_Line_Item__c.Sales_Invoice__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Payment_Receipt_Line_Item__c.Transaction_Type__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Payment_Receipt__c.Bank_Charges__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3541,6 +3873,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Purchase_Order__c.AutoNum__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Purchase_Order__c.Production_Month__c</field>
         <readable>true</readable>
@@ -3557,7 +3894,42 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Refund__c.Amount_excl_GST__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Refund__c.Autoline_Invoice__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Refund__c.CC_Commission_Amount__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Refund__c.CC_Commission__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Refund__c.GST_Amount__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Refund__c.GST__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Refund__c.Payment_Date__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Refund__c.Payment_Voucher__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3588,6 +3960,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Refund__c.Refund_Type__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Refund__c.Sales_Agreement__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Refund__c.Sales_Invoice__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4041,6 +4423,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Sales_Agreement__c.Balance_Payment__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Sales_Agreement__c.Bid_10_Amount__c</field>
         <readable>true</readable>
@@ -4387,6 +4774,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Sales_Agreement__c.Registration_Type__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Sales_Agreement__c.Request_JIT__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -4692,6 +5084,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Sales_Invoice_Line_Item__c.Cost__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Sales_Invoice_Line_Item__c.Inclusive__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4701,18 +5098,28 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Sales_Invoice_Line_Item__c.Line_Net_Total__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Sales_Invoice_Line_Item__c.Line_No__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Sales_Invoice_Line_Item__c.Package__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Sales_Invoice_Line_Item__c.Price__c</field>
+        <field>Sales_Invoice_Line_Item__c.Print__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Sales_Invoice_Line_Item__c.Print__c</field>
+        <field>Sales_Invoice_Line_Item__c.Quantity__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4728,6 +5135,21 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Invoice_Line_Item__c.Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Sales_Invoice_Line_Item__c.Unit_Discount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Sales_Invoice_Line_Item__c.Unit_Discounted_Price__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Sales_Invoice_Line_Item__c.Unit_Price__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4786,6 +5208,16 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Sales_Invoice__c.Customer_No__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Sales_Invoice__c.Days_Overdue__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Invoice__c.Engine_No__c</field>
         <readable>true</readable>
@@ -4802,7 +5234,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Sales_Invoice__c.GST_Rate__c</field>
+        <field>Sales_Invoice__c.GST__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4854,6 +5286,16 @@
         <editable>false</editable>
         <field>Sales_Invoice__c.Sales_Agreement_Date__c</field>
         <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Sales_Invoice__c.Sales_Agreement__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Sales_Invoice__c.Sales_Invoice_Date__c</field>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -5229,6 +5671,11 @@
         <editable>false</editable>
         <field>Stock_Reservation__c.Fleet__c</field>
         <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Stock_Reservation__c.Franchise_Code__c</field>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -7065,17 +7512,16 @@
         <field>Warehouse_Parking_Lot__c.Stock_Vehicle_Master__c</field>
         <readable>false</readable>
     </fieldPermissions>
-    <layoutAssignments>
-        <layout>ARF_Tier__c-ARF Tier Layout</layout>
-    </layoutAssignments>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>testtest__c.auto_name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <layoutAssignments>
         <layout>Blocked_Off_Day__c-Blocked Off Day Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>CAR_Type_Code__c-Common Access Reference %28CAR%29 Type Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>COE_Bidding__mdt-COE Bidding Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>CommunityMemberLayout-Community Member Layout</layout>
@@ -7084,25 +7530,7 @@
         <layout>Country_of_Origin__c-Country of Origin Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Credit_Card_Type_and_Commission__mdt-Credit Card Type %26 Commission Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Credit_Note_Type__c-Credit Note Type Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Credit_Note__c-Credit Note Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>Custom_Exchange_Rate__c-Custom Exchange Rate Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>DPS_Sales_Invoice__c-DPS Sales Invoice Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Debit_Note_Type__c-Debit Note Type Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Debit_Note__c-Debit Note Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Declarant_Name__c-Declarant Name Layout</layout>
@@ -7115,9 +7543,6 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Duty_Additional_Contract__c-Duty Additional Contract Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Duty_Payment__c-Duty Payment Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>FOB_Additional_Contract__c-FOB Additional Contract Layout</layout>
@@ -7135,19 +7560,7 @@
         <layout>Forward_FOB_Contract__c-Forward FOB Contract Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>GST_Rate__mdt-GST Rate Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>GetsAsia_Callout__mdt-GetsAsia Callout Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>HS_Type__c-HS Type Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>IU_Carton__c-IU Carton Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>IU__c-IU Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Invoice_Term_Type__c-Invoice Term Type Layout</layout>
@@ -7176,15 +7589,6 @@
         <layout>Manufacturer_Invoice__c-Inward Declaration Invoice Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Model_Options_Master__c-Model Options Master Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Options_Master_Factory_Accs__c-Options Master Factory Accs Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Payment_Receipt_Line_Item__c-Payment Receipt Line Item Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>PersonAccount-Person Account Layout</layout>
         <recordType>PersonAccount.Customer</recordType>
     </layoutAssignments>
@@ -7207,25 +7611,7 @@
         <layout>Product_Code__c-Product Code Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Purchase_Order_Line_Item__c-Purchase Requisition Line Item Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>Purchase_Order__c-Purchase Order Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Purchase_Requisition__c-Purchase Requisition Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Refund__c-Refund Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Sales_Invoice_Config__mdt-Sales Invoice Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Sales_Invoice_Line_Item__c-Sales Invoice Line Item Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Sales_Invoice__c-Sales Invoice Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Shipment_Line_Item__c-Shipment Line Item Layout</layout>
@@ -7236,9 +7622,6 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Standard_Accrual__c-Standard Accrual Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>TMS_Duty__c-TMS Duty %25 Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>TMS_Insurance__c-TMS Insurance Layout</layout>
@@ -7318,12 +7701,28 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabVisibilities>
+        <tab>ARF_Tier__c</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>Blocked_Off_Day__c</tab>
+        <visibility>DefaultOff</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
         <tab>CAR_Type_Code__c</tab>
         <visibility>DefaultOff</visibility>
     </tabVisibilities>
     <tabVisibilities>
+        <tab>COE_Bidding</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
         <tab>Country_of_Origin__c</tab>
         <visibility>DefaultOff</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>Create_TMS_PO_Group</tab>
+        <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>
         <tab>Declarant_Name__c</tab>
@@ -7370,12 +7769,20 @@
         <visibility>DefaultOff</visibility>
     </tabVisibilities>
     <tabVisibilities>
+        <tab>Search_TMS_PO_Group</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
         <tab>Shipment_Line_Item__c</tab>
         <visibility>DefaultOff</visibility>
     </tabVisibilities>
     <tabVisibilities>
         <tab>Standard_Accrual__c</tab>
         <visibility>DefaultOff</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>TMS_Duty__c</tab>
+        <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>
         <tab>TMS_Insurance__c</tab>
