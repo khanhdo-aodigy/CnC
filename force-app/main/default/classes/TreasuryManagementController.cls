@@ -176,8 +176,7 @@ public without sharing class TreasuryManagementController {
 
             Id buyContractId        = (Id)buyContract.get('Id');
             Decimal coverPercentage = (Decimal)buyContract.get('Cover_Percentage__c') / 100;
-            system.debug('11111111111: ' + buyContractId);
-            system.debug('aaaaaaaaaaaaaaaa: ' + coverPercentage);
+
             List<sObject> lineItems = newLineItems(stockIds, coverPercentage, lineItemObjAPI, buyContractObjAPI, buyContractId);
 
             insert lineItems;
@@ -363,7 +362,6 @@ public without sharing class TreasuryManagementController {
             {
                 if(svm.Vehicle_Purchase_Status__c != 'SCL_Cancel')
                 {                    
-                    // svm.put('Purchase_Order__c', newPo.Id);
                     svm.Purchase_Order__c = newPo.Id;
 
                     svmListForLookup.add(svm);
@@ -399,28 +397,21 @@ public without sharing class TreasuryManagementController {
     @AuraEnabled(cacheable=true)
     public static List<TMSPOWrapper> searchTMSPOGroup(String franchise, Date productionMonth)
     {
-        system.debug('franchise :: ' + franchise);
-        system.debug('productionMonth :: ' + productionMonth);        
         List<TMSPOWrapper> tmsPOWrappers = new List<TMSPOWrapper>();
         
         try
         {
             List<Purchase_Order__c> tmsPOs = new TMSPurchaseOrderSelector().selectTMSPObyFranchiseAndProductionMonth(franchise,productionMonth);  
-            System.debug('tmsPOs = ' + tmsPOs);
 
             List<Id> poIdList = new List<Id>(); 
-            System.debug('poIdList = ' + poIdList); 
+
             for(Purchase_Order__c po:tmsPOs)    
             {
                 poIdList.add(po.Id);
             }
-            System.debug('poIdList = ' + poIdList);
 
             List<Forward_FOB_Contract__c> newListFOB = new ForwardFOBContractSelector().selectFOBAddContract(poIdList);
-           
-            System.debug('poIdList = ' + poIdList.size());
-            System.debug('newListFOB = ' + newListFOB);
-            
+
             Map<Id, List<FOB_Additional_Contract__c>> faMap = new Map<Id, List<FOB_Additional_Contract__c>>();
 
             for(Forward_FOB_Contract__c fContract:newListFOB)
@@ -437,23 +428,18 @@ public without sharing class TreasuryManagementController {
                 List<DutyContractWrapper> dWrappers = new List<DutyContractWrapper>();
 
                 tmsPOWrapper.tmsRecord = po;
-                System.debug('tmsPOWrapper.tmsPOs = ' + tmsPOWrapper.tmsRecord);
 
                 for(Vehicle_Purchase_Order__c vpo: po.Vehicle_Purchase_Orders__r)
                 {
                     tmsPOWrapper.vpoList.add(vpo);        
                 }
-                System.debug('tmsPOWrapper.vpoList = ' + tmsPOWrapper.vpoList);
                 
                 for(Forward_FOB_Contract__c fob: po.Forward_Contracts_FOB__r)
                 {                    
                     FOBContractWrapper fWrapper = new FOBContractWrapper();
                     fWrapper.fobContract = fob;
                     fWrapper.fobAddContracts = faMap.get(fob.Id);
-                    System.debug('faMapget(fob.Id) ====' + faMap.get(fob.Id) );
-                    System.debug('fWrapper.fobAddContracts = ' + fWrapper.fobAddContracts);
                     fWrappers.add(fWrapper);
-                    System.debug('fWrapper = ' + fWrapper);                     
                 }
                 System.debug('fWrappers = ' + fWrappers);
                 for(Forward_Duty_Contract__c duty: po.Forward_Duty_Contracts__r )
@@ -462,27 +448,18 @@ public without sharing class TreasuryManagementController {
                     dWrapper.dutyContract = duty;
                     dWrapper.dutyAddContracts = duty.Duty_Additional_Contracts__r;
                     dWrappers.add(dWrapper);
-                    System.debug('dWrapper = ' + dWrapper);                                
                 }
-                System.debug('dWrappers = ' + dWrappers);
 
                 tmsPOWrapper.fobWrappers = fWrappers;
                 tmsPOWrapper.dutyWrappers = dWrappers;
                 tmsPOWrappers.add(tmsPOWrapper);
-
-                System.debug('tmsPOWrapper.fobWrappers = ' + tmsPOWrapper.fobWrappers);
-                System.debug('tmsPOWrapper.dutyWrappers = ' + tmsPOWrapper.dutyWrappers);
-                System.debug('tmsPOWrapper = ' + tmsPOWrapper);
             }
         }
         catch (Exception e)
         {
             throw new AuraHandledException(e.getMessage() + ' ' + e.getLineNumber());            
         }
-        System.debug('TMS Wrapper = ' + tmsPOWrappers);   
-        System.debug('JSON TMS Wrapper = ' + JSON.serialize(tmsPOWrappers));       
-          
-        
+
         return tmsPOWrappers;     
     }
 
@@ -540,8 +517,7 @@ public without sharing class TreasuryManagementController {
             actualAmt       = (Decimal)svm?.get(actualAmtFieldAPI);
             estimatedAmt    = (Decimal)svm?.get(estimateAmtFieldAPI);
             coverAmtForeign = actualAmt == null && estimatedAmt == null ? 0 : (actualAmt == 0 ||
-                                                                               actualAmt == null ||
-                                                                               buyContractObjAPI == 'Forward_Duty_Contract__c' ? estimatedAmt * coverPercentage : actualAmt * coverPercentage);
+                                                                               actualAmt == null || buyContractObjAPI == 'Forward_Duty_Contract__c' ? estimatedAmt * coverPercentage : actualAmt * coverPercentage);
 
             cli.put('Cover_Amount_Foreign__c', coverAmtForeign);
             cli.put('Execution_Amount__c', coverAmtForeign);
@@ -552,6 +528,7 @@ public without sharing class TreasuryManagementController {
         return lineItems;
     }
 
+    @TestVisible
     private static List<sObject> calculateGainLoss(Set<String> svmIds, String lineItemObjAPI, String addnlContractObjAPI)
     {
         Map<Id, List<sObject>> cliBySVMIds = new Map<Id, List<sObject>>();
@@ -583,8 +560,7 @@ public without sharing class TreasuryManagementController {
             for (sObject cli : lineItems)
             {
                 if (cli.get('Status__c') != 'Forward Contract Sell' ||
-                    cli.get('Status__c') != 'Forward Contract Duty Sale' ||
-                    cli.get('Status__c') != 'PO Cancellation')
+                    cli.get('Status__c') != 'Forward Contract Duty Sale' || cli.get('Status__c') != 'PO Cancellation')
                 {
                     continue;
                 }

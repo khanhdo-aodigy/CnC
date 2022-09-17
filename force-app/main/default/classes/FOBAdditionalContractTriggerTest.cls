@@ -46,13 +46,6 @@ private class FOBAdditionalContractTriggerTest {
         FOB_Additional_Contract__c addnlContract = [SELECT ID, Status__c FROM FOB_Additional_Contract__c WHERE Forward_FOB_Contract__c = :fobContract.Id];
         addnlContract.Status__c = 'Completed';
         update addnlContract;
-
-
-        // Test.startTest();
-        //fobContract = [SELECT ID, Status__c FROM Forward_FOB_Contract__c WHERE Purchase_Order__c = :po.Id];
-        //vMaster = [SELECT ID, FOB_Done__c, Duty_Done__c FROM Vehicle_Master2__c WHERE Purchase_Order__c = :po.Id];
-        // System.assertEquals(true, vMaster.FOB_Done__c);
-        //Test.stopTest(); 
     }
 
     @isTest
