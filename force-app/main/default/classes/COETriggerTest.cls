@@ -581,4 +581,87 @@ private class COETriggerTest {
         coe.Sales_Agreement__c = newSA.Id;
         update coe;
     }
+
+    @isTest
+    static void Test_afterUpdate_MBSA() {
+        // Create Model
+        Model__c model = Test_DataFactory.createmodelId(true, 'MB A Class Test', 'CCI', 'MBP');
+
+        // Create Variant
+        Variant__c variant = new Variant__c(Name = 'MB A 250 Test',
+                                           Model_ID__c = model.Id,
+                                           Franchise__c = 'MBP',
+                                           Branch__c = 'CCI',
+                                           Allow_Indent__c = false,
+                                           Description__c = 'MB A 250 Test',
+                                           Active__c = true,
+                                           Engine_Capacity__c = '1600',
+                                           BHP__c = '130');
+        insert variant;
+        system.debug('variant ::' + variant);
+
+        // Create MB Stock Vehicle Master
+        MB_Stock_Vehicle_Master__c mbSVM = new MB_Stock_Vehicle_Master__c(Vehicle_ID__c = '1',
+                                                                         Status__c = 'Open',
+                                                                         Variant__c = variant.Id,
+                                                                         Colour__c = '787 Mountain Grey',
+                                                                         Trim__C = '101 ARTICO Black');
+        insert mbSVM;
+
+        // Create Indent Variant 
+        Variant__c variant1 = new Variant__c(Name = 'MB A 200 Indent',
+                                                  Model_ID__c = model.Id,
+                                                  Franchise__c = 'MBP',
+                                                  Branch__c = 'CCI',
+                                                  Allow_Indent__c = true,
+                                                  Description__c = 'MB A 200 Indent',
+                                                  Engine_Capacity__c = '1700',
+                                                  BHP__c = '150');
+        insert variant1;
+
+        // Create MB Stock Vehicle Master
+        MB_Stock_Vehicle_Master__c mbSVM2 = new MB_Stock_Vehicle_Master__c(Vehicle_ID__c = '2',
+                                                                         Status__c = 'Open',
+                                                                         Variant__c = variant1.Id,
+                                                                         Colour__c = '787 Mountain Grey',
+                                                                         Trim__C = '101 ARTICO Black');
+        insert mbSVM2;
+
+        Account personAcc = Test_DataFactory.createPerson(false, 'Thanh', 'Prospect');
+        personAcc.PersonEmail = 'thanhly@mail.com';
+        insert personAcc;
+
+        // Create MB Sales Agreement
+        MB_Sales_Agreement__c mbSA1 = new MB_Sales_Agreement__c();
+        mbSA1.MB_Stock_Vehicle_Master__c = mbSVM.Id;
+        mbSA1.Customer_Full_Name__c = 'X1111Test';
+        mbSA1.CNRIC_Number__c = 'SXXXX1111';
+        mbSA1.Submit_COE_Bidding__c = true;
+        mbSA1.Account__c = personAcc.Id;
+        insert mbSA1;
+
+        MB_Sales_Agreement__c mbSA2 = new MB_Sales_Agreement__c();
+        mbSA2.MB_Stock_Vehicle_Master__c = mbSVM2.Id;
+        mbSA2.Customer_Full_Name__c = 'X1111Test';
+        mbSA2.CNRIC_Number__c = 'SXXXX1111';
+        mbSA2.Submit_COE_Bidding__c = true;
+        insert mbSA2;
+
+        COE_Bid_Period__c coePeriod = [SELECT Id FROM COE_Bid_Period__c LIMIT 1];
+
+        COE__c coe = new COE__c();
+        coe.COH_EXPMONTH__c = Date.today();
+        coe.COH_SOH_SONO__c = '5678';
+        coe.MB_Sales_Agreement__c = mbSA1.Id;
+        coe.COE_Bid_Period__c = coePeriod.Id;
+        insert coe;
+
+        TriggerExclusion.excludeTrigger('MB_Sales_Agreement__c', true);
+        mbSA1.COE__c = null;
+        update mbSA1;
+        TriggerExclusion.excludeTrigger('MB_Sales_Agreement__c', false);
+
+        coe.MB_Sales_Agreement__c = mbSA2.Id;
+        update coe;
+    }
 }
