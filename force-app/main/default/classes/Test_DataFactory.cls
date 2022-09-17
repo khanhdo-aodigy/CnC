@@ -328,7 +328,7 @@ public with sharing class Test_DataFactory {
     }
 
     /** This methoc is test data for create TMS_Insurance__c  **/
-    /*public static TMS_Insurance__c createTMSInsurance (Boolean doInsert){
+    public static TMS_Insurance__c createTMSInsurance (Boolean doInsert){
         TMS_Insurance__c tms = new TMS_Insurance__c();
         tms.Franchise_Code__c = 'KIAPC';
         tms.Insurance_Percentage__c = 0;
@@ -337,7 +337,7 @@ public with sharing class Test_DataFactory {
              upsert tms;
 
         return tms;     
-    }*/
+    }
 
     /** This method is test data for create Vehicle_Shipment__c */
     public static Vehicle_Shipment__c createVehicleShipment(Boolean doInsert, String Supplier){
