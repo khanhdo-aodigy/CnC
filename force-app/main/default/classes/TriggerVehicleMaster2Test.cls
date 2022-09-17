@@ -17,6 +17,7 @@ private class TriggerVehicleMaster2Test
         Account personAcc = Test_DataFactory.createPerson(false, 'Test', 'Prospect');
         personAcc.PersonEmail = 'patest@mail.com';
         insert personAcc;
+
         personAcc = [SELECT Id, PersonContactId FROM Account WHERE ID =: personAcc.Id];
         Opportunity oppt = Test_DataFactory.createOpportunity(false,'testRun', personAcc.Id);
         oppt.Branch_Code__c = 'CCA';
@@ -87,6 +88,10 @@ private class TriggerVehicleMaster2Test
         sr.Opportunity__c    = oppt.Id;
         sr.Customer_Mobile_Number__c = '6587546859';
         insert sr;
+
+        //Create List SVM
+        // List<Vehicle_Master2__c> svmList = Test_DataFactory.createListVehicleMaster2(true);
+
     }
 
     @IsTest
@@ -308,5 +313,37 @@ private class TriggerVehicleMaster2Test
         {
             System.assert(e.getMessage().contains('This shipment line item already have a linked vehicle'), e.getMessage() + ' > ' + e.getStackTraceString());
         }
+    }
+
+    //Added by Nhung Cao [16092922] 
+    @IsTest
+    private static void Test_prepareEmail()
+    {
+        List<Vehicle_Master2__c> svmList = Test_DataFactory.createListVehicleMaster2(true);
+        Test.startTest();
+        StockVehicleMaster.prepareEmail(svmList);
+        Test.stopTest();      
+
+    }
+
+    @IsTest
+    private static void Test_sendEmailToTMSMaker()
+    {
+        OrgWideEmailAddress orgWideEmail    = [SELECT Id, Address, DisplayName FROM OrgWideEmailAddress WHERE DisplayName ='Customer Contact Centre'];
+
+        List<PermissionSetAssignment> assignmentList = [SELECT PermissionSetId, AssigneeId
+                                                        FROM PermissionSetAssignment
+                                                        WHERE PermissionSet.Name = 'TMS_Makers_Permission_Set'];
+                                                        System.debug('assignmentList: '  + assignmentList);
+        List<Vehicle_Master2__c> svmList = Test_DataFactory.createListVehicleMaster2(true);
+        List<Vehicle_Master2__c> tempList = new List<Vehicle_Master2__c>();
+        Test.startTest();
+        for(Vehicle_Master2__c svm: svmList)
+        {
+            svm.Vehicle_Purchase_Status__c = 'SCL_Cancel';
+            tempList.add(svm);
+        }
+        update tempList;        
+        Test.stopTest();      
     }
 }
