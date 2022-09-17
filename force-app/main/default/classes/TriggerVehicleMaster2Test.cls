@@ -319,7 +319,11 @@ private class TriggerVehicleMaster2Test
     @IsTest
     private static void Test_prepareEmail()
     {
-        List<Vehicle_Master2__c> svmList = Test_DataFactory.createListVehicleMaster2(true);
+        Model_Master__c modelCode = Test_DataFactory.createModelCode(true, 'Test Model Code');
+        Model_Year_Master__c modelYearCode = Test_DataFactory.createModelYearCode(true, modelCode.Id);
+        Color_Master__c colorCode = Test_DataFactory.createColorCode(true, 'Test Color Code', 'Test', 'CCK', 'KIAPC');
+        Trim_Master__c trimCode = Test_DataFactory.createTrimCode(true, 'Test Trim Code');
+        List<Vehicle_Master2__c> svmList = Test_DataFactory.createListVehicleMaster2(true, modelCode.Id, colorCode.Id, trimCode.Id, modelYearCode.Id, 'originalCommacase', 'systemCommcase');
         Test.startTest();
         StockVehicleMaster.prepareEmail(svmList);
         Test.stopTest();      
@@ -329,13 +333,17 @@ private class TriggerVehicleMaster2Test
     @IsTest
     private static void Test_sendEmailToTMSMaker()
     {
+        Model_Master__c modelCode = Test_DataFactory.createModelCode(true, 'Test Model Code');
+        Model_Year_Master__c modelYearCode = Test_DataFactory.createModelYearCode(true, modelCode.Id);
+        Color_Master__c colorCode = Test_DataFactory.createColorCode(true, 'Test Color Code', 'Test', 'CCK', 'KIAPC');
+        Trim_Master__c trimCode = Test_DataFactory.createTrimCode(true, 'Test Trim Code');
         OrgWideEmailAddress orgWideEmail    = [SELECT Id, Address, DisplayName FROM OrgWideEmailAddress WHERE DisplayName ='Customer Contact Centre'];
 
         List<PermissionSetAssignment> assignmentList = [SELECT PermissionSetId, AssigneeId
                                                         FROM PermissionSetAssignment
                                                         WHERE PermissionSet.Name = 'TMS_Makers_Permission_Set'];
                                                         System.debug('assignmentList: '  + assignmentList);
-        List<Vehicle_Master2__c> svmList = Test_DataFactory.createListVehicleMaster2(true);
+        List<Vehicle_Master2__c> svmList = Test_DataFactory.createListVehicleMaster2(true, modelCode.Id, colorCode.Id, trimCode.Id, modelYearCode.Id, 'originalCommacase', 'systemCommcase');
         List<Vehicle_Master2__c> tempList = new List<Vehicle_Master2__c>();
         Test.startTest();
         for(Vehicle_Master2__c svm: svmList)
