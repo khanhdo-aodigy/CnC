@@ -53,7 +53,7 @@ public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
         List<Vehicle_Master2__c> afterUpdateVehicles = (List<Vehicle_Master2__c>) Trigger.new;
 
         sendEmail(beforeUpdateVehicles, afterUpdateVehicles);
-        updateJITStatusOnSA(afterUpdateVehicles);
+        // updateJITStatusOnSA(afterUpdateVehicles);
         sendEmailToTMSMaker(afterUpdateVehicles, beforeUpdateVehicles);
 
         // allocateSVMForIndentSRs(afterUpdateVehicles, beforeUpdateVehicles);
@@ -381,7 +381,7 @@ public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
      * Created Date: Sep 15 2022
      * ===============================================================================================================================================
      */
-    private void updateJITStatusOnSA(List<Vehicle_Master2__c> afterUpdateVehicles){
+    /*private void updateJITStatusOnSA(List<Vehicle_Master2__c> afterUpdateVehicles){
         try{
             List<Id> vehicleMasterIds = new List<Id>();
             for(Vehicle_Master2__c vm : afterUpdateVehicles){
@@ -416,7 +416,7 @@ public inherited sharing class StockVehicleMaster extends ADGLIB_SObjectDomain
             System.debug('Error on Vehicle Master: ' + e.getMessage() + e.getLineNumber());
             System.debug('Error Stack Trace on Vehicle Master: ' + e.getStackTraceString());
         }
-    }
+    }*/
 
     /**
      * ==============================================================================================================================================
