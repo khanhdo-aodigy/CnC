@@ -413,6 +413,8 @@ public without sharing class COEBiddingController {
             mapFieldValues.put('ARF_Payable__c', arfPayable);
             mapFieldValues.put('Vehicle_Cost__c', vehicleCost);
             mapFieldValues.put('COEThresHold__c', coeThresHold);
+            mapFieldValues.put('CPF_on_Comm__c', cpf);
+            mapFieldValues.put('CVES__c', cves);
 
             dsaIdAndValues.put(dsa.Id, mapFieldValues);
         }
@@ -522,13 +524,14 @@ public without sharing class COEBiddingController {
                         - (vehicleCost != null ? vehicleCost : 0)
                         - (dsa.GMS_Package__c != null ? dsa.GMS_Package__c : 0)
                         + (cves != null ? cves : 0)
-                        + (dsa.Additional_Charges__c != null ? dsa.Additional_Charges__c : 0)
-                        + (dsa.Cost_of_Standard_Accessories__c != null ? dsa.Cost_of_Standard_Accessories__c : 0)
-                        + (dsa.Cost_of_Accessories_Traded_Sold__c != null ? dsa.Cost_of_Accessories_Traded_Sold__c : 0)
-                        + (otherDirectCost != null ? otherDirectCost : 0)
-                        + (dsa.GST_Charge__c != null ? dsa.GST_Charge__c : 0)
-                        + (dsa.Proposed_Commission__c != null ? dsa.Proposed_Commission__c : 0)
-                        + (dsa.CPF_on_Comm__c != null ? dsa.CPF_on_Comm__c : 0)
+                        - (dsa.Additional_Charges__c != null ? dsa.Additional_Charges__c : 0)
+                        - (dsa.Cost_of_Standard_Accessories__c != null ? dsa.Cost_of_Standard_Accessories__c : 0)
+                        - (dsa.Cost_of_Accessories_Traded_Sold__c != null ? dsa.Cost_of_Accessories_Traded_Sold__c : 0)
+                        - (otherDirectCost != null ? otherDirectCost : 0)
+                        - (dsa.GST_Charge__c != null ? dsa.GST_Charge__c : 0)
+                        - (dsa.Proposed_Commission__c != null ? dsa.Proposed_Commission__c : 0)
+                        - (dsa.CPF_on_Comm__c != null ? dsa.CPF_on_Comm__c : 0)
+                        + opcFee
                     ;
         return coeThresHold;
     }
