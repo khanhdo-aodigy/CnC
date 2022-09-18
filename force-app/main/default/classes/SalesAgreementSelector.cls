@@ -367,7 +367,7 @@ public class SalesAgreementSelector extends ADGLIB_SObjectSelector {
         query.selectField('Finance_Company_Lookup__r.Name');
         query.selectField('Stock_Reservation__r.Vehicle_Master__r.Vehicle_Type_For_Sale__c');
         query.selectField('Stock_Reservation__r.Vehicle_Master__r.OMV__c');
-        query.selectField('Stock_Reservation__r.Vehicle_Master__r.Stock_Vehicle_Status__c');
+        // query.selectField('Stock_Reservation__r.Vehicle_Master__r.Stock_Vehicle_Status__c');
         query.selectField('Stock_Reservation__r.Vehicle_Master__r.FOB_Amount__c');
         query.selectField('Stock_Reservation__r.Vehicle_Master__r.Freight_Charges__c');
         query.selectField('Stock_Reservation__r.Vehicle_Master__r.Insurance_Charges__c');

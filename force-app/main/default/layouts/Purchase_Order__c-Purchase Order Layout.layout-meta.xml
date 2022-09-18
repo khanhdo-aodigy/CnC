@@ -8,7 +8,7 @@
         <label>Information</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Required</behavior>
                 <field>Name</field>
             </layoutItems>
             <layoutItems>
@@ -18,6 +18,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Total_Quantity__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>AutoNum__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
