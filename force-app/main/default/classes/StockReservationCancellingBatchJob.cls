@@ -36,7 +36,7 @@ public with sharing class StockReservationCancellingBatchJob implements Database
     public void execute(Database.BatchableContext BC, List<sObject> scope)
     {
         Map<Id, Stock_Reservation__c> stockReservationById = new Map<Id, Stock_Reservation__c> ((List<Stock_Reservation__c>) scope);
-
+        
         List<Sales_Agreement__c> salesAgreements = [SELECT Id, Stock_Reservation__c, Stage__c FROM Sales_Agreement__c WHERE Stock_Reservation__c IN :stockReservationById.keySet()];
 
         Map<Id, Sales_Agreement__c[]> salesAgreementByStockReservationId = new Map<Id, Sales_Agreement__c[]>();
