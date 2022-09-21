@@ -12,15 +12,18 @@ public without sharing class COEBiddingController {
     @AuraEnabled(cacheable=true)
     public static COE_Bid_Period__c getNextCOE()
     {
-        return [SELECT Id, From_Date__c, To_Date__c FROM COE_Bid_Period__c WHERE From_Date__c >= :Date.today()
-                ORDER BY From_Date__c ASC LIMIT 1];
+        return [SELECT Id, From_Date__c, To_Date__c FROM COE_Bid_Period__c WHERE From_Date__c <= :Date.today()
+                ORDER BY From_Date__c DESC LIMIT 1];
     }
 
     @AuraEnabled(cacheable=true)
     public static COE_Bid_Period__c getLastCOE()
     {
-        return [SELECT Id, From_Date__c, To_Date__c, A__c, B__c, C__c, E__c FROM COE_Bid_Period__c WHERE From_Date__c < :Date.today()
-                ORDER BY From_Date__c DESC LIMIT 1];
+        List<COE_Bid_Period__c> coePeriods = [SELECT Id, From_Date__c, To_Date__c, A__c, B__c, C__c, E__c 
+                                              FROM COE_Bid_Period__c WHERE From_Date__c <= :Date.today()
+                                              ORDER BY From_Date__c DESC];
+        COE_Bid_Period__c coePeriod = coePeriods[1];
+        return coePeriod;
     }
 
     @AuraEnabled(cacheable=true)
@@ -272,14 +275,15 @@ public without sharing class COEBiddingController {
             Decimal insurance  = 0;
             Decimal freight    = 0;
 
-            //String stockStatus = dsa.Stock_Reservation__r.Vehicle_Master__r.Stock_Vehicle_Status__c;
-            // if(String.isNotBlank(stockStatus) && stockStatus.equalsIgnoreCase('I')) {
             if(dsa.Stock_Reservation__r.Vehicle_Master__c != null) {
+                //Case:dsa.Stock_Reservation__r.Vehicle_Master__c != null: get FOB_Amount, FreightCharge, InsuranceCharge from svm
                 fobAmount  = dsa.Stock_Reservation__r.Vehicle_Master__r.FOB_Amount__c != null ? dsa.Stock_Reservation__r.Vehicle_Master__r.FOB_Amount__c : 0;
                 insurance  = dsa.Stock_Reservation__r.Vehicle_Master__r.Insurance_Charges__c != null ? dsa.Stock_Reservation__r.Vehicle_Master__r.Insurance_Charges__c : 0;
                 freight    = dsa.Stock_Reservation__r.Vehicle_Master__r.Freight_Charges__c  != null ? dsa.Stock_Reservation__r.Vehicle_Master__r.Freight_Charges__c : 0;
             } else {
+                //Case:dsa.Stock_Reservation__r.Vehicle_Master__c = null
                 String modelCode = dsa.Stock_Reservation__r.Model_Code__c;
+                System.debug('modelCode' + modelCode);
                 if(String.isNotBlank(modelCode)) {
                     dsaIdAndModelCodeMap.put(dsa.Id, modelCode);
                 }
@@ -292,6 +296,7 @@ public without sharing class COEBiddingController {
             dsaIdAndValues.put(dsa.Id, mapFieldValues);
         }
 
+        System.debug('dsaIdAndModelCodeMap' + dsaIdAndModelCodeMap);
         if(dsaIdAndModelCodeMap.size() > 0) {
             Map<String, Vehicle_Master2__c> mapModelCodeAndSVM = getModelCodeAndLastestSVM(dsaIdAndModelCodeMap.values());
             if(mapModelCodeAndSVM.size() > 0) {
@@ -314,6 +319,7 @@ public without sharing class COEBiddingController {
                     mapFieldValues.put('insurance', insurance);
                     mapFieldValues.put('freight', freight);
                     dsaIdAndValues.put(dsaId, mapFieldValues);
+                    System.debug('dsaIdAndValues' + dsaIdAndValues);
                 }
             }
         }
@@ -338,13 +344,19 @@ public without sharing class COEBiddingController {
         List<Model_Master__c> listModelMaster  = [  SELECT Id, ( SELECT Id, Freight_Charges__c, FOB_Amount__c, Insurance_Charges__c
                                                                  FROM Vehicle_Master__r
                                                                  WHERE ETA_Date__c != null
+                                                                 AND FOB_Amount__c != null
+                                                                 AND Insurance_Charges__c != null
+                                                                 AND Freight_Charges__c != null 
+                                                                 AND FOB_Amount__c != 0
+                                                                 AND Insurance_Charges__c != 0
+                                                                 AND Freight_Charges__c != 0                                                     
                                                                  ORDER BY ETA_Date__c DESC
                                                                  LIMIT 1
                                                                 )
                                                     FROM Model_Master__c
                                                     WHERE Id IN :modelCodes
                                                 ];
-             
+        System.debug('listModelMaster' + listModelMaster);
         return listModelMaster;
     }
 
@@ -369,10 +381,14 @@ public without sharing class COEBiddingController {
             cvesAmount = coeFixedValue[0].CVES_Amount__c != null ? coeFixedValue[0].CVES_Amount__c : 0;
             cpfCommRate = coeFixedValue[0].SC_CPF_Comm_Rate__c != null ? coeFixedValue[0].SC_CPF_Comm_Rate__c : 0;
         }
-                                                
-        
+                                                        
+        COE_Bid_Period__c lastCOEBidPeriod = COEBiddingController.getLastCOE();
         Map<Id, Map<String, Decimal>> dsaIdAndValues = new Map<Id, Map<String, Decimal>>();
         for(Sales_Agreement__c dsa: dsaList) {
+            Decimal lastBidCOE = 0;
+            if(lastCOEBidPeriod != null) {
+                lastBidCOE = (Decimal)lastCOEBidPeriod.get(dsa.COECategory__c + '__c');
+            }
             Map<String, Decimal> mapFieldValues = new Map<String, Decimal>();
 
             String vehicleType = dsa.FranchiseCode__c.endsWith('PC') ? 'PC' : (dsa.FranchiseCode__c.endsWith('CV') ? 'CV' : 'other');
@@ -401,10 +417,43 @@ public without sharing class COEBiddingController {
             Decimal dsaARF = calculateARF(dsaCIF, vehicleType, dsa.Registration_Type__c);
 
             Decimal vehicleDuty = calculateVehicleDuty(dsa.Stock_Reservation__r.Vehicle_Master__r.Duty_Amount__c, dsaCIF, dutyRate);
+            // System.debug('vehicleType = ' + vehicleType);
+            // System.debug('modelFuelType = ' + modelFuelType);
+            // System.debug('eeaiPercentage = ' + eeaiPercentage);
+            // System.debug('eeaiCap = ' + eeaiCap);
             Decimal dsaEEAI = calculateEEAI(vehicleType, modelFuelType, dsaARF, eeaiPercentage, eeaiCap);
+            System.debug('dsaEEAI = ' + dsaEEAI);
             Decimal arfPayable = calculateARFPayable(vehicleType, dsaARF, ves, dsaEEAI);
             Decimal vehicleCost = calculateVehicleCost(arfPayable, dsaCIF, vehicleDuty);
-            Decimal coeThresHold = calculateCOEThresHold(dsa, vehicleType, vehicleCost, otherDirectCost, cves);
+
+            //Recalculate GST_Charge__c since ARF_Payable__c is changed    
+            Decimal gstCharge = 0;       
+            Decimal sumRegFee = 0;
+            Decimal sumRoadTax = 0;
+            Decimal sumRetentionFee = 0;
+            for(SA_Additional_Charge__c saAddCharge: dsa.SA_Additional_Charges__r)
+            {                
+                Decimal saAddntlChargeVal = saAddCharge.SAD_CHARGES__c != null ? saAddCharge.SAD_CHARGES__c : 0;
+                //Calculate GST_Charge__c
+                if(saAddCharge.SAD_ADM_CHRGCD__c == 'R001')
+                {
+                    sumRegFee += saAddntlChargeVal ;
+                }
+                
+                if(saAddCharge.SAD_ADM_CHRGCD__c == 'R002' || saAddCharge.SAD_ADM_CHRGCD__c == 'R004')
+                {
+                    sumRoadTax += saAddntlChargeVal;
+                }
+                
+                if(saAddCharge.SAD_ADM_CHRGCD__c == 'R015')
+                {
+                    sumRetentionFee += saAddntlChargeVal;
+                } 
+                
+            }
+            Decimal vehiclePrice = dsa.Vehicle_Purchase_Price__c  != null ? dsa.Vehicle_Purchase_Price__c  : 0;
+            gstCharge = (vehiclePrice - arfPayable - lastBidCOE - sumRegFee - sumRoadTax - sumRetentionFee) * 7/100 ;     
+            Decimal coeThresHold = calculateCOEThresHold(dsa, vehicleType, vehicleCost, otherDirectCost, cves, cpf, gstCharge);
 
             mapFieldValues.put('CIF_for_COE__c', dsaCIF);
             mapFieldValues.put('ARF__c', dsaARF);
@@ -412,9 +461,10 @@ public without sharing class COEBiddingController {
             mapFieldValues.put('EEAI__c', dsaEEAI);
             mapFieldValues.put('ARF_Payable__c', arfPayable);
             mapFieldValues.put('Vehicle_Cost__c', vehicleCost);
+            mapFieldValues.put('CPF_on_Comm_for_COE__c', cpf);
             mapFieldValues.put('COEThresHold__c', coeThresHold);
-            mapFieldValues.put('CPF_on_Comm__c', cpf);
             mapFieldValues.put('CVES__c', cves);
+            mapFieldValues.put('GST_Charge__c', gstCharge);
 
             dsaIdAndValues.put(dsa.Id, mapFieldValues);
         }
@@ -475,7 +525,7 @@ public without sharing class COEBiddingController {
                 arf = ( ( cif - 80000 )*220/100 ) + 116000;
             }
         } else if(vehicleType == 'CV') {
-            if( regType != 'CPV') {
+            if( regType != 'GOODS CUM PASSENGER') {
                 arf = cif * 5/100;
             }
         }
@@ -493,7 +543,7 @@ public without sharing class COEBiddingController {
         } else {
             dsaEEAI = 0;
         }
-        return dsaEEAI;
+        return -dsaEEAI;
     }
 
     private static Decimal calculateARFPayable(String vehicleType, Decimal arf, Decimal ves, Decimal eeai) {
@@ -515,26 +565,29 @@ public without sharing class COEBiddingController {
         return cif + arfPayable + vehicleDuty;        
     }
 
-    private static Decimal calculateCOEThresHold(Sales_Agreement__c dsa, String vehicleType, Decimal vehicleCost, Decimal otherDirectCost, Decimal cves) {
+    private static Decimal calculateCOEThresHold(Sales_Agreement__c dsa, String vehicleType, Decimal vehicleCost, Decimal otherDirectCost, Decimal cves, Decimal cpf, Decimal gstCharge) {
         
         Decimal coeThresHold = 0;
-        Decimal opcFee = dsa.Registration_Type__c == 'Off Peak Car' ? 17000 : 0;
+        System.debug('sa.Registration_Type__c = ' + dsa.Registration_Type__c);
+        Decimal opcFee = dsa.Registration_Type__c == 'O' ? 17000 : 0;
+        System.debug('opcFee' + opcFee);
 
         coeThresHold =  (dsa.Net_Transaction_Price__c != null ? dsa.Net_Transaction_Price__c : 0)
                         - (vehicleCost != null ? vehicleCost : 0)
                         - (dsa.GMS_Package__c != null ? dsa.GMS_Package__c : 0)
-                        + (cves != null ? cves : 0)
+                        // + (cves != null ? cves : 0)
                         - (dsa.Additional_Charges__c != null ? dsa.Additional_Charges__c : 0)
                         - (dsa.Cost_of_Standard_Accessories__c != null ? dsa.Cost_of_Standard_Accessories__c : 0)
                         - (dsa.Cost_of_Accessories_Traded_Sold__c != null ? dsa.Cost_of_Accessories_Traded_Sold__c : 0)
                         - (otherDirectCost != null ? otherDirectCost : 0)
-                        - (dsa.GST_Charge__c != null ? dsa.GST_Charge__c : 0)
+                        - (gstCharge != null ? gstCharge : 0)
                         - (dsa.Proposed_Commission__c != null ? dsa.Proposed_Commission__c : 0)
-                        - (dsa.CPF_on_Comm__c != null ? dsa.CPF_on_Comm__c : 0)
+                        - (cpf != null ? cpf : 0)
                         + opcFee
                     ;
         return coeThresHold;
     }
+
 
     private static List<Sales_Agreement__c> getSAList(List<Map<String, String>> info)
     {

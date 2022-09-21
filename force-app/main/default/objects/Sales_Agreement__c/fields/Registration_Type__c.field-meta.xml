@@ -9,41 +9,42 @@
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
+        <controllingField>Agreement_Type__c</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>CYCLE &amp; CARRIAGE COY VEH</fullName>
+                <fullName>CNC</fullName>
                 <default>false</default>
                 <label>CYCLE &amp; CARRIAGE COY VEH</label>
             </value>
             <value>
-                <fullName>DEMO CAR</fullName>
+                <fullName>DEMO</fullName>
                 <default>false</default>
                 <label>DEMO CAR</label>
             </value>
             <value>
-                <fullName>DIPLOMATIC REGISTRATION</fullName>
+                <fullName>D</fullName>
                 <default>false</default>
                 <label>DIPLOMATIC REGISTRATION</label>
             </value>
             <value>
-                <fullName>EXPORT SALES</fullName>
+                <fullName>E</fullName>
                 <default>false</default>
                 <label>EXPORT SALES</label>
             </value>
             <value>
-                <fullName>INTER COMPANY SALES FOR CV</fullName>
+                <fullName>INTCV</fullName>
                 <default>false</default>
                 <label>INTER COMPANY SALES FOR CV</label>
             </value>
             <value>
-                <fullName>INTER COMPANY SALES</fullName>
+                <fullName>INTER</fullName>
                 <default>false</default>
                 <label>INTER COMPANY SALES</label>
             </value>
             <value>
-                <fullName>BUS</fullName>
+                <fullName>B</fullName>
                 <default>false</default>
                 <label>BUS</label>
             </value>
@@ -53,32 +54,32 @@
                 <label>COMPANY REGISTRATION</label>
             </value>
             <value>
-                <fullName>CHARITY VEH W/O ARF</fullName>
+                <fullName>F</fullName>
                 <default>false</default>
                 <label>CHARITY VEH W/O ARF</label>
             </value>
             <value>
-                <fullName>HANDICAP</fullName>
+                <fullName>H</fullName>
                 <default>false</default>
                 <label>HANDICAP</label>
             </value>
             <value>
-                <fullName>GOODS CUM PASSENGER (W/O COE)</fullName>
+                <fullName>J</fullName>
                 <default>false</default>
                 <label>GOODS CUM PASSENGER (W/O COE)</label>
             </value>
             <value>
-                <fullName>LIGHT GOODS VEHICLE</fullName>
+                <fullName>LGV</fullName>
                 <default>false</default>
                 <label>LIGHT GOODS VEHICLE</label>
             </value>
             <value>
-                <fullName>LOCAL SALES</fullName>
+                <fullName>LOCALSALES</fullName>
                 <default>false</default>
                 <label>LOCAL SALES</label>
             </value>
             <value>
-                <fullName>OFF PEAK CAR</fullName>
+                <fullName>O</fullName>
                 <default>false</default>
                 <label>OFF PEAK CAR</label>
             </value>
@@ -88,50 +89,158 @@
                 <label>PRIVATE REGISTRATION</label>
             </value>
             <value>
-                <fullName>RENTAL COMPANY</fullName>
+                <fullName>R</fullName>
                 <default>false</default>
                 <label>RENTAL COMPANY</label>
             </value>
             <value>
-                <fullName>RU SALES W/O COE</fullName>
+                <fullName>RU</fullName>
                 <default>false</default>
                 <label>RU SALES W/O COE</label>
             </value>
             <value>
-                <fullName>GOODS CUM PASSENGER</fullName>
+                <fullName>V</fullName>
                 <default>false</default>
                 <label>GOODS CUM PASSENGER</label>
             </value>
             <value>
-                <fullName>INSURANCE CLAIM FOR DAMAGE (NO GST)</fullName>
+                <fullName>INS-DAM</fullName>
                 <default>false</default>
                 <label>INSURANCE CLAIM FOR DAMAGE (NO GST)</label>
             </value>
             <value>
-                <fullName>CYCLE &amp; CARRIAGE 100% SPONSORSHIP</fullName>
+                <fullName>SPON</fullName>
                 <default>false</default>
                 <label>CYCLE &amp; CARRIAGE 100% SPONSORSHIP</label>
             </value>
             <value>
-                <fullName>STATUTORY BOARD</fullName>
+                <fullName>STAT</fullName>
                 <default>false</default>
                 <label>STATUTORY BOARD</label>
             </value>
             <value>
-                <fullName>STAT BOARD INCL GST&amp;COE</fullName>
+                <fullName>STATG</fullName>
                 <default>false</default>
                 <label>STAT BOARD INCL GST&amp;COE</label>
             </value>
             <value>
-                <fullName>STATUTORY BOARD W/O COE</fullName>
+                <fullName>STATWOCOE</fullName>
                 <default>false</default>
                 <label>STATUTORY BOARD W/O COE</label>
             </value>
             <value>
-                <fullName>TAXI</fullName>
+                <fullName>T</fullName>
                 <default>false</default>
                 <label>TAXI</label>
             </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>PPC</controllingFieldValue>
+            <controllingFieldValue>CPC</controllingFieldValue>
+            <valueName>O</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>PPC</controllingFieldValue>
+            <controllingFieldValue>CPC</controllingFieldValue>
+            <valueName>P</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CPC</controllingFieldValue>
+            <controllingFieldValue>CCV</controllingFieldValue>
+            <valueName>CNC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CPC</controllingFieldValue>
+            <controllingFieldValue>CCV</controllingFieldValue>
+            <valueName>DEMO</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CPC</controllingFieldValue>
+            <valueName>D</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CPC</controllingFieldValue>
+            <controllingFieldValue>CCV</controllingFieldValue>
+            <valueName>E</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CPC</controllingFieldValue>
+            <valueName>INTER</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CPC</controllingFieldValue>
+            <valueName>C</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CPC</controllingFieldValue>
+            <valueName>F</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CPC</controllingFieldValue>
+            <valueName>H</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CPC</controllingFieldValue>
+            <controllingFieldValue>CCV</controllingFieldValue>
+            <valueName>LOCALSALES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CPC</controllingFieldValue>
+            <valueName>R</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CPC</controllingFieldValue>
+            <controllingFieldValue>CCV</controllingFieldValue>
+            <valueName>RU</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CPC</controllingFieldValue>
+            <controllingFieldValue>CCV</controllingFieldValue>
+            <valueName>INS-DAM</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CPC</controllingFieldValue>
+            <controllingFieldValue>CCV</controllingFieldValue>
+            <valueName>SPON</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CPC</controllingFieldValue>
+            <controllingFieldValue>CCV</controllingFieldValue>
+            <valueName>STAT</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CPC</controllingFieldValue>
+            <controllingFieldValue>CCV</controllingFieldValue>
+            <valueName>STATG</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CPC</controllingFieldValue>
+            <controllingFieldValue>CCV</controllingFieldValue>
+            <valueName>STATWOCOE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CPC</controllingFieldValue>
+            <valueName>T</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CCV</controllingFieldValue>
+            <valueName>INTCV</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CCV</controllingFieldValue>
+            <valueName>B</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CCV</controllingFieldValue>
+            <valueName>J</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CCV</controllingFieldValue>
+            <valueName>LGV</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CCV</controllingFieldValue>
+            <valueName>V</valueName>
+        </valueSettings>
     </valueSet>
 </CustomField>

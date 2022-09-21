@@ -1,3 +1,10 @@
+/**
+ * Domain class for Sales Agreement entity
+ * @history
+ *          DATE::                                      TICKET::                                        CHANGELOG::
+ *          20 Sep 2022                                 DSA-US-0013                                     Modify onApplyDefault() to disconnect the transfer of Stock Reservation Registration Type to Sales Agreement
+ *          21 Sep 2022                                 DSA-US-0029                                     Modify onApplyDefault() to set Sales Agreement's Agreement Type base on Stock Reservation Registration Type and related Vehicle Master
+ */
 public without sharing class SalesAgreements extends ADGLIB_SObjectDomain 
 {    
     public static List<String> DebugLogsListSuccess = New List<String>();
@@ -21,10 +28,8 @@ public without sharing class SalesAgreements extends ADGLIB_SObjectDomain
     public override void onApplyDefaults() 
     {
         Set<ID> stockReservationIds = new Set<ID> ();
-        //Start of RN2020Q1010 
-        //Map<String, Id> modelAndPackageMap = new Map<String, Id>();
+        
         Map<String, Package_Header__c> modelAndPackageMap = new Map<String, Package_Header__c>();
-        //End of RN2020Q1010 
 
         Map<id, Stock_Reservation__c> stockReservationMap = new Map<id, Stock_Reservation__c>();
         Map<Id, List<Package_Accs__c>> pckAccMap  = new Map<Id, List<Package_Accs__c>>();
@@ -36,12 +41,11 @@ public without sharing class SalesAgreements extends ADGLIB_SObjectDomain
             stockReservationIds.add(salesAgreement.Stock_Reservation__c);
         }
 
+        // get related stock vehicle masters and group by sales agreement id
+
+
         stockReservationMap = SalesAgreementService.getStockReservationInformation(stockReservationIds);
         system.debug('SR INFO:' + stockReservationMap);
-         //Start of RN2020Q1010 
-         //modelAndPackageMap = SalesAgreementService.getPackageHeaderIdBasedOnModel(stockReservationMap.values());
-         /*modelAndPackageMap = SalesAgreementService.getPackageHeadersBasedOnModel(stockReservationMap.values()); ---currently used---- */
-        //End of RN2020Q1010 
            
         // Added by TPhan
         modelAndPackageMap = SalesAgreementService.getPackageHeaderBasedOnId(stockReservationMap.values());
@@ -76,6 +80,9 @@ public without sharing class SalesAgreements extends ADGLIB_SObjectDomain
             {
                 salesAgreement.SOH_RTM_REGTYPECD__c = stockReservationRec.Registration_Type__c;
             }
+
+            // [DSA-US-0029] set Agreement Type via Stock Reservation's Registration Type and car type
+
 
             //salesAgreement.Service_Credit__c = 2000;
             salesAgreement.service_credit_effective_years__c = 2;
@@ -959,10 +966,14 @@ public without sharing class SalesAgreements extends ADGLIB_SObjectDomain
         {
             Sales_Agreement__c oldSA = (Sales_Agreement__c) existingRecords.get(newSA.Id);
 
+            system.debug('newSA: ' + newSA);
+            system.debug('newSA.Stage__c: ' + newSA.Stage__c);
+            system.debug('newSA.Email__c: ' + newSA.Email__c);
+            system.debug('oldSA.Stage__c: ' + oldSA.Stage__c);
             if (oldSA.Stage__c <> newSA.Stage__c && newSA.Stage__c == 'Confirmation of Sale')
             {
                 emails.add(newSA.Email__c);
-                
+                system.debug('emails: ' + emails);
                 Set<Id> tempIds;
                 if (emailMap.containsKey(newSA.Email__c) && String.isNotBlank(newSA.Email__c))
                 {
@@ -975,9 +986,10 @@ public without sharing class SalesAgreements extends ADGLIB_SObjectDomain
                 }   
 
                 emailMap.put(newSA.Email__c, tempIds);    
+                system.debug('emailMap: ' + emailMap); 
             }
         }
-
+        system.debug('emails: ' + emails);
         Map<Id, Sales_Agreement__c> newSAMap = new Map<Id, Sales_Agreement__c>((List<Sales_Agreement__c>)Records);
 
         if (!emails.isEmpty())
@@ -1015,10 +1027,12 @@ public without sharing class SalesAgreements extends ADGLIB_SObjectDomain
                 }              
             }
         }
-
+        system.debug('emails: ' + emails);
         if (!emails.isEmpty())
         {
             List<Account> accounts = AccountUtil.getPersonAccountsByEmails(emails);
+
+            system.debug('accounts: ' + accounts);
             if (accounts.size() > 0)
             {
                 Profile portalProfile = [SELECT Id FROM Profile WHERE Name = 'End User' Limit 1];
@@ -1417,7 +1431,6 @@ public without sharing class SalesAgreements extends ADGLIB_SObjectDomain
                 Decimal paidAcc                 = 0; 
                 Decimal costOfStdAccessories    = 0;
                 Decimal costOfAccTradeOrSold    = 0;
-                Decimal ves                     = 0;
                 Decimal addtnlCharge            = 0;
                 Decimal gstCharge               = 0;
                 Decimal cpfOnComm               = 0;
@@ -1425,9 +1438,7 @@ public without sharing class SalesAgreements extends ADGLIB_SObjectDomain
                 for(SA_Accessory__c saAcc: sa.SA_Accessories__r)
                 {   
                     List<String> majGroupCodeToExclude = new List<String>{'SVC_CREDIT', 'USED_CAR', 'ACC_CREDIT', 'SVC CREDIT', 'PACKAGE'};
-                    //Calculate 
-                    
-
+                    //Calculate Paid_Accessories__c
                     if( saAcc.SAC_INCPRICE__c != 'INC' &&
                         !majGroupCodeToExclude.contains(saAcc.Accessories_Master__r.ACM_MNM_MAJGROUPCD__c)
                     ) {
@@ -1444,7 +1455,7 @@ public without sharing class SalesAgreements extends ADGLIB_SObjectDomain
                     } 
 
                     //Calculate Cost_of_Accessories_Traded_Sold__c
-                    else if(saAcc.SAC_PACKAGE__c != 'Y')
+                    if(saAcc.SAC_PACKAGE__c != 'Y')// && saAcc.Accessories_Master__r.ACM_MNM_MAJGROUPCD__c != 'USED_CAR'
                     {
                         costOfAccTradeOrSold += saAcc.SAC_ACCSCOST__c != null ? saAcc.SAC_ACCSCOST__c : 0;
                         system.debug('costOfAccTradeOrSold : ' + costOfAccTradeOrSold);
@@ -1456,17 +1467,18 @@ public without sharing class SalesAgreements extends ADGLIB_SObjectDomain
                 sa.Cost_of_Accessories_Traded_Sold__c = costOfAccTradeOrSold;
 				
                 //Calculate VES
+                Decimal ves = 0;
                 if(sa.FranchiseCode__c.endsWith('PC')) {
                     for(SA_Additional_Charge__c saAddCharge: sa.SA_Additional_Charges__r) {
                         
                         if(saAddCharge.SAD_ADM_CHRGCD__c == 'C001') {
-                            sa.VES__c  = saAddCharge.SAD_CHARGES__c;
-                        }  addtnlCharge += saAddCharge.SAD_CHARGES__c;
-                        
+                            ves += saAddCharge.SAD_CHARGES__c;
+                        }                          
                     }
                 } else if(sa.FranchiseCode__c.endsWith('CV')) {
-                    sa.VES__c = 0;
+                    ves = 0;
                 }
+                sa.VES__c  = ves;
 
                 
                 Decimal sumRegFee = 0;
@@ -1478,7 +1490,7 @@ public without sharing class SalesAgreements extends ADGLIB_SObjectDomain
                     
                     Decimal saAddntlChargeVal = saAddCharge.SAD_CHARGES__c != null ? saAddCharge.SAD_CHARGES__c : 0;
                     //Calculate Additional_Charges__c
-                    if(saAddCharge.SAD_ADM_CHRGCD__c != '1000' && saAddCharge.SAD_ADM_CHRGCD__c != 'C001')
+                    if(saAddCharge.SAD_ADM_CHRGCD__c != '1000' &&  saAddCharge.SAD_ADM_CHRGCD__c != 'C001')
                     {
                         addtnlCharge += saAddntlChargeVal;
                     }
@@ -1509,11 +1521,13 @@ public without sharing class SalesAgreements extends ADGLIB_SObjectDomain
                     lastBidCOE = (Decimal)lastCOEBidPeriod.get(sa.COECategory__c + '__c');
                 }
                 //Calculate GST_Charge__c
-                Decimal netTransPrice = sa.Net_Transaction_Price__c != null ? sa.Net_Transaction_Price__c : 0;
+                Decimal vehiclePrice = sa.Vehicle_Purchase_Price__c  != null ? sa.Vehicle_Purchase_Price__c  : 0;
                 Decimal arfPayable = sa.ARF_Payable__c != null ? sa.ARF_Payable__c : 0;
-
-                sa.GST_Charge__c = (netTransPrice - arfPayable - lastBidCOE - sumRegFee - sumRoadTax - sumRetentionFee) * 7/100 ;     
-
+                System.debug('sa.Vehicle_Purchase_Price__c  = ' + sa.Vehicle_Purchase_Price__c );
+                System.debug('sa.ARF_Payable__c = ' + sa.ARF_Payable__c);
+                System.debug('lastBidCOE = ' + lastBidCOE);
+                sa.GST_Charge__c = (vehiclePrice - arfPayable - lastBidCOE - sumRegFee - sumRoadTax - sumRetentionFee) * 7/100 ;     
+                System.debug('sa.GST_Charge__c = ' + sa.GST_Charge__c);
             }
 
             update saList;

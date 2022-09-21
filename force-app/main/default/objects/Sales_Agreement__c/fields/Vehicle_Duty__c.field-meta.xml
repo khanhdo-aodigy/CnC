@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Other_Direct_Cost__c</fullName>
+    <fullName>Vehicle_Duty__c</fullName>
     <externalId>false</externalId>
-    <label>Other Direct Cost</label>
+    <formula>Stock_Reservation__r.Vehicle_Master__r.Duty_Amount__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Vehicle Duty</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Currency</type>
