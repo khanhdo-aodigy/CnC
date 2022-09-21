@@ -1,34 +1,56 @@
 ({
-    doInit: function (component, event, helper) {
+    doInit: function (component, event, helper)
+    {
         document.title = "C&C Digital Sales Agreement";
         component.set("v.recordID", helper.getURLRecordId('recordID'));
         helper.initializeSalesAgreement(component.get("v.recordID"), component);
-
-//        helper.initializeSalesAgreement("a1qO000000207WJIAY", component);
-
     },
 
-    handleChange: function (component, event, helper) {
+    handleChange: function (component, event, helper)
+    {
         const dataReturn = event.getParams();
         dataReturn.Id = component.get("v.salesAgreementObject.Id");
         component.set("v.deltaChangesObj", dataReturn);
         component.find('processHeader').updateChangeList(dataReturn);
     },
 
-    handleChangePage0: function(component, event, helper) {
+    /**
+     * Handle changes to Sales Agreement object prior to it's initialization
+     * @param {*} component 
+     * @param {*} event 
+     * @param {*} helper 
+     */
+    handlePreInitSalesAgreementChanges : function(component, event, helper)
+    {
+        const dataReturn = event.getParams();
+        component.set("v.deltaChangesObj", dataReturn);
+        console.log('Delta change in page 0', JSON.stringify(dataReturn));
+    },
+
+    /**
+     * Handle changes to Stock Reservation object prior to Sales Agreement's initialization
+     * @param {*} component 
+     * @param {*} event 
+     * @param {*} helper 
+     */
+    handleChangePage0: function(component, event, helper)
+    {
         const dataReturn = event.getParams();
         dataReturn.Id = component.get("v.stockResObject.Id");
         component.set("v.deltaChangesStockResObj", dataReturn);
     },
 
-    processStepChange: function(component, event, helper){
+    processStepChange: function(component, event, helper)
+    {
         const processStepChanged = event.getParams();
-
-       
-        if (processStepChanged.stage === 'RegistrationType') {
+ 
+        if (processStepChanged.stage === 'RegistrationType')
+        {
             processStepChanged.stage && component.set("v.currentStage", 'Customer');
             helper.createInitialSalesAgreement(processStepChanged.Id, component);
-        } else {
+        }
+        else
+        {
             processStepChanged.stage && ( component.set("v.currentStage", processStepChanged.stage),
             component.find('processHeader').getElement().setCurrentStage(processStepChanged.stage));
         }

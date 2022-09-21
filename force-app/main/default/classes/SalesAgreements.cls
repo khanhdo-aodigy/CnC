@@ -70,8 +70,13 @@ public without sharing class SalesAgreements extends ADGLIB_SObjectDomain
                 salesAgreement.NRIC_Number__c = stockReservationRec.Customer_Social_ID__c;//stockReservationRec.tNRIC__c;
                 salesAgreement.Customer_Full_Name__c = stockReservationRec.Customer_Name__c;
             }
-            salesAgreement.Registration_Type__c = stockReservationRec.Registration_Type__c;
-            salesAgreement.SOH_RTM_REGTYPECD__c = stockReservationRec.Registration_Type__c;
+            // [DSA-US-0013] disconnect registration type between SR & SA
+            // salesAgreement.Registration_Type__c = stockReservationRec.Registration_Type__c;
+            if (stockReservationRec.Registration_Type__c == 'P' || stockReservationRec.Registration_Type__c == 'O' || stockReservationRec.Registration_Type__c == 'C')
+            {
+                salesAgreement.SOH_RTM_REGTYPECD__c = stockReservationRec.Registration_Type__c;
+            }
+
             //salesAgreement.Service_Credit__c = 2000;
             salesAgreement.service_credit_effective_years__c = 2;
 
@@ -1420,7 +1425,9 @@ public without sharing class SalesAgreements extends ADGLIB_SObjectDomain
                 for(SA_Accessory__c saAcc: sa.SA_Accessories__r)
                 {   
                     List<String> majGroupCodeToExclude = new List<String>{'SVC_CREDIT', 'USED_CAR', 'ACC_CREDIT', 'SVC CREDIT', 'PACKAGE'};
-                    //Calculate Paid_Accessories__c
+                    //Calculate 
+                    
+
                     if( saAcc.SAC_INCPRICE__c != 'INC' &&
                         !majGroupCodeToExclude.contains(saAcc.Accessories_Master__r.ACM_MNM_MAJGROUPCD__c)
                     ) {
