@@ -40,7 +40,7 @@ export default class CoeBidCreation extends LightningElement {
         { 'key': 'Detail_Cost_of_Accessories_Traded_Sold', 'label': 'Detail - Cost of Accessories Traded/Sold' },
         { 'key': 'GST_Charge__c', 'label': 'GST' },
         { 'key': 'Proposed_Commission__c', 'label': 'SC Comm' },
-        { 'key': 'CPF_on_Comm__c', 'label': 'CPF on Comm' },
+        { 'key': 'CPF_on_Comm_for_COE__c', 'label': 'CPF on Comm' },
         { 'key': 'COEThresHold__c', 'label': 'COE Threshold' },
         { 'key': 'Bid_Category__c', 'label': 'Category' },
         { 'key': 'Bid_Price__c', 'label': 'Bid Price' },
