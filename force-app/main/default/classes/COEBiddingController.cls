@@ -389,6 +389,7 @@ public without sharing class COEBiddingController {
             if(lastCOEBidPeriod != null) {
                 lastBidCOE = (Decimal)lastCOEBidPeriod.get(dsa.COECategory__c + '__c');
             }
+            System.debug('lastBidCOE ' + lastBidCOE);
             Map<String, Decimal> mapFieldValues = new Map<String, Decimal>();
 
             String vehicleType = dsa.FranchiseCode__c.endsWith('PC') ? 'PC' : (dsa.FranchiseCode__c.endsWith('CV') ? 'CV' : 'other');
@@ -525,7 +526,7 @@ public without sharing class COEBiddingController {
                 arf = ( ( cif - 80000 )*220/100 ) + 116000;
             }
         } else if(vehicleType == 'CV') {
-            if( regType != 'GOODS CUM PASSENGER') {
+            if( regType != 'V') {
                 arf = cif * 5/100;
             }
         }
