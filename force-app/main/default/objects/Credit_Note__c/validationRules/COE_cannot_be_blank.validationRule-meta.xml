@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COE_cannot_be_blank</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( CONTAINS(TEXT(Credit_Debit_Note_Type__c), &apos;COE&apos;),ISBLANK( COE__c ))</errorConditionFormula>
+    <errorDisplayField>COE__c</errorDisplayField>
+    <errorMessage>If Credit Debit Note Type contains &quot;COE&quot;, COE cannot be blank.</errorMessage>
+</ValidationRule> 
+ 
