@@ -1,0 +1,22 @@
+<template>
+    <lightning-quick-action-panel header = 'Void Payment Receipt'>
+        <template if:true={showSpinner}>
+            <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+        </template>
+        <template if:false={showSpinner}>
+            <lightning-record-edit-form object-api-name={objectApiName} record-id={recordId}>
+                <lightning-input-field field-name="Void_Date__c" onchange={onValueChanged}></lightning-input-field>
+                <lightning-input-field field-name="Void_Reason__c" onchange={onValueChanged}></lightning-input-field>
+                <div class="slds-col slds-size_1-of-1">
+                    <div style="text-align:center;">
+                        <hr>
+                    </div>
+                </div> 
+                <div class="slds-col slds-size_1-of-1 slds-align_absolute-center slds-m-top_xxx-small">
+                    <lightning-button variant="neutral" onclick={onClose} label="Cancel"></lightning-button>
+                    <lightning-button class="slds-m-left_small" variant="brand" label="Void" onclick={onVoid} disabled={disableVoidButton}></lightning-button>
+                </div>
+            </lightning-record-edit-form>
+        </template>
+    </lightning-quick-action-panel>
+</template>
