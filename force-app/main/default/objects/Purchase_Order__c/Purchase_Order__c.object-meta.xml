@@ -161,10 +161,9 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>TMS PO Group</label>
     <nameField>
-        <displayFormat>TMSPO-{YYYY}{MM}-{00000}</displayFormat>
         <label>TMS Purchase Order Name</label>
         <trackHistory>false</trackHistory>
-        <type>AutoNumber</type>
+        <type>Text</type>
     </nameField>
     <pluralLabel>TMS PO Groups</pluralLabel>
     <searchLayouts></searchLayouts>

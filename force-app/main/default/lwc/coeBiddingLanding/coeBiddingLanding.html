@@ -1,0 +1,273 @@
+<template>
+    <div class="slds-panel slds-size_full slds-is-open" aria-hidden="false">
+        <div class="slds-panel__body"> 
+            <template if:true={spinner}>
+                <lightning-spinner size="small" variant="brand"></lightning-spinner>
+            </template>
+            <template if:false={spinner}>
+                <!-- control panel -->
+                <div class="slds-box slds-var-m-around_x-large" style="margin: auto; width:50%; border-style:hidden;">
+                    <div class="slds-form-element slds-form-element_horizontal">
+                        <label class="slds-form-element__label slds-align_absolute-center" for="form-element-01"><strong>Franchise</strong></label>
+                        <div class="slds-form-element__control slds-m-left_xx-large">
+                            <lightning-combobox class="validate4" value={franchise} options={franchiseChoices} onchange={handleFranchiseSelected} placeholder="Select..." style="width: 80%;"></lightning-combobox>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-form-element slds-form-element_horizontal slds-m-top_large">
+                        <label class="slds-form-element__label slds-align_absolute-center slds-m-top_xxx-small" for="form-element-01"><strong>Bidding Period Start:</strong></label>
+                        <div class="slds-form-element__control slds-m-left_xx-large slds-m-top_xx-small">
+                            <lightning-formatted-text value={fromDate} style="padding-left: 6px;"></lightning-formatted-text>
+                        </div>
+                    </div>
+            
+                    <div class="slds-form-element slds-form-element_horizontal slds-m-top_large">
+                        <label class="slds-form-element__label slds-align_absolute-center slds-m-top_xxx-small" for="form-element-01"><strong>Bidding Period End:</strong></label>
+                        <div class="slds-form-element__control slds-m-left_xx-large slds-m-top_xx-small">
+                            <lightning-formatted-text value={toDate} style="padding-left: 6px;"></lightning-formatted-text>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="slds-box slds-var-m-around_large" style="margin: auto; width:80%; border-style:hidden;">
+                    <div class="slds-form__row slds-m-top_large">
+                        <div class="slds-form__item">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <label class="slds-form-element__label slds-m-left_xx-large" for="form-element-01"><strong>Last Bid Period Cat A QP:</strong></label>
+                                <div class="slds-form-element__control slds-m-left_xx-large slds-m-top_small">
+                                    <lightning-formatted-number value={quotaA} format-style="currency" maximum-fraction-digits="2" style="padding-left: 20px"></lightning-formatted-number>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="slds-form__item">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <label class="slds-form-element__label slds-m-left_xx-large" for="form-element-01"><strong>Last Bid Period Cat E QP:</strong></label>
+                                <div class="slds-form-element__control slds-m-left_xx-large slds-m-top_small">
+                                    <lightning-formatted-number value={quotaE} format-style="currency" maximum-fraction-digits="2" style="padding-left: 20px"></lightning-formatted-number>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="slds-box slds-var-m-around_large" style="margin: auto; width:80%; border-style:hidden">
+                    <template if:true={isFranchiseNull}>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label slds-m-left_xx-large" for="form-element-01"><strong>Last Bid Period Cat B QP:</strong></label>
+                                    <div class="slds-form-element__control slds-m-left_xx-large slds-m-top_small">
+                                        <lightning-formatted-number value={quotaB} format-style="currency" maximum-fraction-digits="2" style="padding-left: 20px"></lightning-formatted-number>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="slds-form__item">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label slds-m-top_xx-small slds-m-left_xx-large" for="form-element-01" style="padding-top: 8px;"><strong>Exchange Rate:</strong></label>
+                                    <div class="slds-form-element__control slds-m-left_xx-large">
+                                        <lightning-input style="width:70%; padding-top: 1px; padding-left:19px" disabled></lightning-input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template if:true={isMIT}>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label slds-m-left_xx-large" for="form-element-01"><strong>Last Bid Period Cat B QP:</strong></label>
+                                    <div class="slds-form-element__control slds-m-left_xx-large slds-m-top_small">
+                                        <lightning-formatted-number value={quotaB} format-style="currency" maximum-fraction-digits="2" style="padding-left: 20px"></lightning-formatted-number>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="slds-form__item">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label slds-m-top_xx-small slds-m-left_xx-large" for="form-element-01" style="padding-top: 8px;"><strong>JPY Exchange Rate:</strong></label>
+                                    <div class="slds-form-element__control slds-m-left_xx-large">
+                                        <lightning-input
+                                            class="validate1" 
+                                            onchange={handleInputChange} 
+                                            type="decimal" 
+                                            value={exchangeRateJPY} 
+                                            name="JPY exchange rate" 
+                                            style="width:70%; padding-top: 1px; padding-left:19px">
+                                        </lightning-input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template if:true={isKIA}>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label slds-m-left_xx-large" for="form-element-01"><strong>Last Bid Period Cat B QP:</strong></label>
+                                    <div class="slds-form-element__control slds-m-left_xx-large slds-m-top_small">
+                                        <lightning-formatted-number value={quotaB} format-style="currency" maximum-fraction-digits="2" style="padding-left: 20px"></lightning-formatted-number>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="slds-form__item">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label slds-m-top_xx-small slds-m-left_xx-large" for="form-element-01" style="padding-top: 8px;"><strong>USD Exchange Rate:</strong></label>
+                                    <div class="slds-form-element__control slds-m-left_xx-large">
+                                        <lightning-input
+                                            class="validate1" 
+                                            onchange={handleInputChange} 
+                                            type="decimal" 
+                                            value={exchangeRateUSD} 
+                                            name="USD exchange rate" 
+                                            style="width:70%; padding-top: 1px; padding-left:19px">
+                                        </lightning-input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template if:true={isMAXUS}>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label slds-m-left_xx-large" for="form-element-01"><strong>Last Bid Period Cat B QP:</strong></label>
+                                    <div class="slds-form-element__control slds-m-left_xx-large slds-m-top_small">
+                                        <lightning-formatted-number value={quotaB} format-style="currency" maximum-fraction-digits="2" style="padding-left: 20px"></lightning-formatted-number>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="slds-form__item">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label slds-m-top_xx-small slds-m-left_xx-large" for="form-element-01" style="padding-top: 8px;"><strong>RMB Exchange Rate:</strong></label>
+                                    <div class="slds-form-element__control slds-m-left_xx-large">
+                                        <lightning-input
+                                            class="validate1" 
+                                            onchange={handleInputChange}
+                                            type="decimal" 
+                                            value={exchangeRateRMB} 
+                                            name="RMB exchange rate" 
+                                            style="width:70%; padding-top: 1px; padding-left:19px">
+                                        </lightning-input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template if:true={isCIT}>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label slds-m-left_xx-large" for="form-element-01"><strong>Last Bid Period Cat B QP:</strong></label>
+                                    <div class="slds-form-element__control slds-m-left_xx-large slds-m-top_small">
+                                        <lightning-formatted-number value={quotaB} format-style="currency" maximum-fraction-digits="2" style="padding-left: 20px"></lightning-formatted-number>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="slds-form__item">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label slds-m-top_xx-small slds-m-left_xx-large" for="form-element-01" style="padding-top: 8px;"><strong>USD Exchange Rate:</strong></label>
+                                    <div class="slds-form-element__control slds-m-left_xx-large">
+                                        <lightning-input 
+                                            class="validate1"
+                                            onchange={handleInputChange} 
+                                            type="decimal" 
+                                            value={exchangeRateUSD} 
+                                            name="USD exchange rate" 
+                                            style="width:70%; padding-top: 1px; padding-left:19px">
+                                        </lightning-input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <div class="slds-form__row slds-m-top_x-large">
+                            <div class="slds-form__item slds-m-left_xxx-small">&nbsp;</div>
+
+                            <div class="slds-form__item">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label slds-m-top_xx-small slds-m-left_x-large" for="form-element-01" style="padding-top: 8px; padding-left: 14px;"><strong>EUR Exchange Rate:</strong></label>
+                                    <div class="slds-form-element__control slds-m-left_xx-large">
+                                        <lightning-input
+                                            class="validate3" 
+                                            onchange={handleInputChange} 
+                                            type="decimal" 
+                                            value={exchangeRateEUR} 
+                                            name="EUR exchange rate" 
+                                            style="width:70%; padding-top: 1px; padding-left:18px">
+                                        </lightning-input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+
+                <template if:false={isFranchiseNull}>
+                    <div class="slds-box slds-var-m-around_large" style="margin: auto; width:80%; border-style:hidden">
+                        <div class="slds-form__row">
+                            <div class="slds-form__item slds-m-left_xx-large">&nbsp;</div>
+
+                            <div class="slds-form__item">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label slds-m-left_medium" for="form-element-01" style="padding-left: 6px;"><strong>Recalculate Using This Exchange Rate?</strong></label>
+                                    <div class="slds-form-element__control slds-m-left_x-large slds-m-top_large">
+                                        <div class="slds-checkbox">
+                                            <lightning-input type="checkbox" name="using exchange rate" onchange={handleInputChange} checked={reCalculate} style="padding-left: 20px"></lightning-input>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+
+                <div class="slds-box slds-var-m-around_large" style="margin: auto; width:80%; border-style:hidden">
+                    <div class="slds-form__row">
+                        <div class="slds-form__item">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <label class="slds-form-element__label slds-m-left_xx-large" for="form-element-01"><strong>Last Bid Period Cat C QP:</strong></label>
+                                <div class="slds-form-element__control slds-m-left_xx-large slds-m-top_small">
+                                    <lightning-formatted-number value={quotaC} format-style="currency" maximum-fraction-digits="2" style="padding-left: 20px"></lightning-formatted-number>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__item">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <label class="slds-form-element__label slds-m-top_xx-small slds-m-left_x-large" style="padding-top: 8px; padding-left: 14px;" form-element-01><strong>Other Direct Cost:</strong></label>
+                                <div class="slds-form-element__control slds-m-left_xx-large">
+                                    <lightning-input 
+                                        class="validate2"
+                                        onchange={handleInputChange} 
+                                        type="number"
+                                        step="0.01"
+                                        value={directCost} 
+                                        name="direct cost" 
+                                        style="width:70%; padding-top: 1px; padding-left:18px">
+                                    </lightning-input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+
+                <div class="slds-align_absolute-center slds-m-top_large">
+                    <lightning-button label="Retrieve DSAs for Bidding" variant="brand" onclick={moveToCOECreation} class="slds-var-m-around_small"></lightning-button>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>

@@ -292,7 +292,7 @@ public class SalesAgreementSelector extends ADGLIB_SObjectSelector {
             Sales_Agreement__c.Cost_of_Accessories_Traded_Sold__c,
             Sales_Agreement__c.Other_Direct_Cost__c,
             Sales_Agreement__c.GST_Charge__c,
-            Sales_Agreement__c.CPF_on_Comm__c,
+            Sales_Agreement__c.CPF_on_Comm_for_COE__c,
             Sales_Agreement__c.VES__c,
             Sales_Agreement__c.JIT_Status__c,
             Sales_Agreement__c.Verified_by_Sales_Consultant__c,
@@ -367,11 +367,13 @@ public class SalesAgreementSelector extends ADGLIB_SObjectSelector {
         query.selectField('Finance_Company_Lookup__r.Name');
         query.selectField('Stock_Reservation__r.Vehicle_Master__r.Vehicle_Type_For_Sale__c');
         query.selectField('Stock_Reservation__r.Vehicle_Master__r.OMV__c');
-        query.selectField('Stock_Reservation__r.Vehicle_Master__r.Stock_Vehicle_Status__c');
         query.selectField('Stock_Reservation__r.Vehicle_Master__r.FOB_Amount__c');
         query.selectField('Stock_Reservation__r.Vehicle_Master__r.Freight_Charges__c');
         query.selectField('Stock_Reservation__r.Vehicle_Master__r.Insurance_Charges__c');
         query.selectField('Stock_Reservation__r.Vehicle_Master__r.Model_Code__c');  
+        query.selectField('Stock_Reservation__r.Vehicle_Master__r.Model_Code__r.Fuel_Type__c');
+        query.selectField('Stock_Reservation__r.Vehicle_Master__r.Duty_Amount__c');
+        query.selectField('Stock_Reservation__r.Model_Code__c');
         String strFilter = 'FranchiseCode__c = :franchise' 
                         + ' AND COE__c = null'
                         + ' AND Vehicle_Deposit__c != 0'
@@ -381,12 +383,13 @@ public class SalesAgreementSelector extends ADGLIB_SObjectSelector {
                         + ' AND Expected_Delivery_Month__c != null'
                         ;
 
-        //Set<String> excludeMajorGrouppCodes = new Set<String>{'SVC_CREDIT', 'USED_CAR', 'ACC_CREDIT', 'SVC CREDIT', 'PACKAGE'};
         query.subselectQuery(SA_Additional_Charge__c.SObjectType)
              .selectField('ChargeCodeDescription__c')
+             .selectField('SAD_ADM_CHRGCD__c')
              .selectField('SAD_CHARGES__c');
 
         query.subselectQuery(SA_Accessory__c.SObjectType)
+             .selectField('Accessories_Master__r.ACM_MNM_MAJGROUPCD__c')
              .selectField('SA_ACM_ACCSDESC__c')
              .selectField('SAC_ACCSCOST__c')
              .setCondition( 'SAC_PACKAGE__c != \'Y\' AND Accessories_Master__r.ACM_MNM_MAJGROUPCD__c != \'USED_CAR\'');
@@ -402,20 +405,18 @@ public class SalesAgreementSelector extends ADGLIB_SObjectSelector {
 
     public List<Sales_Agreement__c> selectSalesAgreementForThresholdCalculation(List<Id> saIds) {
 
-        adglib_QueryFactory SAqueryFactory = newQueryFactory();
-        SAqueryFactory.setCondition('Id IN :saIds');
-        // SAqueryFactory.selectField('Stage__c');
+        adglib_QueryFactory saQueryFactory = newQueryFactory();
+        saQueryFactory.setCondition('Id IN :saIds');
 
-        SaAddnlChargeSelector additionChargesQuery = new SaAddnlChargeSelector();
-        adglib_QueryFactory additionChargesQueryFactory = additionChargesQuery.newQueryFactory(false);
-        //additionChargesQueryFactory.setCondition('SAD_INCPRICE__c !=\'INC\'');
-        additionChargesQuery.addQueryFactorySubselect(SAqueryFactory, 'SA_Additional_Charges__r');
+        saQueryFactory.subselectQuery(SA_Accessory__c.SObjectType)
+                      .selectFields(new SaAccsSelector().getSObjectFieldList())
+                      .selectField('Accessories_Master__r.ACM_MNM_MAJGROUPCD__c'); 
 
-        SaAccsSelector saAccsQuery = new SaAccsSelector();
-        adglib_QueryFactory saAccsQueryFactory = saAccsQuery.newQueryFactory(false);
-        saAccsQuery.addQueryFactorySubselect(SAqueryFactory, 'SA_Accessories__r');
+        saQueryFactory.subselectQuery(SA_Additional_Charge__c.SObjectType)
+                      .selectFields(new SaAddnlChargeSelector().getSObjectFieldList());
 
-        return Database.query(SAqueryFactory.toSOQL());
+
+        return Database.query(saQueryFactory.toSOQL());
     }
 
     public List<Sales_Agreement__c> selectByIds(Set<String> saIds) {

@@ -55,7 +55,7 @@
             <field>Vehicle_Master__c</field>
             <operator>IsChanged</operator>
             <value>
-                <booleanValue>false</booleanValue>
+                <booleanValue>true</booleanValue>
             </value>
         </filters>
         <filters>

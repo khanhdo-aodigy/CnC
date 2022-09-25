@@ -11,9 +11,6 @@
  * 
  *  ========================================================================================================================================================================== 
  */
-
-public inherited sharing class StockVehicleMasterSelector extends ADGLIB_SObjectSelector 
-{
 public inherited sharing class StockVehicleMasterSelector extends ADGLIB_SObjectSelector 
 {
     public List<Schema.SObjectField> getSObjectFieldList() 
@@ -36,28 +33,28 @@ public inherited sharing class StockVehicleMasterSelector extends ADGLIB_SObject
             Vehicle_Master2__c.Engine_No__c,
             Vehicle_Master2__c.Vehicle_Status__c,
             Vehicle_Master2__c.TN_Item_Description__c,
-            Vehicle_Master2__c.hs_qty_value__c,
+            // Vehicle_Master2__c.hs_qty_value__c,
             Vehicle_Master2__c.TN_HS_Unit__c,
-            Vehicle_Master2__c.tot_dutiable_qty_uom__c,
-            Vehicle_Master2__c.tot_dutiable_qty_value__c,
+            // Vehicle_Master2__c.tot_dutiable_qty_uom__c,
+            // Vehicle_Master2__c.tot_dutiable_qty_value__c,
             Vehicle_Master2__c.FOB_Amount__c,
             Vehicle_Master2__c.FOB_Amount_Currency_Code__c,
-            Vehicle_Master2__c.item_cif_fob_amt__c,
-            Vehicle_Master2__c.outer_qty_value__c,
-            Vehicle_Master2__c.outer_qty_uom__c,
-            Vehicle_Master2__c.gst_rate__c,
-            Vehicle_Master2__c.gst_amt__c,
-            Vehicle_Master2__c.excise_duty_uom__c,
-            Vehicle_Master2__c.excise_duty_amt__c,
-            Vehicle_Master2__c.excise_duty_rate__c,
+            // Vehicle_Master2__c.item_cif_fob_amt__c,
+            // Vehicle_Master2__c.outer_qty_value__c,
+            // Vehicle_Master2__c.outer_qty_uom__c,
+            // Vehicle_Master2__c.gst_rate__c,
+            // Vehicle_Master2__c.gst_amt__c,
+            // Vehicle_Master2__c.excise_duty_uom__c,
+            // Vehicle_Master2__c.excise_duty_amt__c,
+            // Vehicle_Master2__c.excise_duty_rate__c,
             Vehicle_Master2__c.Vehicle_Type__c,
-            Vehicle_Master2__c.customs_duty_amt__c,
-            Vehicle_Master2__c.customs_duty_uom__c,
+            // Vehicle_Master2__c.customs_duty_amt__c,
+            // Vehicle_Master2__c.customs_duty_uom__c,
             Vehicle_Master2__c.Product_Code__c, 
-            Vehicle_Master2__c.prod_qty_uom__c, 
-            Vehicle_Master2__c.customs_duty_amt__c,
-            Vehicle_Master2__c.customs_duty_uom__c,
-            Vehicle_Master2__c.customs_duty_rate__c,
+            // Vehicle_Master2__c.prod_qty_uom__c, 
+            // Vehicle_Master2__c.customs_duty_amt__c,
+            // Vehicle_Master2__c.customs_duty_uom__c,
+            // Vehicle_Master2__c.customs_duty_rate__c,
             Vehicle_Master2__c.Franchise_Code__c
 		};
     }    
@@ -71,7 +68,7 @@ public inherited sharing class StockVehicleMasterSelector extends ADGLIB_SObject
     public List<Vehicle_Master2__c> selectStockVehicleMastersBySystemCommcases(Set<String> systemCommcases) 
     {
         adglib_QueryFactory query = newQueryFactory();
-        query.setCondition('Inward_Declaration_Invoice__c IN: invoiceIds');
+        query.setCondition('System_Commcase__c IN: systemCommcases');
         query.selectField('Name');
         query.selectField('Inward_Declaration_Invoice__r.Name');
         query.selectField('Vehicle_Status__c');

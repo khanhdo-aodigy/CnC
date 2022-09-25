@@ -120,12 +120,20 @@ private class JITControllerTest
         pckAddnlChargeList.add(pckAddnlCharge2);
         insert pckAddnlChargeList;
 
+        TriggerExclusion.excludeTrigger('Sales_Agreement__c', true);
         Sales_Agreement__c sAgree = Test_DataFactory.createSalesAgreement(true, 'CCK', 'NO9999', sr.Id, 'Test'); 
+        TriggerExclusion.excludeTrigger('Sales_Agreement__c', false);
         // sAgree.JIT_Date__c = Date.ValueOf('20-08-2022');
         // update sAgree;
         JIT_Day__c jitDay = Test_DataFactory.createJITDay(true, 'JIT_Test', 'KIAPC');
         JIT_Day__c jitDay2 = Test_DataFactory.createJITDay_NoMoreSlot(true, 'JIT_Test_No_Slot', 'MITPC');
         vMaster.JIT_Day__c = jitDay.Id;
+    }
+
+    @isTest
+    static void Test_createJITDayWithoutSlot()
+    {
+        JIT_Day__c sa = [SELECT Id FROM JIT_Day__c WHERE Name =: 'JIT_Test_No_Slot'];
     }
 
     
@@ -134,14 +142,15 @@ private class JITControllerTest
     {
         Stock_Reservation__c stockReservation = [SELECT Id FROM Stock_Reservation__c];
         Sales_Agreement__c sa = [SELECT Id FROM Sales_Agreement__c WHERE Stock_Reservation__c =: stockReservation.Id];
-        JITController.getRecords('Sales_Agreement__c', 'Id', sa.Id, 'LIMIT 1');       
+        JITController.getRecords('Sales_Agreement__c', new Set<String>{'Id'}, 'Id = \'' + sa.Id + '\'', false);
     }
 
     @isTest
     static void Test_getRecords_onSVM()
     {
         Stock_Reservation__c stockReservation = [SELECT Id FROM Stock_Reservation__c];
-        JITController.getRecords('Stock_Reservation__c', 'Id', stockReservation.Id, 'LIMIT 1');       
+        JITController.getRecords('Stock_Reservation__c', new Set<String>{'Id'}, 'Id = \'' + stockReservation.Id + '\'', false);
+
     }
 
     @isTest
@@ -181,11 +190,13 @@ private class JITControllerTest
     {
         Vehicle_Master2__c svm = [SELECT Id, Chassis__c, Name, Agreement_No__c FROM Vehicle_Master2__c];        
         Stock_Reservation__c sr = [SELECT Id, Vehicle_Master__c FROM Stock_Reservation__c WHERE Vehicle_Master__c =: svm.Id];
-        Sales_Agreement__c sa = [SELECT Id, SOH_SONO__c, Sales_Consultant__c, Stock_Reservation__c, JIT_Status__c FROM Sales_Agreement__c WHERE Stock_Reservation__c =: sr.Id];
+        Sales_Agreement__c sa = [SELECT Id, SOH_SONO__c, Sales_Consultant__c, Stock_Reservation__c, JIT_Status__c,JIT_Day__c FROM Sales_Agreement__c WHERE Stock_Reservation__c =: sr.Id];
         JIT_Day__c jitDay = [SELECT Id, Utilised_Slots__c FROM JIT_Day__c WHERE Name = 'JIT_Test'];   
+        TriggerExclusion.excludeTrigger('Sales_Agreement__c', true);
         sa.JIT_Day__c = jitDay.Id;
         sa.JIT_Status__c =  'Pending';
         update sa;
+        TriggerExclusion.excludeTrigger('Sales_Agreement__c', false);
         JITController.cancelSlot('Sales_Agreement__c',sa.Id);
         System.debug('sa jit day ='  +  sa.JIT_Day__c);
         System.debug('successfull cancel slot');
@@ -196,11 +207,13 @@ private class JITControllerTest
     {
         Vehicle_Master2__c svm = [SELECT Id, Chassis__c, Name, Agreement_No__c FROM Vehicle_Master2__c];        
         Stock_Reservation__c sr = [SELECT Id, Vehicle_Master__c FROM Stock_Reservation__c WHERE Vehicle_Master__c =: svm.Id];
-        Sales_Agreement__c sa = [SELECT Id, SOH_SONO__c, Sales_Consultant__c, Stock_Reservation__c, JIT_Status__c FROM Sales_Agreement__c WHERE Stock_Reservation__c =: sr.Id];
+        Sales_Agreement__c sa = [SELECT Id, SOH_SONO__c, Sales_Consultant__c, Stock_Reservation__c, JIT_Status__c, JIT_Day__c  FROM Sales_Agreement__c WHERE Stock_Reservation__c =: sr.Id];
         JIT_Day__c jitDay = [SELECT Id, Utilised_Slots__c FROM JIT_Day__c WHERE Name = 'JIT_Test'];   
+        TriggerExclusion.excludeTrigger('Sales_Agreement__c', true);
         sa.JIT_Day__c = jitDay.Id;
         sa.JIT_Status__c = 'Started';
         update sa;
+        TriggerExclusion.excludeTrigger('Sales_Agreement__c', false);
         try 
         {
             JITController.cancelSlot('Sales_Agreement__c',sa.Id);
@@ -218,11 +231,13 @@ private class JITControllerTest
     {
         Vehicle_Master2__c svm = [SELECT Id, Chassis__c, Name, Agreement_No__c FROM Vehicle_Master2__c];        
         Stock_Reservation__c sr = [SELECT Id, Vehicle_Master__c FROM Stock_Reservation__c WHERE Vehicle_Master__c =: svm.Id];
-        Sales_Agreement__c sa = [SELECT Id, SOH_SONO__c, Sales_Consultant__c, Stock_Reservation__c, JIT_Status__c FROM Sales_Agreement__c WHERE Stock_Reservation__c =: sr.Id];
+        Sales_Agreement__c sa = [SELECT Id, SOH_SONO__c, Sales_Consultant__c, Stock_Reservation__c, JIT_Status__c, JIT_Day__c  FROM Sales_Agreement__c WHERE Stock_Reservation__c =: sr.Id];
         JIT_Day__c jitDay = [SELECT Id, Utilised_Slots__c FROM JIT_Day__c WHERE Name = 'JIT_Test_No_Slot'];   
+        TriggerExclusion.excludeTrigger('Sales_Agreement__c', true);
         sa.JIT_Day__c = jitDay.Id;
         sa.JIT_Status__c = 'Pending';
         update sa;
+        TriggerExclusion.excludeTrigger('Sales_Agreement__c', false);
         try 
         {
             JITController.cancelSlot('Sales_Agreement__c',sa.Id);
@@ -237,28 +252,33 @@ private class JITControllerTest
     @isTest
     static void Test_cancelSlot_onSVM_Pending()
     {
-        Vehicle_Master2__c svm = [SELECT Id, Chassis__c, Name, Agreement_No__c FROM Vehicle_Master2__c];        
+        Vehicle_Master2__c svm = [SELECT Id, Chassis__c, Name, Agreement_No__c,JIT_Day__c FROM Vehicle_Master2__c];        
         Stock_Reservation__c sr = [SELECT Id, Vehicle_Master__c FROM Stock_Reservation__c WHERE Vehicle_Master__c =: svm.Id];
-        Sales_Agreement__c sa = [SELECT Id, SOH_SONO__c, Sales_Consultant__c, Stock_Reservation__c, JIT_Status__c FROM Sales_Agreement__c WHERE Stock_Reservation__c =: sr.Id];
+        Sales_Agreement__c sa = [SELECT Id, SOH_SONO__c, Sales_Consultant__c, Stock_Reservation__c, JIT_Status__c,JIT_Day__c FROM Sales_Agreement__c WHERE Stock_Reservation__c =: sr.Id];
         JIT_Day__c jitDay = [SELECT Id, Utilised_Slots__c FROM JIT_Day__c WHERE Name = 'JIT_Test'];   
         svm.JIT_Day__c = jitDay.Id;
         update svm;
+        TriggerExclusion.excludeTrigger('Sales_Agreement__c', true);
         sa.JIT_Status__c = 'Pending';
         update sa;
+        TriggerExclusion.excludeTrigger('Sales_Agreement__c', false);
         JITController.cancelSlot('Vehicle_Master2__c',svm.Id);
     }
 
     @isTest
     static void Test_cancelSlot_onSVM_Not_Pending()
     {
-        Vehicle_Master2__c svm = [SELECT Id, Chassis__c, Name, Agreement_No__c FROM Vehicle_Master2__c];        
+        Vehicle_Master2__c svm = [SELECT Id, Chassis__c, Name, Agreement_No__c,JIT_Day__c FROM Vehicle_Master2__c];        
         Stock_Reservation__c sr = [SELECT Id, Vehicle_Master__c FROM Stock_Reservation__c WHERE Vehicle_Master__c =: svm.Id];
-        Sales_Agreement__c sa = [SELECT Id, SOH_SONO__c, Sales_Consultant__c, Stock_Reservation__c, JIT_Status__c FROM Sales_Agreement__c WHERE Stock_Reservation__c =: sr.Id];
+        Sales_Agreement__c sa = [SELECT Id, SOH_SONO__c, Sales_Consultant__c, Stock_Reservation__c, JIT_Status__c, JIT_Day__c  FROM Sales_Agreement__c WHERE Stock_Reservation__c =: sr.Id];
         JIT_Day__c jitDay = [SELECT Id, Utilised_Slots__c FROM JIT_Day__c WHERE Name = 'JIT_Test'];   
         svm.JIT_Day__c = jitDay.Id;
         update svm;
+        TriggerExclusion.excludeTrigger('Sales_Agreement__c', true);
         sa.JIT_Status__c = 'Started';
         update sa;
+        TriggerExclusion.excludeTrigger('Sales_Agreement__c', false);
+
         JITController.cancelSlot('Vehicle_Master2__c',svm.Id);
     }
 
@@ -285,26 +305,31 @@ private class JITControllerTest
     {
         Vehicle_Master2__c svm = [SELECT Id, Chassis__c, Name, Agreement_No__c FROM Vehicle_Master2__c];        
         Stock_Reservation__c sr = [SELECT Id, Vehicle_Master__c FROM Stock_Reservation__c WHERE Vehicle_Master__c =: svm.Id];
-        Sales_Agreement__c sa = [SELECT Id, SOH_SONO__c, Sales_Consultant__c, Stock_Reservation__c, JIT_Status__c, JIT_Date__c FROM Sales_Agreement__c WHERE Stock_Reservation__c =: sr.Id];
+        Sales_Agreement__c sa = [SELECT Id, SOH_SONO__c, Sales_Consultant__c, Stock_Reservation__c, JIT_Status__c, JIT_Date__c,JIT_Day__c FROM Sales_Agreement__c WHERE Stock_Reservation__c =: sr.Id];
         List<JIT_Day__c> jitDay = [SELECT Id, Utilised_Slots__c FROM JIT_Day__c WHERE Name = 'JIT_Test'];   
+        TriggerExclusion.excludeTrigger('Sales_Agreement__c', true);
         sa.JIT_Day__c = jitDay[0].Id;
         sa.JIT_Date__c = Date.today();
         update sa;
+        TriggerExclusion.excludeTrigger('Sales_Agreement__c', false);
+
         JITController.constructWrapper('Sales_Agreement__c', sa.Id);   
     }
 
     @isTest
     static void Test_constructWrapper_onSVM()
     {
-        Vehicle_Master2__c svm = [SELECT Id, Chassis__c, Name, Agreement_No__c FROM Vehicle_Master2__c];        
+        Vehicle_Master2__c svm = [SELECT Id, Chassis__c, Name, Agreement_No__c,JIT_Day__c FROM Vehicle_Master2__c];        
         Stock_Reservation__c sr = [SELECT Id, Vehicle_Master__c FROM Stock_Reservation__c WHERE Vehicle_Master__c =: svm.Id];
-        Sales_Agreement__c sa = [SELECT Id, SOH_SONO__c, Sales_Consultant__c, Stock_Reservation__c, JIT_Status__c FROM Sales_Agreement__c WHERE Stock_Reservation__c =: sr.Id];
+        Sales_Agreement__c sa = [SELECT Id, SOH_SONO__c, Sales_Consultant__c, Stock_Reservation__c, JIT_Status__c, JIT_Date__c  FROM Sales_Agreement__c WHERE Stock_Reservation__c =: sr.Id];
         List<JIT_Day__c> jitDay = [SELECT Id, Utilised_Slots__c FROM JIT_Day__c WHERE Name = 'JIT_Test'];   
         svm.JIT_Day__c = jitDay[0].Id;
         update svm;
+        TriggerExclusion.excludeTrigger('Sales_Agreement__c', true);
         sa.JIT_Date__c = Date.today();        
         update sa;
-        
+        TriggerExclusion.excludeTrigger('Sales_Agreement__c', false);
+       
 
         try 
         {
@@ -323,7 +348,7 @@ private class JITControllerTest
         Sales_Agreement__c sa = [SELECT Id, SOH_SONO__c, Sales_Consultant__c, Stock_Reservation__c, JIT_Status__c FROM Sales_Agreement__c WHERE Stock_Reservation__c =: sr.Id];
         List<JIT_Day__c> jitDay = [SELECT Id, Utilised_Slots__c FROM JIT_Day__c WHERE Name = 'JIT_Test'];   
         sa.JIT_Day__c = jitDay[0].Id;
-       
+
         JITController.JITWrapper wrapper = new JITController.JITWrapper();
         wrapper.curRecInfo = sa;
         wrapper.jitDaysList = jitDay;

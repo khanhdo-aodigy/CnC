@@ -27,7 +27,13 @@ private class FOBAdditionalContractTriggerTest {
                                                                          Premium_Discount__c = 1.1,
                                                                          Purchase_Order__c = po.Id);
         insert fobContract;
+    }
 
+    @isTest
+    static void Test_afterUpdate_CompleteContract() {
+        Purchase_Order__c po = [SELECT ID FROM Purchase_Order__c];
+        Vehicle_Master2__c vMaster = [SELECT ID, FOB_Done__c, Duty_Done__c FROM Vehicle_Master2__c WHERE Purchase_Order__c = :po.Id];
+        Forward_FOB_Contract__c fobContract = [SELECT ID, Status__c FROM Forward_FOB_Contract__c WHERE Purchase_Order__c = :po.Id];
         FOB_Additional_Contract__c addnlFOBContract = new FOB_Additional_Contract__c(Forward_FOB_Contract__c = fobContract.Id,
                                                                                      Status__c = 'Forward Contract Sell');
         insert addnlFOBContract;
@@ -36,22 +42,28 @@ private class FOBAdditionalContractTriggerTest {
                                                                                           FOB_Additional_Contract__c = addnlFOBContract.Id,
                                                                                           Stock_Vehicle_Master__c = vMaster.Id);
         insert fobItem;
-    }
 
-    @isTest
-    static void Test_afterUpdate() {
-        Purchase_Order__c po = [SELECT ID FROM Purchase_Order__c];
-        Vehicle_Master2__c vMaster = [SELECT ID, FOB_Done__c, Duty_Done__c FROM Vehicle_Master2__c WHERE Purchase_Order__c = :po.Id];
-        Forward_FOB_Contract__c fobContract = [SELECT ID, Status__c FROM Forward_FOB_Contract__c WHERE Purchase_Order__c = :po.Id];
         FOB_Additional_Contract__c addnlContract = [SELECT ID, Status__c FROM FOB_Additional_Contract__c WHERE Forward_FOB_Contract__c = :fobContract.Id];
         addnlContract.Status__c = 'Completed';
         update addnlContract;
+    }
 
-        Test.startTest();
-        fobContract = [SELECT ID, Status__c FROM Forward_FOB_Contract__c WHERE Purchase_Order__c = :po.Id];
-        vMaster = [SELECT ID, FOB_Done__c, Duty_Done__c FROM Vehicle_Master2__c WHERE Purchase_Order__c = :po.Id];
-        System.assertEquals(true, vMaster.FOB_Done__c);
-        System.assertEquals('Sold', fobContract.Status__c);
-        Test.stopTest(); 
+    @isTest
+    static void Test_afterUpdate_Sold() {
+        Purchase_Order__c po = [SELECT ID FROM Purchase_Order__c];
+        Vehicle_Master2__c vMaster = [SELECT ID, FOB_Done__c, Duty_Done__c FROM Vehicle_Master2__c WHERE Purchase_Order__c = :po.Id];
+        Forward_FOB_Contract__c fobContract = [SELECT ID, Status__c FROM Forward_FOB_Contract__c WHERE Purchase_Order__c = :po.Id];
+        FOB_Additional_Contract__c addnlFOBContract = new FOB_Additional_Contract__c(Forward_FOB_Contract__c = fobContract.Id,
+                                                                                     Status__c = 'Forward Contract Sell');
+        insert addnlFOBContract;
+
+        Forward_FOB_Contract_Line_Item__c fobItem = new Forward_FOB_Contract_Line_Item__c(Forward_FOB_Contract__c = fobContract.Id,
+                                                                                          FOB_Additional_Contract__c = addnlFOBContract.Id,
+                                                                                          Stock_Vehicle_Master__c = vMaster.Id);
+        insert fobItem;
+
+        FOB_Additional_Contract__c addnlContract = [SELECT ID, Status__c FROM FOB_Additional_Contract__c WHERE Forward_FOB_Contract__c = :fobContract.Id];
+        addnlContract.Status__c = 'Completed';
+        update addnlContract;
     }
 }
