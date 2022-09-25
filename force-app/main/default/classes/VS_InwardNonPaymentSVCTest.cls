@@ -33,9 +33,10 @@ public with sharing class VS_InwardNonPaymentSVCTest {
         insert ShipmentLineItem;
 
         //create Inward Declaration
-        Inward_Declaration__c inward = new Inward_Declaration__c(
-        Name = 'Inward Non-Payment-Vehicles',
-        Vehicle_Shipment__c = shipment.Id
+        Inward_Declaration__c inward = new Inward_Declaration__c
+        (
+            Name = 'Inward Non-Payment-Vehicles',
+            Vehicle_Shipment__c = shipment.Id
         );
         insert inward;
     }
@@ -47,7 +48,6 @@ public with sharing class VS_InwardNonPaymentSVCTest {
         Shipment_Line_Item__c ShipmentLineItem = [SELECT Id ,TN_HS_Code__c FROM Shipment_Line_Item__c];
         Vehicle_Shipment__c shipment_1 = [SELECT Id FROM Vehicle_Shipment__c];
        
-        // List<String> b = new List<String>{ShipmentLineItem.Id};
         List<String> b = new List<String>();
         b.add(ShipmentLineItem.Id);
 
@@ -55,7 +55,6 @@ public with sharing class VS_InwardNonPaymentSVCTest {
         Map<String,List<String>> maps = new Map<String,List<String>>();
         maps.put(ShipmentLineItem.TN_HS_Code__c, b); 
 
-        // Boolean res = VS_InwardNonPaymentSVC.submitINP(shipment_1.Id, new Map<String,List<String>>{ShipmentLineItem.TN_HS_Code__c => b });
         Boolean res = VS_InwardNonPaymentSVC.submitINP(shipment_1.Id, maps);
         System.assertNotEquals(null, shipment_1);
     }
@@ -68,7 +67,6 @@ public with sharing class VS_InwardNonPaymentSVCTest {
         Shipment_Line_Item__c ShipmentLineItem = [SELECT Id ,TN_HS_Code__c FROM Shipment_Line_Item__c];
         Vehicle_Shipment__c shipment_1 = [SELECT Id FROM Vehicle_Shipment__c];
        
-        // List<String> b = new List<String>{ShipmentLineItem.Id};
         List<String> b = new List<String>();
         b.add(ShipmentLineItem.Id);
 

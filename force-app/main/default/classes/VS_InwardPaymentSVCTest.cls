@@ -1,10 +1,10 @@
 /*==========================================================================================================================================================================
  * Test service class for Inward Payment
  * Created By: Aodigy Team
- * Create Date: August 2022
+ * Create Date: September 2022
  * History
  *              DATE::                              BY::                                TICKET::                                            CHANGELOG
- *           12 Sep 2022                       nam@aodigy.com                                                                               init
+ *           12 Sep 2022                       nam@aodigy.com                        US-Ship-000027                                            Init
  * ========================================================================================================================================================================== 
  */
 @isTest
@@ -25,6 +25,12 @@ public with sharing class VS_InwardPaymentSVCTest {
         Trim_Master__c trimCode = Test_DataFactory.createTrimCode(true, 'Test Trim Code');
 
         // create stock vehicle master
+        HS_Type__c hs = new HS_Type__c(
+            Name = '12334'
+        );
+         insert hs;
+
+        // create stock vehicle master
         Date productionMonth = Date.newInstance(2019, 08, 01);  
         Vehicle_Master2__c vMaster = new Vehicle_Master2__c(Original_Commcase__c = 'KIAPC0120190086', 
                                                             Model_Year_Code__c = modelYearCode.ID,
@@ -35,6 +41,7 @@ public with sharing class VS_InwardPaymentSVCTest {
                                                             ProductionMonth__c = productionMonth,
                                                             Color_Code__c = colorCode.ID, 
                                                             Trim_Code__c = trimCode.ID,
+                                                            TN_HS_Code__c = hs.Id,
                                                             Duty_Payment_Date__c = Date.today());
         insert vMaster;
         
@@ -47,25 +54,28 @@ public with sharing class VS_InwardPaymentSVCTest {
         // create manufacturer invoice
         Manufacturer_Invoice__c manufacturerInvoice = Test_DataFactory.createManufacturerInvoice(false);
         manufacturerInvoice.Invoice_No__c = 'INV56789';
+        manufacturerInvoice.Vehicle_Shipment__c = VehicleShipment.Id;
         insert manufacturerInvoice;
 
         //create Inward Declaration
-        Inward_Declaration__c inward = new Inward_Declaration__c(
-        Name = 'Inward Non-Payment-Vehicles',
-        Vehicle_Shipment__c = VehicleShipment.Id
+        Inward_Declaration__c inward = new Inward_Declaration__c
+        (
+            RecordTypeId = [SELECT Id FROM RecordType WHERE DeveloperName = 'Inward_Payment' LIMIT 1].Id,
+            Name = 'Inward Payment',
+            Vehicle_Shipment__c = VehicleShipment.Id
         );
         insert inward;
-
     }
 
     @isTest
     public static void submitIPT_success() {
         Test.setMock(HttpCalloutMock.class, new VS_CalloutMock1());
 
-        //HS_Type__c hs  = [SELECT Id FROM HS_Type__c];  
+        HS_Type__c hs  = [SELECT Id FROM HS_Type__c];  
+        Inward_Declaration__c inw = [SELECT Id,RecordTypeId, Vehicle_Shipment__c FROM Inward_Declaration__c];
+        List<Manufacturer_Invoice__c> mi = [SELECT Id,Invoice_No__c,Vehicle_Shipment__c FROM Manufacturer_Invoice__c];
         Vehicle_Master2__c svm = [SELECT Id,TN_HS_Code__c FROM Vehicle_Master2__c];
         Vehicle_Shipment__c shipment = [SELECT Id FROM Vehicle_Shipment__c];
-       
         List<String> b = new List<String>();
         b.add(svm.Id);
 
@@ -73,30 +83,31 @@ public with sharing class VS_InwardPaymentSVCTest {
         Map<String,List<String>> maps = new Map<String,List<String>>();
         maps.put(svm.TN_HS_Code__c,b); 
 
-        Boolean res = VS_InwardPaymentSVC.submitIPT(shipment.Id, maps,true);
+        Boolean res = VS_InwardPaymentSVC.submitIPT(shipment.Id, maps, true);
         System.assertNotEquals(null, shipment);
     }
 
-    // @isTest
-    // public static void testSubmitINP_Record_Id_Is_Blank() {
-    //     Test.setMock(HttpCalloutMock.class, new VS_CalloutMock1());
+    @isTest
+    public static void testSubmitIPT_Record_Id_Is_Blank() {
+        Test.setMock(HttpCalloutMock.class, new VS_CalloutMock1());
 
-    //     HS_Type__c hs  = [SELECT Id FROM HS_Type__c];  
-    //     Shipment_Line_Item__c ShipmentLineItem = [SELECT Id ,TN_HS_Code__c FROM Shipment_Line_Item__c];
-    //     Vehicle_Shipment__c shipment_1 = [SELECT Id FROM Vehicle_Shipment__c];
-       
-    //     // List<String> b = new List<String>{ShipmentLineItem.Id};
-    //     List<String> b = new List<String>();
-    //     b.add(ShipmentLineItem.Id);
+        HS_Type__c hs  = [SELECT Id FROM HS_Type__c];  
+        Inward_Declaration__c inw = [SELECT Id,RecordTypeId, Vehicle_Shipment__c FROM Inward_Declaration__c];
+        Manufacturer_Invoice__c mi = [SELECT Id,Invoice_No__c,Vehicle_Shipment__c FROM Manufacturer_Invoice__c];
+        Vehicle_Master2__c svm = [SELECT Id,TN_HS_Code__c FROM Vehicle_Master2__c];
+        Vehicle_Shipment__c shipment = [SELECT Id FROM Vehicle_Shipment__c];
+    
+        List<String> b = new List<String>();
+        b.add(svm.Id);
 
-    //     // put data into maps.
-    //     Map<String,List<String>> maps = new Map<String,List<String>>();
-    //     maps.put(ShipmentLineItem.TN_HS_Code__c, b); 
+        // put data into maps.
+        Map<String,List<String>> maps = new Map<String,List<String>>();
+        maps.put(svm.TN_HS_Code__c, b); 
 
-    //     try {
-    //         Boolean res = VS_InwardNonPaymentSVC.submitINP('' , maps);
-    //     } catch (Exception e) {
-    //         System.assertEquals('Empty Vehicle Shipment Id', e.getMessage());
-    //     }
-    // }
+        try {
+            Boolean res = VS_InwardPaymentSVC.submitIPT('', maps,true);
+        } catch (Exception e) {
+            System.assertEquals('Empty Vehicle Shipment Id', e.getMessage());
+        }
+    }
 }

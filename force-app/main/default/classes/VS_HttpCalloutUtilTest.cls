@@ -1,3 +1,13 @@
+/*==========================================================================================================================================================================
+ * Test class for VS_HttpCalloutUnit.cls
+ * Created By: Aodigy Team
+ * Create Date: September 2022
+ * History
+ *              DATE::                              BY::                                TICKET::                                            CHANGELOG
+ *           01 Sep 2022                       dong.nguyen@aodigy.com                US-Ship-000027                                           Init
+ * ========================================================================================================================================================================== 
+ */
+
 @isTest
 public with sharing class VS_HttpCalloutUtilTest {
     @TestSetup
@@ -12,9 +22,7 @@ public with sharing class VS_HttpCalloutUtilTest {
         Manufacturer_Invoice__c invoice = Test_DataFactory.createManufacturerInvoice(true);
 
         //create HS type
-        HS_Type__c hs = new HS_Type__c(
-           Name='hs-123'
-        );
+        HS_Type__c hs = new HS_Type__c(Name='hs-123');
         insert hs;
 
         //create shipment line item
@@ -24,10 +32,8 @@ public with sharing class VS_HttpCalloutUtilTest {
         insert ShipmentLineItem;
 
         //create Inward Declaration
-        Inward_Declaration__c inward = new Inward_Declaration__c(
-        Name = 'Inward Non-Payment-Vehicles',
-        Vehicle_Shipment__c = shipment.Id
-        );
+        Inward_Declaration__c inward = new Inward_Declaration__c(Name = 'Inward Non-Payment-Vehicles',
+                                                                Vehicle_Shipment__c = shipment.Id);
         insert inward;
     }
     
