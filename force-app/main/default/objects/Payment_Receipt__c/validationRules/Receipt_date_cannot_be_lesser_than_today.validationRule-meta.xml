@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Receipt_date_cannot_be_lesser_than_today</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ISCHANGED(Receipt_Date__c), Receipt_Date__c &lt; Today(), ISPICKVAL(Status__c, &quot;Posted&quot;)) &amp;&amp;  NOT($Permission.Special_Permission )</errorConditionFormula>
+    <errorMessage>Receipt Date cannot be back dated.</errorMessage>
+</ValidationRule>

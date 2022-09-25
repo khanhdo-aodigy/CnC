@@ -38,3 +38,9 @@ $RECYCLE.BIN/
 
 # Local environment variables
 .env
+manifest/package.xml
+manifest/US-PR-000018.xml
+manifest/US-PR-000031.xml
+manifest/US-PR-000022.xml
+manifest/US-PR-000024.xml
+manifest/US-PR-000001.xml
