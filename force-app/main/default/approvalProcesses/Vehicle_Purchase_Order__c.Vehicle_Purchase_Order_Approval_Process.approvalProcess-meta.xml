@@ -47,6 +47,39 @@
     <description>All Vehicle Purchase Orders must be approved by the Sales Directors.</description>
     <emailTemplate>Purchase_Requisition_Emails/Request_for_Approval_Email</emailTemplate>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
+    <entryCriteria>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</booleanFilter>
+        <criteriaItems>
+            <field>Vehicle_Purchase_Order__c.Franchise_Code__c</field>
+            <operation>notEqual</operation>
+            <value>DPSEU</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Vehicle_Purchase_Order__c.Franchise_Code__c</field>
+            <operation>notEqual</operation>
+            <value>DPSEUCV</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Vehicle_Purchase_Order__c.Franchise_Code__c</field>
+            <operation>notEqual</operation>
+            <value>DPSJP</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Vehicle_Purchase_Order__c.Franchise_Code__c</field>
+            <operation>notEqual</operation>
+            <value>DPSJPCV</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Vehicle_Purchase_Order__c.Franchise_Code__c</field>
+            <operation>notEqual</operation>
+            <value>DPSUS</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Vehicle_Purchase_Order__c.Franchise_Code__c</field>
+            <operation>notEqual</operation>
+            <value>DPSUSCV</value>
+        </criteriaItems>
+    </entryCriteria>
     <finalApprovalActions>
         <action>
             <name>Send_Approval_Email</name>
