@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <externalId>false</externalId>
+    <label>Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Unallocated</fullName>
+                <default>true</default>
+                <label>Unallocated</label>
+            </value>
+            <value>
+                <fullName>Partially Allocated</fullName>
+                <default>false</default>
+                <label>Partially Allocated</label>
+            </value>
+            <value>
+                <fullName>Allocated</fullName>
+                <default>false</default>
+                <label>Allocated</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

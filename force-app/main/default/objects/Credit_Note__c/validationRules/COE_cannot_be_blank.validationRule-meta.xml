@@ -6,4 +6,3 @@
     <errorDisplayField>COE__c</errorDisplayField>
     <errorMessage>If Credit Debit Note Type contains &quot;COE&quot;, COE cannot be blank.</errorMessage>
 </ValidationRule> 
- 

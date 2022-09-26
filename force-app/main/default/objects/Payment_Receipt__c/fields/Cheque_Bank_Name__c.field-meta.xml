@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cheque_Bank_Name__c</fullName>
+    <externalId>false</externalId>
+    <label>Cheque Bank Name</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Indian Overseas Bank (IOB)</fullName>
+                <default>false</default>
+                <label>Indian Overseas Bank (IOB)</label>
+            </value>
+            <value>
+                <fullName>OCBC Bank (OCBC)</fullName>
+                <default>false</default>
+                <label>OCBC Bank (OCBC)</label>
+            </value>
+            <value>
+                <fullName>Indian Bank (IB)</fullName>
+                <default>false</default>
+                <label>Indian Bank (IB)</label>
+            </value>
+            <value>
+                <fullName>HSBC Bank (HSBC)</fullName>
+                <default>false</default>
+                <label>HSBC Bank (HSBC)</label>
+            </value>
+            <value>
+                <fullName>Citibank, N.A (CITBK)</fullName>
+                <default>false</default>
+                <label>Citibank, N.A (CITBK)</label>
+            </value>
+            <value>
+                <fullName>Maybank Banking Berhad (MAYBK)</fullName>
+                <default>false</default>
+                <label>Maybank Banking Berhad (MAYBK)</label>
+            </value>
+            <value>
+                <fullName>United Overseas Bank (UOB)</fullName>
+                <default>false</default>
+                <label>United Overseas Bank (UOB)</label>
+            </value>
+            <value>
+                <fullName>Dbs Bank (DBS)</fullName>
+                <default>false</default>
+                <label>Dbs Bank (DBS)</label>
+            </value>
+            <value>
+                <fullName>Post Office Saving Bank (POSB)</fullName>
+                <default>false</default>
+                <label>Post Office Saving Bank (POSB)</label>
+            </value>
+            <value>
+                <fullName>Arab Banking Corporation (ABC)</fullName>
+                <default>false</default>
+                <label>Arab Banking Corporation (ABC)</label>
+            </value>
+            <value>
+                <fullName>The Asahi Bank Ltd (ABL)</fullName>
+                <default>false</default>
+                <label>The Asahi Bank Ltd (ABL)</label>
+            </value>
+            <value>
+                <fullName>ABN Amro Bank (ABN)</fullName>
+                <default>false</default>
+                <label>ABN Amro Bank (ABN)</label>
+            </value>
+            <value>
+                <fullName>American Express Bank (AEB)</fullName>
+                <default>false</default>
+                <label>American Express Bank (AEB)</label>
+            </value>
+            <value>
+                <fullName>Asahi Bank (ASB)</fullName>
+                <default>false</default>
+                <label>Asahi Bank (ASB)</label>
+            </value>
+            <value>
+                <fullName>Bank Brussels Lambert (BB)</fullName>
+                <default>false</default>
+                <label>Bank Brussels Lambert (BB)</label>
+            </value>
+            <value>
+                <fullName>Bangkok Bank Ltd (BBL)</fullName>
+                <default>false</default>
+                <label>Bangkok Bank Ltd (BBL)</label>
+            </value>
+            <value>
+                <fullName>Bank Bumiputra Malaysia Bhd (BBMB)</fullName>
+                <default>false</default>
+                <label>Bank Bumiputra Malaysia Bhd (BBMB)</label>
+            </value>
+            <value>
+                <fullName>Barclays Bank Ltd (BBP)</fullName>
+                <default>false</default>
+                <label>Barclays Bank Ltd (BBP)</label>
+            </value>
+            <value>
+                <fullName>Banca Commerciale Italiana (BCI)</fullName>
+                <default>false</default>
+                <label>Banca Commerciale Italiana (BCI)</label>
+            </value>
+            <value>
+                <fullName>Banco Do Brasil Sa (BDB)</fullName>
+                <default>false</default>
+                <label>Banco Do Brasil Sa (BDB)</label>
+            </value>
+            <value>
+                <fullName>Ban Hin Lee Bank Berhad (BHLBB)</fullName>
+                <default>false</default>
+                <label>Ban Hin Lee Bank Berhad (BHLBB)</label>
+            </value>
+            <value>
+                <fullName>Bayerische Hypotheken-Und Wechsel-Bank (BHYPO)</fullName>
+                <default>false</default>
+                <label>Bayerische Hypotheken-Und Wechsel-Bank (BHYPO)</label>
+            </value>
+            <value>
+                <fullName>Bank Indosuez (BI)</fullName>
+                <default>false</default>
+                <label>Bank Indosuez (BI)</label>
+            </value>
+            <value>
+                <fullName>Pt Bank Negara Indonesia (BNI)</fullName>
+                <default>false</default>
+                <label>Pt Bank Negara Indonesia (BNI)</label>
+            </value>
+            <value>
+                <fullName>Banque Nationale De Paris (BNP)</fullName>
+                <default>false</default>
+                <label>Banque Nationale De Paris (BNP)</label>
+            </value>
+            <value>
+                <fullName>Bank Of America (BOA)</fullName>
+                <default>false</default>
+                <label>Bank Of America (BOA)</label>
+            </value>
+            <value>
+                <fullName>Bank Of China (BOC)</fullName>
+                <default>false</default>
+                <label>Bank Of China (BOC)</label>
+            </value>
+            <value>
+                <fullName>Bank Of East Asia (BOEA)</fullName>
+                <default>false</default>
+                <label>Bank Of East Asia (BOEA)</label>
+            </value>
+            <value>
+                <fullName>Bank Of Hawaii (BOH)</fullName>
+                <default>false</default>
+                <label>Bank Of Hawaii (BOH)</label>
+            </value>
+            <value>
+                <fullName>Bank Of India (BOI)</fullName>
+                <default>false</default>
+                <label>Bank Of India (BOI)</label>
+            </value>
+            <value>
+                <fullName>Bank Of Singapore (BOS)</fullName>
+                <default>false</default>
+                <label>Bank Of Singapore (BOS)</label>
+            </value>
+            <value>
+                <fullName>Bank Of Tokyo (BOT)</fullName>
+                <default>false</default>
+                <label>Bank Of Tokyo (BOT)</label>
+            </value>
+            <value>
+                <fullName>The Bank Of Tokyo-Mitsubishi, Ltd (BOTM)</fullName>
+                <default>false</default>
+                <label>The Bank Of Tokyo-Mitsubishi, Ltd (BOTM)</label>
+            </value>
+            <value>
+                <fullName>The Bank Of Yokohama Ltd (BOY)</fullName>
+                <default>false</default>
+                <label>The Bank Of Yokohama Ltd (BOY)</label>
+            </value>
+            <value>
+                <fullName>Banque Paribas (BP)</fullName>
+                <default>false</default>
+                <label>Banque Paribas (BP)</label>
+            </value>
+            <value>
+                <fullName>Bankers Trust Company (BTC)</fullName>
+                <default>false</default>
+                <label>Bankers Trust Company (BTC)</label>
+            </value>
+            <value>
+                <fullName>Credit Agricole Indosuez (CAI)</fullName>
+                <default>false</default>
+                <label>Credit Agricole Indosuez (CAI)</label>
+            </value>
+            <value>
+                <fullName>Commerzbank Ag (CB)</fullName>
+                <default>false</default>
+                <label>Commerzbank Ag (CB)</label>
+            </value>
+            <value>
+                <fullName>Commonwealth Bank Of Australia (CBA)</fullName>
+                <default>false</default>
+                <label>Commonwealth Bank Of Australia (CBA)</label>
+            </value>
+            <value>
+                <fullName>Commercial Bank Of Korea (CBOK)</fullName>
+                <default>false</default>
+                <label>Commercial Bank Of Korea (CBOK)</label>
+            </value>
+            <value>
+                <fullName>Chemical Bank (CHB)</fullName>
+                <default>false</default>
+                <label>Chemical Bank (CHB)</label>
+            </value>
+            <value>
+                <fullName>Credit Lyonnais (CL)</fullName>
+                <default>false</default>
+                <label>Credit Lyonnais (CL)</label>
+            </value>
+            <value>
+                <fullName>Chase Manhattan Bank (CMB)</fullName>
+                <default>false</default>
+                <label>Chase Manhattan Bank (CMB)</label>
+            </value>
+            <value>
+                <fullName>Credit Suisse (CS)</fullName>
+                <default>false</default>
+                <label>Credit Suisse (CS)</label>
+            </value>
+            <value>
+                <fullName>Chiao Tung Bank (CTB)</fullName>
+                <default>false</default>
+                <label>Chiao Tung Bank (CTB)</label>
+            </value>
+            <value>
+                <fullName>Deutsche Bank Ag (DB)</fullName>
+                <default>false</default>
+                <label>Deutsche Bank Ag (DB)</label>
+            </value>
+            <value>
+                <fullName>The Daiwa Bank Ltd (DBL)</fullName>
+                <default>false</default>
+                <label>The Daiwa Bank Ltd (DBL)</label>
+            </value>
+            <value>
+                <fullName>Development &amp; Commercial Bank Berhad (DCBB)</fullName>
+                <default>false</default>
+                <label>Development &amp; Commercial Bank Berhad (DCBB)</label>
+            </value>
+            <value>
+                <fullName>Den Danske Bank (DDB)</fullName>
+                <default>false</default>
+                <label>Den Danske Bank (DDB)</label>
+            </value>
+            <value>
+                <fullName>The Dai-Ichi Kangyo Bank, Ltd (DIKB)</fullName>
+                <default>false</default>
+                <label>The Dai-Ichi Kangyo Bank, Ltd (DIKB)</label>
+            </value>
+            <value>
+                <fullName>Den Norske Bank As (DNB)</fullName>
+                <default>false</default>
+                <label>Den Norske Bank As (DNB)</label>
+            </value>
+            <value>
+                <fullName>Dresdner Bank (DRB)</fullName>
+                <default>false</default>
+                <label>Dresdner Bank (DRB)</label>
+            </value>
+            <value>
+                <fullName>Daiwa Bank (DWB)</fullName>
+                <default>false</default>
+                <label>Daiwa Bank (DWB)</label>
+            </value>
+            <value>
+                <fullName>Fuji Bank (FB)</fullName>
+                <default>false</default>
+                <label>Fuji Bank (FB)</label>
+            </value>
+            <value>
+                <fullName>First Commercial Bank (FCB)</fullName>
+                <default>false</default>
+                <label>First Commercial Bank (FCB)</label>
+            </value>
+            <value>
+                <fullName>Far Eastern Bank Ltd (FEB)</fullName>
+                <default>false</default>
+                <label>Far Eastern Bank Ltd (FEB)</label>
+            </value>
+            <value>
+                <fullName>First National Bank Of Boston (FNBB)</fullName>
+                <default>false</default>
+                <label>First National Bank Of Boston (FNBB)</label>
+            </value>
+            <value>
+                <fullName>Four Seas Bank (FSB)</fullName>
+                <default>false</default>
+                <label>Four Seas Bank (FSB)</label>
+            </value>
+            <value>
+                <fullName>Four Seas Communication Bank Ltd (FSCB)</fullName>
+                <default>false</default>
+                <label>Four Seas Communication Bank Ltd (FSCB)</label>
+            </value>
+            <value>
+                <fullName>Hanil Bank (HB)</fullName>
+                <default>false</default>
+                <label>Hanil Bank (HB)</label>
+            </value>
+            <value>
+                <fullName>Habib Bank Ltd (HBL)</fullName>
+                <default>false</default>
+                <label>Habib Bank Ltd (HBL)</label>
+            </value>
+            <value>
+                <fullName>Hl Bank (HLB)</fullName>
+                <default>false</default>
+                <label>Hl Bank (HLB)</label>
+            </value>
+            <value>
+                <fullName>Industrial Bank Of Japan, Ltd (IBJ)</fullName>
+                <default>false</default>
+                <label>Industrial Bank Of Japan, Ltd (IBJ)</label>
+            </value>
+            <value>
+                <fullName>Industrial Bank Of Korea (IBOK)</fullName>
+                <default>false</default>
+                <label>Industrial Bank Of Korea (IBOK)</label>
+            </value>
+            <value>
+                <fullName>Industrial Bank Of Singapore (IBOS)</fullName>
+                <default>false</default>
+                <label>Industrial Bank Of Singapore (IBOS)</label>
+            </value>
+            <value>
+                <fullName>International Bank Of Singapore (IBS)</fullName>
+                <default>false</default>
+                <label>International Bank Of Singapore (IBS)</label>
+            </value>
+            <value>
+                <fullName>Industrial &amp; Commercial Bank Ltd (ICB)</fullName>
+                <default>false</default>
+                <label>Industrial &amp; Commercial Bank Ltd (ICB)</label>
+            </value>
+            <value>
+                <fullName>Industrial And Commercial Bank Of China (ICBOC)</fullName>
+                <default>false</default>
+                <label>Industrial And Commercial Bank Of China (ICBOC)</label>
+            </value>
+            <value>
+                <fullName>Internationale Nederlanden Bank (INB)</fullName>
+                <default>false</default>
+                <label>Internationale Nederlanden Bank (INB)</label>
+            </value>
+            <value>
+                <fullName>Korea Exchange Bank (KEB)</fullName>
+                <default>false</default>
+                <label>Korea Exchange Bank (KEB)</label>
+            </value>
+            <value>
+                <fullName>Kwangtung Provincial Bank (KPB)</fullName>
+                <default>false</default>
+                <label>Kwangtung Provincial Bank (KPB)</label>
+            </value>
+            <value>
+                <fullName>Krung Thai Bank Limited (KTBL)</fullName>
+                <default>false</default>
+                <label>Krung Thai Bank Limited (KTBL)</label>
+            </value>
+            <value>
+                <fullName>The Long-Term Credit Bank Of Japan, Ltd (LTCBJ)</fullName>
+                <default>false</default>
+                <label>The Long-Term Credit Bank Of Japan, Ltd (LTCBJ)</label>
+            </value>
+            <value>
+                <fullName>The Monetary Authority Of Singapore (MAS)</fullName>
+                <default>false</default>
+                <label>The Monetary Authority Of Singapore (MAS)</label>
+            </value>
+            <value>
+                <fullName>Mitsubishi Bank Ltd (MBL)</fullName>
+                <default>false</default>
+                <label>Mitsubishi Bank Ltd (MBL)</label>
+            </value>
+            <value>
+                <fullName>The Mauritius Commercial Bank Ltd (MCB)</fullName>
+                <default>false</default>
+                <label>The Mauritius Commercial Bank Ltd (MCB)</label>
+            </value>
+            <value>
+                <fullName>Midland Bank Plc (MLB)</fullName>
+                <default>false</default>
+                <label>Midland Bank Plc (MLB)</label>
+            </value>
+            <value>
+                <fullName>Moscow Narodny Bank Ltd (MNB)</fullName>
+                <default>false</default>
+                <label>Moscow Narodny Bank Ltd (MNB)</label>
+            </value>
+            <value>
+                <fullName>Mui Bank Bhd (MUIB)</fullName>
+                <default>false</default>
+                <label>Mui Bank Bhd (MUIB)</label>
+            </value>
+            <value>
+                <fullName>Public Bank Berhad (PBB)</fullName>
+                <default>false</default>
+                <label>Public Bank Berhad (PBB)</label>
+            </value>
+            <value>
+                <fullName>Rabobank (RB)</fullName>
+                <default>false</default>
+                <label>Rabobank (RB)</label>
+            </value>
+            <value>
+                <fullName>Royal Bank Of Canada (RBOC)</fullName>
+                <default>false</default>
+                <label>Royal Bank Of Canada (RBOC)</label>
+            </value>
+            <value>
+                <fullName>Royal Bank Of Scotland Plc (RBOS)</fullName>
+                <default>false</default>
+                <label>Royal Bank Of Scotland Plc (RBOS)</label>
+            </value>
+            <value>
+                <fullName>Sal Oppenheim Jr &amp; Cie (SAL)</fullName>
+                <default>false</default>
+                <label>Sal Oppenheim Jr &amp; Cie (SAL)</label>
+            </value>
+            <value>
+                <fullName>Sakura Bank (SB)</fullName>
+                <default>false</default>
+                <label>Sakura Bank (SB)</label>
+            </value>
+            <value>
+                <fullName>Sime Bank Berhad (SBB)</fullName>
+                <default>false</default>
+                <label>Sime Bank Berhad (SBB)</label>
+            </value>
+            <value>
+                <fullName>Swiss Bank Corporation (SBC)</fullName>
+                <default>false</default>
+                <label>Swiss Bank Corporation (SBC)</label>
+            </value>
+            <value>
+                <fullName>Sumitomo Bank Ltd (SBL)</fullName>
+                <default>false</default>
+                <label>Sumitomo Bank Ltd (SBL)</label>
+            </value>
+            <value>
+                <fullName>Standard Chartered Bank - Other Branches (SCBO)</fullName>
+                <default>false</default>
+                <label>Standard Chartered Bank - Other Branches (SCBO)</label>
+            </value>
+            <value>
+                <fullName>Skandinaviska Enskilda Banken (S E A) Ltd (SEB)</fullName>
+                <default>false</default>
+                <label>Skandinaviska Enskilda Banken (S E A) Ltd (SEB)</label>
+            </value>
+            <value>
+                <fullName>Societe Generale (SG)</fullName>
+                <default>false</default>
+                <label>Societe Generale (SG)</label>
+            </value>
+            <value>
+                <fullName>Singapore Telecom - Money Order (STMO)</fullName>
+                <default>false</default>
+                <label>Singapore Telecom - Money Order (STMO)</label>
+            </value>
+            <value>
+                <fullName>Sanwa Bank Ltd (SWBL)</fullName>
+                <default>false</default>
+                <label>Sanwa Bank Ltd (SWBL)</label>
+            </value>
+            <value>
+                <fullName>Tokai Bank Ltd (TBL)</fullName>
+                <default>false</default>
+                <label>Tokai Bank Ltd (TBL)</label>
+            </value>
+            <value>
+                <fullName>Union De Banques Arabes Et Francaises (UBAEF)</fullName>
+                <default>false</default>
+                <label>Union De Banques Arabes Et Francaises (UBAEF)</label>
+            </value>
+            <value>
+                <fullName>Union Bank Of Switzerland (UBOS)</fullName>
+                <default>false</default>
+                <label>Union Bank Of Switzerland (UBOS)</label>
+            </value>
+            <value>
+                <fullName>United Commercial Bank (UCB)</fullName>
+                <default>false</default>
+                <label>United Commercial Bank (UCB)</label>
+            </value>
+            <value>
+                <fullName>UCO Bank (UCOB)</fullName>
+                <default>false</default>
+                <label>UCO Bank (UCOB)</label>
+            </value>
+            <value>
+                <fullName>United Malayan Banking Corporation (UMBC)</fullName>
+                <default>false</default>
+                <label>United Malayan Banking Corporation (UMBC)</label>
+            </value>
+            <value>
+                <fullName>Westpac Banking Corporation (WBC)</fullName>
+                <default>false</default>
+                <label>Westpac Banking Corporation (WBC)</label>
+            </value>
+            <value>
+                <fullName>American Express Pte Ltd (AMEX)</fullName>
+                <default>false</default>
+                <label>American Express Pte Ltd (AMEX)</label>
+            </value>
+            <value>
+                <fullName>Diners (DINER)</fullName>
+                <default>false</default>
+                <label>Diners (DINER)</label>
+            </value>
+            <value>
+                <fullName>Standard Chartered Bank (SCB)</fullName>
+                <default>false</default>
+                <label>Standard Chartered Bank (SCB)</label>
+            </value>
+            <value>
+                <fullName>Standard Chartered Bank - UAP Agency A/C (SCBLU)</fullName>
+                <default>false</default>
+                <label>Standard Chartered Bank - UAP Agency A/C (SCBLU)</label>
+            </value>
+            <value>
+                <fullName>Standard Chartered Bank - OAC Agency A/C (SCBOA)</fullName>
+                <default>false</default>
+                <label>Standard Chartered Bank - OAC Agency A/C (SCBOA)</label>
+            </value>
+            <value>
+                <fullName>Scb Visa Card Centre (SCBV)</fullName>
+                <default>false</default>
+                <label>Scb Visa Card Centre (SCBV)</label>
+            </value>
+            <value>
+                <fullName>Standard Chartered Bank - People&apos;S Insurance Agency A/C (SCBPI)</fullName>
+                <default>false</default>
+                <label>Standard Chartered Bank - People&apos;S Insurance Agency A/C (SCBPI)</label>
+            </value>
+            <value>
+                <fullName>Telegraphic Transfers (TT)</fullName>
+                <default>false</default>
+                <label>Telegraphic Transfers (TT)</label>
+            </value>
+            <value>
+                <fullName>RHB Bank Berhad (RHBB)</fullName>
+                <default>false</default>
+                <label>RHB Bank Berhad (RHBB)</label>
+            </value>
+            <value>
+                <fullName>Mizuho Corporated Bank Limited (MCBL)</fullName>
+                <default>false</default>
+                <label>Mizuho Corporated Bank Limited (MCBL)</label>
+            </value>
+            <value>
+                <fullName>Oufj Bank Limited (OUFJ)</fullName>
+                <default>false</default>
+                <label>Oufj Bank Limited (OUFJ)</label>
+            </value>
+            <value>
+                <fullName>Singapore Venska Handelsbanken Ab (SVH)</fullName>
+                <default>false</default>
+                <label>Singapore Venska Handelsbanken Ab (SVH)</label>
+            </value>
+            <value>
+                <fullName>JP Morgan (JPMGN)</fullName>
+                <default>false</default>
+                <label>JP Morgan (JPMGN)</label>
+            </value>
+            <value>
+                <fullName>Southern Bank Berhad (SOBB)</fullName>
+                <default>false</default>
+                <label>Southern Bank Berhad (SOBB)</label>
+            </value>
+            <value>
+                <fullName>CIMB Bank (CIMB)</fullName>
+                <default>false</default>
+                <label>CIMB Bank (CIMB)</label>
+            </value>
+            <value>
+                <fullName>DNB NOR Bank Asa (DNB1)</fullName>
+                <default>false</default>
+                <label>DNB NOR Bank Asa (DNB1)</label>
+            </value>
+            <value>
+                <fullName>ANZ Banking Group Ltd (ANZ)</fullName>
+                <default>false</default>
+                <label>ANZ Banking Group Ltd (ANZ)</label>
+            </value>
+            <value>
+                <fullName>ICIC Bank (ICICI)</fullName>
+                <default>false</default>
+                <label>ICIC Bank (ICICI)</label>
+            </value>
+            <value>
+                <fullName>Sing Investments &amp; Finance Limited (SINVF)</fullName>
+                <default>false</default>
+                <label>Sing Investments &amp; Finance Limited (SINVF)</label>
+            </value>
+            <value>
+                <fullName>MUFG (MUFG)</fullName>
+                <default>false</default>
+                <label>MUFG (MUFG)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
