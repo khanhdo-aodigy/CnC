@@ -200,15 +200,15 @@ public without sharing class VS_VehicleShipmentLWCController
         {
             for (Vehicle_Master2__c vh: StockVehicleMasterService.selectByIds(stockVehicleMasterIds))
             {
-                if (vehiclesByVesselCode.containsKey(vh.Vessel_Name__c))
+                if (vehiclesByVesselCode.containsKey(vh.Vessel_Code__c))
                 {
-                    tempVehicleList = vehiclesByVesselCode.get(vh.Vessel_Name__c);
+                    tempVehicleList = vehiclesByVesselCode.get(vh.Vessel_Code__c);
                     tempVehicleList.add(vh);
-                    vehiclesByVesselCode.put(vh.Vessel_Name__c, tempVehicleList);
+                    vehiclesByVesselCode.put(vh.Vessel_Code__c, tempVehicleList);
                 }
                 else 
                 {
-                    vehiclesByVesselCode.put(vh.Vessel_Name__c, new List<Vehicle_Master2__c> {vh});    
+                    vehiclesByVesselCode.put(vh.Vessel_Code__c, new List<Vehicle_Master2__c> {vh});    
                 }
             }
 

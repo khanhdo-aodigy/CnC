@@ -10,7 +10,7 @@ const COLS =
     { label: 'Sales Duty Request Date', fieldName: 'Duty_Request_Date__c', type: "date-local", typeAttributes:{ month: "2-digit", day: "2-digit"}},
     { label: 'RVH Name', fieldName: 'Name', editable: false },
     { label: 'Inward Declaration Invoice', fieldName: 'Manufacturer_Invoice_Name', editable: false },
-    { label: 'Vessel Name', fieldName: 'Vessel_Name__c', editable: false },
+    { label: 'Vessel Code', fieldName: 'Vessel_Code__c', editable: false },
     { label: 'Invoice No.', fieldName: 'Invoice_No__c', editable: false },
     { label: 'Vehicle Status', fieldName: 'Vehicle_Status__c', editable: false },
     { label: 'Reservation No.', fieldName: 'Reservation_No__c', editable: false },
