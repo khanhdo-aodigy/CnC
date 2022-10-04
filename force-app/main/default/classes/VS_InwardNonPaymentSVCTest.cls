@@ -12,7 +12,10 @@ public with sharing class VS_InwardNonPaymentSVCTest {
     @TestSetup
     static void makeData(){
         //create Supplier
-        Account supplier = Test_DataFactory.createAccount(true, 'supplier Account');
+        Id principleOEMRTId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Principal')?.getRecordTypeId();
+        Account supplier = Test_DataFactory.createAccount(false, 'Supplier Account');
+        supplier.RecordTypeId = principleOEMRTId;
+        insert supplier;
 
         //create Vehicle shipment
         Vehicle_Shipment__c shipment = Test_DataFactory.createVehicleShipment(true, supplier.Id);
