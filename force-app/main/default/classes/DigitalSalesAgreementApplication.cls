@@ -1,39 +1,29 @@
-public with sharing class DigitalSalesAgreementApplication
-{
+public with sharing class DigitalSalesAgreementApplication {
+
     @AuraEnabled
-    public static sObject initializeSalesAgreement(Id recordId)
-    {
+    public static /*Sales_Agreement__c*/ sObject initializeSalesAgreement(Id recordId){
         Sales_Agreement__c returnSalesAgreement = new Sales_Agreement__c();
         Stock_Reservation__c returnStockRes = new Stock_Reservation__c();
         SalesAgreementSelector salesAgreementSel = new SalesAgreementSelector();
         StockReservationSelector stockResSel = new StockReservationSelector();
         String objectName = recordId.getSobjectType().getDescribe().getName();
+        try{
 
-        try
-        {
-            if (objectName == 'Stock_Reservation__c')
-            {
-                try
-                {
+            if(objectName == 'Stock_Reservation__c'){
+                try{
                     returnSalesAgreement = salesAgreementSel.selectByStockReservationId(recordId);
-                }
-                catch(System.ListException ex)
-                {
+                }catch(System.ListException ex){
                     system.debug(ex.getMessage());
-                    
+                    //returnSalesAgreement = DigitalSalesAgreementApplication.createInitialSalesAgreement(recordId);
                     returnStockRes = stockResSel.selectById(new Set<Id>{recordId})[0];
 
                     return returnStockRes;
                 }
 
-            }
-            else if (objectName == 'Sales_Agreement__c')
-            {
+            }else if(objectName == 'Sales_Agreement__c'){
                 returnSalesAgreement = (Sales_Agreement__c)(salesAgreementSel.selectSObjectsById(new Set<Id>{ recordId }))[0];
             }
-        }
-        catch (DMLException e)
-        {
+        } catch (DMLException e){
             throw new AuraHandledException(e.getMessage());
         }   
         
@@ -41,20 +31,16 @@ public with sharing class DigitalSalesAgreementApplication
     }
 
     @AuraEnabled
-    public static Id updateSalesAgreement (Sales_Agreement__c salesAgreement)
-    {
+    public static Id updateSalesAgreement (Sales_Agreement__c salesAgreement){
 
         ADGLIB_SObjectUnitOfWork uow = new ADGLIB_SObjectUnitOfWork(new Schema.SObjectType[] {Sales_Agreement__c.SObjectType});
         system.debug(salesAgreement);
-        try
-        {
+        try{
             uow.registerDirty(salesAgreement);
             uow.commitWork();
-        }
-        catch (DMLException e)
-        {
+            
+        } catch (DMLException e){
             String errorMsg = e.getMessage();
-
             if(errorMsg.contains('FIELD_CUSTOM_VALIDATION_EXCEPTION')){
                 errorMsg = errorMsg.substringBetween('FIELD_CUSTOM_VALIDATION_EXCEPTION, ', ': ');
                 system.debug(errorMsg);
@@ -65,48 +51,24 @@ public with sharing class DigitalSalesAgreementApplication
         return salesAgreement.Id;
     }
 
-    /**
-     * Create a draft Sales Agreement
-     * @param recordId stock reservation id
-     * @param preConfigurations draft Sales Agreement configurations formated as a pre-init Sales Agreement
-     */
     @AuraEnabled
-    public static Sales_Agreement__c createInitialSalesAgreement(Id recordId, Map<String, Object> preConfigurations)
-    {
-        System.debug('Pre configurations :: ' + preConfigurations);
-        
+    public static Sales_Agreement__c createInitialSalesAgreement(Id recordId){
         ADGLIB_SObjectUnitOfWork uow = new ADGLIB_SObjectUnitOfWork(new Schema.SObjectType[] {Sales_Agreement__c.SObjectType});
-
-        // create a draft Sales Agreement and link to Stock Reservation
-        
         Sales_Agreement__c newSalesAgreementRec = new Sales_Agreement__c();
         newSalesAgreementRec.Stock_Reservation__c = recordId;
-
-        // apply configurations if any
-        if (preConfigurations != null && preConfigurations.size() > 0)
-        {
-            for (String field : preConfigurations.keySet())
-            {
-                newSalesAgreementRec.put(field, preConfigurations.get(field));
-            }
-        }
-        
         uow.registerNew(newSalesAgreementRec);
         uow.commitWork();
-        
         return newSalesAgreementRec;
     }
 
     @AuraEnabled(cacheable=true)
-    public static LIST<SA_Accessory__c> getSAAcessories(Id recordId)
-    {
+    public static LIST<SA_Accessory__c> getSAAcessories(Id recordId){
         SaAccsSelector saAccessoriesSelector = new SaAccsSelector();
         return saAccessoriesSelector.selectAccBySalesAgreementId(new Set<Id>{recordId});
     }
 
     @AuraEnabled(cacheable=true)
-    public static LIST<Accessories_Master__c> getAccessoriesMaster(Id recordId)
-    {
+    public static LIST<Accessories_Master__c> getAccessoriesMaster(Id recordId){
 
         LIST<String> ascgroup = new list<string>();
         ascgroup.add('ADDITIONAL ACCESSORIES');
@@ -123,14 +85,12 @@ public with sharing class DigitalSalesAgreementApplication
     }
 
     @AuraEnabled
-    public static void deleteOffpeakRecord(SA_Accessory__c offPeakRecord)
-    {
+    public static void deleteOffpeakRecord(SA_Accessory__c offPeakRecord){
         delete offPeakRecord;
     }
     
     @AuraEnabled
-    public static SA_Accessory__c upsertOffPeakRecord(Id recordId, String branchCode)
-    {
+    public static SA_Accessory__c upsertOffPeakRecord(Id recordId, String branchCode){
         SA_Accessory__c saOffpeakRec = new SA_Accessory__c();
         Accessories_Master__c offPeakRecord = new AccessoriesMasterSelector().selectByBranchAndAccsCode(branchCode,'OFF PEAK');
         Integer count =  [SELECT count() FROM SA_Accessory__c where Sales_Agreement__c=:recordId];
@@ -147,8 +107,7 @@ public with sharing class DigitalSalesAgreementApplication
     }
 
     @AuraEnabled(cacheable=true)
-    public static LIST<SA_Additional_Charge__c> getSAAdditionalCharges(Id recordId)
-    {
+    public static LIST<SA_Additional_Charge__c> getSAAdditionalCharges(Id recordId){
 
         LIST<String> chargeCodeList = new list<string>();
         chargeCodeList.add('R001'); //Registration Charges
@@ -163,8 +122,7 @@ public with sharing class DigitalSalesAgreementApplication
     }
 
     @AuraEnabled(cacheable=true)
-    public static LIST<Package_Additional_Charges__c> getAdditionalCharges(Id recordId)
-    {
+    public static LIST<Package_Additional_Charges__c> getAdditionalCharges(Id recordId){
 
         LIST<String> chargeCodeList = new list<string>();
         chargeCodeList.add('R001'); //Registration Charges
@@ -179,8 +137,7 @@ public with sharing class DigitalSalesAgreementApplication
     }
 
     @AuraEnabled
-    public static LIST<SA_Accessory__c>  processSAAccessories (LIST<SA_Accessory__c> accessorylist, List<SA_Accessory__c> accessorylistToBeDeleted)
-    {
+    public static LIST<SA_Accessory__c>  processSAAccessories (LIST<SA_Accessory__c> accessorylist, List<SA_Accessory__c> accessorylistToBeDeleted){
         ADGLIB_SObjectUnitOfWork uow = new ADGLIB_SObjectUnitOfWork(new Schema.SObjectType[] {SA_Accessory__c.SObjectType});
         SAAccesoriesUpsertUOW upsertSAAccessories = new SAAccesoriesUpsertUOW();
         uow.registerWork(upsertSAAccessories);
@@ -194,31 +151,27 @@ public with sharing class DigitalSalesAgreementApplication
     }
 
     @AuraEnabled(cacheable=true)
-    public static LIST<SA_Accessory__c> getAddonSAAcessories(Id recordId)
-    {
+    public static LIST<SA_Accessory__c> getAddonSAAcessories(Id recordId){
         SaAccsSelector saAccessoriesSelector = new SaAccsSelector();
         return saAccessoriesSelector.selectAddonAccBySalesAgreementId(new Set<Id>{recordId});
     }
 
     @AuraEnabled
-    public static void deleteAddonSAAcessories(LIST<SA_Accessory__c> accessorylist)
-    {
+    public static void deleteAddonSAAcessories(LIST<SA_Accessory__c> accessorylist){
         ADGLIB_SObjectUnitOfWork uow = new ADGLIB_SObjectUnitOfWork(new Schema.SObjectType[] {SA_Accessory__c.SObjectType});
         uow.registerDeleted(accessorylist);
         uow.commitWork();
     }
 
     @AuraEnabled(cacheable=true)
-    public static LIST<Business_Associate_Master__c>getBusinessAssociateMaster(LIST<String> typelist)
-    {
+    public static LIST<Business_Associate_Master__c>getBusinessAssociateMaster(LIST<String> typelist){
         BusinessAssociateMasterSelector bamSelector = new BusinessAssociateMasterSelector();
         return bamSelector.selectByType(typelist);
     }
 
 
     @AuraEnabled (cacheable=true)
-    public static LIST<SA_Additional_Charge__c> getNumberRetentionAdditionalChargesMaster()
-    {
+    public static LIST<SA_Additional_Charge__c> getNumberRetentionAdditionalChargesMaster(){
         LIST<SA_Additional_Charge__c> numberRetentionSAList = new LIST<SA_Additional_Charge__c>();
         LIST<String> chargeCodeList = new list<string>();
         chargeCodeList.add('R015'); 
@@ -238,16 +191,14 @@ public with sharing class DigitalSalesAgreementApplication
     }
 
     @AuraEnabled
-    public static void deleteNumberRetention(SA_Additional_Charge__c numberRetentionRec)
-    {
+    public static void deleteNumberRetention(SA_Additional_Charge__c numberRetentionRec){
         ADGLIB_SObjectUnitOfWork uow = new ADGLIB_SObjectUnitOfWork(new Schema.SObjectType[] {SA_Additional_Charge__c.SObjectType});
         uow.registerDeleted(numberRetentionRec);
         uow.commitWork();
     }
 
     @AuraEnabled
-    public static SA_Additional_Charge__c upsertNumberRetention(Id salesAgreementId, SA_Additional_Charge__c updateRec)
-    {
+    public static SA_Additional_Charge__c upsertNumberRetention(Id salesAgreementId, SA_Additional_Charge__c updateRec){
         ADGLIB_SObjectUnitOfWork uow = new ADGLIB_SObjectUnitOfWork(new Schema.SObjectType[] {SA_Additional_Charge__c.SObjectType});
         SAAdditionalChargesUpsertUOW upsertSAAdditionalCharges = new SAAdditionalChargesUpsertUOW();
         uow.registerWork(upsertSAAdditionalCharges);
@@ -258,8 +209,7 @@ public with sharing class DigitalSalesAgreementApplication
     }
 
     @AuraEnabled
-    public static Id updateStockReservation (Stock_Reservation__c stockRes)
-    {
+    public static Id updateStockReservation (Stock_Reservation__c stockRes){
 
         ADGLIB_SObjectUnitOfWork uow = new ADGLIB_SObjectUnitOfWork(new Schema.SObjectType[] {Stock_Reservation__c.SObjectType});
         system.debug(stockRes);
@@ -280,8 +230,7 @@ public with sharing class DigitalSalesAgreementApplication
     }
 
     @AuraEnabled(cacheable=true)
-    public static List<Package_Header__c> getPackage (string modelCodeId)
-    {
+    public static List<Package_Header__c> getPackage (string modelCodeId){
 
         List<Package_Header__c> returnedPackages = [SELECT Id, Name, PKH_PKGDESC__c FROM Package_Header__c WHERE Model_Master__c =: modelCodeId AND PKH_STATUS__c  = 'A'];
         
@@ -303,7 +252,7 @@ public with sharing class DigitalSalesAgreementApplication
             User u = [SELECT Username2__c FROM User WHERE Id = :UserInfo.getUserId() LIMIT 1]; 
             if (!Test.isRunningTest())
             {
-                VSMSHelperClass.updateSR(salesAgreement.Stock_Reservation__c, u.Username2__c);
+                 VSMSHelperClass.updateSR(salesAgreement.Stock_Reservation__c, u.Username2__c);
             }
         } 
         catch (DMLException e)
@@ -348,4 +297,20 @@ public with sharing class DigitalSalesAgreementApplication
             loggerDataPool.buildLogDataPool('MFUpdatePA', e);
         }
     }
+    /** ADDED BY TPHAN ON 23/07/2021 - PA MERGING */
+
+    // --------------------------- Start: This function is used for Defect Form ---------------------------
+    // The purpose is just to get the list of records based on FieldValue, Object, FieldName, 'this is just an extra to trigger the search, can put it blank'
+    /*
+    @AuraEnabled(cacheable=true)
+    public static List<sObject> getRelatedRecords(String fieldReferenceValue, String objectName, String fieldName, Integer triggerSearch) {
+        List<sObject> listofRecords = new List<sObject>();
+        String mainQueryCondition = ' ' + fieldName + '=\'' + fieldReferenceValue + '\' ORDER BY Name' ;
+        system.debug(mainQueryCondition);
+        listofRecords = ADGLIB_UtilityHelper.getSObjectRecords(objectName, mainQueryCondition, false);
+        return listofRecords;
+    }
+    */
+    // --------------------------- End: This function is used for Defect Form ---------------------------
+
 }

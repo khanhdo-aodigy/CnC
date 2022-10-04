@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>55.0</apiVersion>
+    <apiVersion>56.0</apiVersion>
     <description>Move VS stage to close when user enter the permit no. in SF</description>
     <environments>Default</environments>
     <interviewLabel>Update VS Stage When {!$Flow.CurrentDateTime}</interviewLabel>

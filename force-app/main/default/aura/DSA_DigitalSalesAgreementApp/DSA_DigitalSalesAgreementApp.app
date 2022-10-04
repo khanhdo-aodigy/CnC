@@ -39,7 +39,6 @@
     <aura:if isTrue="{!v.finishedLoading}">
         <aura:if isTrue="{!v.currentStage == 'RegistrationType'}">
             <c:dsp_registrationType recordId = "{!v.stockResObject.Id}"
-                                    onotherchangepage0="{!c.handlePreInitSalesAgreementChanges}"
                                     onchangepage0="{!c.handleChangePage0}"
                                     onactivitychanged="{!c.processStepChange}"/>
             <aura:set attribute="else">

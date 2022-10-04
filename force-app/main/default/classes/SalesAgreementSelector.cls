@@ -267,45 +267,7 @@ public class SalesAgreementSelector extends ADGLIB_SObjectSelector {
             Sales_Agreement__c.Vehicle_Mileage__c,
             Sales_Agreement__c.Vehicle_Location__c,
             Sales_Agreement__c.Customer_Type__c,
-            Sales_Agreement__c.Seller_Type__c, 
-            Sales_Agreement__c.Bid_1_Amount__c,
-            Sales_Agreement__c.Bid_2_Amount__c,
-            Sales_Agreement__c.Bid_3_Amount__c, 
-            Sales_Agreement__c.Bid_4_Amount__c, 
-            Sales_Agreement__c.Bid_5_Amount__c, 
-            Sales_Agreement__c.Bid_6_Amount__c,
-            Sales_Agreement__c.Bid_7_Amount__c,
-            Sales_Agreement__c.Bid_8_Amount__c,
-            Sales_Agreement__c.Bid_9_Amount__c,
-            Sales_Agreement__c.Bid_10_Amount__c,
-            Sales_Agreement__c.Bid_11_Amount__c,
-            Sales_Agreement__c.Bid_12_Amount__c,
-            Sales_Agreement__c.Bid_Price__c,
-            Sales_Agreement__c.COEThresHold__c, 
-            Sales_Agreement__c.COECategory__c, 
-            Sales_Agreement__c.Bid_Category__c,
-            Sales_Agreement__c.ARF__c,
-            Sales_Agreement__c.Net_Transaction_Price__c,
-            Sales_Agreement__c.Vehicle_Cost__c,
-            Sales_Agreement__c.Additional_Charges__c,
-            Sales_Agreement__c.Cost_of_Standard_Accessories__c,
-            Sales_Agreement__c.Cost_of_Accessories_Traded_Sold__c,
-            Sales_Agreement__c.Other_Direct_Cost__c,
-            Sales_Agreement__c.GST_Charge__c,
-            Sales_Agreement__c.CPF_on_Comm_for_COE__c,
-            Sales_Agreement__c.VES__c,
-            Sales_Agreement__c.JIT_Status__c,
-            Sales_Agreement__c.Verified_by_Sales_Consultant__c,
-            Sales_Agreement__c.JIT_Date__c,
-            Sales_Agreement__c.Expected_Delivery_Month__c,
-            Sales_Agreement__c.Loan_Approval_Status__c,
-            Sales_Agreement__c.COE_Submission_Date__c,
-            Sales_Agreement__c.Paid_Accessories__c,
-            Sales_Agreement__c.RSP_and_Paid_Accessories__c,
-            Sales_Agreement__c.ARF_Payable__c,
-            Sales_Agreement__c.CIF_for_COE__c,
-            Sales_Agreement__c.CIF_for_COE__c,            
-            Sales_Agreement__c.Submit_COE_Bidding__c
+            Sales_Agreement__c.Seller_Type__c
         };
     }
     
@@ -322,12 +284,7 @@ public class SalesAgreementSelector extends ADGLIB_SObjectSelector {
 
     public Sales_Agreement__c selectById(Id recordId){
         List<String> queryFields = new List<String> {'Package_Header__r.PKH_PKGNO__c', 'Finance_Company_Lookup__r.BAM_ASSOCIATECD__c',
-                                                     'Stock_Reservation__r.Model_Code__c', 'Insurance_Company_Lookup__r.BAM_ASSOCIATECD__c',
-                                                     'Stock_Reservation__r.Vehicle_Master__r.Id', 'Verified_by_Sales_Consultant__c',
-                                                     'Name', 'Agreement_Date__c', 'Sales_Consultant__c', 'Customer_Full_Name__c', 'Bid_Category__c', 
-                                                     'Bid_Price__c', 'Bid_1_Amount__c', 'Bid_2_Amount__c', 'Bid_3_Amount__c', 'Bid_4_Amount__c',
-                                                     'Bid_5_Amount__c', 'Bid_6_Amount__c', 'Bid_7_Amount__c', 'Bid_8_Amount__c', 'Bid_9_Amount__c',
-                                                     'Bid_10_Amount__c', 'Bid_11_Amount__c', 'Bid_12_Amount__c'};
+                                                     'Stock_Reservation__r.Model_Code__c', 'Insurance_Company_Lookup__r.BAM_ASSOCIATECD__c'};
         adglib_QueryFactory query = newQueryFactory();  
         query.setCondition('Id = :recordId'); 
         query.selectFields(queryFields);
@@ -353,76 +310,13 @@ public class SalesAgreementSelector extends ADGLIB_SObjectSelector {
         system.debug('SAqueryFactory.toSOQL() ' + SAqueryFactory.toSOQL());
         return Database.query(SAqueryFactory.toSOQL());
     }
-    //Start of RN2020Q1010 
-    //This selector will select SalesAgreement which has no Sales Order and package price is different from vehicle list price
+//Start of RN2020Q1010 
+//This selector will select SalesAgreement which has no Sales Order and package price is different from vehicle list price
     public LIST<Sales_Agreement__c> selectByPackageIdsWithNoSalesOrder(Set<Id> packageIds){
         adglib_QueryFactory query = newQueryFactory();
         query.setCondition('Package_Header__c IN: packageIds AND SOH_SONO__c = null AND isChangePackagePrice__c = true');
         return (LIST<Sales_Agreement__c>)(Database.query(query.toSOQL()));
     }
-    //End of RN2020Q1010 
-    
-    public List<Sales_Agreement__c> selectSAForCOEBiddingByFranchise(String franchise, String additionalConditions) {
-        adglib_QueryFactory query = newQueryFactory();
-        query.selectField('Finance_Company_Lookup__r.Name');
-        query.selectField('Stock_Reservation__r.Vehicle_Master__r.Vehicle_Type_For_Sale__c');
-        query.selectField('Stock_Reservation__r.Vehicle_Master__r.OMV__c');
-        query.selectField('Stock_Reservation__r.Vehicle_Master__r.FOB_Amount__c');
-        query.selectField('Stock_Reservation__r.Vehicle_Master__r.Freight_Charges__c');
-        query.selectField('Stock_Reservation__r.Vehicle_Master__r.Insurance_Charges__c');
-        query.selectField('Stock_Reservation__r.Vehicle_Master__r.Model_Code__c');  
-        query.selectField('Stock_Reservation__r.Vehicle_Master__r.Model_Code__r.Fuel_Type__c');
-        query.selectField('Stock_Reservation__r.Vehicle_Master__r.Duty_Amount__c');
-        query.selectField('Stock_Reservation__r.Model_Code__c');
-        String strFilter = 'FranchiseCode__c = :franchise' 
-                        + ' AND COE__c = null'
-                        + ' AND Vehicle_Deposit__c != 0'
-                        + ' AND COE_Deposit__c != 0'
-                        + ' AND Verified_by_Sales_Consultant__c = true'
-                        + ' AND Stage__c = \'Confirmation of Sale\''
-                        + ' AND Expected_Delivery_Month__c != null'
-                        ;
+//End of RN2020Q1010 
 
-        query.subselectQuery(SA_Additional_Charge__c.SObjectType)
-             .selectField('ChargeCodeDescription__c')
-             .selectField('SAD_ADM_CHRGCD__c')
-             .selectField('SAD_CHARGES__c');
-
-        query.subselectQuery(SA_Accessory__c.SObjectType)
-             .selectField('Accessories_Master__r.ACM_MNM_MAJGROUPCD__c')
-             .selectField('SA_ACM_ACCSDESC__c')
-             .selectField('SAC_ACCSCOST__c')
-             .setCondition( 'SAC_PACKAGE__c != \'Y\' AND Accessories_Master__r.ACM_MNM_MAJGROUPCD__c != \'USED_CAR\'');
-
-        query.setOrdering('COEThresHold__c', ADGLIB_QueryFactory.SortOrder.DESCENDING, true); 
-        if( String.isNotBlank(additionalConditions.trim())) {            
-            strFilter += additionalConditions; 
-        }
-        query.setCondition(strFilter);
-        System.debug('query.toSOQL()' + query.toSOQL());
-        return Database.query(query.toSOQL());
-    }
-
-    public List<Sales_Agreement__c> selectSalesAgreementForThresholdCalculation(List<Id> saIds) {
-
-        adglib_QueryFactory saQueryFactory = newQueryFactory();
-        saQueryFactory.setCondition('Id IN :saIds');
-
-        saQueryFactory.subselectQuery(SA_Accessory__c.SObjectType)
-                      .selectFields(new SaAccsSelector().getSObjectFieldList())
-                      .selectField('Accessories_Master__r.ACM_MNM_MAJGROUPCD__c'); 
-
-        saQueryFactory.subselectQuery(SA_Additional_Charge__c.SObjectType)
-                      .selectFields(new SaAddnlChargeSelector().getSObjectFieldList());
-
-
-        return Database.query(saQueryFactory.toSOQL());
-    }
-
-    public List<Sales_Agreement__c> selectByIds(Set<String> saIds) {
-        adglib_QueryFactory query = newQueryFactory();
-        query.setCondition('Id IN :saIds');
-
-        return (List<Sales_Agreement__c> )Database.query(query.toSOQL()); 
-    }
 }

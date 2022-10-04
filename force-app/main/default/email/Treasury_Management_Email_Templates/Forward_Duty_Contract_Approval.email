@@ -1,6 +1,0 @@
-{!ApprovalRequest.Process_Approver} has approved {!FOB_Additional_Contract__c.Name}.
-
-Please click this link for more information:
-{!ApprovalRequest.Internal_URL}
-
-Thank you.

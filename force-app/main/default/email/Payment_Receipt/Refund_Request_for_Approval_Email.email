@@ -1,7 +1,0 @@
-Dear {!ApprovalRequest.Process_Approver},
-
-A Refund Voucher needs your approval. Please click on the link below to approve/reject.
-
-{!ApprovalRequest.Internal_URL}
-
-Thank you!

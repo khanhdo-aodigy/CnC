@@ -158,7 +158,7 @@ public with sharing class ADGLIB_CommaSeparatedValuesFileReader
      * for content within double quote, sanitize comma by replacing it with comma anchor string
      * ====================================================================================================================
      */
-    @TestVisible private void sanitizeContentWithinDoubleQuote()
+    private void sanitizeContentWithinDoubleQuote()
     {
         final Pattern DOUBLE_QUOTE_PATTERN = Pattern.compile(DOUBLE_QUOTE_REGEX);
 

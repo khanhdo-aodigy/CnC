@@ -32,7 +32,7 @@ public with sharing class vpo_StockVehicleMasterIOController
 
             System.assert(stockVehicleMasters.size() > 0, 'This shipment do not have any related Stock Vehicle Master');
 
-            ContentVersion uploadedReport = [SELECT Id, VersionData FROM ContentVersion WHERE ContentDocumentId = :contentDocumentId AND IsLatest = true];
+            ContentVersion uploadedReport = [SELECT Id, VersionData FROM ContentVersion WHERE ContentDocumentId = :contentDocumentId];
 
             // clear uploaded file in a separate context
             deleteUploadedReport(contentDocumentId);
@@ -77,7 +77,7 @@ public with sharing class vpo_StockVehicleMasterIOController
     }
 
     @future
-    @TestVisible private static void deleteUploadedReport(String contentDocumentId)
+    private static void deleteUploadedReport(String contentDocumentId)
     {
         delete [SELECT Id FROM ContentDocument WHERE Id =:contentDocumentId];
     }

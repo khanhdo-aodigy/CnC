@@ -1,6 +1,0 @@
-Forward FOB Contract {!FOB_Additional_Contract__c.Name} has been rejected.
-
-Please click this link for more information:
-{!ApprovalRequest.Internal_URL}
-
-Thank you.

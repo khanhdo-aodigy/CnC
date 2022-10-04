@@ -8,7 +8,7 @@
 CASE( TEXT(Stage__c),
 &quot;Draft&quot;,0,
 &quot;Booking&quot;,0,
-&quot;Confirmation of Sale&quot;,1,
+&quot;Confirmation of Sale&quot;,0,
 &quot;Request Registration&quot;,0,
 &quot;Pending Registration&quot;,1,
 &quot;Ready for Registration&quot;,1,

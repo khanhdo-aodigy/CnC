@@ -3,27 +3,7 @@
     <fullName>Vehicle_Type_For_Sale__c</fullName>
     <description>To show in separate stock (Existing stock, incoming stock, promotional stock, stock to indent)</description>
     <externalId>false</externalId>
-    <formula>IF(
-    AND(
-         ISPICKVAL(Vehicle_Status__c, &quot;FREE&quot;), 
-         OR(ISPICKVAL(Vehicle_Purchase_Status__c, &quot;Confirmed&quot;), ISPICKVAL(Vehicle_Purchase_Status__c, &quot;In Shipment&quot;), ISPICKVAL(Vehicle_Purchase_Status__c, &quot;Arrived&quot;)),
-         !ISBLANK(TEXT(Stock_Promotion_Status__c))
-    ), &quot;Promotional Stock&quot;,
-    IF(
-        AND(
-             ISPICKVAL(Vehicle_Status__c, &quot;FREE&quot;), 
-             ISPICKVAL(Vehicle_Purchase_Status__c, &quot;Arrived&quot;),
-             ISBLANK(TEXT(Stock_Promotion_Status__c))
-        ), &quot;Existing Stock&quot;,
-        IF(
-            AND(
-                 ISPICKVAL(Vehicle_Status__c, &quot;FREE&quot;), 
-                 OR(ISPICKVAL(Vehicle_Purchase_Status__c, &quot;Confirmed&quot;), ISPICKVAL(Vehicle_Purchase_Status__c, &quot;In Shipment&quot;)),
-                 ISBLANK(TEXT(Stock_Promotion_Status__c))
-            ), &quot;Incoming Stock&quot;, &quot;&quot;
-        )
-    )
-)</formula>
+    <formula>IF(TEXT(Vehicle_Status__c)=&quot;FREE&quot;,&quot;Existing Stock&quot;, IF(TEXT(Vehicle_Status__c)=&quot;ORD&quot;,&quot;Incoming Stock&quot;, IF(Count_Promotional_Stock__c&gt;0,&quot;Promotional Stock&quot;,&quot;&quot;)))</formula>
     <label>Vehicle Type For Sale</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

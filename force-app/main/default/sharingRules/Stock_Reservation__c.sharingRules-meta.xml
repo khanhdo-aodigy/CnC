@@ -46,20 +46,6 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Share_Maxus_SR_to_KIAPC_Sales_Admin</fullName>
-        <accessLevel>Edit</accessLevel>
-        <label>Share Maxus SR to KIAPC Sales Admin</label>
-        <sharedTo>
-            <role>KIAPC_Sales_Admin</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>Franchise_Code__c</field>
-            <operation>equals</operation>
-            <value>MAXUSPC,MAXUSCV</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>Share_Stock_Reservation_to_Mgr</fullName>
         <accessLevel>Read</accessLevel>
         <label>Share Stock Reservation to Mgr</label>

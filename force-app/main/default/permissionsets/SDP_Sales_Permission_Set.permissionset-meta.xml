@@ -3541,6 +3541,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dsfs__Payment</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dsfs__Permissions</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -5988,11 +5992,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>Sales_Agreement__c.Car_Ready_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Agreement__c.Chassis_No__c</field>
         <readable>true</readable>
@@ -7579,11 +7578,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Vehicle_Master2__c.Duty_Payment_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Vehicle_Master2__c.Duty_Payment_Document_No__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8231,15 +8225,6 @@
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>Blocked_Off_Day__c</object>
-        <viewAllRecords>false</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>false</allowCreate>
-        <allowDelete>false</allowDelete>
-        <allowEdit>false</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>false</modifyAllRecords>
         <object>Business_Associate_Master__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
@@ -8555,10 +8540,6 @@
         <recordType>PersonAccount.Prospect</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
-    <tabSettings>
-        <tab>Blocked_Off_Day__c</tab>
-        <visibility>Visible</visibility>
-    </tabSettings>
     <tabSettings>
         <tab>Forms_Controller__c</tab>
         <visibility>Available</visibility>

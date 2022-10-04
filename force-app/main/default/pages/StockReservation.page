@@ -288,7 +288,6 @@
         <apex:actionFunction name="searchCustNric" action="{!SearchCustomer}" reRender="page2" oncomplete="stopLoading();chooseFocus();"/>
         <!-- changes to NRIC, autop-populate using mobllePhone number -->
         <apex:actionFunction name="searchMobileNum" action="{!SearchCustomer}" reRender="page2" oncomplete="stopLoading();chooseFocus();"/>
-        <apex:actionFunction name="searchARCA" action="{!SearchCustomer}" reRender="page2" oncomplete="stopLoading();chooseFocus();"/>
         
         <apex:pageMessages />
         
@@ -307,43 +306,17 @@
                             <div class="row">
                             <apex:outputPanel id="SearchParameterID">
                                 <div class="form-horizontal">
-                                    <!-- Vu - 07/09/2022 - Display franchises and branches input - BEGIN -->
-                                    <div class="form-group">
-                                        <div class="col-md-6">
-                                            <label class="control-label col-md-4">Branch:</label>
-                                            <div class="col-md-8">
-                                                <apex:selectList value="{!selectedBranch}" size="1" styleClass="form-control">
-                                                    <apex:selectOptions value="{!ListOptions_Branch}"/>
-                                                    <apex:actionSupport event="onchange" action="{!handleBranchAndFranchiseChanged}" reRender="SearchParameter1ID,SearchParameter2ID,SearchParameter3ID" status="processStatusLoad2"/>
-                                                </apex:selectList>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="control-label col-md-4">Franchise:</label>
-                                            <div class="col-md-8">
-                                                <apex:selectList value="{!selectedFranchise}" size="1" styleClass="form-control">
-                                                    <apex:selectOptions value="{!ListOptions_Franchise}"/>
-                                                    <apex:actionSupport event="onchange" action="{!handleBranchAndFranchiseChanged}" reRender="SearchParameter1ID,SearchParameter2ID,SearchParameter3ID" status="processStatusLoad2"/>
-                                                </apex:selectList>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Vu - 07/09/2022 - Display franchises and branches input - END -->
                                     <div class="form-group">
                                         <div class="col-md-6">
                                             <label class="control-label col-md-4">Model:</label>
                                             <div class="col-md-8">
-                                                <apex:selectList value="{!selectedModel}" size="1" id="SearchParameter1ID" onchange="refresh_Color_Trim_Option();" styleClass="form-control">
+                                                <apex:selectList value="{!selectedModel}" size="1" onchange="refresh_Color_Trim_Option();" styleClass="form-control">
                                                     <apex:selectOptions value="{!ListOptions_Model}"/>
-                                                    <apex:actionStatus startText="Loading..." id="processStatusLoad2"> 
-                                                        <apex:facet name="start">
-                                                            <img src="/apexpages/devmode/img/saveStatus.gif" />
-                                                        </apex:facet> 
-                                                    </apex:actionStatus>
                                                 </apex:selectList>
                                             </div>
                                         </div>
                                     </div>
+                                    
                                     <div class="form-group">
                                         <div class="col-md-6">
                                             <label class="control-label col-md-4">Color:</label>
@@ -374,14 +347,14 @@
                                 </div>
                                 <br/>
                                 <table width="100%" border="0" cellspacing="0" cellpadding="0"> 
-                                    <tr>
-                                        <td width="40%" align="right">
-                                            <button id="saveForm2" class="btn btn-primary"  onclick="startLoading();SearchVehicle1();return false;">Search</button>
-                                            <apex:actionFunction name="SearchVehicle2" action="{!SearchVehicle}" reRender="MasterPageID, PromotionStockID, ExistingStockID, IncomingStockID, IndentStockID" oncomplete="stopLoading();window.scrollTo(0,0);" />
-                                        </td>
-                                        <td width="20%">&nbsp;</td>
-                                        <td width="40%" align="left"><apex:commandLink styleClass="btn btn-primary" action="{!ClearParameter}" value="Clear" reRender="SearchParameterID" /></td>
-                                    </tr>
+                                <tr>
+                                    <td width="40%" align="right">
+                                        <button id="saveForm2" class="btn btn-primary"  onclick="startLoading();SearchVehicle1();return false;">Search</button>
+                                        <apex:actionFunction name="SearchVehicle2" action="{!SearchVehicle}" reRender="MasterPageID, PromotionStockID, ExistingStockID, IncomingStockID, IndentStockID" oncomplete="stopLoading();window.scrollTo(0,0);" />
+                                    </td>
+                                    <td width="20%">&nbsp;</td>
+                                    <td width="40%" align="left"><apex:commandLink styleClass="btn btn-primary" action="{!ClearParameter}" value="Clear" reRender="SearchParameterID" /></td>
+                                </tr>
                                 </table>
                             </apex:outputPanel>
                             </div>
@@ -402,14 +375,10 @@
                                             <table class="tablesorter" cellpadding="5" cellspacing="0" border="1" width="100%">
                                             <thead>
                                                 <tr>
-                                                    <th width="15%">RVH Name</th>
-                                                    <th width="15%">Model</th>
-                                                    <th width="10%">Color</th>
-                                                    <th width="10%">Trim</th>
-                                                    <th width="10%">Quantity</th>
+                                                    <th width="20%">Model</th>
+                                                    <th width="20%">Color</th>
+                                                    <th width="20%">Trim</th>
                                                     <th width="10%">Production Month</th>
-                                                    <th width="10%">Vehicle Condition</th>
-                                                    <th width="10%">Mileage</th>
                                                     <th width="10%">Remarks</th>
                                                     <th width="20%">Action</th>
                                                 </tr>
@@ -417,18 +386,10 @@
                                             <apex:repeat value="{!ListwrapperPromotionStock}" var="PS">
                                             <tbody>
                                                 <tr>
-                                                    <td>{!PS.rvhName}</td>
                                                     <td>{!PS.Model}</td>
                                                     <td>{!PS.Color}</td>
                                                     <td>{!PS.Trim}</td>
-                                                    <td><apex:outputText escape="false" value="{!PS.Quantity}" /></td>
                                                     <td>{!PS.ProductMonth}</td>
-                                                    <td>{!PS.vehicleCondition}</td>
-                                                    <td>
-                                                        <apex:outputText value="{0, number, ###,###}">
-                                                            <apex:param value="{!PS.mileage}" />
-                                                        </apex:outputText>
-                                                    </td>
                                                     <td>{!PS.Remarks}</td>
                                                     <td align="center" style="vertical-align:center"><apex:commandLink styleClass="btn btn-info" value="Reserve" action="{!AddReservation}" >
                                                          <apex:param name="RunNo" value="{!PS.wID}" assignTo="{!ReserveSelectedVehicle}"/></apex:commandLink> </td>
@@ -457,32 +418,22 @@
                                             <table class="tablesorter" cellpadding="5" cellspacing="0" border="1" width="100%">
                                             <thead>
                                                 <tr>
-                                                    <th width="15%">RVH Name</th>
-                                                    <th width="15%">Model</th>
-                                                    <th width="10%">Color</th>
-                                                    <th width="10%">Trim</th>
+                                                    <th width="20%">Model</th>
+                                                    <th width="20%">Color</th>
+                                                    <th width="20%">Trim</th>
                                                     <th width="10%">Quantity</th>
                                                     <th width="10%">Production Month</th>
-                                                    <th width="10%">Vehicle Condition</th>
-                                                    <th width="10%">Mileage</th>
                                                     <th width="20%">Action</th>
                                                 </tr>
                                             </thead>
                                             <apex:repeat value="{!ListwrapperExistingStock}" var="PS">
                                             <tbody>
                                                 <tr>
-                                                    <td>{!PS.rvhName}</td>
                                                     <td>{!PS.Model}</td>
                                                     <td>{!PS.Color}</td>
                                                     <td>{!PS.Trim}</td>
                                                     <td><apex:outputText escape="false" value="{!PS.Quantity}" /></td>
                                                     <td>{!PS.ProductMonth}</td>
-                                                    <td>{!PS.vehicleCondition}</td>
-                                                    <td>
-                                                        <apex:outputText value="{0, number, ###,###}">
-                                                            <apex:param value="{!PS.mileage}" />
-                                                        </apex:outputText>
-                                                    </td>
                                                     <td align="center" style="vertical-align:center"><apex:commandLink styleClass="btn btn-info" value="Reserve" action="{!AddReservation}" >
                                                          <apex:param name="RunNo" value="{!PS.wID}" assignTo="{!ReserveSelectedVehicle}"/></apex:commandLink> </td>
                                                 </tr>
@@ -1332,9 +1283,6 @@
         $('#errInvalidDateofBirth1').hide();
         $('#errNoDateofBirth1').hide();
         $('#errInvalidDateofBirth1').hide();
-
-        startLoading();
-        searchARCA();
     }
     
     //validation onblur name

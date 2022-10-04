@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Forward_Contract_FOB_Line_Item</fullName>
-    <fields>Name</fields>
-    <fields>Forward_FOB_Contract__c</fields>
-    <fields>Stock_Vehicle_Master__c</fields>
-    <fields>LastModifiedById</fields>
-    <label>Forward Contract FOB Line Item</label>
-</CompactLayout>
