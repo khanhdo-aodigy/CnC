@@ -80,7 +80,6 @@ public without sharing class VS_VehicleShipmentLWCController
         return true;
     }
 
-<<<<<<< HEAD
     @AuraEnabled
     public static Boolean submitToGetsAsia(String vehicleShipmentId, String serviceType, Map<String, List<String>> grouppedItems)
     {
@@ -105,32 +104,6 @@ public without sharing class VS_VehicleShipmentLWCController
 
         return result;
     }
-=======
-    // @AuraEnabled
-    // public static Boolean submitToGetsAsia(String vehicleShipmentId, String serviceType, Map<String, List<String>> grouppedItems)
-    // {
-    //     Boolean result;
-
-    //     try 
-    //     {
-    //         if (serviceType == 'IPT')
-    //         {
-    //            result = !Test.isRunningTest() ? VS_InwardPaymentSVC.submitIPT(vehicleShipmentId, grouppedItems, true) : true;
-    //         }
-
-    //         if (serviceType == 'INP')
-    //         {
-    //             result = !Test.isRunningTest() ? VS_InwardNonPaymentSVC.submitINP(vehicleShipmentId, grouppedItems) : true;
-    //         }
-    //     } 
-    //     catch (Exception e) 
-    //     {
-    //         throwError(e.getMessage());
-    //     }
-
-    //     return result;
-    // }
->>>>>>> 27af08f5b7806f7c23c22c388c6bb7a4af1d91e4
 
     @AuraEnabled(cacheable = true)
     public static VehicleShipmentWrapper getVehicleShipmentWithInvoicesAndLineItems(String vehicleShipmentId, String transactionType)
@@ -195,11 +168,7 @@ public without sharing class VS_VehicleShipmentLWCController
         } 
         catch (Exception e) 
         {
-<<<<<<< HEAD
             throwError(e.getMessage() + ' -- ' + e.getLineNumber());
-=======
-            //throwError(e.getMessage() + ' -- ' + e.getLineNumber());
->>>>>>> 27af08f5b7806f7c23c22c388c6bb7a4af1d91e4
         }
 
         return shipmentWrapper;
@@ -231,7 +200,6 @@ public without sharing class VS_VehicleShipmentLWCController
         {
             for (Vehicle_Master2__c vh: StockVehicleMasterService.selectByIds(stockVehicleMasterIds))
             {
-<<<<<<< HEAD
                 if (vehiclesByVesselCode.containsKey(vh.Vessel_Code__c))
                 {
                     tempVehicleList = vehiclesByVesselCode.get(vh.Vessel_Code__c);
@@ -241,17 +209,6 @@ public without sharing class VS_VehicleShipmentLWCController
                 else 
                 {
                     vehiclesByVesselCode.put(vh.Vessel_Code__c, new List<Vehicle_Master2__c> {vh});    
-=======
-                if (vehiclesByVesselCode.containsKey(vh.Vessel_Name__c))
-                {
-                    tempVehicleList = vehiclesByVesselCode.get(vh.Vessel_Name__c);
-                    tempVehicleList.add(vh);
-                    vehiclesByVesselCode.put(vh.Vessel_Name__c, tempVehicleList);
-                }
-                else 
-                {
-                    vehiclesByVesselCode.put(vh.Vessel_Name__c, new List<Vehicle_Master2__c> {vh});    
->>>>>>> 27af08f5b7806f7c23c22c388c6bb7a4af1d91e4
                 }
             }
 
@@ -318,11 +275,7 @@ public without sharing class VS_VehicleShipmentLWCController
         }
         catch (Exception e) 
         {
-<<<<<<< HEAD
             throwError(e.getMessage() + ' -- ' + e.getLineNumber());
-=======
-            //throwError(e.getMessage() + ' -- ' + e.getLineNumber());
->>>>>>> 27af08f5b7806f7c23c22c388c6bb7a4af1d91e4
         }
 
         return returnedId;
@@ -371,17 +324,12 @@ public without sharing class VS_VehicleShipmentLWCController
         } 
         catch (Exception e) 
         {
-<<<<<<< HEAD
             throwError(e.getMessage() + ' -- ' + e.getLineNumber());
-=======
-            //throwError(e.getMessage() + ' -- ' + e.getLineNumber());
->>>>>>> 27af08f5b7806f7c23c22c388c6bb7a4af1d91e4
         }
 
         return vehicleMasterWrapper;
     }
 
-<<<<<<< HEAD
     @AuraEnabled
     public static Boolean submitToGetsAsiaIPT(String inwardDeclarationId, Map<String, List<String>> grouppedItems)
     {
@@ -398,24 +346,6 @@ public without sharing class VS_VehicleShipmentLWCController
 
         return result;
     }
-=======
-    // @AuraEnabled
-    // public static Boolean submitToGetsAsiaIPT(String inwardDeclarationId, Map<String, List<String>> grouppedItems)
-    // {
-    //     Boolean result;
-
-    //     try 
-    //     {
-    //         result = !Test.isRunningTest() ? VS_InwardPaymentSVC.submitIPT(inwardDeclarationId, grouppedItems, false) : true;
-    //     } 
-    //     catch (Exception e) 
-    //     {
-    //         throwError(e.getMessage());
-    //     }
-
-    //     return result;
-    // }
->>>>>>> 27af08f5b7806f7c23c22c388c6bb7a4af1d91e4
 
     @AuraEnabled(cacheable = true)
     public static List<Manufacturer_Invoice__c> getManufacturerInvoicesByIds(List<Id> invoiceIds)
@@ -430,17 +360,10 @@ public without sharing class VS_VehicleShipmentLWCController
         }
     }
 
-<<<<<<< HEAD
     @AuraEnabled
     public static Boolean retrievePermitNo(Id inwardDeclarationId)
     {
         Boolean result = false;
-=======
-    // @AuraEnabled
-    // public static Boolean retrievePermitNo(Id inwardDeclarationId)
-    // {
-    //     Boolean result = false;
->>>>>>> 27af08f5b7806f7c23c22c388c6bb7a4af1d91e4
         
         try 
         {
@@ -519,7 +442,6 @@ public without sharing class VS_VehicleShipmentLWCController
                 uow.registerDirty(new Vehicle_Shipment__c(Id = vehicleShipmentId, TN_Permit_No__c = permitNo));
             } 
                  
-<<<<<<< HEAD
             uow.commitWork();
         } 
         catch (Exception e) 
@@ -529,17 +451,6 @@ public without sharing class VS_VehicleShipmentLWCController
 
         return true;
     }
-=======
-    //         uow.commitWork();
-    //     } 
-    //     catch (Exception e) 
-    //     {
-    //         throwError(e.getMessage() + ' -- ' + e.getLineNumber());
-    //     }
-
-    //     return true;
-    // }
->>>>>>> 27af08f5b7806f7c23c22c388c6bb7a4af1d91e4
 
     public class VehicleShipmentWrapper
     {
@@ -549,15 +460,6 @@ public without sharing class VS_VehicleShipmentLWCController
         @AuraEnabled
         public Map<String, List<Vehicle_Master2__c>> vehicleMasters {get; set;}
     }
-<<<<<<< HEAD
-
-    public class StockVehicleMasterWrapper
-    {
-        @AuraEnabled
-        public Map<String, Map<String, List<Vehicle_Master2__c>>> grouppedVehicles {get; set;}
-    }
-=======
->>>>>>> 27af08f5b7806f7c23c22c388c6bb7a4af1d91e4
 
     public class StockVehicleMasterWrapper
     {
@@ -565,11 +467,17 @@ public without sharing class VS_VehicleShipmentLWCController
         public Map<String, Map<String, List<Vehicle_Master2__c>>> grouppedVehicles {get; set;}
     }
 
-    // private static void throwError(String errorMsg)
-    // {
-    //     AuraHandledException e = new AuraHandledException(errorMsg);
-    //     e.setMessage(errorMsg);
+    public class StockVehicleMasterWrapper
+    {
+        @AuraEnabled
+        public Map<String, Map<String, List<Vehicle_Master2__c>>> grouppedVehicles {get; set;}
+    }
 
-    //     throw e;
-    // }
+    private static void throwError(String errorMsg)
+    {
+        AuraHandledException e = new AuraHandledException(errorMsg);
+        e.setMessage(errorMsg);
+
+        throw e;
+    }
 }
