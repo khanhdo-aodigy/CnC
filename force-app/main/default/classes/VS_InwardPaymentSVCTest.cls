@@ -46,7 +46,10 @@ public with sharing class VS_InwardPaymentSVCTest {
         insert vMaster;
         
         // create manufacturer supplier
-        Account supplier = Test_DataFactory.createAccount(true, 'Supplier Account');
+        Id principleOEMRTId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Principal')?.getRecordTypeId();
+        Account supplier = Test_DataFactory.createAccount(false, 'Supplier Account');
+        supplier.RecordTypeId = principleOEMRTId;
+        insert supplier;
 
         //create vehicle shipment 
         Vehicle_Shipment__c VehicleShipment         = Test_DataFactory.createVehicleShipment(true, supplier.Id);

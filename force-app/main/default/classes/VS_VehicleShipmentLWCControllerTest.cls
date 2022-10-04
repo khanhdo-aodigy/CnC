@@ -13,14 +13,21 @@ private with sharing class VS_VehicleShipmentLWCControllerTest
 {
     static String invoiceNo = 'INV7007007';
     @TestSetup
-    private static void setup(){
-        Account supplier = Test_DataFactory.createAccount(true, 'Supplier Account');
+    private static void setup()
+    {
+        Id principleOEMRTId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Principal')?.getRecordTypeId();
+        Account supplier = Test_DataFactory.createAccount(false, 'Supplier Account');
+        supplier.RecordTypeId = principleOEMRTId;
+        insert supplier;
+
         // create HS HS_Type__c
         HS_Type__c hsCode = new HS_Type__c(Name='HS-123');
         insert hsCode;
+
         // create product code
         Product_Code__c proCode = new Product_Code__c(Name='PC Sun',Product_Code__c = 'PC-01');
         insert proCode;
+
         // create Vehicle_Shipment
         Vehicle_Shipment__c vs = new Vehicle_Shipment__c(
             Vessel_Name__c = 'vsnameso',
@@ -29,6 +36,7 @@ private with sharing class VS_VehicleShipmentLWCControllerTest
             Currency_Code__c = 'USD'
         );
         insert vs;
+        
         //Create inwardDec
         Inward_Declaration__c inwardDec = new Inward_Declaration__c
         (
@@ -37,6 +45,7 @@ private with sharing class VS_VehicleShipmentLWCControllerTest
             Transaction_ID__c='TS001'
         );
         insert inwardDec;  
+        
         // create Inward Declaration Invoice
          Manufacturer_Invoice__c mInvoiceWithVs = new Manufacturer_Invoice__c(
             Vehicle_Shipment__c = vs.id,
