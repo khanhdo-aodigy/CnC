@@ -116,9 +116,17 @@ private with sharing class VS_VehicleShipmentLWCControllerTest
         String vsId = vs.id;
         Test.startTest();
         List<Shipment_Line_Item__c> sli = VS_VehicleShipmentLWCController.getUnmatchedLineItems(vsId);
+<<<<<<< HEAD
         System.assert(sli.size()>0);    
         Test.stopTest();           
     }   
+=======
+        System.assert(sli.size()>0);
+       
+        Test.stopTest();       
+        
+    }
+>>>>>>> 27af08f5b7806f7c23c22c388c6bb7a4af1d91e4
 
     @isTest
     private static void getManufacturerInvoices_Success ()
@@ -156,12 +164,28 @@ private with sharing class VS_VehicleShipmentLWCControllerTest
         Test.stopTest();         
     }
 
+<<<<<<< HEAD
   
     @isTest
     private static void getVehicleShipmentWithInvoicesAndLineItems_Success ()
     { 
         Vehicle_Shipment__c vs = [SELECT id FROM  Vehicle_Shipment__c Limit 1];     
         Test.startTest();     
+=======
+    // @isTest
+    // private static void submitToGetsAsia_Success ()
+    // { 
+             
+    // }
+    
+    @isTest
+    private static void getVehicleShipmentWithInvoicesAndLineItems_Success ()
+    { 
+        Vehicle_Shipment__c vs = [SELECT id FROM  Vehicle_Shipment__c Limit 1];
+        
+        Test.startTest();
+       
+>>>>>>> 27af08f5b7806f7c23c22c388c6bb7a4af1d91e4
         VS_VehicleShipmentLWCController.VehicleShipmentWrapper shipmentWrapperIPT =
         VS_VehicleShipmentLWCController.getVehicleShipmentWithInvoicesAndLineItems(vs.id , 'IPT'); 
         System.assert(shipmentWrapperIPT.vehicleMasters.size()>0);
@@ -174,8 +198,15 @@ private with sharing class VS_VehicleShipmentLWCControllerTest
     @isTest
     private static void getStockVehicleMastersForDutyRequest_Success ()
     { 
+<<<<<<< HEAD
         Test.startTest();    
         List<Vehicle_Master2__c> vm = VS_VehicleShipmentLWCController.getStockVehicleMastersForDutyRequest();
+=======
+        Test.startTest();
+        
+        List<Vehicle_Master2__c> vm = VS_VehicleShipmentLWCController.getStockVehicleMastersForDutyRequest();
+       // System.assert(vm.size()>0);
+>>>>>>> 27af08f5b7806f7c23c22c388c6bb7a4af1d91e4
         Test.stopTest();
     }
 
@@ -185,11 +216,19 @@ private with sharing class VS_VehicleShipmentLWCControllerTest
         Vehicle_Shipment__c vs = [SELECT id FROM  Vehicle_Shipment__c Limit 1];
         List<Vehicle_Master2__c>  svm = [SELECT id FROM Vehicle_Master2__c WHERE Vehicle_Shipment__c = :vs.id] ;
         list<string> svmId = new List<string>();
+<<<<<<< HEAD
         for (Vehicle_Master2__c sid : svm) 
         {
             svmId.add(sid.id);
         }
         Test.startTest();       
+=======
+        for (Vehicle_Master2__c sid : svm) {
+            svmId.add(sid.id);
+        }
+        Test.startTest();
+        
+>>>>>>> 27af08f5b7806f7c23c22c388c6bb7a4af1d91e4
         VS_VehicleShipmentLWCController.StockVehicleMasterWrapper StockVehicleMasterWrapper = VS_VehicleShipmentLWCController.getGrouppedStockVehicleMasters(svmId);
         System.assert(StockVehicleMasterWrapper.grouppedVehicles.size()>0);
         Test.stopTest();
@@ -200,11 +239,20 @@ private with sharing class VS_VehicleShipmentLWCControllerTest
     { 
         Vehicle_Shipment__c vs = [SELECT id, Vessel_Name__c FROM  Vehicle_Shipment__c Limit 1];
         String vesselName = vs.Vessel_Name__c;
+<<<<<<< HEAD
         List<Vehicle_Master2__c>  svm = [SELECT id, Vessel_Name__c ,Invoice_No__c FROM Vehicle_Master2__c ] ;
         Map<string,List<Vehicle_Master2__c>> svmap = new Map<string,List<Vehicle_Master2__c>>{vesselName => svm};
         
         Test.startTest();
         system.assertNotEquals(null,VS_VehicleShipmentLWCController.createInvoiceAndInwardDeclaration(svmap));
+=======
+        System.debug('vessel name'+vesselName);
+        List<Vehicle_Master2__c>  svm = [SELECT id, Vessel_Name__c ,Invoice_No__c FROM Vehicle_Master2__c ] ;
+        Map<string,List<Vehicle_Master2__c>> svmap = new Map<string,List<Vehicle_Master2__c>>{vesselName=> svm};
+        
+        Test.startTest();
+        system.assertNotEquals(null,VS_VehicleShipmentLWCController.createInvoiceAndInwardDeclaration(svmap) );
+>>>>>>> 27af08f5b7806f7c23c22c388c6bb7a4af1d91e4
         Test.stopTest();
     }
 
@@ -212,6 +260,7 @@ private with sharing class VS_VehicleShipmentLWCControllerTest
     private static void getGrouppedStockVehicleMastersByInwardDecId_Success ()
     { 
         Vehicle_Shipment__c vs = [SELECT id, Vessel_Name__c FROM  Vehicle_Shipment__c Limit 1];
+<<<<<<< HEAD
         Inward_Declaration__c inwardDec = [SELECT id FROM Inward_Declaration__c WHERE Vehicle_Shipment__c = :vs.id];
         String inwardDecId = inwardDec.id;
         Test.startTest();
@@ -231,6 +280,17 @@ private with sharing class VS_VehicleShipmentLWCControllerTest
         {
             inwardDecInvoiceId.add(mi.id);
         }
+=======
+        Inward_Declaration__c inwardDec = [SELECT id FROM Inward_Declaration__c WHERE 	Vehicle_Shipment__c = :vs.id];
+        String inwardDecId = inwardDec.id;
+        //system.debug(inwardDecId);
+        
+        Test.startTest();
+        VS_VehicleShipmentLWCController.VehicleShipmentWrapper vehicleMasterWrapper= VS_VehicleShipmentLWCController.getGrouppedStockVehicleMastersByInwardDecId(inwardDecId);
+        //system.assert(vehicleMasterWrapper.vehicleMasters.size()>0);
+        Test.stopTest();
+    }
+>>>>>>> 27af08f5b7806f7c23c22c388c6bb7a4af1d91e4
 
         Test.startTest();
         List<Manufacturer_Invoice__c> inwardDecInvoiceNew = VS_VehicleShipmentLWCController.getManufacturerInvoicesByIds(inwardDecInvoiceId);
@@ -289,10 +349,28 @@ private with sharing class VS_VehicleShipmentLWCControllerTest
         }
         Map<String, List<String>> grouppedItems = new Map<String, List<String>> {hsCode => sliId};
 
+<<<<<<< HEAD
         Test.startTest();
         system.assertNotEquals(false, VS_VehicleShipmentLWCController.submitToGetsAsia(vs.id , 'INP',grouppedItems));
         Test.stopTest();
     }  
+=======
+    @isTest
+    private static void getManufacturerInvoicesByIds_Success ()
+    { 
+        Vehicle_Shipment__c vs = [SELECT id, Vessel_Name__c FROM  Vehicle_Shipment__c Limit 1];
+        List<Manufacturer_Invoice__c> inwardDecInvoice = [SELECT id FROM Manufacturer_Invoice__c WHERE 	Vehicle_Shipment__c = :vs.id];
+        list<id> inwardDecInvoiceId = new list<id>();
+        for (Manufacturer_Invoice__c mi : inwardDecInvoice) {
+            inwardDecInvoiceId.add(mi.id);
+        }
+       system.debug(inwardDecInvoiceId);
+        Test.startTest();
+       List<Manufacturer_Invoice__c> inwardDecInvoiceNew = VS_VehicleShipmentLWCController.getManufacturerInvoicesByIds(inwardDecInvoiceId);
+       system.assert(inwardDecInvoice.size()>0);
+        Test.stopTest();
+    }
+>>>>>>> 27af08f5b7806f7c23c22c388c6bb7a4af1d91e4
 
     @isTest
     private static void retrievePermitNo_Success ()
