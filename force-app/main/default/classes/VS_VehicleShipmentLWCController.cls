@@ -467,12 +467,6 @@ public without sharing class VS_VehicleShipmentLWCController
         public Map<String, Map<String, List<Vehicle_Master2__c>>> grouppedVehicles {get; set;}
     }
 
-    public class StockVehicleMasterWrapper
-    {
-        @AuraEnabled
-        public Map<String, Map<String, List<Vehicle_Master2__c>>> grouppedVehicles {get; set;}
-    }
-
     private static void throwError(String errorMsg)
     {
         AuraHandledException e = new AuraHandledException(errorMsg);
