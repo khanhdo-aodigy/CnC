@@ -40,7 +40,7 @@ private class StockVehicleMasterSelectorTest {
                                                             Color_Code__c = colorCode.ID, 
                                                             Trim_Code__c = trimCode.ID,
                                                             Duty_Payment_Date__c = Date.today(),
-                                                            Vehicle_Shipment__c = vehicleShipment.id,
+                                                            // Vehicle_Shipment__c = vehicleShipment.id,
                                                             Purchase_Order__c = po.Id);
         insert vMaster;
          Forward_FOB_Contract__c fobContract = new Forward_FOB_Contract__c(Status__c = 'Active',
