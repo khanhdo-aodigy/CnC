@@ -11,6 +11,16 @@
         <template>Treasury_Management_Email_Templates/Forward_Duty_Contract_Approval</template>
     </alerts>
     <fieldUpdates>
+        <fullName>Update_Duty_Sale_Contract_Approved</fullName>
+        <field>Duty_Sale_Contract_Approved__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Duty Sale Contract Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>Update_PO_Cancellation_Contract_Approved</fullName>
         <field>PO_Cancellation_Contract_Approved__c</field>
         <literalValue>1</literalValue>
