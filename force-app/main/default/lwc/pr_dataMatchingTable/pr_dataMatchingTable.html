@@ -1,0 +1,16 @@
+<template>
+    <div class="slds-card slds-m-vertical_large" data-id="result">
+        <div class="slds-p-around_large">
+            <h2 class="slds-text-heading_medium slds-p-bottom_large"> Receipt Details </h2>            
+            <lightning-datatable 
+            key-field="Id" 
+            data={tableData}
+            columns={columns}
+            suppress-bottom-bar
+            draft-values={updatedValues}
+            oncellchange={onValueChanged}
+            >
+            </lightning-datatable> 
+        </div>
+    </div> 
+</template>
