@@ -16,7 +16,7 @@ const readOnlyColumns = [
     { label: 'Sales Invoice', fieldName: 'salesInvoiceName'},
     { label: 'Date', fieldName: 'invoiceDate', type: 'date' },
     { label: 'Document Amount', fieldName: 'documentAmount', type: 'currency' },
-    { label: 'Outtanding Amount', fieldName: 'outstandingAmount', type: 'currency' },
+    { label: 'Outtanding Amount', fieldName: 'outstandingAmount', type: 'currency'},
     { label: 'Payment Amount', fieldName: 'paymentAmount', type: 'currency'},
 ];
 
@@ -66,17 +66,18 @@ export default class Pr_receiptDetails extends LightningElement {
                     }
                 ));
             } else {
-                const rowData = {
+                const rowData = [{
                     salesAgreementId   : sa.Id,
                     salesAgreementName : sa.Name,
                     documentAmount     : sa.Vehicle_Purchase_Price__c,
                     outstandingAmount  : sa.BalancePayment__c,
                     receiptDate        : this.receiptDate,
                     keyField           : sa.Id,
-                }
-                this.tableData.push(rowData);
+                }]
+                this.tableData = rowData;
             }
-        }             
+        }     
+        console.log('tableData', this.tableData);        
     }
 
     renderedCallback() {        
