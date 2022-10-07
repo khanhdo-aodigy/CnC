@@ -9,8 +9,6 @@ export default class Pr_receiptHeader extends LightningElement {
     @api recordId;
     @track receipt = {};
 
-    postedSuccess = false;
-
     commissionMap;
     spinner = false;
 
@@ -186,6 +184,7 @@ export default class Pr_receiptHeader extends LightningElement {
     async createPaymentReceipt(receiptDetails) {
         let inputFields = this.template.querySelectorAll('lightning-input-field');
         let buttons = this.template.querySelectorAll('button');
+        this.spinner = true;
         try{
             console.log('createPaymentReceipt.receiptDetails', receiptDetails);
             const result = await createReceipt({
@@ -193,8 +192,12 @@ export default class Pr_receiptHeader extends LightningElement {
                 receiptDetails: receiptDetails
             });
             console.log('result', result);
+
             this.showNotification('Success!', 'Payment Receipt was created successfully', 'success', 'dismissable');
-            this.postedSuccess = true;
+            setTimeout(() => { 
+                window.history.back();
+            }, 2000);
+            
         } catch(e) {
             console.error(e);
             this.showNotification('Error!', e.body.message, 'error', 'dismissable');

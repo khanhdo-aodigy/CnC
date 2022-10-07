@@ -2,9 +2,9 @@ import { LightningElement, track, wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getCommissionMap from '@salesforce/apex/PaymentReceiptController.getCommissionMap';
 import getGstRate from '@salesforce/apex/PaymentReceiptController.getGstRate';
-import getRelatedSASIs from '@salesforce/apex/PaymentReceiptController.getRelatedSASIs';
+import getRelatedSASIs from '@salesforce/apex/PaymentReceiptController.getRelatedSIs';
 import getBillToInfo from '@salesforce/apex/PaymentReceiptController.getAccountInfo';
-import createReceiptForMultipleSA from '@salesforce/apex/PaymentReceiptController.createReceiptForMultipleSA';
+// import createReceiptForMultipleSA from '@salesforce/apex/PaymentReceiptController.createReceiptForMultipleSA';
 
 export default class Pr_newPaymentReceipt extends LightningElement {
     @track receipt = {};
@@ -174,17 +174,17 @@ export default class Pr_newPaymentReceipt extends LightningElement {
                    button.disabled = true;
                 });
     
-                const result = await createReceiptForMultipleSA({
-                    receipt: this.receipt,
-                    saIds: this.saIds,
-                    siIds: this.siIds
-                });
+                // const result = await createReceiptForMultipleSA({
+                //     receipt: this.receipt,
+                //     saIds: this.saIds,
+                //     siIds: this.siIds
+                // });
 
-                console.log('result', result);
-                this.showNotification('Success!', 'Payment Receipt was created successfully', 'success', 'dismissable');
-                this.postedSuccess      = true;
-                this.paymentReceiptItem = result.Payment_Receipt_Line_Item__c;
-                this.debtorLedgerItem   = result.Debtor_Ledger_Line_Item__c;
+                // console.log('result', result);
+                // this.showNotification('Success!', 'Payment Receipt was created successfully', 'success', 'dismissable');
+                // this.postedSuccess      = true;
+                // this.paymentReceiptItem = result.Payment_Receipt_Line_Item__c;
+                // this.debtorLedgerItem   = result.Debtor_Ledger_Line_Item__c;
                 this.spinner = false;
             }
             

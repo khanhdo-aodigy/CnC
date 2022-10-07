@@ -4,7 +4,7 @@ import { deepClone } from 'c/util';
 const columns = [
     { label: 'Sales Agreement', fieldName: 'salesAgreementName'},
     { label: 'Sales Invoice', fieldName: 'salesInvoiceName'},
-    // { label: 'Date', fieldName: 'invoiceDate', type: 'date' },
+    { label: 'Date', fieldName: 'invoiceDate', type: 'date' },
     // { label: 'Ref No', fieldName: 'refNo'  },
     { label: 'Document Amount', fieldName: 'documentAmount', type: 'currency' },
     { label: 'Outtanding Amount', fieldName: 'outstandingAmount', type: 'currency' },
@@ -14,6 +14,7 @@ const columns = [
 const readOnlyColumns = [
     { label: 'Sales Agreement', fieldName: 'salesAgreementName'},
     { label: 'Sales Invoice', fieldName: 'salesInvoiceName'},
+    { label: 'Date', fieldName: 'invoiceDate', type: 'date' },
     { label: 'Document Amount', fieldName: 'documentAmount', type: 'currency' },
     { label: 'Outtanding Amount', fieldName: 'outstandingAmount', type: 'currency' },
     { label: 'Payment Amount', fieldName: 'paymentAmount', type: 'currency'},
@@ -79,7 +80,7 @@ export default class Pr_receiptDetails extends LightningElement {
     }
 
     renderedCallback() {        
-        this.template.querySelector('div[data-id="result"]').scrollIntoView();
+        // this.template.querySelector('div[data-id="result"]').scrollIntoView();
 
         //Only allow allocating amount when Receipt Amount is not blank
         if(this.receiptAmt) {            

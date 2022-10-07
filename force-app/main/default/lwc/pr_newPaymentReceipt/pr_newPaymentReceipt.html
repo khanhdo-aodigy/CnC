@@ -175,8 +175,6 @@
         
         <template if:true={showMatchingTable}>
             <div class="slds-card">
-                <c-pr_data-matching-table table-data={matchingData}>
-                </c-pr_data-matching-table>
             </div>
         </template>
         <div class="slds-grid slds-gutters slds-p-vertical_x-large slds-p-horizontal_large">
@@ -193,12 +191,6 @@
 
         </div>
     </div>
-    <template if:true={postedSuccess}>
-        <div class="slds-card">
-            <c-pr_receipt-details payment-receipt-item={paymentReceiptItem} debtor-ledger-item={debtorLedgerItem}>
-            </c-pr_receipt-details>
-        </div>
-    </template>
 
 
 </template>
