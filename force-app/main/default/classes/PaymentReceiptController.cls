@@ -45,7 +45,7 @@ public without sharing class PaymentReceiptController {
                                                     Account__c, Account__r.Name, Account__r.RecordType.DeveloperName,
                                                     Vehicle_Purchase_Price__c, BalancePayment__c,
                                                     (
-                                                        SELECT Id, Name, CreatedDate
+                                                        SELECT Id, Name, Invoice_Value__c, CreatedDate
                                                         FROM Sales_Invoices__r
                                                     )
                                             FROM Sales_Agreement__c
@@ -128,19 +128,19 @@ public without sharing class PaymentReceiptController {
                 }
             }
             
-            List<Debtor_Ledger__c> debtorLedgers = [    SELECT Id, Name 
-                                                        FROM Debtor_Ledger__c
-                                                        WHERE Account__c = :paymentReceipt.Bill_To__c
-                                                        LIMIT 1
-                                                    ];
-            Debtor_Ledger__c debtorLedger;
-            if(debtorLedgers.size() < 1) {
-                AuraHandledException ex =  new AuraHandledException('');
-                ex.setMessage('No Debtor Ledger found for this Customer');
-                throw ex;
-            } else {
-                debtorLedger = debtorLedgers[0];
-            }
+            // List<Debtor_Ledger__c> debtorLedgers = [    SELECT Id, Name 
+            //                                             FROM Debtor_Ledger__c
+            //                                             WHERE Account__c = :paymentReceipt.Bill_To__c
+            //                                             LIMIT 1
+            //                                         ];
+            // Debtor_Ledger__c debtorLedger;
+            // if(debtorLedgers.size() < 1) {
+            //     AuraHandledException ex =  new AuraHandledException('');
+            //     ex.setMessage('No Debtor Ledger found for this Customer');
+            //     throw ex;
+            // } else {
+            //     debtorLedger = debtorLedgers[0];
+            // }
 
             System.debug('paymentReceipt = ' + paymentReceipt);
             
@@ -218,11 +218,11 @@ public without sharing class PaymentReceiptController {
     @AuraEnabled
     public static Account getAccountInfo(String accountId){
         try {
-            Account acc = [ SELECT Id, Name, RecordType.DeveloperName
-                            FROM Account
-                            WHERE Id = :accountId
-                        ];
-            return acc;
+            List<Account> accList = [  SELECT Id, Name, RecordType.DeveloperName
+                                        FROM Account
+                                        WHERE Id = :accountId
+                                    ];
+            return accList.size() > 0 ? accList[0] : null;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
@@ -231,17 +231,19 @@ public without sharing class PaymentReceiptController {
     @AuraEnabled
     public static List<Sales_Invoice__c> getRelatedSIs(String accountId){
         try {
-            
-            List<Sales_Invoice__c> siList = [   SELECT Id, Name, Sales_Agreement__c, 
-                                                        Sales_Agreement__r.Bill_To__c,
-                                                        Sales_Agreement__r.Name, Sales_Agreement__r.FranchiseCode__c,
-                                                        Sales_Agreement__r.Account__c, Sales_Agreement__r.Account__r.Name,
-                                                        Sales_Agreement__r.Account__r.RecordType.DeveloperName,
-                                                        Sales_Agreement__r.Vehicle_Purchase_Price__c, Sales_Agreement__r.Balance_Payment__c
-                                                        FROM Sales_Invoice__c
-                                                WHERE Bill_To__c = :accountId
-                                            ];
+            List<Sales_Invoice__c> siList = new List<Sales_Invoice__c>();
+            if(String.isNotBlank(accountId)) {
+                siList = [   SELECT Id, Name, Sales_Agreement__c, Bill_To__c,
+                                    Sales_Agreement__r.Bill_To__c,
+                                    Sales_Agreement__r.Name,
+                                    // Sales_Agreement__r.Account__c, Sales_Agreement__r.Account__r.Name,
+                                    Sales_Agreement__r.Vehicle_Purchase_Price__c, Sales_Agreement__r.Balance_Payment__c
+                            FROM Sales_Invoice__c
+                            WHERE Bill_To__c = :accountId
+                        ];
 
+                                            
+            }
             return siList;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());

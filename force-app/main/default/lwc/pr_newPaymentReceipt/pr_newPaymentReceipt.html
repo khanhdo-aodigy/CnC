@@ -173,8 +173,10 @@
             </lightning-record-edit-form>
         </div>
         
-        <template if:true={showMatchingTable}>
+        <template if:true={showReceiptDetails}>
             <div class="slds-card">
+                <c-pr_new-payment-receipt-details receipt-details={relatedSIs} receipt-amount={receipt.Receipt_Amount__c} receipt-date={receipt.Receipt_Date__c}></c-pr_new-payment-receipt-details>
+
             </div>
         </template>
         <div class="slds-grid slds-gutters slds-p-vertical_x-large slds-p-horizontal_large">

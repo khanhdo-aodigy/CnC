@@ -20,12 +20,19 @@ const readOnlyColumns = [
     { label: 'Payment Amount', fieldName: 'paymentAmount', type: 'currency'},
 ];
 
+const customColumns = [
+    { label: 'Sales Agreement', fieldName: 'salesAgreementName'},
+    { label: 'Sales Invoice', fieldName: 'salesInvoiceName'},
+    { label: 'Document Amount', fieldName: 'documentAmount'},
+    { label: 'Outtanding Amount', fieldName: 'outstandingAmount' },
+    { label: 'Payment Amount', fieldName: 'paymentAmount' },
+];
 
 const enterAlcAmtErrMsg = 'Please enter Allocated Amount for selected Debtor Ledger Line Item(s)';
 
 export default class Pr_receiptDetails extends LightningElement {
     columns = readOnlyColumns;
-
+    customColumns = customColumns;
     receiptAmt = 0;
     balanceAmt = 0;
     totalAmt = 0;
@@ -36,24 +43,75 @@ export default class Pr_receiptDetails extends LightningElement {
     }
 
     set receiptAmount(value) {
-        this.receiptAmt = value;        
+        this.receiptAmt = value;
         this.balanceAmt = this.receiptAmt - this.totalAmt;
+        if(this.receiptAmt && this.receiptAmount> 0) {
+            this.allowEdit = true;
+        } else {
+            this.allowEdit = false;
+        }
     }
     
 
     tableData = [];
+    @track customTableData = [];
+    receiptDetails = [];
+    allowEdit = false;
 
     @api receiptDate;
     @api
-    get receiptDetails() {
+    get rawData() {
         return this.tableData;
     }
 
-    set receiptDetails(sa) {
+    set rawData(sa) {
         if(sa) {
             if(sa.Sales_Invoices__r) {
 
+                sa.Sales_Invoices__r.forEach(si => {
+
+                    const props = [
+                        {
+                            fieldName: 'salesAgreementName',
+                            fieldValue: sa.Name,
+                            editable: false
+                        },
+                        {
+                            fieldName: 'salesInvoiceName',
+                            fieldValue: si.Name,
+                            editable: false
+                        },
+                        {
+                            fieldName: 'documentAmount',
+                            fieldValue: sa.Vehicle_Purchase_Price__c,
+                            editable: false
+                        },
+                        {
+                            fieldName: 'outstandingAmount',
+                            fieldValue: si.Invoice_Value__c,
+                            editable: false
+                        }
+                    ]
+
+                                        
+                    this.customTableData.push({
+                        key: si.Id,
+                        props: props
+                    });
+                })
+
+                this.receiptDetails = sa.Sales_Invoices__r.map(si => (
+                    
+                    {
+                        salesAgreementId   : sa.Id,
+                        salesInvoiceId     : si.Id,
+                        documentAmount     : sa.Vehicle_Purchase_Price__c,
+                        outstandingAmount  : sa.BalancePayment__c,
+                        key           : si.Id,
+                    }
+                ));
                 this.tableData = sa.Sales_Invoices__r.map(si => (
+                    
                     {
                         salesAgreementId   : sa.Id,
                         salesAgreementName : sa.Name,
@@ -66,6 +124,34 @@ export default class Pr_receiptDetails extends LightningElement {
                     }
                 ));
             } else {
+                this.customTableData = {
+                    key: sa.Id,
+                    props: [
+                        {
+                            fieldName: 'salesAgreementName',
+                            fieldValue: sa.Name,
+                            disabled: true
+                        },
+                        {
+                            fieldName: 'documentAmount',
+                            fieldValue: sa.Vehicle_Purchase_Price__c,
+                            disabled: true
+                        },
+                        {
+                            fieldName: 'outstandingAmount',
+                            fieldValue: si.Invoice_Value__c,
+                            disabled: true
+                        }
+                    ]
+                };
+
+                this.receiptDetails =  [{
+                    salesAgreementId   : sa.Id,
+                    documentAmount     : sa.Vehicle_Purchase_Price__c,
+                    outstandingAmount  : sa.BalancePayment__c,
+                    key           : sa.Id,
+                }];
+
                 const rowData = [{
                     salesAgreementId   : sa.Id,
                     salesAgreementName : sa.Name,
@@ -97,7 +183,20 @@ export default class Pr_receiptDetails extends LightningElement {
     }
 
     onValueChanged(event){
+        console.log(event);
+        console.log(event.target.name);
+        console.log(event.target.value);
+        console.log(event.target.dataset.key);
         this.calculateAmounts();
+
+        if(event.target.name == 'paymentAmt'){
+            let recordKey = event.target.dataset.key;
+            let recordIdx = this.receiptDetails.findIndex((obj => obj.key == recordKey));
+            this.receiptDetails[recordIdx].paymentAmount = event.target.value
+        }
+        
+
+        
     }
 
     calculateAmounts() {

@@ -154,7 +154,6 @@ export default class Pr_receiptHeader extends LightningElement {
         let buttons = this.template.querySelectorAll('button');
         try {
             if (this.isInputValid()) {
-                this.spinner = true;
                 inputFields.forEach(input => {
                     input.disabled = true;
                 });
@@ -177,7 +176,6 @@ export default class Pr_receiptHeader extends LightningElement {
             // inputFields.forEach(input => {
             //     input.disabled = false;
             // });
-            this.spinner = false;
         }
     }
 

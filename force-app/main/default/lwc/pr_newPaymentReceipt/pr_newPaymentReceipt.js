@@ -2,7 +2,7 @@ import { LightningElement, track, wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getCommissionMap from '@salesforce/apex/PaymentReceiptController.getCommissionMap';
 import getGstRate from '@salesforce/apex/PaymentReceiptController.getGstRate';
-import getRelatedSASIs from '@salesforce/apex/PaymentReceiptController.getRelatedSIs';
+import getRelatedSIs from '@salesforce/apex/PaymentReceiptController.getRelatedSIs';
 import getBillToInfo from '@salesforce/apex/PaymentReceiptController.getAccountInfo';
 // import createReceiptForMultipleSA from '@salesforce/apex/PaymentReceiptController.createReceiptForMultipleSA';
 
@@ -11,11 +11,9 @@ export default class Pr_newPaymentReceipt extends LightningElement {
     currentDatetime = new Date();
     today = this.currentDatetime.getFullYear() + '-' + ('0' + (this.currentDatetime.getMonth() + 1)).slice(-2) + '-' + ('0' + this.currentDatetime.getDate()).slice(-2);
 
-    showMatchingTable = false;
-    matchingData;
+    showReceiptDetails = false;
     postedSuccess = false;
-    saIds = [];
-    siIds = [];
+    relatedSIs;
 
 
     commissionMap;
@@ -36,8 +34,13 @@ export default class Pr_newPaymentReceipt extends LightningElement {
         this.receipt[event.target.fieldName] = event.target.value;
 
         if(event.target.fieldName == 'Bill_To__c') {
-            this.getBillToType();
-            this.getRelatedSASIs();
+            if(this.receipt.Bill_To__c) {
+                this.getBillToType();
+                this.getRelatedSIs();
+            } else {
+                this.receipt.Bill_To_Type__c = null;
+                this.showReceiptDetails = false;
+            }
         }
 
         if(event.target.fieldName == 'Credit_Card_Type__c') {
@@ -138,20 +141,17 @@ export default class Pr_newPaymentReceipt extends LightningElement {
         }
     }
     
-    async getRelatedSASIs() {
+    async getRelatedSIs() {
         try {
-            let relatedSASIs = await getRelatedSASIs({accountId: this.receipt.Bill_To__c});
-            this.matchingData = relatedSASIs;
-            this.matchingData.forEach(record => {
-                if(record.sObjectName == 'Sales_Agreement__c') {
-                    this.saIds.push(record.Id);
-                }
-                if(record.sObjectName == 'Sales_Invoice__c') {
-                    this.siIds.push(record.Id);
-                }
-            })
-            console.log('relatedSASIs', relatedSASIs);
-            this.showMatchingTable = true;
+            const result = await getRelatedSIs({accountId: this.receipt.Bill_To__c});
+            console.log('result', result);
+            if(result.length > 0) {
+                this.relatedSIs = result;
+                this.showReceiptDetails = true;
+            } else {
+                this.relatedSIs = [];
+                this.showReceiptDetails = false;
+            }
         } catch(e) {
             this.showNotification('Error!', e.body.message, 'error', 'dismissable');
         }

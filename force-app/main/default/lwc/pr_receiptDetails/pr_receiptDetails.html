@@ -2,7 +2,7 @@
     <div class="slds-card slds-m-vertical_large" data-id="result">
         <div class="slds-p-around_large">
             <h2 class="slds-text-heading_medium slds-p-bottom_large"> Receipt Details </h2>
-            <lightning-datatable 
+            <!-- <lightning-datatable 
                 key-field="keyField" 
                 data={tableData}
                 columns={columns}
@@ -13,17 +13,60 @@
                 show-row-number-column
             >
             
-            </lightning-datatable>  
-            <div class="slds-clearfix slds-m-top_medium">
-                <div class="slds-float_right slds-col slds-size_1-of-4">
-                    <label><b>Unallocated Amount</b></label>
-                    <lightning-input type="number" label="Unallocated Amount" value={unAllocatedAmt} variant="label-hidden">
-                    </lightning-input>
-                </div>
+            </lightning-datatable>   -->
+
+            
+            <div class="slds-m-top_medium">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered" >
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <template for:each={customColumns} for:item="column">
+                                <th key={column.fieldName}>
+                                    {column.label}
+                                </th>
+                            </template>
+                        </tr>
+                        
+                    </thead>
+                    <tbody>
+                        <template for:each={customTableData} for:item="record">
+                            <tr class="slds-hint-parent" key={record.key}>
+                                <template for:each={record.props} for:item="field">
+                                    <td key={field.fieldName}>
+                                        <div class="slds-truncate">
+                                            {field.fieldValue}                                        
+                                        </div>
+                                    </td>
+                                </template>
+                                <td>
+                                    <template if:true={allowEdit}>
+                                        <lightning-input data-key={record.key} name="paymentAmt" type="number" onchange={onValueChanged}>
+    
+                                        </lightning-input>
+                                    </template>
+                                </td>
+                            </tr>
+                        </template>                    
+                        <tr class="slds-hint-parent">
+                            <td style="text-align: right;" colspan="4">
+                                <b>Unallocated Amount</b>
+                            </td>
+                            <td>
+                                <template if:true={allowEdit}>
+                                    <lightning-input type="number" name="unallocatedAmt" onchange={onValueChanged}>
+
+                                    </lightning-input>
+                                </template>
+                            </td>
+                        </tr>
+    
+                    </tbody>
+                </table>
             </div>
             <div class="slds-clearfix slds-m-top_medium">
                 <div class="slds-float_left">
-                    <lightning-input type="number" disabled label="Balance Amount to Adjust" value={balanceAmt} variant="label-inline">
+                    <label><b>Balance Amount to Adjust</b></label>
+                    <lightning-input type="number" disabled label="Balance Amount to Adjust" value={balanceAmt} variant="label-hidden">
                     </lightning-input>
                 </div>
                 <div class="slds-float_right">

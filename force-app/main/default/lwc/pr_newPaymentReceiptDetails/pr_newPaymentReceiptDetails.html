@@ -1,3 +1,31 @@
 <template>
-    
+    <div class="slds-card slds-m-vertical_large" data-id="result">
+        <div class="slds-p-around_large">
+            <h2 class="slds-text-heading_medium slds-p-bottom_large"> Receipt Details </h2>
+            <lightning-datatable 
+                key-field="keyField" 
+                data={tableData}
+                columns={columns}
+                suppress-bottom-bar
+                draft-values={updatedValues}
+                oncellchange={onValueChanged}
+                hide-checkbox-column
+                show-row-number-column
+            >
+            
+            </lightning-datatable>  
+            <div class="slds-clearfix slds-m-top_medium">
+                <div class="slds-float_left">
+                    <label><b>Balance Amount to Adjust</b></label>
+                    <lightning-input type="number" disabled label="Balance Amount to Adjust" value={balanceAmt} variant="label-hidden">
+                    </lightning-input>
+                </div>
+                <div class="slds-float_right">
+                    <label><b>Total</b></label>
+                    <lightning-input type="number" disabled label="Total" value={totalAmt} variant="label-hidden">
+                    </lightning-input>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
