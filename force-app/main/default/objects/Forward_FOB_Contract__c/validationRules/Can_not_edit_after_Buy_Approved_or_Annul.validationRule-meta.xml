@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Can_not_edit_after_Buy_Approved_or_Annul</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( NOT(ISNEW()), OR(Forward_Contract_Buy_Approved__c ,   ISPICKVAL(Status__c , &apos;Annulled&apos;) ), $Permission.TMS_Makers_Permission)
+&amp;&amp; NOT( $Setup.Bypass_Automation_Settings__c.Bypass_Validation_Rules__c )</errorConditionFormula>
+    <errorMessage>You are not allowed to edit after Buy Contract approved</errorMessage>
+</ValidationRule>

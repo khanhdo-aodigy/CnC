@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Can_not_edit_after_Sell_Execute_approved</fullName>
+    <active>false</active>
+    <description>Users are not allowed to edit after Sell/Execute Contract approved</description>
+    <errorConditionFormula>AND( NOT(ISNEW()), OR(Forward_Contract_Execute_Approved__c, PO_Cancellation_Contract_Approved__c), $Permission.TMS_Makers_Permission)
+&amp;&amp; NOT( $Setup.Bypass_Automation_Settings__c.Bypass_Validation_Rules__c )</errorConditionFormula>
+    <errorMessage>You are not allowed to edit after Forward Contract Sell/Execute approved.</errorMessage>
+</ValidationRule>
