@@ -209,6 +209,7 @@ export default class Pr_receiptDetails extends LightningElement {
     showErrorNotification(errorMessage){
         this.isError = true;
         this.showNotification('Error!', errorMessage, 'error', 'dissmissible');
+        this.bubbleEvent('cancelReceiptCreation');
     }
 
     showNotification(title, message, type, mode) {

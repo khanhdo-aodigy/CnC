@@ -30,10 +30,15 @@ export default class Pr_receiptHeader extends LightningElement {
         this.template.addEventListener('receiptDetailsReady', event => {
             this.createPaymentReceipt(event.detail)
         });
+
+        this.template.addEventListener('cancelReceiptCreation', event => {
+            this.cancelReceiptCreation(event.detail)
+        });
     }
 
     disconnectedCallback() {
         this.template.removeEventListener('receiptDetailsReady');
+        this.template.removeEventListener('cancelReceiptCreation');
     }
 
     async getReceiptHeader() {
@@ -185,9 +190,11 @@ export default class Pr_receiptHeader extends LightningElement {
 
     async createPaymentReceipt(receiptDetails) {
         let inputFields = this.template.querySelectorAll('lightning-input-field');
-        let buttons = this.template.querySelectorAll('button');
+        let saveButton = this.template.querySelector('button[name="save"]');
         this.spinner = true;
         try{
+            
+            saveButton.disabled = true;
             console.log('createPaymentReceipt.receiptDetails', receiptDetails);
             const result = await createReceipt({
                 receipt: this.receipt,
@@ -203,16 +210,16 @@ export default class Pr_receiptHeader extends LightningElement {
         } catch(e) {
             console.error(e);
             this.showNotification('Error!', e.body.message, 'error', 'dismissable');
-            buttons.forEach(button => {
-                button.disabled = false;
-            });
-
-            // inputFields.forEach(input => {
-            //     input.disabled = false;
-            // });
+            
+            saveButton.disabled = false;
         }
         this.spinner = false;
         
+    }
+
+    cancelReceiptCreation() {
+        let saveButton = this.template.querySelector('button[name="save"]');
+        saveButton.disabled = false;
     }
 
     showNotification(title, message, type, mode) {
