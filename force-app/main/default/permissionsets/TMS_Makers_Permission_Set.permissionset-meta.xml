@@ -12,6 +12,10 @@
         <apexClass>TreasuryManagementController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>TreasuryManagementService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <customPermissions>
         <enabled>true</enabled>
         <name>TMS_Makers_Permission</name>
