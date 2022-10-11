@@ -2,25 +2,12 @@
     <div class="slds-card slds-m-vertical_large" data-id="result">
         <div class="slds-p-around_large">
             <h2 class="slds-text-heading_medium slds-p-bottom_large"> Receipt Details </h2>
-            <!-- <lightning-datatable 
-                key-field="keyField" 
-                data={tableData}
-                columns={columns}
-                suppress-bottom-bar
-                draft-values={updatedValues}
-                oncellchange={onValueChanged}
-                hide-checkbox-column
-                show-row-number-column
-            >
             
-            </lightning-datatable>   -->
-
-            
-            <div class="slds-m-top_medium">
+            <div>
                 <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered" >
                     <thead>
                         <tr class="slds-line-height_reset">
-                            <template for:each={customColumns} for:item="column">
+                            <template for:each={columns} for:item="column">
                                 <th key={column.fieldName}>
                                     {column.label}
                                 </th>
@@ -29,7 +16,7 @@
                         
                     </thead>
                     <tbody>
-                        <template for:each={customTableData} for:item="record">
+                        <template for:each={tableData} for:item="record">
                             <tr class="slds-hint-parent" key={record.key}>
                                 <template for:each={record.props} for:item="field">
                                     <td key={field.fieldName}>
@@ -53,7 +40,7 @@
                             </td>
                             <td>
                                 <template if:true={allowEdit}>
-                                    <lightning-input type="number" name="unallocatedAmt" onchange={onValueChanged}>
+                                    <lightning-input type="number" data-key="unallocated" name="unallocatedAmt" onchange={onValueChanged}>
 
                                     </lightning-input>
                                 </template>

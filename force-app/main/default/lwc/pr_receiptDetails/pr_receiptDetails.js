@@ -4,25 +4,6 @@ import { deepClone } from 'c/util';
 const columns = [
     { label: 'Sales Agreement', fieldName: 'salesAgreementName'},
     { label: 'Sales Invoice', fieldName: 'salesInvoiceName'},
-    { label: 'Date', fieldName: 'invoiceDate', type: 'date' },
-    // { label: 'Ref No', fieldName: 'refNo'  },
-    { label: 'Document Amount', fieldName: 'documentAmount', type: 'currency' },
-    { label: 'Outtanding Amount', fieldName: 'outstandingAmount', type: 'currency' },
-    { label: 'Payment Amount', fieldName: 'paymentAmount', type: 'currency', editable: true },
-];
-
-const readOnlyColumns = [
-    { label: 'Sales Agreement', fieldName: 'salesAgreementName'},
-    { label: 'Sales Invoice', fieldName: 'salesInvoiceName'},
-    { label: 'Date', fieldName: 'invoiceDate', type: 'date' },
-    { label: 'Document Amount', fieldName: 'documentAmount', type: 'currency' },
-    { label: 'Outtanding Amount', fieldName: 'outstandingAmount', type: 'currency'},
-    { label: 'Payment Amount', fieldName: 'paymentAmount', type: 'currency'},
-];
-
-const customColumns = [
-    { label: 'Sales Agreement', fieldName: 'salesAgreementName'},
-    { label: 'Sales Invoice', fieldName: 'salesInvoiceName'},
     { label: 'Document Amount', fieldName: 'documentAmount'},
     { label: 'Outtanding Amount', fieldName: 'outstandingAmount' },
     { label: 'Payment Amount', fieldName: 'paymentAmount' },
@@ -31,8 +12,7 @@ const customColumns = [
 const enterAlcAmtErrMsg = 'Please enter Allocated Amount for selected Debtor Ledger Line Item(s)';
 
 export default class Pr_receiptDetails extends LightningElement {
-    columns = readOnlyColumns;
-    customColumns = customColumns;
+    columns = columns;
     receiptAmt = 0;
     balanceAmt = 0;
     totalAmt = 0;
@@ -45,7 +25,7 @@ export default class Pr_receiptDetails extends LightningElement {
     set receiptAmount(value) {
         this.receiptAmt = value;
         this.balanceAmt = this.receiptAmt - this.totalAmt;
-        if(this.receiptAmt && this.receiptAmount> 0) {
+        if(this.receiptAmt && this.receiptAmount > 0) {
             this.allowEdit = true;
         } else {
             this.allowEdit = false;
@@ -53,8 +33,7 @@ export default class Pr_receiptDetails extends LightningElement {
     }
     
 
-    tableData = [];
-    @track customTableData = [];
+    @track tableData = [];
     receiptDetails = [];
     allowEdit = false;
 
@@ -94,7 +73,7 @@ export default class Pr_receiptDetails extends LightningElement {
                     ]
 
                                         
-                    this.customTableData.push({
+                    this.tableData.push({
                         key: si.Id,
                         props: props
                     });
@@ -110,21 +89,15 @@ export default class Pr_receiptDetails extends LightningElement {
                         key           : si.Id,
                     }
                 ));
-                this.tableData = sa.Sales_Invoices__r.map(si => (
-                    
+                this.receiptDetails.push(
                     {
-                        salesAgreementId   : sa.Id,
-                        salesAgreementName : sa.Name,
-                        salesInvoiceId     : si.Id,
-                        salesInvoiceName   : si.Name,
-                        documentAmount     : sa.Vehicle_Purchase_Price__c,
-                        outstandingAmount  : sa.BalancePayment__c,
-                        receiptDate        : this.receiptDate,
-                        keyField           : si.Id,
+                        key: "unallocated",
+                        salesAgreementId   : null,
+                        salesInvoiceId     : null
                     }
-                ));
+                )
             } else {
-                this.customTableData = {
+                this.tableData = {
                     key: sa.Id,
                     props: [
                         {
@@ -145,125 +118,91 @@ export default class Pr_receiptDetails extends LightningElement {
                     ]
                 };
 
-                this.receiptDetails =  [{
-                    salesAgreementId   : sa.Id,
-                    documentAmount     : sa.Vehicle_Purchase_Price__c,
-                    outstandingAmount  : sa.BalancePayment__c,
-                    key           : sa.Id,
-                }];
+                this.receiptDetails =  [
+                    {
+                        salesAgreementId   : sa.Id,
+                        documentAmount     : sa.Vehicle_Purchase_Price__c,
+                        outstandingAmount  : sa.BalancePayment__c,
+                        key           : sa.Id,
+                    },
+                    {
+                        key: "unallocated",
+                        salesAgreementId   : null,
+                        salesInvoiceId     : null
+                    }
+                ];
 
-                const rowData = [{
-                    salesAgreementId   : sa.Id,
-                    salesAgreementName : sa.Name,
-                    documentAmount     : sa.Vehicle_Purchase_Price__c,
-                    outstandingAmount  : sa.BalancePayment__c,
-                    receiptDate        : this.receiptDate,
-                    keyField           : sa.Id,
-                }]
-                this.tableData = rowData;
             }
         }     
-        console.log('tableData', this.tableData);        
     }
 
     renderedCallback() {        
         // this.template.querySelector('div[data-id="result"]').scrollIntoView();
 
-        //Only allow allocating amount when Receipt Amount is not blank
-        if(this.receiptAmt) {            
-            let table = this.template.querySelector('lightning-datatable');
-            let draftValues = table.draftValues;
-            table.columns = columns;
-            table.draftValues = draftValues;
-        } else {
-            this.totalAmt = 0;
-            this.balanceAmt = 0;
-            this.template.querySelector('lightning-datatable').columns = readOnlyColumns;
-        }
+        
     }
 
     onValueChanged(event){
-        console.log(event);
-        console.log(event.target.name);
-        console.log(event.target.value);
-        console.log(event.target.dataset.key);
-        this.calculateAmounts();
+        if(parseFloat(event.target.value) > parseFloat(this.receiptAmount)) {
+            this.showErrorNotification('Allocated Amount should not be greater than Receipt Amount');
+        }
 
-        if(event.target.name == 'paymentAmt'){
+        if(event.target.name == 'paymentAmt' || event.target.name == 'unallocatedAmt'){
             let recordKey = event.target.dataset.key;
             let recordIdx = this.receiptDetails.findIndex((obj => obj.key == recordKey));
-            this.receiptDetails[recordIdx].paymentAmount = event.target.value
+            this.receiptDetails[recordIdx].paymentAmount = event.target.value;
         }
-        
 
+        console.log(deepClone(this.receiptDetails));
+        
+        this.calculateAmounts();
         
     }
 
     calculateAmounts() {
-        let draftValues = this.template.querySelector('lightning-datatable').draftValues;
-        
-        let allocatedAmtArray = [];        
-        draftValues.forEach(draftValue => {
-            const rowData = this.tableData.find( originalRow => originalRow.keyField == draftValue.keyField);
-
-            let allocatedAmt = draftValue.paymentAmount;
+        let allocatedAmtArray = []; 
+        this.receiptDetails.forEach(record => {
+            let allocatedAmt = parseFloat(record.paymentAmount);
             if(!isNaN(allocatedAmt) && allocatedAmt) {
-                if(allocatedAmt > rowData.outstandingAmount) {
+                if(allocatedAmt > parseFloat(record.outstandingAmount)) {
                     this.showErrorNotification('Allocated Amount should not be greater than Outstanding Amount');
                 }
                 allocatedAmtArray.push(allocatedAmt);
             }
-        })
-       
+        });
 
         this.totalAmt = allocatedAmtArray.reduce((accumulator, value) => {
-            return accumulator + parseFloat(value);
+            return accumulator + value;
         }, 0);
 
         if(this.totalAmt > this.receiptAmt) {
             this.showErrorNotification('Total Payment Amount is exceeded Receipt Amount');
         }
 
-        if(!isNaN(this.receiptAmt) && this.receiptAmt) {
-            this.balanceAmt = this.receiptAmt - this.totalAmt;
-        }
+        this.balanceAmt = this.receiptAmt - this.totalAmt;
+        
     }
 
     @api
     createReceiptDetails() { 
         this.isError = false;
-        let table = this.template.querySelector('lightning-datatable');
-        let draftValues = table.draftValues;
-        // console.log('draftValues', draftValues);
-        // console.log('tableData', deepClone(this.tableData));
-        // console.log('totalAmt', this.totalAmt);
-        // console.log('receiptAmt', this.receiptAmt);
+        
+        let unallocatedAmount = parseFloat(this.receiptDetails[this.receiptDetails.length - 1].paymentAmount);
+        if(isNaN(unallocatedAmount)) {
+            this.receiptDetails.pop();
+        };
 
-        let infoToSubmit = []; 
-
-        if(draftValues === undefined || draftValues.length < 1 || this.totalAmt === 0) {
+        if(this.totalAmt === 0) {
             this.showErrorNotification('Please enter Payment Amount to be allocated');
         } else if(parseFloat(this.totalAmt) > parseFloat(this.receiptAmt)) {
             this.showErrorNotification('Total Payment Amount is exceeded Receipt Amount');
-        } else {
-            draftValues.forEach(draftValue => {
-                let rowData = this.tableData.find(rowData => draftValue.keyField == rowData.keyField);
-                let paymentAmount = draftValue.paymentAmount;
-                if(!isNaN(paymentAmount) && paymentAmount) {
-
-                    for(let [key, value] of Object.entries(draftValue)) {
-                        rowData[key] = value;
-                    }
-                    
-                    infoToSubmit.push(rowData);
-                }
-
-            });
-            console.log('infoToSubmit', infoToSubmit);
+        } else if(parseFloat(this.totalAmt) < parseFloat(this.receiptAmt)) {
+            this.showErrorNotification('Total Payment Amount must be equal to Receipt Amount');
         }
 
         if(!this.isError) {
-            this.bubbleEvent('receiptDetailsReady', infoToSubmit);
+            console.log('before submit', this.receiptDetails);
+            this.bubbleEvent('receiptDetailsReady', this.receiptDetails);
         }
     }
     

@@ -32,6 +32,10 @@ export default class Pr_receiptHeader extends LightningElement {
         });
     }
 
+    disconnectedCallback() {
+        this.template.removeEventListener('receiptDetailsReady');
+    }
+
     async getReceiptHeader() {
         const result = await getReceiptHeader({ recordId: this.recordId });
         // console.log('result', result);
