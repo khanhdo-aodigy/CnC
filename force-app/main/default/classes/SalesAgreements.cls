@@ -1,26 +1,35 @@
-public class SalesAgreements extends ADGLIB_SObjectDomain {
-    
+/**
+ * Domain class for Sales Agreement entity
+ * @history
+ *          DATE::                                      TICKET::                                        CHANGELOG::
+ *          20 Sep 2022                                 DSA-US-0013                                     Modify onApplyDefault() to disconnect the transfer of Stock Reservation Registration Type to Sales Agreement
+ *          21 Sep 2022                                 DSA-US-0029                                     Modify onApplyDefault() to set Sales Agreement's Agreement Type base on Stock Reservation Registration Type and related Vehicle Master
+ */
+public without sharing class SalesAgreements extends ADGLIB_SObjectDomain 
+{    
     public static List<String> DebugLogsListSuccess = New List<String>();
     public static List<String> DebugLogsListError = New List<String>();
 
     public class CalloutException extends Exception {}    
        
-    public SalesAgreements(List<Sales_Agreement__c> sObjectList) {
+    public SalesAgreements(List<Sales_Agreement__c> sObjectList) 
+    {
         super(sObjectList);
     }
 
-    public class Constructor implements ADGLIB_SObjectDomain.IConstructable {
-		public ADGLIB_SObjectDomain construct(List<SObject> sObjectList) {
+    public class Constructor implements ADGLIB_SObjectDomain.IConstructable 
+    {
+		public ADGLIB_SObjectDomain construct(List<SObject> sObjectList) 
+        {
 			return new SalesAgreements(sObjectList);
 		}
 	}
 
-    public override void onApplyDefaults() {
+    public override void onApplyDefaults() 
+    {
         Set<ID> stockReservationIds = new Set<ID> ();
-        //Start of RN2020Q1010 
-        //Map<String, Id> modelAndPackageMap = new Map<String, Id>();
+        
         Map<String, Package_Header__c> modelAndPackageMap = new Map<String, Package_Header__c>();
-        //End of RN2020Q1010 
 
         Map<id, Stock_Reservation__c> stockReservationMap = new Map<id, Stock_Reservation__c>();
         Map<Id, List<Package_Accs__c>> pckAccMap  = new Map<Id, List<Package_Accs__c>>();
@@ -32,12 +41,11 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
             stockReservationIds.add(salesAgreement.Stock_Reservation__c);
         }
 
+        // get related stock vehicle masters and group by sales agreement id
+
+
         stockReservationMap = SalesAgreementService.getStockReservationInformation(stockReservationIds);
         system.debug('SR INFO:' + stockReservationMap);
-         //Start of RN2020Q1010 
-         //modelAndPackageMap = SalesAgreementService.getPackageHeaderIdBasedOnModel(stockReservationMap.values());
-         /*modelAndPackageMap = SalesAgreementService.getPackageHeadersBasedOnModel(stockReservationMap.values()); ---currently used---- */
-        //End of RN2020Q1010 
            
         // Added by TPhan
         modelAndPackageMap = SalesAgreementService.getPackageHeaderBasedOnId(stockReservationMap.values());
@@ -51,13 +59,14 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
         oppMap = SalesAgreementService.getOpportunitiesByIds(oppIds);
 		// End
         
-        for(Sales_Agreement__c salesAgreement : (List<Sales_Agreement__c>) Records) {
-          
+        for(Sales_Agreement__c salesAgreement : (List<Sales_Agreement__c>) Records) 
+        {          
             Stock_Reservation__c stockReservationRec = stockReservationMap.get(salesAgreement.Stock_Reservation__c);
             salesAgreement.uniqueIdentifier__c = salesAgreement.Stock_Reservation__c;
             salesAgreement.Stage__c = 'Draft';
             salesAgreement.Last_save_on_form__c = 'Customer';
-            if(stockReservationRec.Registration_Type__c == 'C'){
+            if(stockReservationRec.Registration_Type__c == 'C')
+            {
                 salesAgreement.Company_Name__c = stockReservationRec.Customer_Name__c;//stockReservationRec.tNRIC__c;
                 salesAgreement.ARCA_Number__c = stockReservationRec.Customer_Social_ID__c;//stockReservationRec.tNRIC__c;
 
@@ -65,8 +74,16 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
                 salesAgreement.NRIC_Number__c = stockReservationRec.Customer_Social_ID__c;//stockReservationRec.tNRIC__c;
                 salesAgreement.Customer_Full_Name__c = stockReservationRec.Customer_Name__c;
             }
-            salesAgreement.Registration_Type__c = stockReservationRec.Registration_Type__c;
-            salesAgreement.SOH_RTM_REGTYPECD__c = stockReservationRec.Registration_Type__c;
+            // [DSA-US-0013] disconnect registration type between SR & SA
+            // salesAgreement.Registration_Type__c = stockReservationRec.Registration_Type__c;
+            if (stockReservationRec.Registration_Type__c == 'P' || stockReservationRec.Registration_Type__c == 'O' || stockReservationRec.Registration_Type__c == 'C')
+            {
+                salesAgreement.SOH_RTM_REGTYPECD__c = stockReservationRec.Registration_Type__c;
+            }
+
+            // [DSA-US-0029] set Agreement Type via Stock Reservation's Registration Type and car type
+
+
             //salesAgreement.Service_Credit__c = 2000;
             salesAgreement.service_credit_effective_years__c = 2;
 
@@ -75,10 +92,13 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
             salesAgreement.FirstName__c = stockReservationRec.Customer_First_Name__c;
             salesAgreement.Surname__c= stockReservationRec.Customer_Last_Name__c;
 
-            if (stockReservationRec.Customer_Mobile_Number__c != null) {
-                if (stockReservationRec.Customer_Mobile_Number__c.left(2) != '65') {
+            if (stockReservationRec.Customer_Mobile_Number__c != null) 
+            {
+                if (stockReservationRec.Customer_Mobile_Number__c.left(2) != '65') 
+                {
                     salesAgreement.MobileSA__c = '65' + stockReservationRec.Customer_Mobile_Number__c;
-                } else {
+                } 
+                else {
                     salesAgreement.MobileSA__c = stockReservationRec.Customer_Mobile_Number__c;
                 }
             }
@@ -109,12 +129,17 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
             salesAgreement.Contact__c = oppMap.get(stockReservationRec.Opportunity__c).Contact_Person__c;
             // END
             
-            if (!pckAccMap.isEmpty()) {
-                for (Package_Accs__c rec : pckAccMap.get(salesAgreement.Package_Header__c)) {
-                    if (rec.Accessories_Master__r.ACM_ACCSCD__c.contains('SVC')) {     
+            if (!pckAccMap.isEmpty()) 
+            {
+                for (Package_Accs__c rec : pckAccMap.get(salesAgreement.Package_Header__c)) 
+                {
+                    if (rec.Accessories_Master__r.ACM_ACCSCD__c.contains('SVC')) 
+                    {     
                         salesAgreement.Service_Credit__c = rec.PKA_VALUE__c;
                         salesAgreement.Package_Service_Credit__c = rec.PKA_VALUE__c;
-                    } else if (rec.Accessories_Master__r.ACM_ACCSCD__c.contains('ACC')) {
+                    } 
+                    else if (rec.Accessories_Master__r.ACM_ACCSCD__c.contains('ACC')) 
+                    {
 						 salesAgreement.Accessories_Credit__c = rec.PKA_VALUE__c;
                          salesAgreement.Package_Accessories_Credit__c = rec.PKA_VALUE__c;
                     }
@@ -123,34 +148,41 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
         }
     }
     
-    public override void onBeforeUpdate(Map<Id,SObject> previousMap) {
-        for(Sales_Agreement__c record : (List<Sales_Agreement__c>) records) {
+    public override void onBeforeUpdate(Map<Id,SObject> previousMap) 
+    {
+        calculateCarReadyAndJITDate(previousMap);
+        // updateJITDate(previousMap);    
+
+        for(Sales_Agreement__c record : (List<Sales_Agreement__c>) records) 
+        {
             SalesAgreementService.processOffPeakCar((Sales_Agreement__c) previousMap.get(record.Id), record);
             SalesAgreementService.processCalculation((Sales_Agreement__c) previousMap.get(record.Id), record);
             // Added on 07/03/2021
             // Check duplicate COE lookup field
-            /*Sales_Agreement__c oldSA = (Sales_Agreement__c)previousMap.get(record.Id);
+            Sales_Agreement__c oldSA = (Sales_Agreement__c)previousMap.get(record.Id);
             if (record.COE__c != oldSA.COE__c) {
                 record.COE_Unique_ID__c = record.COE__c;
-            }*/
-        }
+            }
+        }        
 
-        try {
+        try 
+        {
             notifyBAM(previousMap);                     // add on 25 Aug 2020 [PHAP]
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
             loggerDataPool.buildLogDataPool('notifyBAM_OtherError', e);
         }
-        
     }
-
     
-    public override void onAfterInsert() {
-        
+    public override void onAfterInsert() 
+    {
         defaultAccessoriesRelatedList(null);
         updateStockReservationVehicleMaster(null);
     }
     
-    public override void onAfterUpdate(Map<Id,SObject> existingRecords){
+    public override void onAfterUpdate(Map<Id,SObject> existingRecords)
+    {
         defaultAccessoriesRelatedList(existingRecords);
         updateStockReservationVehicleMaster(existingRecords);
         setVSMSKeyOfAdditionalCharges(existingRecords);
@@ -163,7 +195,7 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
         // Added on 08/03/2021
         // If there's a change on COE lookup field
         // Then find correposding COE to update to be de-linked to SA
-        // updateCOEToSA(existingRecords);
+        updateCOEToSA(existingRecords);
 
         // Added on 07/06/2021 - My C&C IDP Revamp by TPhan
         createUser(existingRecords);
@@ -175,16 +207,25 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
 
         //Added on 30/07/2021 [Vu] - Convert Prospect PA to Customer when Car Collected
         convertPA(existingRecords);
+
+        // Added on 10/08/2022 [Nhung] - Pre-COE Submit and COE Threshold calculation
+        preSubmitFieldCalculation(existingRecords);
+
+        //Added on 26/07/2022 [Thanh Ly] - update Duty Payment Date on SVM
+        updateDutyRequestDate(existingRecords);
     }
     
-    private void updateStockReservationVehicleMaster(Map<Id, SObject> existingRecords) {
+    private void updateStockReservationVehicleMaster(Map<Id, SObject> existingRecords) 
+    {
         Map<Id, String> commcaseNoByStockReservationId = new Map<Id, String>();
-        for(Sales_Agreement__c salesAgreement : (List<Sales_Agreement__c>)Records) {
+        for(Sales_Agreement__c salesAgreement : (List<Sales_Agreement__c>)Records) 
+        {
             if(salesAgreement.Stock_Reservation__c == null) {
                 continue;
             }
             
-            if(existingRecords != null) {
+            if(existingRecords != null) 
+            {
                 Sales_Agreement__c oldSalesAgreement = (Sales_Agreement__c)existingRecords.get(salesAgreement.Id);
                 if(salesAgreement.CommcaseNo__c != oldSalesAgreement.CommcaseNo__c ||
                    salesAgreement.Stock_Reservation__c != oldSalesAgreement.Stock_Reservation__c)
@@ -194,21 +235,23 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
             } else {
                 commcaseNoByStockReservationId.put(salesAgreement.Stock_Reservation__c, salesAgreement.CommcaseNo__c);
             }
-        }
-   
+        }   
         CommcaseService.updateVehicleMaster(commcaseNoByStockReservationId);
     }
 
-    private void defaultAccessoriesRelatedList(Map<Id,SObject> existingRecords){
+    private void defaultAccessoriesRelatedList(Map<Id,SObject> existingRecords)
+    {
         Map<Id, Id> changedPackageHeader = SalesAgreementService.findPackagesBasedOnSalesAgreement(existingRecords, Records);
-        if(changedPackageHeader.isEmpty()){
+        if(changedPackageHeader.isEmpty())
+        {
             return; //Nothing to process
         }
 
         this.upsertRelatedAccessories(changedPackageHeader, existingRecords);
     }
     
-    private void upsertRelatedAccessories(Map<Id, Id> salesAgreementAndPackageIdMap, Map<Id,SObject> existingRecords){
+    private void upsertRelatedAccessories(Map<Id, Id> salesAgreementAndPackageIdMap, Map<Id,SObject> existingRecords)
+    {
         ADGLIB_SObjectUnitOfWork uow = new ADGLIB_SObjectUnitOfWork(new Schema.SObjectType[] {SA_Accessory__c.SObjectType,
                                                                                               SA_Additional_Charge__c.SObjectType,
             																				  Sales_Agreement__c.SObjectType});
@@ -221,7 +264,8 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
         
         //Processing insert and delete of package accessories
         //Processing DML
-        for (Id recordId : salesAgreementAndPackageIdMap.keySet()) {
+        for (Id recordId : salesAgreementAndPackageIdMap.keySet()) 
+        {
             if (!saAccsToBeDeleted.isEmpty()) {
                 uow.registerDeleted(saAccsToBeDeleted.get(recordId));
             }
@@ -230,8 +274,10 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
                 uow.registerDeleted(saAddnlChargeToBeDeleted.get(recordId));
             }
             
-            if (!pckAccMap.isEmpty()) {
-                for (Package_Accs__c rec : pckAccMap.get(salesAgreementAndPackageIdMap.get(recordId))) {
+            if (!pckAccMap.isEmpty()) 
+            {
+                for (Package_Accs__c rec : pckAccMap.get(salesAgreementAndPackageIdMap.get(recordId))) 
+                {
                     uow.registerNew(new SA_Accessory__c(Sales_Agreement__c = recordId,
                                     Accessories_Master__c = rec.Accessories_Master__c,
                                     SAC_PACKAGE__c = 'Y',
@@ -242,10 +288,11 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
                 }
             }
 
-            if (!pckAddnlChargeMap.isEmpty()) {
-                
+            if (!pckAddnlChargeMap.isEmpty()) 
+            {                
                 system.debug('PackageSize '+ pckAddnlChargeMap.get(salesAgreementAndPackageIdMap.get(recordId)).size());
-                for (Package_Additional_Charges__c rec : pckAddnlChargeMap.get(salesAgreementAndPackageIdMap.get(recordId))) {
+                for (Package_Additional_Charges__c rec : pckAddnlChargeMap.get(salesAgreementAndPackageIdMap.get(recordId))) 
+                {
                     
                     String isIncludedInPackage = rec.PKC_INCPRICE__c == 'INC' ? 'Y' : 'N';
 
@@ -270,79 +317,95 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
         uow.commitWork();
     }
     
-    private void setVSMSKeyOfAdditionalCharges(Map<Id, SObject> existingRecords) {
+    private void setVSMSKeyOfAdditionalCharges(Map<Id, SObject> existingRecords) 
+    {
         Set<Id> changedAgreementIds = new Set<Id>();
-        for(Sales_Agreement__c salesAgreement : (List<Sales_Agreement__c>)Records) {
+        for(Sales_Agreement__c salesAgreement : (List<Sales_Agreement__c>)Records) 
+        {
             Sales_Agreement__c oldSalesAgreement = (Sales_Agreement__c)existingRecords.get(salesAgreement.Id);
             if(String.isBlank(oldSalesAgreement.SOH_SONO__c) && String.isNotBlank(salesAgreement.SOH_SONO__c)) {
                 changedAgreementIds.add(salesAgreement.Id);
             }
-        }
-        
+        }        
         List<SA_Additional_Charge__c> additionalCharges = new SaAddnlChargeSelector().selectAddnlChargeBySalesAgreementIds(changedAgreementIds);
         new SAAdditionalCharges(additionalCharges).setVSMSCompoundPrimaryKey();
     }    
     
-    private void createCOESAAcc (Map<Id, SObject> existingRecords) {
+    private void createCOESAAcc (Map<Id, SObject> existingRecords) 
+    {
         SA_Accessory__c rcdToCreate;
         SA_Accessory__c rcdToDelete = new SA_Accessory__c();
 
-        for (Sales_Agreement__c salesAgreement : (List<Sales_Agreement__c>)Records) {
+        for (Sales_Agreement__c salesAgreement : (List<Sales_Agreement__c>)Records) 
+        {
             Sales_Agreement__c oldSalesAgreement = (Sales_Agreement__c)existingRecords.get(salesAgreement.Id);
             // From blank to having some value
-            if (salesAgreement.COE_Refund__c != null && salesAgreement.COE_Refund__c != 0 && oldSalesAgreement.COE_Refund__c == null) {
+            if (salesAgreement.COE_Refund__c != null && salesAgreement.COE_Refund__c != 0 && oldSalesAgreement.COE_Refund__c == null) 
+            {
                 rcdToCreate = new SA_Accessory__c();
                 rcdToCreate.Sales_Agreement__c = salesAgreement.Id;
                 rcdToCreate.Price_Trigger__c = salesAgreement.COE_Refund__c;
                 rcdToCreate.Acc_Code_Trigger__c = 'COE' + String.valueOf(Math.abs(salesAgreement.COE_Refund__c));
                 insert rcdToCreate;
 
-                if (salesAgreement.Stage__c != 'Draft') {
+                if (salesAgreement.Stage__c != 'Draft') 
+                {
                     VSMS_CallOutToCreateACM.callOutToCreateACM(salesAgreement.Id, salesAgreement.FranchiseCode__c, rcdToCreate.Acc_Code_Trigger__c, salesAgreement.UniqueBranchCode__c);
                 }       
             }
             // From having some value to blank
-            if (salesAgreement.COE_Refund__c == null && oldSalesAgreement.COE_Refund__c != null && oldSalesAgreement.COE_Refund__c != 0) {
+            if (salesAgreement.COE_Refund__c == null && oldSalesAgreement.COE_Refund__c != null && oldSalesAgreement.COE_Refund__c != 0) 
+            {
                 String accCode = 'COE' + String.valueOf(Math.abs(oldSalesAgreement.COE_Refund__c));
                 rcdToDelete = SalesAgreementService.getSaAccsBySaIdandAccCode(oldSalesAgreement.Id, accCode);
-                if (rcdToDelete != null) {
+                if (rcdToDelete != null) 
+                {
                     delete rcdToDelete;
                 }
-                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) {
+                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) 
+                {
                     VSMS_CallOutToDeleteSOAcc.callOutToVSMSToDeleteSOAcc(rcdToDelete.Sales_Agreement__r.UniqueBranchCode__c, rcdToDelete.Sales_Agreement__r.FranchiseCode__c, rcdToDelete.SAD_SOH_SONO__c, String.valueOf(rcdToDelete.SAC_LINENO__c));
                 }
             }
             // From having some value to 0
-            if (salesAgreement.COE_Refund__c == 0 && oldSalesAgreement.COE_Refund__c != null && oldSalesAgreement.COE_Refund__c != 0) {
+            if (salesAgreement.COE_Refund__c == 0 && oldSalesAgreement.COE_Refund__c != null && oldSalesAgreement.COE_Refund__c != 0) 
+            {
                 String accCode = 'COE' + String.valueOf(Math.abs(oldSalesAgreement.COE_Refund__c));
                 rcdToDelete = SalesAgreementService.getSaAccsBySaIdandAccCode(oldSalesAgreement.Id, accCode);
-                if (rcdToDelete != null) {
+                if (rcdToDelete != null) 
+                {
                     delete rcdToDelete;
                 }
-                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) {
+                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) 
+                {
                     VSMS_CallOutToDeleteSOAcc.callOutToVSMSToDeleteSOAcc(rcdToDelete.Sales_Agreement__r.UniqueBranchCode__c, rcdToDelete.Sales_Agreement__r.FranchiseCode__c, rcdToDelete.SAD_SOH_SONO__c, String.valueOf(rcdToDelete.SAC_LINENO__c));
                 }
             }
             // From 0 to having some value
-            if (salesAgreement.COE_Refund__c != 0 && salesAgreement.COE_Refund__c != null && oldSalesAgreement.COE_Refund__c == 0) {
+            if (salesAgreement.COE_Refund__c != 0 && salesAgreement.COE_Refund__c != null && oldSalesAgreement.COE_Refund__c == 0) 
+            {
                 rcdToCreate = new SA_Accessory__c();
                 rcdToCreate.Sales_Agreement__c = salesAgreement.Id;
                 rcdToCreate.Price_Trigger__c = salesAgreement.COE_Refund__c;
                 rcdToCreate.Acc_Code_Trigger__c = 'COE' + String.valueOf(Math.abs(salesAgreement.COE_Refund__c));       
                 insert rcdToCreate;
                 
-                if (salesAgreement.Stage__c != 'Draft') {
+                if (salesAgreement.Stage__c != 'Draft') 
+                {
                     VSMS_CallOutToCreateACM.callOutToCreateACM(salesAgreement.Id, salesAgreement.FranchiseCode__c, rcdToCreate.Acc_Code_Trigger__c, salesAgreement.UniqueBranchCode__c);
                 }
             }
             // From one value to another value
-            if (salesAgreement.COE_Refund__c != null && salesAgreement.COE_Refund__c != 0 && salesAgreement.COE_Refund__c != oldSalesAgreement.COE_Refund__c && oldSalesAgreement.COE_Refund__c != 0 && oldSalesAgreement.COE_Refund__c != null ) {
+            if (salesAgreement.COE_Refund__c != null && salesAgreement.COE_Refund__c != 0 && salesAgreement.COE_Refund__c != oldSalesAgreement.COE_Refund__c && oldSalesAgreement.COE_Refund__c != 0 && oldSalesAgreement.COE_Refund__c != null ) 
+            {
                 String accCode = 'COE' + String.valueOf(Math.abs(oldSalesAgreement.COE_Refund__c));
                 rcdToDelete = SalesAgreementService.getSaAccsBySaIdandAccCode(oldSalesAgreement.Id, accCode);              
-                if (rcdToDelete != null) {
+                if (rcdToDelete != null) 
+                {
                     delete rcdToDelete;
                 } 
-                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) {
+                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) 
+                {
                     VSMS_CallOutToDeleteSOAcc.callOutToVSMSToDeleteSOAcc(rcdToDelete.Sales_Agreement__r.UniqueBranchCode__c, rcdToDelete.Sales_Agreement__r.FranchiseCode__c, rcdToDelete.SAD_SOH_SONO__c, String.valueOf(rcdToDelete.SAC_LINENO__c));
                 }
                 
@@ -352,50 +415,61 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
                 rcdToCreate.Acc_Code_Trigger__c = 'COE' + String.valueOf(Math.abs(salesAgreement.COE_Refund__c));
                 insert rcdToCreate;   
 
-                if (salesAgreement.Stage__c != 'Draft') {
+                if (salesAgreement.Stage__c != 'Draft') 
+                {
                     VSMS_CallOutToCreateACM.callOutToCreateACM(salesAgreement.Id, salesAgreement.FranchiseCode__c, rcdToCreate.Acc_Code_Trigger__c, salesAgreement.UniqueBranchCode__c);
                 }  
             }
         }  
     }
     
-    private void createGMSSAAcc (Map<Id, SObject> existingRecords) {
+    private void createGMSSAAcc (Map<Id, SObject> existingRecords) 
+    {
         SA_Accessory__c rcdToCreate;
         SA_Accessory__c rcdToDelete = new SA_Accessory__c();
 
-        for (Sales_Agreement__c salesAgreement : (List<Sales_Agreement__c>)Records) {
+        for (Sales_Agreement__c salesAgreement : (List<Sales_Agreement__c>)Records) 
+        {
             Sales_Agreement__c oldSalesAgreement = (Sales_Agreement__c)existingRecords.get(salesAgreement.Id);
             // From blank to having some value
-            if (salesAgreement.GMS_Package__c != null && salesAgreement.GMS_Package__c != 0 && oldSalesAgreement.GMS_Package__c == null) {
+            if (salesAgreement.GMS_Package__c != null && salesAgreement.GMS_Package__c != 0 && oldSalesAgreement.GMS_Package__c == null) 
+            {
                 rcdToCreate = new SA_Accessory__c();
                 rcdToCreate.Sales_Agreement__c = salesAgreement.Id;
                 rcdToCreate.Price_Trigger__c = salesAgreement.GMS_Package__c;
                 rcdToCreate.Acc_Code_Trigger__c = 'GMS' + String.valueOf(Math.abs(salesAgreement.GMS_Package__c));
                 insert rcdToCreate;
 
-                if (salesAgreement.Stage__c != 'Draft') {
+                if (salesAgreement.Stage__c != 'Draft') 
+                {
                     VSMS_CallOutToCreateACM.callOutToCreateACM(salesAgreement.Id, salesAgreement.FranchiseCode__c, rcdToCreate.Acc_Code_Trigger__c, salesAgreement.UniqueBranchCode__c);
                 }       
             }
             // From having some value to blank
-            if (salesAgreement.GMS_Package__c == null && oldSalesAgreement.GMS_Package__c != null && oldSalesAgreement.GMS_Package__c != 0) {
+            if (salesAgreement.GMS_Package__c == null && oldSalesAgreement.GMS_Package__c != null && oldSalesAgreement.GMS_Package__c != 0) 
+            {
                 String accCode = 'GMS' + String.valueOf(Math.abs(oldSalesAgreement.GMS_Package__c));
                 rcdToDelete = SalesAgreementService.getSaAccsBySaIdandAccCode(oldSalesAgreement.Id, accCode);
-                if (rcdToDelete != null) {
+                if (rcdToDelete != null) 
+                {
                     delete rcdToDelete;
                 }
-                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) {
+                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) 
+                {
                     VSMS_CallOutToDeleteSOAcc.callOutToVSMSToDeleteSOAcc(rcdToDelete.Sales_Agreement__r.UniqueBranchCode__c, rcdToDelete.Sales_Agreement__r.FranchiseCode__c, rcdToDelete.SAD_SOH_SONO__c, String.valueOf(rcdToDelete.SAC_LINENO__c));
                 }
             }
             // From one value to another value
-            if (salesAgreement.GMS_Package__c != null && salesAgreement.GMS_Package__c != 0 && salesAgreement.GMS_Package__c != oldSalesAgreement.GMS_Package__c && oldSalesAgreement.GMS_Package__c != 0 && oldSalesAgreement.GMS_Package__c != null) {
+            if (salesAgreement.GMS_Package__c != null && salesAgreement.GMS_Package__c != 0 && salesAgreement.GMS_Package__c != oldSalesAgreement.GMS_Package__c && oldSalesAgreement.GMS_Package__c != 0 && oldSalesAgreement.GMS_Package__c != null) 
+            {
                 String accCode = 'GMS' + String.valueOf(Math.abs(oldSalesAgreement.GMS_Package__c));
                 rcdToDelete = SalesAgreementService.getSaAccsBySaIdandAccCode(oldSalesAgreement.Id, accCode);              
-                if (rcdToDelete != null) {
+                if (rcdToDelete != null) 
+                {
                     delete rcdToDelete;
                 } 
-                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) {
+                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) 
+                {
                     VSMS_CallOutToDeleteSOAcc.callOutToVSMSToDeleteSOAcc(rcdToDelete.Sales_Agreement__r.UniqueBranchCode__c, rcdToDelete.Sales_Agreement__r.FranchiseCode__c, rcdToDelete.SAD_SOH_SONO__c, String.valueOf(rcdToDelete.SAC_LINENO__c));
                 }
                 
@@ -405,18 +479,22 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
                 rcdToCreate.Acc_Code_Trigger__c = 'GMS' + String.valueOf(Math.abs(salesAgreement.GMS_Package__c));
                 insert rcdToCreate;   
 
-                if (salesAgreement.Stage__c != 'Draft') {
+                if (salesAgreement.Stage__c != 'Draft') 
+                {
                     VSMS_CallOutToCreateACM.callOutToCreateACM(salesAgreement.Id, salesAgreement.FranchiseCode__c, rcdToCreate.Acc_Code_Trigger__c, salesAgreement.UniqueBranchCode__c);
                 }  
             }
             // From having some value to 0
-            if (salesAgreement.GMS_Package__c == 0 && oldSalesAgreement.GMS_Package__c != null && oldSalesAgreement.GMS_Package__c != 0) {
+            if (salesAgreement.GMS_Package__c == 0 && oldSalesAgreement.GMS_Package__c != null && oldSalesAgreement.GMS_Package__c != 0) 
+            {
                 String accCode = 'GMS' + String.valueOf(Math.abs(oldSalesAgreement.GMS_Package__c));
                 rcdToDelete = SalesAgreementService.getSaAccsBySaIdandAccCode(oldSalesAgreement.Id, accCode);
-                if (rcdToDelete != null) {
+                if (rcdToDelete != null) 
+                {
                     delete rcdToDelete;
                 }
-                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) {
+                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) 
+                {
                     VSMS_CallOutToDeleteSOAcc.callOutToVSMSToDeleteSOAcc(rcdToDelete.Sales_Agreement__r.UniqueBranchCode__c, rcdToDelete.Sales_Agreement__r.FranchiseCode__c, rcdToDelete.SAD_SOH_SONO__c, String.valueOf(rcdToDelete.SAC_LINENO__c));
                 }
             }
@@ -435,14 +513,17 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
         }  
     }
     
-    private void createSVCSAAcc (Map<Id, SObject> existingRecords) {
+    private void createSVCSAAcc (Map<Id, SObject> existingRecords) 
+    {
         SA_Accessory__c rcdToCreate;
         SA_Accessory__c rcdToDelete = new SA_Accessory__c();
         
-        for (Sales_Agreement__c salesAgreement : (List<Sales_Agreement__c>) Records) {
+        for (Sales_Agreement__c salesAgreement : (List<Sales_Agreement__c>) Records) 
+        {
             Sales_Agreement__c oldSalesAgreement = (Sales_Agreement__c)existingRecords.get(salesAgreement.Id);
             // From blank to having some value
-            if (salesAgreement.Service_Credit__c != null && salesAgreement.Service_Credit__c != 0 && oldSalesAgreement.Service_Credit__c == null) {
+            if (salesAgreement.Service_Credit__c != null && salesAgreement.Service_Credit__c != 0 && oldSalesAgreement.Service_Credit__c == null) 
+            {
                 rcdToCreate = new SA_Accessory__c();
                 rcdToCreate.Sales_Agreement__c = salesAgreement.Id;
                 rcdToCreate.Price_Trigger__c = salesAgreement.Service_Credit__c;
@@ -450,30 +531,37 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
                 rcdToCreate.Acc_Code_Trigger__c = 'SVC' + String.valueOf(Math.round(Math.abs(salesAgreement.Service_Credit__c)));
                 insert rcdToCreate;
 
-                if (salesAgreement.Stage__c != 'Draft') {
+                if (salesAgreement.Stage__c != 'Draft') 
+                {
                     VSMS_CallOutToCreateACM.callOutToCreateACM(salesAgreement.Id, salesAgreement.FranchiseCode__c, rcdToCreate.Acc_Code_Trigger__c, salesAgreement.UniqueBranchCode__c);
                 }       
             }
             // From having some value to blank
-            if (salesAgreement.Service_Credit__c == null && oldSalesAgreement.Service_Credit__c != null && oldSalesAgreement.Service_Credit__c != 0) {
+            if (salesAgreement.Service_Credit__c == null && oldSalesAgreement.Service_Credit__c != null && oldSalesAgreement.Service_Credit__c != 0) 
+            {
                 String accCode = 'SVC' + String.valueOf(Math.round(Math.abs(oldSalesAgreement.Service_Credit__c)));
                 rcdToDelete = SalesAgreementService.getSaAccsBySaIdandAccCode(oldSalesAgreement.Id, accCode);
-                if (rcdToDelete != null) {
+                if (rcdToDelete != null) 
+                {
                     delete rcdToDelete;
                 }
-                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) {
+                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) 
+                {
                     VSMS_CallOutToDeleteSOAcc.callOutToVSMSToDeleteSOAcc(rcdToDelete.Sales_Agreement__r.UniqueBranchCode__c, rcdToDelete.Sales_Agreement__r.FranchiseCode__c, rcdToDelete.SAD_SOH_SONO__c, String.valueOf(rcdToDelete.SAC_LINENO__c));
                 }
             }
             // From one value to another value
-            if (salesAgreement.Service_Credit__c != null && salesAgreement.Service_Credit__c != 0 && salesAgreement.Service_Credit__c != oldSalesAgreement.Service_Credit__c && oldSalesAgreement.Service_Credit__c != 0 && oldSalesAgreement.Service_Credit__c != null ) {
+            if (salesAgreement.Service_Credit__c != null && salesAgreement.Service_Credit__c != 0 && salesAgreement.Service_Credit__c != oldSalesAgreement.Service_Credit__c && oldSalesAgreement.Service_Credit__c != 0 && oldSalesAgreement.Service_Credit__c != null ) 
+            {
                 String accCode = 'SVC' + String.valueOf(Math.round(Math.abs(oldSalesAgreement.Service_Credit__c)));
                 System.debug('TEST BUG: ' + accCode);
                 rcdToDelete = SalesAgreementService.getSaAccsBySaIdandAccCode(oldSalesAgreement.Id, accCode);              
-                if (rcdToDelete != null) {
+                if (rcdToDelete != null) 
+                {
                     delete rcdToDelete;
                 } 
-                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) {
+                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) 
+                {
                     VSMS_CallOutToDeleteSOAcc.callOutToVSMSToDeleteSOAcc(rcdToDelete.Sales_Agreement__r.UniqueBranchCode__c, rcdToDelete.Sales_Agreement__r.FranchiseCode__c, rcdToDelete.SAD_SOH_SONO__c, String.valueOf(rcdToDelete.SAC_LINENO__c));
                 }
                 
@@ -484,7 +572,8 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
                 rcdToCreate.Acc_Code_Trigger__c = 'SVC' + String.valueOf(Math.round(Math.abs(salesAgreement.Service_Credit__c)));
                 insert rcdToCreate;   
 
-                if (salesAgreement.Stage__c != 'Draft') {
+                if (salesAgreement.Stage__c != 'Draft') 
+                {
                     VSMS_CallOutToCreateACM.callOutToCreateACM(salesAgreement.Id, salesAgreement.FranchiseCode__c, rcdToCreate.Acc_Code_Trigger__c, salesAgreement.UniqueBranchCode__c);
                 }  
             }
@@ -492,15 +581,18 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
             if (salesAgreement.Service_Credit__c == 0 && oldSalesAgreement.Service_Credit__c != null && oldSalesAgreement.Service_Credit__c != 0) {
                 String accCode = 'SVC' + String.valueOf(Math.round(Math.abs(oldSalesAgreement.Service_Credit__c)));
                 rcdToDelete = SalesAgreementService.getSaAccsBySaIdandAccCode(oldSalesAgreement.Id, accCode);
-                if (rcdToDelete != null) {
+                if (rcdToDelete != null) 
+                {
                     delete rcdToDelete;
                 }
-                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) {
+                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) 
+                {
                     VSMS_CallOutToDeleteSOAcc.callOutToVSMSToDeleteSOAcc(rcdToDelete.Sales_Agreement__r.UniqueBranchCode__c, rcdToDelete.Sales_Agreement__r.FranchiseCode__c, rcdToDelete.SAD_SOH_SONO__c, String.valueOf(rcdToDelete.SAC_LINENO__c));
                 }
             }
             // From 0 to having some value
-            if (salesAgreement.Service_Credit__c != 0 && salesAgreement.Service_Credit__c != null && oldSalesAgreement.Service_Credit__c == 0) {
+            if (salesAgreement.Service_Credit__c != 0 && salesAgreement.Service_Credit__c != null && oldSalesAgreement.Service_Credit__c == 0) 
+            {
                 rcdToCreate = new SA_Accessory__c();
                 rcdToCreate.Sales_Agreement__c = salesAgreement.Id;
                 rcdToCreate.Price_Trigger__c = salesAgreement.Service_Credit__c;
@@ -508,7 +600,8 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
                 rcdToCreate.Acc_Code_Trigger__c = 'SVC' + String.valueOf(Math.round(Math.abs(salesAgreement.Service_Credit__c))); 
                 insert rcdToCreate;
                 
-                if (salesAgreement.Stage__c != 'Draft') {
+                if (salesAgreement.Stage__c != 'Draft') 
+                {
                     VSMS_CallOutToCreateACM.callOutToCreateACM(salesAgreement.Id, salesAgreement.FranchiseCode__c, rcdToCreate.Acc_Code_Trigger__c, salesAgreement.UniqueBranchCode__c);
                 }
             } 
@@ -516,11 +609,13 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
         }  
     }
     
-    private void createACCSAAcc (Map<Id, SObject> existingRecords) {
+    private void createACCSAAcc (Map<Id, SObject> existingRecords) 
+    {
         SA_Accessory__c rcdToCreate;
         SA_Accessory__c rcdToDelete = new SA_Accessory__c();
         
-        for (Sales_Agreement__c salesAgreement : (List<Sales_Agreement__c>) Records) {
+        for (Sales_Agreement__c salesAgreement : (List<Sales_Agreement__c>) Records) 
+        {
             Sales_Agreement__c oldSalesAgreement = (Sales_Agreement__c)existingRecords.get(salesAgreement.Id);
             // From blank to having some value
             if (salesAgreement.Accessories_Credit__c != null && salesAgreement.Accessories_Credit__c != 0 && oldSalesAgreement.Accessories_Credit__c == null) {
@@ -531,29 +626,36 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
                 rcdToCreate.Acc_Code_Trigger__c = 'ACC' + String.valueOf(Math.round(Math.abs(salesAgreement.Accessories_Credit__c)));
                 insert rcdToCreate;
                 
-                if (salesAgreement.Stage__c != 'Draft') {
+                if (salesAgreement.Stage__c != 'Draft') 
+                {
                     VSMS_CallOutToCreateACM.callOutToCreateACM(salesAgreement.Id, salesAgreement.FranchiseCode__c, rcdToCreate.Acc_Code_Trigger__c, salesAgreement.UniqueBranchCode__c);
                 }       
             }
             // From having some value to blank
-            if (salesAgreement.Accessories_Credit__c == null && oldSalesAgreement.Accessories_Credit__c != null && oldSalesAgreement.Accessories_Credit__c != 0) {
+            if (salesAgreement.Accessories_Credit__c == null && oldSalesAgreement.Accessories_Credit__c != null && oldSalesAgreement.Accessories_Credit__c != 0) 
+            {
                 String accCode = 'ACC' + String.valueOf(Math.round(Math.abs(oldSalesAgreement.Accessories_Credit__c)));
                 rcdToDelete = SalesAgreementService.getSaAccsBySaIdandAccCode(oldSalesAgreement.Id, accCode);
-                if (rcdToDelete != null) {
+                if (rcdToDelete != null) 
+                {
                     delete rcdToDelete;
                 }
-                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) {
+                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) 
+                {
                     VSMS_CallOutToDeleteSOAcc.callOutToVSMSToDeleteSOAcc(rcdToDelete.Sales_Agreement__r.UniqueBranchCode__c, rcdToDelete.Sales_Agreement__r.FranchiseCode__c, rcdToDelete.SAD_SOH_SONO__c, String.valueOf(rcdToDelete.SAC_LINENO__c));
                 }
             }
             // From one value to another value
-            if (salesAgreement.Accessories_Credit__c != null && salesAgreement.Accessories_Credit__c != 0 && salesAgreement.Accessories_Credit__c != oldSalesAgreement.Accessories_Credit__c && oldSalesAgreement.Accessories_Credit__c != 0 && oldSalesAgreement.Accessories_Credit__c != null ) {
+            if (salesAgreement.Accessories_Credit__c != null && salesAgreement.Accessories_Credit__c != 0 && salesAgreement.Accessories_Credit__c != oldSalesAgreement.Accessories_Credit__c && oldSalesAgreement.Accessories_Credit__c != 0 && oldSalesAgreement.Accessories_Credit__c != null ) 
+            {
                 String accCode = 'ACC' + String.valueOf(Math.round(Math.abs(oldSalesAgreement.Accessories_Credit__c)));
                 rcdToDelete = SalesAgreementService.getSaAccsBySaIdandAccCode(oldSalesAgreement.Id, accCode);              
-                if (rcdToDelete != null) {
+                if (rcdToDelete != null) 
+                {
                     delete rcdToDelete;
                 } 
-                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) {
+                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) 
+                {
                     VSMS_CallOutToDeleteSOAcc.callOutToVSMSToDeleteSOAcc(rcdToDelete.Sales_Agreement__r.UniqueBranchCode__c, rcdToDelete.Sales_Agreement__r.FranchiseCode__c, rcdToDelete.SAD_SOH_SONO__c, String.valueOf(rcdToDelete.SAC_LINENO__c));
                 }
                 
@@ -564,7 +666,8 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
                 rcdToCreate.Acc_Code_Trigger__c = 'ACC' + String.valueOf(Math.round(Math.abs(salesAgreement.Accessories_Credit__c)));
                 insert rcdToCreate;   
                 
-                if (salesAgreement.Stage__c != 'Draft') {
+                if (salesAgreement.Stage__c != 'Draft') 
+                {
                     VSMS_CallOutToCreateACM.callOutToCreateACM(salesAgreement.Id, salesAgreement.FranchiseCode__c, rcdToCreate.Acc_Code_Trigger__c, salesAgreement.UniqueBranchCode__c);
                 }  
             }
@@ -572,15 +675,18 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
             if (salesAgreement.Accessories_Credit__c == 0 && oldSalesAgreement.Accessories_Credit__c != null && oldSalesAgreement.Accessories_Credit__c != 0) {
                 String accCode = 'ACC' + String.valueOf(Math.round(Math.abs(oldSalesAgreement.Accessories_Credit__c)));
                 rcdToDelete = SalesAgreementService.getSaAccsBySaIdandAccCode(oldSalesAgreement.Id, accCode);
-                if (rcdToDelete != null) {
+                if (rcdToDelete != null) 
+                {
                     delete rcdToDelete;
                 }
-                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) {
+                if (salesAgreement.SOH_SONO__c != null && rcdToDelete != null) 
+                {
                     VSMS_CallOutToDeleteSOAcc.callOutToVSMSToDeleteSOAcc(rcdToDelete.Sales_Agreement__r.UniqueBranchCode__c, rcdToDelete.Sales_Agreement__r.FranchiseCode__c, rcdToDelete.SAD_SOH_SONO__c, String.valueOf(rcdToDelete.SAC_LINENO__c));
                 }
             }
             // From 0 to having some value
-            if (salesAgreement.Accessories_Credit__c != 0 && salesAgreement.Accessories_Credit__c != null && oldSalesAgreement.Accessories_Credit__c == 0) {
+            if (salesAgreement.Accessories_Credit__c != 0 && salesAgreement.Accessories_Credit__c != null && oldSalesAgreement.Accessories_Credit__c == 0) 
+            {
                 rcdToCreate = new SA_Accessory__c();
                 rcdToCreate.Sales_Agreement__c = salesAgreement.Id;
                 rcdToCreate.Price_Trigger__c = salesAgreement.Accessories_Credit__c;
@@ -588,7 +694,8 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
                 rcdToCreate.Acc_Code_Trigger__c = 'ACC' +  String.valueOf(Math.round(Math.abs(salesAgreement.Accessories_Credit__c)));       
                 insert rcdToCreate;
                 
-                if (salesAgreement.Stage__c != 'Draft') {
+                if (salesAgreement.Stage__c != 'Draft') 
+                {
                     VSMS_CallOutToCreateACM.callOutToCreateACM(salesAgreement.Id, salesAgreement.FranchiseCode__c, rcdToCreate.Acc_Code_Trigger__c, salesAgreement.UniqueBranchCode__c);
                 }
             }               
@@ -629,7 +736,8 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
 */
 
     //This method is used on additional SA_Addtional_Charges trigger. 
-    public static void updateSalesAgreementTotalFees (Set<Id> salesAgreementId){ //Field to be updated Total_VES_Roadtax_and_fees__c and SA_Vehicle_Purchase_Price__c
+    public static void updateSalesAgreementTotalFees (Set<Id> salesAgreementId) //Field to be updated Total_VES_Roadtax_and_fees__c and SA_Vehicle_Purchase_Price__c
+    { 
         ADGLIB_SObjectUnitOfWork uow = new ADGLIB_SObjectUnitOfWork(new Schema.SObjectType[] {Sales_Agreement__c.SObjectType});
         SalesAgreementSelector salesAgreementSel = new SalesAgreementSelector();
 
@@ -638,13 +746,16 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
                 Decimal roadTax6months = 0;
                 
                 system.debug(rec.SA_Additional_Charges__r.size());
-                for(SA_Additional_Charge__c childRec : rec.SA_Additional_Charges__r){
+                for(SA_Additional_Charge__c childRec : rec.SA_Additional_Charges__r)
+                {
                     //Capture the 6months road value
-                    if(childRec.SAD_ADM_CHRGCD__c == 'R002'){
+                    if(childRec.SAD_ADM_CHRGCD__c == 'R002')
+                    {
                         roadTax6months = childRec.SAD_CHARGES__c;
                     }
                     //No calcuation required for inclusive. Roadtax 6 or 12 months will be calculated based on top up flag on sales agreement
-                    if(childRec.SAD_INCPRICE__c == 'INC' || childRec.SAD_ADM_CHRGCD__c == 'R002' || childRec.SAD_ADM_CHRGCD__c == 'R004'){
+                    if(childRec.SAD_INCPRICE__c == 'INC' || childRec.SAD_ADM_CHRGCD__c == 'R002' || childRec.SAD_ADM_CHRGCD__c == 'R004')
+                    {
                         continue;
                     }
                     //Sum up the values
@@ -672,8 +783,8 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
     /**
      * Email in-house financing BAM when BPE checkbox FIRST check
      */
-    private void notifyBAM(Map<Id, SObject> existingRecords) {
-
+    private void notifyBAM(Map<Id, SObject> existingRecords) 
+    {
         List<Messaging.SingleEmailMessage> allEmails = new List<Messaging.SingleEmailMessage>();            // list of emails to be sent now
         List<Sales_Agreement__c> scheduleRecords = new List<Sales_Agreement__c>();                          // list of records to be scheduled *DEPRECIATED*
         EmailTemplate template = EmailNotificationsService.getTemplate('Finance_Email');                    // email template
@@ -683,23 +794,28 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
         List<Sales_Agreement__c> bpeChangedRecords = (List<Sales_Agreement__c>) getChangedRecords(new Set<String> { 'Balance_Payment_Email__c' });
         log('bpeChangedRecords', bpeChangedRecords, true);
 
-        for (Sales_Agreement__c record : bpeChangedRecords) {
-
-            try {
+        for (Sales_Agreement__c record : bpeChangedRecords) 
+        {
+            try 
+            {
                 if (record.EngineNo__c ==  null || record.Chassis_No__c == null) continue;                  // dont send empty Engine/Chassis No
                 if (!record.Finance_Company_In_House__c) continue;                                          // dont send to non-inhouse BAM
                 if (record.Finance_Company_Lookup__c == null) continue;                                     // dont send if have no financing company
                 
-                if (!record.Balance_Payment_Email__c || record.Emailed_BAM__c) {                            
+                if (!record.Balance_Payment_Email__c || record.Emailed_BAM__c) 
+                {                            
                     continue;
-                } else {
+                } 
+                else {
                     Messaging.SingleEmailMessage email = EmailNotificationsService.renderFinanceEmail(record, template.Id);     // render template
                     if (email == null) continue;
                     allEmails.add(email);                                                                   // add to emailing list                                                                        
                     processedIDs.add(record.ID);                                                            // store ID of processed records
                     record.Emailed_BAM__c = true;                                                           // update the checkbox
                 }
-            } catch (Exception e) {                                                                         // fail silent to make sure the rest of triggered record still process
+            } 
+            catch (Exception e) 
+            {                                                                         // fail silent to make sure the rest of triggered record still process
                 System.debug('Error on process bpeChangedRecords (record) :: ' + JSON.serialize(record));
                 System.debug('Error on process bpeChangedRecords (message) :: ' + e.getMessage());
                 System.debug('Error on process bpeChangedRecords (stack trace) :: ' + e.getStackTraceString());
@@ -731,13 +847,14 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
         log('processedIDs', processedIDs, true);
         // log('scheduleRecords', scheduleRecords, true);
 
-        if (allEmails.size() > 0) {
-            
+        if (allEmails.size() > 0) 
+        {
             Messaging.SendEmailResult[] results = Messaging.sendEmail(allEmails, false);
 
             Set<String> sendingErrors = new Set<String>();
 
-            for (Messaging.SendEmailResult result : results) {
+            for (Messaging.SendEmailResult result : results) 
+            {
                 if (!result.isSuccess()) {
                     for (Messaging.SendEmailError e : result.getErrors()) {
                         sendingErrors.add(e.getMessage());
@@ -745,16 +862,18 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
                 }
             }
 
-            if (sendingErrors.size() > 0) {
-                try {
+            if (sendingErrors.size() > 0) 
+            {
+                try 
+                {
                     Logger_Data_Pool__c log = new Logger_Data_Pool__c();
                     log.Instance__c = 'notifyBAM_SendingError';
                     log.Message__c = JSON.serialize(sendingErrors) + ' <<<< |||| >>>> ' + JSON.serialize(processedIDs);
                     insert log;
-                } catch (Exception e ) {
+                } 
+                catch (Exception e ) {
                     // fail silent
                 }
-                
             }
         }
 
@@ -775,13 +894,16 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
         //     System.schedule(jobName, scheduleTime, scheduleInstance);
         // }
 
-        if (otherErrors.size() > 0) {
-            try {
+        if (otherErrors.size() > 0) 
+        {
+            try 
+            {
                 Logger_Data_Pool__c log2 = new Logger_Data_Pool__c();
                 log2.Instance__c = 'notifyBAM_OtherError';
                 log2.Message__c = JSON.serialize(otherErrors);
                 insert log2;
-            } catch (Exception e) {
+            } 
+            catch (Exception e) {
                 // fail silent
             }
         }
@@ -790,7 +912,7 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
     /**
      * This method to update corresponding COE to be de-linked back to SA
      */
-    /*private void updateCOEToSA(Map<Id, sObject> existingRecords) {
+    private void updateCOEToSA(Map<Id, sObject> existingRecords) {
         Map<Id, String> changedSAByCOEId = new Map<Id, String>();
         for (Sales_Agreement__c sa : (List<Sales_Agreement__c>)Records) {
             if (existingRecords.get(sa.Id).get('COE__c') != sa.COE__c) {
@@ -805,6 +927,7 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
         Map<Id, COE__c> coeById =  new Map<Id, COE__c>([SELECT Id, Sales_Agreement__c
                                                         FROM COE__c
                                                         WHERE Id IN :changedSAByCOEId.values()]);
+
         Map<Id, Sales_Agreement__c> sas = new Map<Id, Sales_Agreement__c>((List<Sales_Agreement__c>)Records);
         for (Id saId : changedSAByCOEId.keySet()) {
             Sales_Agreement__c sa = sas.get(saId);
@@ -813,6 +936,7 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
                 coe.Sales_Agreement__c = sa.Id;
             }
         }
+
         Database.SaveResult[] srList = Database.update(coeById.values(), false);
         for (Integer i = 0; i < srList.size(); i++) {
             Id saId = coeById.values().get(i).Sales_Agreement__c;
@@ -823,10 +947,9 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
                     errorMsg += err.getMessage();
                     sa.addError(errorMsg);
                 }
-                // sa.addError('Current COE has been linked to this Sales Agreement. Please remove Sales Agreement from current COE and update again!');
             }
         }
-    }*/
+    }
 
     /**
     * This method to check for existing User record and insert a new User if no existing one
@@ -843,10 +966,14 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
         {
             Sales_Agreement__c oldSA = (Sales_Agreement__c) existingRecords.get(newSA.Id);
 
+            system.debug('newSA: ' + newSA);
+            system.debug('newSA.Stage__c: ' + newSA.Stage__c);
+            system.debug('newSA.Email__c: ' + newSA.Email__c);
+            system.debug('oldSA.Stage__c: ' + oldSA.Stage__c);
             if (oldSA.Stage__c <> newSA.Stage__c && newSA.Stage__c == 'Confirmation of Sale')
             {
                 emails.add(newSA.Email__c);
-                
+                system.debug('emails: ' + emails);
                 Set<Id> tempIds;
                 if (emailMap.containsKey(newSA.Email__c) && String.isNotBlank(newSA.Email__c))
                 {
@@ -859,9 +986,10 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
                 }   
 
                 emailMap.put(newSA.Email__c, tempIds);    
+                system.debug('emailMap: ' + emailMap); 
             }
         }
-
+        system.debug('emails: ' + emails);
         Map<Id, Sales_Agreement__c> newSAMap = new Map<Id, Sales_Agreement__c>((List<Sales_Agreement__c>)Records);
 
         if (!emails.isEmpty())
@@ -899,10 +1027,12 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
                 }              
             }
         }
-
+        system.debug('emails: ' + emails);
         if (!emails.isEmpty())
         {
             List<Account> accounts = AccountUtil.getPersonAccountsByEmails(emails);
+
+            system.debug('accounts: ' + accounts);
             if (accounts.size() > 0)
             {
                 Profile portalProfile = [SELECT Id FROM Profile WHERE Name = 'End User' Limit 1];
@@ -994,19 +1124,26 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
     /**
     * This method to update DeliveryBayBooking when stage = 'Car Collected'
     */
-    private void updateDeliveryBayBooking(Map<Id, SObject> existingRecords){  
+    private void updateDeliveryBayBooking(Map<Id, SObject> existingRecords)
+    {  
         Set<Id> salesAgreements = new Set<Id>();
-        for(Sales_Agreement__c salesAgreement : (List<Sales_Agreement__c>)Records) {
+
+        for(Sales_Agreement__c salesAgreement : (List<Sales_Agreement__c>)Records) 
+        {
                 Sales_Agreement__c oldSalesAgreement = (Sales_Agreement__c)existingRecords.get(salesAgreement.Id);
-                if(salesAgreement.Stage__c != oldSalesAgreement.Stage__c && salesAgreement.Stage__c == 'Car Collected'){  
+
+                if(salesAgreement.Stage__c != oldSalesAgreement.Stage__c && salesAgreement.Stage__c == 'Car Collected')
+                {  
 					salesAgreements.add(salesAgreement.Id);
                 }
-        }
-        
+        }        
         List<Delivery_Bay_Booking__c > dbbs = [Select Id, Status__c, Sales_Agreement__c from Delivery_Bay_Booking__c where Sales_Agreement__c IN: salesAgreements And Status__c ='Booked'];
-        for(Delivery_Bay_Booking__c dbb: dbbs){
+        
+        for(Delivery_Bay_Booking__c dbb: dbbs)
+        {
             dbb.Status__c = 'Completed';
         }
+
         if(!dbbs.isEmpty()){
             update dbbs;
         }
@@ -1015,39 +1152,51 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
     /**
     * This method to create Vehicle Movement Tracker when stage = 'Car Collected'
     */
-    private void createVehicleMovementTracker(Map<Id, SObject> existingRecords){  
+    private void createVehicleMovementTracker(Map<Id, SObject> existingRecords)
+    {  
         Set<Id> salesAgreements = new Set<Id>();
         Set<Id> vehicleMasters = new Set<Id>();
 
-        for(Sales_Agreement__c salesAgreement : (List<Sales_Agreement__c>)Records) {
+        for(Sales_Agreement__c salesAgreement : (List<Sales_Agreement__c>)Records) 
+        {
             Sales_Agreement__c oldSalesAgreement = (Sales_Agreement__c)existingRecords.get(salesAgreement.Id);
-            if(salesAgreement.Stage__c != oldSalesAgreement.Stage__c && salesAgreement.Stage__c == 'Car Collected'){  
+
+            if(salesAgreement.Stage__c != oldSalesAgreement.Stage__c && salesAgreement.Stage__c == 'Car Collected')
+            {  
                 salesAgreements.add(salesAgreement.Id);
             }
         }
 
-        for(Sales_Agreement__c newSA: [SELECT id, Stock_Reservation__r.Vehicle_Master__c from Sales_Agreement__c WHERE Id IN: salesAgreements]){
+        for(Sales_Agreement__c newSA: [SELECT id, Stock_Reservation__r.Vehicle_Master__c from Sales_Agreement__c WHERE Id IN: salesAgreements])
+        {
             vehicleMasters.add(newSA.Stock_Reservation__r.Vehicle_Master__c);
         }
 
         Delivery_Bay_Configuration__c dbbCf = Delivery_Bay_Configuration__c.getValues('Delivery Bay Booking Config');
         //get Location Delivery Complete from Custom Setting
         String nameLocation = '';
-        if(dbbCf != Null){
+
+        if(dbbCf != Null)
+        {
             nameLocation = dbbCf.Location_Delivery_Complete__c;
         }
-        if(String.isNotBlank(nameLocation) && !vehicleMasters.isEmpty()){
-            
+
+        if(String.isNotBlank(nameLocation) && !vehicleMasters.isEmpty())
+        {
             List<Location__c> locations = [SELECT ID FROM Location__c Where Name = :nameLocation LIMIT 1];
             List<Vehicle_Movement_Tracker__c> vehicleMovementTrackers = new List<Vehicle_Movement_Tracker__c>();
-            if(!locations.isEmpty()){
-            for(Id vehicleMasterId: vehicleMasters){
-                Vehicle_Movement_Tracker__c vmt = new Vehicle_Movement_Tracker__c(Stock_Vehicle_Master__c = vehicleMasterId, Location__c = locations[0].Id, Action_Taken_Time__c = System.now());
-                vehicleMovementTrackers.add(vmt);
-            }
-            if(!vehicleMovementTrackers.isEmpty()){
-                insert vehicleMovementTrackers;
-            }
+
+            if(!locations.isEmpty())
+            {
+                for(Id vehicleMasterId: vehicleMasters)
+                {
+                    Vehicle_Movement_Tracker__c vmt = new Vehicle_Movement_Tracker__c(Stock_Vehicle_Master__c = vehicleMasterId, Location__c = locations[0].Id, Action_Taken_Time__c = System.now());
+                    vehicleMovementTrackers.add(vmt);
+                }
+                if(!vehicleMovementTrackers.isEmpty())
+                {
+                    insert vehicleMovementTrackers;
+                }
             }    
         }
     }
@@ -1056,35 +1205,47 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
     /**
     * This method to send email to book DeliveryBay when stage = 'Ready for Delivery'
     */
-    private void sendEmailForBookingDeliveryBaySlot(Map<Id, SObject> existingRecords){  
+    private void sendEmailForBookingDeliveryBaySlot(Map<Id, SObject> existingRecords)
+    {  
         Set<Id> salesAgreements = new Set<Id>();
         List<Delivery_Bay_Booking__c> dbbListToInsert = new List<Delivery_Bay_Booking__c> ();
-        for(Sales_Agreement__c salesAgreement : (List<Sales_Agreement__c>)Records) {  
+
+        for(Sales_Agreement__c salesAgreement : (List<Sales_Agreement__c>)Records) 
+        {  
                 Sales_Agreement__c oldSalesAgreement = (Sales_Agreement__c)existingRecords.get(salesAgreement.Id);
                 if((salesAgreement.Stage__c != oldSalesAgreement.Stage__c && salesAgreement.Stage__c == 'Ready for Registration' && salesAgreement.Vehicle_Movement_Completed__c == true) ||
-                   (salesAgreement.Stage__c == 'Ready for Registration' && salesAgreement.Vehicle_Movement_Completed__c == true && salesAgreement.Vehicle_Movement_Completed__c != oldSalesAgreement.Vehicle_Movement_Completed__c)){  
+                   (salesAgreement.Stage__c == 'Ready for Registration' && salesAgreement.Vehicle_Movement_Completed__c == true && salesAgreement.Vehicle_Movement_Completed__c != oldSalesAgreement.Vehicle_Movement_Completed__c))
+                {  
 					salesAgreements.add(salesAgreement.Id);
                 }
         }
-        try {
+
+        try 
+        {
             DeliveryBayBookings.sendingEmailForBookingNewSlot(salesAgreements, null);
-        } catch (EmailException e) {
+        } 
+        catch (EmailException e) 
+        {
             loggerDataPool.buildLogDataPool('SalesAgreements.sendEmailForBookingDeliveryBaySlot', e);
-        }
-        
+        }        
     }
 
     /**
      * This method to convert Prospect PA to Customer PA when Car Collected
      */
-    private void convertPA(Map<Id, SObject> existingRecords) {
+    private void convertPA(Map<Id, SObject> existingRecords) 
+    {
         Id prosRecTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Prospect').getRecordTypeId();
         Id custRecTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Customer').getRecordTypeId();
 
         Set<Id> paIds = new Set<Id>();
-        for (Sales_Agreement__c sa : (List<Sales_Agreement__c>)Records) {  
+
+        for (Sales_Agreement__c sa : (List<Sales_Agreement__c>)Records) 
+        {  
             Sales_Agreement__c oldSA = (Sales_Agreement__c)existingRecords.get(sa.Id);
-            if (sa.Stage__c != oldSA.Stage__c && sa.Stage__c == 'Car Collected' && String.isNotBlank(sa.Account__c)) {
+
+            if (sa.Stage__c != oldSA.Stage__c && sa.Stage__c == 'Car Collected' && String.isNotBlank(sa.Account__c)) 
+            {
                 paIds.add(sa.Account__c);
             }
         }
@@ -1096,7 +1257,8 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
                               FROM Account 
                               WHERE IsPersonAccount = true 
                               AND Id IN :paIds ];
-        for (Account pa : pas) {
+        for (Account pa : pas) 
+        {
             if (pa.RecordTypeId != prosRecTypeId) continue;
 
             pa.RecordTypeId = custRecTypeId;
@@ -1112,13 +1274,359 @@ public class SalesAgreements extends ADGLIB_SObjectDomain {
     /**
      * Safely log
      */
-    private void log(String tag, Object value, Boolean stringify) {
-        try {
+    private void log(String tag, Object value, Boolean stringify) 
+    {
+        try 
+        {
             value = stringify? JSON.serialize(value) : value;
             System.debug(tag + ' :: ' + value);
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
             System.debug('Error Message on logging :: ' + e.getMessage());
             System.debug('Error Stack Trace on logging :: ' + e.getStackTraceString());
         }
+    }
+
+    /*private void updateJITDate(Map<Id,SObject> previousMap)
+    {
+        try
+        {
+           for(Sales_Agreement__c record: (List<Sales_Agreement__c>) Records)
+           {
+                Sales_Agreement__c oldRecord = (Sales_Agreement__c) previousMap.get(record.Id);
+                
+                if(record.Car_Ready_Date__c  != oldRecord.Car_Ready_Date__c)
+                {
+                    record.JIT_Date__c = record.Car_Ready_Date__c != null ? record.Car_Ready_Date__c - 6 : null;
+                }
+            }
+
+        }
+        catch(Exception e)
+        {
+            System.debug('Error : ' + e.getMessage());
+            System.debug('Error Stack Trace: ' + e.getStackTraceString());
+        }
+    }*/
+
+    /****************************** 
+     * Date(YYYYMMDD)       Name                    Description
+     * 20220726             Thanh Ly                Update Duty Payment Date on SVM after populating Car Ready Date on DSA
+    */
+    private void updateDutyRequestDate(Map<Id,SObject> existingRecords)
+    {
+        List<Stock_Reservation__c> stockReservations    = new List<Stock_Reservation__c>();
+        List<Vehicle_Master2__c> updateRecords          = new List<Vehicle_Master2__c>();
+        Map<Id, Sales_Agreement__c> salesAgreementMap   = new Map<Id, Sales_Agreement__c>();
+
+        try
+        {
+            for (Sales_Agreement__c record: (List<Sales_Agreement__c>) Records)
+            {
+                Sales_Agreement__c oldRecord = (Sales_Agreement__c)existingRecords.get(record.Id);
+
+                if (record.Car_Ready_Date__c != oldRecord.Car_Ready_Date__c)
+                {
+                    salesAgreementMap.put(record.Stock_Reservation__c, record);
+                }
+            }
+            
+            if (salesAgreementMap.size() == 0) return;
+
+            stockReservations = [SELECT Id, Vehicle_Master__c, Vehicle_Master__r.JIT_Date__c
+                                 FROM Stock_Reservation__c
+                                 WHERE Id IN :salesAgreementMap.keySet()];
+            system.debug('stockReservations ::' + stockReservations);
+
+            if (stockReservations.size()>0)
+            {
+                Date today = Date.today();
+                Date tmpDutyRequestDdt;
+
+                Set<Date> offDaysSet = new Set<Date>();
+                for (Blocked_Off_Day__c day : [SELECT Id, Date__c
+                                               FROM Blocked_Off_Day__c
+                                               WHERE Date__c = THIS_YEAR
+                                                AND Date__c >= :today
+                                                AND Is_Active__c = true
+                                               ORDER BY Date__c ASC])
+                {
+                    offDaysSet.add(day.Date__c);
+                }
+
+                Integer dutyRequestDdtInterval = (Integer)Duty_JIT_Calculation__c.getOrgDefaults().Duty_Request_Days_PC__c;
+
+                for (Stock_Reservation__c stockReservation : stockReservations)
+                {
+                    Vehicle_Master2__c vehicleMaster = new Vehicle_Master2__c();
+                    vehicleMaster.Id                 = stockReservation.Vehicle_Master__c;
+                    if (salesAgreementMap.get(stockReservation.Id).Car_Ready_Date__c == null)
+                    {
+                        vehicleMaster.JIT_Date__c          = null;
+                        // vehicleMaster.Duty_Payment_Date__c = null;
+                    }
+                    else
+                    {
+                        
+                        vehicleMaster.JIT_Date__c = stockReservation.Vehicle_Master__r.JIT_Date__c;
+                        Date saJITDate = salesAgreementMap.get(stockReservation.Id).JIT_Date__c;
+                        tmpDutyRequestDdt = saJITDate - dutyRequestDdtInterval;
+
+                        Set<Date> datesInRangeForDuty = getDatesInDateRange(tmpDutyRequestDdt, saJITDate);
+                        tmpDutyRequestDdt = getNearestAvailableDate(datesInRangeForDuty, offDaysSet, tmpDutyRequestDdt, -1);
+        
+                        vehicleMaster.Duty_Request_Date__c = tmpDutyRequestDdt;
+                    }
+
+                    // vehicleMaster.JIT_Date__c = salesAgreementMap.get(stockReservation.Id).Car_Ready_Date__c != null ? stockReservation.Vehicle_Master__r.JIT_Date__c : null;
+                    // vehicleMaster.Duty_Payment_Date__c  = salesAgreementMap.get(stockReservation.Id).Car_Ready_Date__c != null ? salesAgreementMap.get(stockReservation.Id).Car_Ready_Date__c - 8 : null;
+
+                    updateRecords.add(vehicleMaster);
+ 
+                    System.debug('vehicle master' + vehicleMaster);
+                }
+
+                if (updateRecords.size()>0)
+                {
+                    upsert updateRecords;
+                }
+            }
+        } 
+        catch(Exception e)
+        {
+            System.debug('Error on Update Duty Payment Date: ' + e.getMessage());
+            System.debug('Error Stack Trace on Update Duty Payment Date: ' + e.getStackTraceString());
+        }
+    }
+
+     /****************************** 
+     * Date(YYYYMMDD)       Name                     Description
+     * 20220804             Nhung Cao                Update Duty Payment Date on SVM after populating Car Ready Date on DSA
+     * 20220816             Thanh Ly                 Update calculation logics
+     * 20220829             Khanh Do                 Replace all logic
+    */   
+    private void preSubmitFieldCalculation(Map<Id,SObject> previousMap)
+    {
+        try
+        {
+            List<Id> saIds = new List<Id>();
+            
+            for(Sales_Agreement__c record: (List<Sales_Agreement__c>) Records)
+            {
+                Sales_Agreement__c oldSA = (Sales_Agreement__c)previousMap.get(record.Id);
+                
+                if(record.Stage__c == 'Confirmation of Sale'  && record.Stage__c != oldSA.Stage__c)
+                {
+                    saIds.add(record.Id);
+                }
+            }
+                
+            List<Sales_Agreement__c> saList = new SalesAgreementSelector().selectSalesAgreementForThresholdCalculation(saIds);
+            system.debug(saList);
+
+            COE_Bid_Period__c lastCOEBidPeriod = COEBiddingController.getLastCOE();
+
+            for(Sales_Agreement__c sa : saList) {   
+                Decimal paidAcc                 = 0; 
+                Decimal costOfStdAccessories    = 0;
+                Decimal costOfAccTradeOrSold    = 0;
+                Decimal addtnlCharge            = 0;
+                Decimal gstCharge               = 0;
+                Decimal cpfOnComm               = 0;
+
+                for(SA_Accessory__c saAcc: sa.SA_Accessories__r)
+                {   
+                    List<String> majGroupCodeToExclude = new List<String>{'SVC_CREDIT', 'USED_CAR', 'ACC_CREDIT', 'SVC CREDIT', 'PACKAGE'};
+                    //Calculate Paid_Accessories__c
+                    if( saAcc.SAC_INCPRICE__c != 'INC' &&
+                        !majGroupCodeToExclude.contains(saAcc.Accessories_Master__r.ACM_MNM_MAJGROUPCD__c)
+                    ) {
+                        paidAcc += saAcc.SAC_ACCSCOST__c != null ? saAcc.SAC_ACCSCOST__c : 0;
+                        system.debug('paidAcc : ' + paidAcc);
+                    }
+                    
+                    //Calculate Cost_of_Standard_Accessories__c
+                    System.debug('saAcc.SAC_PACKAGE__c = ' + saAcc.SAC_PACKAGE__c);
+                    if(saAcc.SAC_PACKAGE__c == 'Y')
+                    {
+                        costOfStdAccessories += saAcc.SAC_ACCSCOST__c != null ? saAcc.SAC_ACCSCOST__c : 0;
+                        system.debug('costOfStdAccessories : ' + costOfStdAccessories);
+                    } 
+
+                    //Calculate Cost_of_Accessories_Traded_Sold__c
+                    if(saAcc.SAC_PACKAGE__c != 'Y')// && saAcc.Accessories_Master__r.ACM_MNM_MAJGROUPCD__c != 'USED_CAR'
+                    {
+                        costOfAccTradeOrSold += saAcc.SAC_ACCSCOST__c != null ? saAcc.SAC_ACCSCOST__c : 0;
+                        system.debug('costOfAccTradeOrSold : ' + costOfAccTradeOrSold);
+                    }                    
+                }
+
+                sa.Paid_Accessories__c = paidAcc;
+                sa.Cost_of_Standard_Accessories__c = costOfStdAccessories;                
+                sa.Cost_of_Accessories_Traded_Sold__c = costOfAccTradeOrSold;
+				
+                //Calculate VES
+                Decimal ves = 0;
+                if(sa.FranchiseCode__c.endsWith('PC')) {
+                    for(SA_Additional_Charge__c saAddCharge: sa.SA_Additional_Charges__r) {
+                        
+                        if(saAddCharge.SAD_ADM_CHRGCD__c == 'C001') {
+                            ves += saAddCharge.SAD_CHARGES__c;
+                        }                          
+                    }
+                } else if(sa.FranchiseCode__c.endsWith('CV')) {
+                    ves = 0;
+                }
+                sa.VES__c  = ves;
+
+                
+                Decimal sumRegFee = 0;
+                Decimal sumRoadTax = 0;
+                Decimal sumRetentionFee = 0;
+                
+                for(SA_Additional_Charge__c saAddCharge: sa.SA_Additional_Charges__r)
+                {
+                    
+                    Decimal saAddntlChargeVal = saAddCharge.SAD_CHARGES__c != null ? saAddCharge.SAD_CHARGES__c : 0;
+                    //Calculate Additional_Charges__c
+                    if(saAddCharge.SAD_ADM_CHRGCD__c != '1000' &&  saAddCharge.SAD_ADM_CHRGCD__c != 'C001')
+                    {
+                        addtnlCharge += saAddntlChargeVal;
+                    }
+
+                    //Calculate GST_Charge__c
+                    if(saAddCharge.SAD_ADM_CHRGCD__c == 'R001')
+                    {
+                        sumRegFee += saAddntlChargeVal ;
+                    }
+                    
+                    if(saAddCharge.SAD_ADM_CHRGCD__c == 'R002' || saAddCharge.SAD_ADM_CHRGCD__c == 'R004')
+                    {
+                        sumRoadTax += saAddntlChargeVal;
+                    }
+                    
+                    if(saAddCharge.SAD_ADM_CHRGCD__c == 'R015')
+                    {
+                        sumRetentionFee += saAddntlChargeVal;
+                    }                    
+
+                }
+
+                //Calculate Additional_Charges__c
+                sa.Additional_Charges__c = addtnlCharge;
+
+                Decimal lastBidCOE = 0;
+                if(lastCOEBidPeriod != null) {
+                    lastBidCOE = (Decimal)lastCOEBidPeriod.get(sa.COECategory__c + '__c');
+                }
+                //Calculate GST_Charge__c
+                Decimal vehiclePrice = sa.Vehicle_Purchase_Price__c  != null ? sa.Vehicle_Purchase_Price__c  : 0;
+                Decimal arfPayable = sa.ARF_Payable__c != null ? sa.ARF_Payable__c : 0;
+                System.debug('sa.Vehicle_Purchase_Price__c  = ' + sa.Vehicle_Purchase_Price__c );
+                System.debug('sa.ARF_Payable__c = ' + sa.ARF_Payable__c);
+                System.debug('lastBidCOE = ' + lastBidCOE);
+                sa.GST_Charge__c = (vehiclePrice - arfPayable - lastBidCOE - sumRegFee - sumRoadTax - sumRetentionFee) * 7/100 ;     
+                System.debug('sa.GST_Charge__c = ' + sa.GST_Charge__c);
+            }
+
+            update saList;
+
+        }
+        catch(Exception e)
+        {
+            System.debug('Error : ' + e.getMessage());
+            System.debug('Error Stack Trace: ' + e.getStackTraceString());
+        }                
+    }
+
+    private void calculateCarReadyAndJITDate(Map<Id,SObject> previousMap)
+    {
+        Date today                   = Date.today();
+        Date minEarliestCarReadyDate = today.addDays(8);
+        Date earliestCarReadyDate;
+        Date tmpJITDate;
+ 
+        Set<Date> offDaysSet = new Set<Date>();
+        for (Blocked_Off_Day__c day : [SELECT Id, Date__c
+                                       FROM Blocked_Off_Day__c
+                                       WHERE Date__c = THIS_YEAR
+                                        AND Date__c >= :today
+                                        AND Is_Active__c = true
+                                       ORDER BY Date__c ASC])
+        {
+            offDaysSet.add(day.Date__c);
+        }
+        system.debug('offDaysSet :: ' + JSON.serialize(offDaysSet));
+
+        Set<Date> datesInRange = getDatesInDateRange(today, minEarliestCarReadyDate);
+        earliestCarReadyDate = getNearestAvailableDate(datesInRange, offDaysSet, minEarliestCarReadyDate, 1);
+
+        Integer jitInterval = (Integer)Duty_JIT_Calculation__c.getOrgDefaults().JIT_Work_Days_PC__c;
+
+        for (Sales_Agreement__c record : (List<Sales_Agreement__c>) Records)
+        {
+            Sales_Agreement__c oldRecord = (Sales_Agreement__c) previousMap.get(record.Id);
+
+            if (record.Car_Ready_Date__c != oldRecord.Car_Ready_Date__c)
+            {
+                if (record.Car_Ready_Date__c == null)
+                {
+                    record.JIT_Date__c = null;
+
+                    continue;
+                }
+                else
+                {
+                    if (offDaysSet.contains(record.Car_Ready_Date__c))
+                    {
+                        record.addError('Selected date is Blocked Off Day. Earliest available Car Ready Date is after ' + earliestCarReadyDate.format() + '. Please choose another date!');
+                    }
+                    else if (record.Car_Ready_Date__c < earliestCarReadyDate)
+                    {
+                        record.addError('Earliest available Car Ready Date is after ' + earliestCarReadyDate.format() + '. Please choose another date!');
+                    }
+    
+                    tmpJITDate = record.Car_Ready_Date__c - jitInterval;
+    
+                    Set<Date> datesInRangeForJIT = getDatesInDateRange(tmpJITDate, earliestCarReadyDate);
+                    tmpJITDate = getNearestAvailableDate(datesInRangeForJIT, offDaysSet, tmpJITDate, -1);
+
+                    record.JIT_Date__c = tmpJITDate;
+                }
+            }
+        }
+    }
+
+    private Set<Date> getDatesInDateRange(Date startDate, Date endDate)
+    {
+        Set<Date> datesInRange = new Set<Date>();
+        datesInRange.add(startDate);
+
+        while (startDate < endDate)
+        {
+            datesInRange.add(startDate.addDays(1));
+            startDate = startDate.addDays(1);
+        }
+
+        return datesInRange;
+    }
+
+    private Date getNearestAvailableDate(Set<Date> datesInRange, Set<Date> offDaysSet, Date nearestDate, Integer i)
+    {
+        for (Date d : datesInRange)
+        {
+            if (offDaysSet.contains(d))
+            {
+                nearestDate = nearestDate.addDays(i);
+            }
+
+            while (offDaysSet.contains(nearestDate))
+            {
+                nearestDate = nearestDate.addDays(i);
+            }
+        }
+
+        return nearestDate;
     }
 }

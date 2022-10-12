@@ -40,6 +40,16 @@
                 <default>false</default>
                 <label>MITPC</label>
             </value>
+            <value>
+                <fullName>MAXUSPC</fullName>
+                <default>false</default>
+                <label>MAXUSPC</label>
+            </value>
+            <value>
+                <fullName>MAXUSCV</fullName>
+                <default>false</default>
+                <label>MAXUSCV</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

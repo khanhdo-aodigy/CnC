@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Spot_Contract_Populated__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( OR( ISBLANK(Bank_Contract_No_Spot_Rate__c) , ISPICKVAL(Bank_Spot_Rate__c, &quot;&quot;) ,
+ISPICKVAL(Currency_Code_Spot_Rate__c, &quot;&quot;) , ISBLANK(Transaction_Date_Spot_Rate__c) ,ISNULL(Spot_Rate__c), (Spot_Rate__c = 0) , ISNULL(Total_Spot_Contract_Amount__c), (Total_Spot_Contract_Amount__c = 0) ), false, true)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Spot Contract Populated</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

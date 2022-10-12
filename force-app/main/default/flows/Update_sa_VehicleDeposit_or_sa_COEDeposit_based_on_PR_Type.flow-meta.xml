@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <decisions>
+        <name>Check_PR_Type</name>
+        <label>Check PR.Type</label>
+        <locationX>314</locationX>
+        <locationY>335</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Vehicle_Deposit</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Vehicle Deposit</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_sa_VehicleDeposit</targetReference>
+            </connector>
+            <label>Vehicle Deposit</label>
+        </rules>
+        <rules>
+            <name>COE_Deposit</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>COE Deposit</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_sa_COE_Deposit</targetReference>
+            </connector>
+            <label>COE Deposit</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <interviewLabel>Update sa.VehicleDeposit or sa.COEDeposit based on PR.Type {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Update sa.VehicleDeposit or sa.COEDeposit based on PR.Type</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_sa_COE_Deposit</name>
+        <label>Update sa.COE Deposit</label>
+        <locationX>314</locationX>
+        <locationY>455</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Sales_Agreement__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>COE_Deposit__c</field>
+            <value>
+                <elementReference>$Record.Receipt_Amount__c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Sales_Agreement__c</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_sa_VehicleDeposit</name>
+        <label>Update sa.VehicleDeposit</label>
+        <locationX>50</locationX>
+        <locationY>455</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Sales_Agreement__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Vehicle_Deposit__c</field>
+            <value>
+                <elementReference>$Record.Receipt_Amount__c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Sales_Agreement__c</object>
+    </recordUpdates>
+    <start>
+        <locationX>188</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_PR_Type</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>(1 OR 2) AND 3 AND 4</filterLogic>
+        <filters>
+            <field>Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Vehicle Deposit</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>COE Deposit</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Receipt_Amount__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Sales_Agreement__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Payment_Receipt__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

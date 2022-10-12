@@ -5,6 +5,7 @@
  * History
  *              DATE::                              BY::                                TICKET::                                            CHANGELOG
  *      27 July 2022                        dangphap.mai@aodigy.com                 US-VPO-000016                                              init
+ *      23 August 2022                      nhung.cao@aodigy.com                    US-TMS-0001
  * ========================================================================================================================================================================== 
  */
 public inherited sharing class VehiclePurchaseOrderSelector extends ADGLIB_SObjectSelector
@@ -52,7 +53,6 @@ public inherited sharing class VehiclePurchaseOrderSelector extends ADGLIB_SObje
         Boolean assertCRUD                              = false;    // by pass CRUD
         Boolean enforceFLS                              = false;    // by pass FLS
         Boolean includeSelectorFields                   = true;     // include fields from getSObjectFieldList()
-        
         adglib_QueryFactory orderQueryFactory           = this.newQueryFactory(assertCRUD, enforceFLS, includeSelectorFields).setCondition('Id IN :orderIds');
         
         // select line items
@@ -74,4 +74,67 @@ public inherited sharing class VehiclePurchaseOrderSelector extends ADGLIB_SObje
         
         return Database.query(orderQueryFactory.toSOQL());
     }
+    
+    /**
+     * [23082022] Added by Nhung Cao - US-TMS-0001
+     */
+    public List<Vehicle_Purchase_Order__c> selectVPObyFranchiseAndProductionMonth(String franchise, Date productionMonth) {
+        adglib_QueryFactory query = newQueryFactory();
+        query.selectField('Franchise_Code__c');
+        query.selectField('Production_Month__c');
+        query.selectField('Total_Units_Confirmed__c');
+        query.selectField('Stage__c');
+        query.selectField('Name');
+        query.selectField('Id');
+        String strFilter = 'Franchise_Code__c = :franchise' 
+                        + ' AND Production_Month__c =: productionMonth'
+                        ;
+
+        query.setCondition(strFilter);
+
+        StockVehicleMasterSelector svmQuery = new StockVehicleMasterSelector();
+        adglib_QueryFactory svmQueryFactory = svmQuery.newQueryFactory(false);
+        svmQuery.addQueryFactorySubselect(query, 'Stock_Vehicle_Masters__r');
+
+        return Database.query(query.toSOQL());
+    }
+
+    /**
+     * [23082022] Added by Nhung Cao - US-TMS-0003/0004/0005
+     */
+    public List<Vehicle_Purchase_Order__c> selectVPO_WithRelatedSVM(List<Id> vpoIds) {
+
+        adglib_QueryFactory VPOqueryFactory = newQueryFactory();
+        VPOqueryFactory.setCondition('Id IN :vpoIds');
+
+        StockVehicleMasterSelector svmQuery = new StockVehicleMasterSelector();
+        adglib_QueryFactory svmQueryFactory = svmQuery.newQueryFactory(false);
+        svmQueryFactory.selectField('Vehicle_Purchase_Status__c');
+        svmQuery.addQueryFactorySubselect(VPOqueryFactory, 'Stock_Vehicle_Masters__r');
+
+        return Database.query(VPOqueryFactory.toSOQL());
+    }
+
+    /**
+     * [24082022] Added by Nhung Cao - US-TMS-00019
+     */
+    public List<Vehicle_Purchase_Order__c> getRecordsByPOIds(List<Id> poIds) 
+    {
+        adglib_QueryFactory vpoQueryFactory = newQueryFactory();
+        vpoQueryFactory.setCondition('TMS_Purchase_Order__c IN :poIds');
+
+        return Database.query(vpoQueryFactory.toSOQL());
+    }
+
+    /**
+     * [30082022] Added by Nhung Cao - US-TMS-00019
+     */
+    public List<Vehicle_Purchase_Order__c> getRecordsBySVMIds(Set<Id> svmIds) 
+    {
+        adglib_QueryFactory query = newQueryFactory();
+        query.setCondition('Id IN :svmIds');
+
+        return Database.query(query.toSOQL());
+    }
+
 }

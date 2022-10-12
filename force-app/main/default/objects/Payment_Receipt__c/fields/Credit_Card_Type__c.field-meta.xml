@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Credit_Card_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>BrainTree or Credit Card Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Payment_Mode__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>DBS -  NEW VISA</fullName>
+                <default>false</default>
+                <label>DBS -  NEW VISA</label>
+            </value>
+            <value>
+                <fullName>AMEX BELOW 3K</fullName>
+                <default>false</default>
+                <label>AMEX BELOW 3K</label>
+            </value>
+            <value>
+                <fullName>AMEX 1K TO 19999</fullName>
+                <default>false</default>
+                <label>AMEX 1K TO 19999</label>
+            </value>
+            <value>
+                <fullName>AMEX 20K TO 99999</fullName>
+                <default>false</default>
+                <label>AMEX 20K TO 99999</label>
+            </value>
+            <value>
+                <fullName>AMEX 100K AND ABOVE</fullName>
+                <default>false</default>
+                <label>AMEX 100K AND ABOVE</label>
+            </value>
+            <value>
+                <fullName>BrainTree</fullName>
+                <default>false</default>
+                <label>BrainTree</label>
+            </value>
+            <value>
+                <fullName>AMEX</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>AMEX</label>
+            </value>
+            <value>
+                <fullName>AMEX ABOVE 3K</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>AMEX ABOVE 3K</label>
+            </value>
+            <value>
+                <fullName>AMEX BELOW 1K</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>AMEX BELOW 1K</label>
+            </value>
+            <value>
+                <fullName>CITIBANK 12MTHS</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>CITIBANK 12MTHS</label>
+            </value>
+            <value>
+                <fullName>CITIBANK 24MTHS</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>CITIBANK 24MTHS</label>
+            </value>
+            <value>
+                <fullName>CITIBANK 36MTHS</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>CITIBANK 36MTHS</label>
+            </value>
+            <value>
+                <fullName>CITIBANK 3MTHS</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>CITIBANK 3MTHS</label>
+            </value>
+            <value>
+                <fullName>CITIBANK 6MTHS</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>CITIBANK 6MTHS</label>
+            </value>
+            <value>
+                <fullName>CITIBANK READYCREDIT</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>CITIBANK READYCREDIT</label>
+            </value>
+            <value>
+                <fullName>CITIBANK VISA</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>CITIBANK VISA</label>
+            </value>
+            <value>
+                <fullName>DBS -  NEW MAIL ORDER</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>DBS -  NEW MAIL ORDER</label>
+            </value>
+            <value>
+                <fullName>DBS 12MTHS</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>DBS 12MTHS</label>
+            </value>
+            <value>
+                <fullName>DBS 24 MTHS(CCK)</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>DBS 24 MTHS(CCK)</label>
+            </value>
+            <value>
+                <fullName>DBS 24MTHS</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>DBS 24MTHS</label>
+            </value>
+            <value>
+                <fullName>DBS 6MTHS</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>DBS 6MTHS</label>
+            </value>
+            <value>
+                <fullName>DBS VISA</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>DBS VISA</label>
+            </value>
+            <value>
+                <fullName>DBSH VISA</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>DBSH VISA</label>
+            </value>
+            <value>
+                <fullName>DINER</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>DINER</label>
+            </value>
+            <value>
+                <fullName>MAYBANK 12MTHS</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>MAYBANK 12MTHS</label>
+            </value>
+            <value>
+                <fullName>MAYBANK 6MTHS</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>MAYBANK 6MTHS</label>
+            </value>
+            <value>
+                <fullName>SCB VISA</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>SCB VISA</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Credit Card</controllingFieldValue>
+            <valueName>DBS -  NEW VISA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit Card</controllingFieldValue>
+            <valueName>AMEX BELOW 3K</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit Card</controllingFieldValue>
+            <valueName>AMEX 1K TO 19999</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit Card</controllingFieldValue>
+            <valueName>AMEX 20K TO 99999</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit Card</controllingFieldValue>
+            <valueName>AMEX 100K AND ABOVE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Braintree</controllingFieldValue>
+            <valueName>BrainTree</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>
