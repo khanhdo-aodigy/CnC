@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Invoice_with_Sales_Agreement</fullName>
+    <active>true</active>
+    <label>Invoice with Sales Agreement</label>
+    <picklistValues>
+        <picklist>Branch_Code__c</picklist>
+        <values>
+            <fullName>CCA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CCF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CCK</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Registration_Type__c</picklist>
+        <values>
+            <fullName>C</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>P</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Invoiced</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reversed</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

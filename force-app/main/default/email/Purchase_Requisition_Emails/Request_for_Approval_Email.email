@@ -1,7 +1,7 @@
 Dear {!ApprovalRequest.Process_Approver},
 
-A Vehicle Purchase Order needs your approval. Please click on the link below to approve/reject.
+Purchase Order {!Vehicle_Purchase_Order__c.Name} is ready for your approval. Please click on the link below for more details.
 
 {!ApprovalRequest.Internal_URL}
 
-Thank you!
+Thank you.

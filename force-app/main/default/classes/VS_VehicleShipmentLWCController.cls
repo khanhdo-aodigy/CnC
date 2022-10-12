@@ -365,82 +365,81 @@ public without sharing class VS_VehicleShipmentLWCController
     {
         Boolean result = false;
         
-        try 
-        {
-            Inward_Declaration__c inwardDec = InwardDeclarationService.getByIdsWithInvoices(new Set<Id> {inwardDeclarationId}, false)?.get(0);
+    //     try 
+    //     {
+    //         Inward_Declaration__c inwardDec = InwardDeclarationService.getByIdsWithInvoices(new Set<Id> {inwardDeclarationId}, false)?.get(0);
 
-            if (String.isNotBlank(inwardDec?.Transaction_ID__c))
-            {
-                List<serviceDataPool.ServiceDataPoolWrapper> serviceWrapper = new List<serviceDataPool.ServiceDataPoolWrapper>();
+    //         if (String.isNotBlank(inwardDec?.Transaction_ID__c))
+    //         {
+    //             List<serviceDataPool.ServiceDataPoolWrapper> serviceWrapper = new List<serviceDataPool.ServiceDataPoolWrapper>();
 
-                VS_HttpCalloutUtil.ResponseWrapper wrapper = VS_HttpCalloutUtil.invokeApiCallToGetResponse(VS_HttpCalloutUtil.generateHttpRequestPayloadForResponseAPI(inwardDec?.Transaction_ID__c), inwardDec?.Transaction_ID__c);
-                HttpResponse httpRes                       = wrapper.res;
-                Map<String, Object> response               = (Map<String, Object>) JSON.deserializeUntyped(httpRes.getBody());
+    //             VS_HttpCalloutUtil.ResponseWrapper wrapper = VS_HttpCalloutUtil.invokeApiCallToGetResponse(VS_HttpCalloutUtil.generateHttpRequestPayloadForResponseAPI(inwardDec?.Transaction_ID__c), inwardDec?.Transaction_ID__c);
+    //             HttpResponse httpRes                       = wrapper.res;
+    //             Map<String, Object> response               = (Map<String, Object>) JSON.deserializeUntyped(httpRes.getBody());
     
-                serviceWrapper.add(wrapper.serviceDataPoolWrapper);
+    //             serviceWrapper.add(wrapper.serviceDataPoolWrapper);
     
-                serviceDataPool.buildListServiceDataPoolHttp(serviceWrapper);
+    //             serviceDataPool.buildListServiceDataPoolHttp(serviceWrapper);
     
-                if (response.get('status') == 'S001')
-                {
-                    List<Object> data = (List<Object>) response.get('data');
+    //             if (response.get('status') == 'S001')
+    //             {
+    //                 List<Object> data = (List<Object>) response.get('data');
 
-                    if (data <> null && data.size() > 0)
-                    {
-                        Map<String, Object> dataMap  = (Map<String, Object>) (data[0]);
-                        Map<String, Object> resMap   = (Map<String, Object>) dataMap.get('Response');
-                        String status                = resMap.get('StatusDesc')?.toString();
+    //                 if (data <> null && data.size() > 0)
+    //                 {
+    //                     Map<String, Object> dataMap  = (Map<String, Object>) (data[0]);
+    //                     Map<String, Object> resMap   = (Map<String, Object>) dataMap.get('Response');
+    //                     String status                = resMap.get('StatusDesc')?.toString();
                         
-                        if (status == 'Declaration Approved')
-                        {
-                            List<Object> remarks = (List<Object>) resMap.get('Remarks');
+    //                     if (status == 'Declaration Approved')
+    //                     {
+    //                         List<Object> remarks = (List<Object>) resMap.get('Remarks');
 
-                            if (remarks <> null && remarks.size() > 0)
-                            {
-                                Map<String, Object> remarksMap  = (Map<String, Object>) (remarks[0]);
-                                Map<String, Object> permitMap   = (Map<String, Object>) remarksMap.get('permit');
-                                String permitNo                 = permitMap.get('pmt_no')?.toString();
+    //                         if (remarks <> null && remarks.size() > 0)
+    //                         {
+    //                             Map<String, Object> remarksMap  = (Map<String, Object>) (remarks[0]);
+    //                             Map<String, Object> permitMap   = (Map<String, Object>) remarksMap.get('permit');
+    //                             String permitNo                 = permitMap.get('pmt_no')?.toString();
 
-                                if (String.isNotBlank(permitNo))
-                                {
-                                    result = updatePermitNo(inwardDec.Id, inwardDec.Vehicle_Shipment__c, permitNo);
-                                }
-                                else 
-                                {
-                                    throwError('Permit has not been approved yet!');
-                                }
-                            }
-                        }
-                        else 
-                        {
-                            throwError('Permit has not been approved yet!');
-                        }
-                    }
-                }
-            }
-        } 
-        catch (Exception e) 
-        {
-            loggerDataPool.buildLogDataPool('retrievePermitNo', e);
-            throwError(e.getMessage() + ' -- ' + e.getLineNumber());
-        }
+    //                             if (String.isNotBlank(permitNo))
+    //                             {
+    //                                 result = updatePermitNo(inwardDec.Id, inwardDec.Vehicle_Shipment__c, permitNo);
+    //                             }
+    //                             else 
+    //                             {
+    //                                 throwError('Permit has not been approved yet!');
+    //                             }
+    //                         }
+    //                     }
+    //                     else 
+    //                     {
+    //                         throwError('Permit has not been approved yet!');
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     } 
+    //     catch (Exception e) 
+    //     {
+    //         loggerDataPool.buildLogDataPool('retrievePermitNo', e);
+    //         throwError(e.getMessage() + ' -- ' + e.getLineNumber());
+    //     }
 
-        return result;
-    }
+    //     return result;
+    // }
 
-    @TestVisible
-    private static Boolean updatePermitNo(Id inwardDecId, Id vehicleShipmentId, String permitNo)
-    {
-        try 
-        {
-            ADGLIB_SObjectUnitOfWork uow = new ADGLIB_SObjectUnitOfWork(new Schema.SObjectType[] {Inward_Declaration__c.SObjectType, Vehicle_Shipment__c.SObjectType});
+    // private static Boolean updatePermitNo(Id inwardDecId, Id vehicleShipmentId, String permitNo)
+    // {
+    //     try 
+    //     {
+    //         ADGLIB_SObjectUnitOfWork uow = new ADGLIB_SObjectUnitOfWork(new Schema.SObjectType[] {Inward_Declaration__c.SObjectType, Vehicle_Shipment__c.SObjectType});
 
-            uow.registerDirty(new Inward_Declaration__c(Id = inwardDecId, TN_Permit_No__c = permitNo));
+    //         uow.registerDirty(new Inward_Declaration__c(Id = inwardDecId, TN_Permit_No__c = permitNo));
             
-            if (String.isNotBlank(vehicleShipmentId))
-            {
-                uow.registerDirty(new Vehicle_Shipment__c(Id = vehicleShipmentId, TN_Permit_No__c = permitNo));
-            } 
+    //         if (String.isNotBlank(vehicleShipmentId))
+    //         {
+    //             uow.registerDirty(new Vehicle_Shipment__c(Id = vehicleShipmentId, TN_Permit_No__c = permitNo));
+    //         } 
                  
             uow.commitWork();
         } 

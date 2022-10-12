@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EEAI_Percentage__c</fullName>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>EEAI Percentage</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <type>Percent</type>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Receipt_Amount__c</fullName>
+    <externalId>false</externalId>
+    <label>Total Receipt Amount</label>
+    <summarizedField>Payment_Receipt_Line_Item__c.Document_Amount__c</summarizedField>
+    <summaryForeignKey>Payment_Receipt_Line_Item__c.Payment_Receipt__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

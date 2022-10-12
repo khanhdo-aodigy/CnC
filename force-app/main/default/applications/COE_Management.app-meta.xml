@@ -2,8 +2,8 @@
 <CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>View</actionName>
-        <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>COE_Bid_Period_Record_Page1</content>
+        <comment>Action override updated by Lightning App Builder during activation.</comment>
+        <content>COE_Bid_Period_Record_Page2</content>
         <formFactor>Small</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
@@ -11,8 +11,8 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>COE_Bid_Period_Record_Page1</content>
+        <comment>Action override updated by Lightning App Builder during activation.</comment>
+        <content>COE_Bid_Period_Record_Page2</content>
         <formFactor>Large</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
@@ -27,13 +27,16 @@
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <label>COE Management</label>
     <navType>Standard</navType>
+    <tabs>COE_Bidding</tabs>
     <tabs>COE_Bid_Period__c</tabs>
     <tabs>COE__c</tabs>
     <tabs>Sales_Agreement__c</tabs>
-    <tabs>MB_Sales_Agreement__c</tabs>
     <tabs>standard-report</tabs>
+    <tabs>TMS_Duty__c</tabs>
+    <tabs>ARF_Tier__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>COE_Management_UtilityBar</utilityBar>
 </CustomApplication>
