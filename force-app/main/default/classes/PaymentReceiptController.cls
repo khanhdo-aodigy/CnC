@@ -162,6 +162,7 @@ public without sharing class PaymentReceiptController {
                 prli.Document_Amount__c = item.documentAmount;
                 prli.Payment_Type__c    = paymentReceipt.Type__c;
                 prli.Status__c          = 'Posted';
+                prli.GST_Percentage__c  = paymentReceipt.GST_Percentage__c;
 
                 prliList.add(prli);
 
@@ -182,7 +183,8 @@ public without sharing class PaymentReceiptController {
             insert debtorTransList;
 
             prliList = [ SELECT Id, Document_Type__c, Sales_Agreement__c, Sales_Agreement__r.Name,
-                                Payment_Receipt__r.Name, Document_Amount__c, DB_CR__c
+                                Payment_Receipt__r.Name, Document_Amount__c, DB_CR__c, GST_Percentage__c,
+                                Payment_Type__c
                          FROM Payment_Receipt_Line_Item__c
                          WHERE Payment_Receipt__c = :paymentReceipt.Id
             ];

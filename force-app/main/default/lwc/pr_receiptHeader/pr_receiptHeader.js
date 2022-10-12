@@ -53,7 +53,7 @@ export default class Pr_receiptHeader extends LightningElement {
 
     init(sa) {
         const _receipt = {};
-        _receipt.Sales_Agreement__c = sa.Id;
+        // _receipt.Sales_Agreement__c = sa.Id;
         _receipt.Status__c = 'Posted';
         _receipt.Bill_To__c = sa.Account__c;
         _receipt.Registered_Party__c = sa.Account__c;

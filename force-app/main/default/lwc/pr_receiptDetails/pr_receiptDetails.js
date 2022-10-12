@@ -97,33 +97,38 @@ export default class Pr_receiptDetails extends LightningElement {
                     }
                 )
             } else {
-                this.tableData = {
+                this.tableData.push({
                     key: sa.Id,
                     props: [
                         {
                             fieldName: 'salesAgreementName',
                             fieldValue: sa.Name,
-                            disabled: true
+                            editable: false
+                        },
+                        {
+                            fieldName: 'salesInvoiceName',
+                            fieldValue: '',
+                            editable: false
                         },
                         {
                             fieldName: 'documentAmount',
                             fieldValue: sa.Vehicle_Purchase_Price__c,
-                            disabled: true
+                            editable: false
                         },
                         {
                             fieldName: 'outstandingAmount',
-                            fieldValue: si.Invoice_Value__c,
-                            disabled: true
+                            fieldValue: sa.BalancePayment__c,
+                            editable: false
                         }
                     ]
-                };
+                });
 
                 this.receiptDetails =  [
                     {
                         salesAgreementId   : sa.Id,
                         documentAmount     : sa.Vehicle_Purchase_Price__c,
                         outstandingAmount  : sa.BalancePayment__c,
-                        key           : sa.Id,
+                        key                : sa.Id,
                     },
                     {
                         key: "unallocated",

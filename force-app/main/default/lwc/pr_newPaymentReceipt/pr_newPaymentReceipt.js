@@ -60,10 +60,12 @@ export default class Pr_newPaymentReceipt extends LightningElement {
                 chequeFields.forEach(elem=>{
                     elem.value = '';
                     elem.disabled = true;
+                    elem.style = 'display:none';
                 })
             } else {
                 chequeFields.forEach(elem=>{
                     elem.disabled = false;
+                    elem.style = 'display:block';
                 })
             }
         }
