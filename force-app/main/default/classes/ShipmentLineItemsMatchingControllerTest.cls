@@ -28,7 +28,13 @@ private with sharing class ShipmentLineItemsMatchingControllerTest
         insert modelColorTrimMaster;
 
         // create supplier account
-        Account supplier = Test_DataFactory.createAccount(true, 'Supplier Account');
+        Account supplier = Test_DataFactory.createAccount(false, 'Supplier Account');
+
+        Id PrincipalRecordTypeId = Account.getSObjectType().getDescribe().getRecordTypeInfosByDeveloperName().get('Principal').getRecordTypeId();
+
+        supplier.RecordTypeId = PrincipalRecordTypeId;
+
+        insert supplier;
 
         // create a vehicle shipment record
         Vehicle_Shipment__c shipment = new Vehicle_Shipment__c(Franchise_Code__c = 'KIAPC', Supplier_Account__c = supplier.Id, Currency_Code__c = 'SGD');
@@ -37,7 +43,7 @@ private with sharing class ShipmentLineItemsMatchingControllerTest
         // create a vehicle purchase order record
         Vehicle_Purchase_Order__c order = new Vehicle_Purchase_Order__c(
             Franchise_Code__c = 'KIAPC',
-            Production_Month__c = Date.today(),
+            Production_Month__c = Date.newInstance(Date.today().year(), Date.today().month(), 1),
             Supplier_Account__c = supplier.Id,
             Currency_Code__c = 'USD'
         );
@@ -178,6 +184,32 @@ private with sharing class ShipmentLineItemsMatchingControllerTest
         {
             System.assert(e instanceof AuraHandledException, 'Error message: ' + e.getMessage());
         }
+    }
+
+    @IsTest
+    private static void shipmentUnmatchingSuccess()
+    {
+        Model_Color_Trim_Master__c modelColorTrimMaster = [SELECT Model_Code__c, Color_Code__c, Trim_Code__c, Model_Code__r.Name, Color_Code__r.ColorCode__c, Trim_Code__r.Name FROM Model_Color_Trim_Master__c WHERE Franchise_Code__c = 'KIAPC'];
+
+        Model_Year_Master__c modelYearMaster = [SELECT Id FROM Model_Year_Master__c WHERE Model_Master__c = :modelColorTrimMaster.Model_Code__c];
+
+        // create shipment line item with similar model / color / trim combination
+        Vehicle_Shipment__c shipment = [SELECT Id FROM Vehicle_Shipment__c WHERE Franchise_Code__c = 'KIAPC'];
+
+        Shipment_Line_Item__c shipmentLineItem = createShipmentLineItem(shipment.Id, modelColorTrimMaster);
+        insert shipmentLineItem;
+
+        // create another non-eligible stock, this stock will be manual match
+        Vehicle_Master2__c vehicle = createNonEligibleVehicle(modelColorTrimMaster, modelYearMaster.Id);
+        vehicle.Shipment_Line_Item__c = shipmentLineItem.Id;
+        insert vehicle;
+
+        // manual match
+        ShipmentLineItemsMatchingController.shipmentUnmatchingById(shipmentLineItem.Id, vehicle.Id);
+
+        Vehicle_Master2__c updatedVehicle = [SELECT Id, Shipment_Line_Item__c FROM Vehicle_Master2__c WHERE Id = :vehicle.Id];
+
+        System.assert(String.isBlank(updatedVehicle.Shipment_Line_Item__c), 'Stock is linked to shipment line item: ' + shipmentLineItem.Id);
     }
 
     /**
