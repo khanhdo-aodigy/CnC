@@ -19,22 +19,34 @@ export default class Vpo_getVPOLIDetails extends LightningElement
         {label:'Total Price', fieldName:'Total_Price__c' , type:'text'} ,
         {label:'Remarks', fieldName:'Remarks__c' , type:'text'}       
     ]
+
+    get showTable()
+    {
+        return this.items?.length > 0;
+    }
     
     @wire (getVPOLIDetail, {parentId: '$parentId'}) 
-    wiredProps(result){
+    wiredProps(result)
+    {
         this.wiredRecords = result;
-        if(result.data){
+        if(result.data)
+        {
+            this.items = [];
             if(result.data.length > 0)
-            this.items= JSON.parse(JSON.stringify(result.data));
-            this.items && this.items.forEach(element => {
-                element.model_Master_Name_ = element.Model_Master__r.Name;
-                element.trim_Master_Description_ = element.Trim_Master__r.Trim_Description__c
+            {
+                this.items = JSON.parse(JSON.stringify(result.data));
+                this.items && this.items.forEach(element => 
+                {
+                    element.model_Master_Name_ = element.Model_Master__r.Name;
+                    element.trim_Master_Description_ = element.Trim_Master__r.Trim_Description__c
 
-            });
+                });
+            }
         }
     }
     
-    @api refreshTable(){
+    @api refreshTable()
+    {
         refreshApex(this.wiredRecords);
     }
 }

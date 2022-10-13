@@ -39,7 +39,7 @@ export default class Vpo_createVPOLIDetails extends LightningElement
     spinner       = false;
     isError       = false;
     errorMessage;  
-
+    
     @wire(getRecord, {recordId: '$parentId', fields: [FRANCHISE_CODE]}) 
     wiredVPO({error, data}) 
     {
@@ -182,7 +182,6 @@ export default class Vpo_createVPOLIDetails extends LightningElement
                         
             if (inputCmp.name === 'Units_Ordered__c')
             {
-                console.log(inputCmp.value);
                 if (inputCmp.value !== ''
                     && inputCmp.value !== undefined 
                         && inputCmp.value !== null
@@ -253,17 +252,18 @@ export default class Vpo_createVPOLIDetails extends LightningElement
             {
                 this.isError      = false;
                 this.errorMessage = '';
+
+                this.invokePrimaryRecords( result );
+
                 this.refreshAllValues();
+                
                 this.showNotification('Success!', 'New Vehicle Purchase Order Line Item has been successfully created!', 'success', 'dismissible');
-                this.template.querySelector('c-vpo_get-V-P-O-L-I-Details').refreshTable();
                 this.spinner = false;
             }
         }).
         catch((error) =>
         {
-            console.log('upsertVPOLI - Error: ' + error.body.message);  
             this.refreshAllValues();
-            this.template.querySelector('c-vpo_get-V-P-O-L-I-Details').refreshTable();
             
             if (error.body.message === 'Invalid Stage')
             {
@@ -285,9 +285,10 @@ export default class Vpo_createVPOLIDetails extends LightningElement
     {
         this.details         = {};
         this.colorMasterList = this.trimMasterList = this.modelYearMasterList = [];
-        this.template.querySelectorAll('lightning-combobox').forEach(el => el.value = '');
-        this.template.querySelectorAll('lightning-input').forEach(el => {el.value = ''; el.setCustomValidity(''); el.reportValidity();});
-        this.template.querySelectorAll('c-common_-lookup-input').forEach(el => {el.defaultRecord = '';});
+        this.template.querySelectorAll('lightning-combobox')?.forEach(el => el.value = '');
+        this.template.querySelectorAll('lightning-input')?.forEach(el => {el.value = ''; el.setCustomValidity('');});
+        this.template.querySelectorAll('c-common_-lookup-input')?.forEach(el => {el.defaultRecord = '';});
+        this.template.querySelector('c-vpo_get-V-P-O-L-I-Details')?.refreshTable();
     }
 
     showNotification(title, message, variant, mode)

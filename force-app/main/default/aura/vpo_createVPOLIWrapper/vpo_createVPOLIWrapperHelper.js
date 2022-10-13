@@ -44,6 +44,7 @@
           "recordId": component.get("v.parentId")
         });
         navEvt.fire();
+        $A.getCallback(function(){ $A.get('e.force:refreshView').fire(); }, 500);
     },
 
     getParameterByName: function(component, event, name, url) 
