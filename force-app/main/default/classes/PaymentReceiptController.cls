@@ -96,7 +96,6 @@ public without sharing class PaymentReceiptController {
         @AuraEnabled public String salesAgreementName { get; set; }
         @AuraEnabled public String salesInvoiceId { get; set; }
         @AuraEnabled public String salesInvoiceName { get; set; }
-        @AuraEnabled public Date receiptDate { get; set; }
         @AuraEnabled public Decimal documentAmount { get; set; }
         @AuraEnabled public Decimal outstandingAmount { get; set; }
         @AuraEnabled public Decimal paymentAmount { get; set; }
@@ -167,15 +166,18 @@ public without sharing class PaymentReceiptController {
                 prliList.add(prli);
 
                 Debtor_Transaction__c debtorTran  = new Debtor_Transaction__c();
-                debtorTran.Billing_Account__c     = paymentReceipt.Bill_To__c;
-                debtorTran.Credit_Debit__c        = 'Credit';
-                debtorTran.Date__c                = item.receiptDate;
-                debtorTran.Document_Amount__c     = item.documentAmount;
                 debtorTran.Franchise_Code__c      = paymentReceipt.Franchise_Code__c;
-                debtorTran.Matched_Amount__c      = item.paymentAmount;
-                debtorTran.Transaction_Type__c    = 'Sales Agreement';
+                debtorTran.Billing_Account__c     = paymentReceipt.Bill_To__c;
+                debtorTran.Transaction_Type__c    = prli.Payment_Type__c;
+                debtorTran.Date__c                = paymentReceipt.Receipt_Date__c;
+                debtorTran.Due_Date__c            = null;
+                debtorTran.Credit_Debit__c        = 'Credit';
+                debtorTran.Document_Amount__c     = item.documentAmount;
+                debtorTran.Amount__c              = item.paymentAmount;
+                //debtorTran.Matched_Amount__c      = item.paymentAmount;
                 debtorTran.Payment_Receipt__c     = paymentReceipt.Id;
                 debtorTran.Sales_Agreement__c     = item.salesAgreementId;
+                debtorTran.Sales_Invoice__c     = item.salesInvoiceId;
                 debtorTransList.add(debtorTran);
             }
   
