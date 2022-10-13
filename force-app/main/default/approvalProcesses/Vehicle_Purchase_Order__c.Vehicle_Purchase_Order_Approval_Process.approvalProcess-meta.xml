@@ -118,6 +118,12 @@
     </initialSubmissionActions>
     <label>Vehicle Purchase Order Approval Process</label>
     <processOrder>1</processOrder>
+    <recallActions>
+        <action>
+            <name>Stage_to_Draft</name>
+            <type>FieldUpdate</type>
+        </action>
+    </recallActions>
     <recordEditability>AdminOnly</recordEditability>
     <showApprovalHistory>false</showApprovalHistory>
 </ApprovalProcess>
