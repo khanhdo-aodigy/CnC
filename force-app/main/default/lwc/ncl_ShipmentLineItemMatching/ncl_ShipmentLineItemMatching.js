@@ -26,6 +26,11 @@ import shipmentsAutoMatching from '@salesforce/apex/ShipmentLineItemsMatchingCon
 import shipmentManualMatchById from '@salesforce/apex/ShipmentLineItemsMatchingController.shipmentManualMatchById';
 
 /**
+ * Unmatch vehicle shipment line item and stock vehicle master
+ */
+import shipmentUnmatchingById from '@salesforce/apex/ShipmentLineItemsMatchingController.shipmentUnmatchingById';
+
+/**
  * Refresh wired attribute / function
  */
 import { refreshApex } from '@salesforce/apex';
@@ -69,6 +74,10 @@ const LINE_ITEM_HEADERS = [
                 {
                     label: 'Manual Assign',
                     name: 'manual_assign'
+                },
+                {
+                    label: 'Unmatching',
+                    name: 'unmatching'
                 }
             ]
         }
@@ -141,49 +150,6 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
      */
     @track startManualAssigning;
 
-    // constructor()
-    // {
-    //     super();
-    //     // dynamic row action
-    //     this.headers_ = this.headers_.concat({
-    //         type: 'action',
-    //         typeAttributes: {
-    //             rowActions: this.getRowActions_
-    //         }
-    //     });
-    // }
-
-    // renderedCallback()
-    // {
-    //     console.log(this.headers_);
-    // }
-
-    // getRowActions_(row, doneCallback)
-    // {
-    //     const actions = [];
-
-    //     // re-assign action
-    //     if (row.matched_)
-    //     {
-    //         actions.push({
-    //             'label': 'Re-assign',
-    //             'name': 'reassign'
-    //         });
-    //     }
-    //     // manual assign action
-    //     else
-    //     {
-    //         actions.push({
-    //             'label': 'Manual Assign',
-    //             'name': 'manual_assign'
-    //         });
-    //     }
-
-    //     setTimeout(() => {
-    //         doneCallback(actions);
-    //     }, 200);
-    // }
-
     /**
      * On component init, call server to get Vehicle Shipment details include all line items and matched stock vehicle master
      * @param {*} result 
@@ -211,6 +177,10 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
         }
     }
 
+    /**
+     * handler for action in lightning data table
+     * @param {*} event 
+     */
     handleRowAction(event)
     {
         const actionName = event.detail.action.name;
@@ -220,6 +190,9 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
         switch (actionName) {
             case 'manual_assign':
                 this.beginManualAssign(row);
+                break;
+            case 'unmatching':
+                this.beginUnmatching(row);
                 break;
             default:
         }
@@ -233,6 +206,42 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
     {
         // this.selectedLineItemId_ = e.currentTarget.dataset.lineItemId;
         this.selectedLineItemId_ = row.Id;
+    }
+
+    /**
+     * Handler for unmatch a line item
+     * @param {*} row 
+     * @returns 
+     */
+    beginUnmatching(row)
+    {
+        if (!row.matchStockId_)
+        {
+            this.showNotification_('Warning', 'This line item is not matched with a stock', 'warning', 'dissmissible');
+            return;
+        }
+
+        this.ready = false;
+
+        shipmentUnmatchingById({
+            shipmentLineItemId : row.Id,
+            stockVehicleMasterId : row.matchStockId_
+        })
+        .then(result => {
+
+            this.showNotification_('Success', 'Successfully unmatch shipment line item and stock vehicle master', 'success', 'dismissible');
+
+            refreshApex(this.wiredVehicleShipmentDetail);
+        })
+        .catch(error => {
+            
+            this.showNotification_('Unexpected error', 'Unexpected error on manual assigning. Please contact System Administrator.', 'error', 'sticky');
+            
+            console.error(error);
+        })
+        .finally(() => {
+            this.ready = true;
+        })
     }
 
     /**
@@ -280,7 +289,9 @@ export default class ncl_ShipmentLineItemMatching extends LightningElement
             refreshApex(this.wiredVehicleShipmentDetail);
         })
         .catch(error => {
+            
             this.showNotification_('Unexpected error', 'Unexpected error on manual assigning. Please contact System Administrator.', 'error', 'sticky');
+            
             console.error(error);
         })
         .finally(() => {

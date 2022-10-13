@@ -10,46 +10,7 @@
                                     wrap-text-max-lines="5"
                                     onrowaction={handleRowAction}>
             </lightning-datatable>
-            <!-- <table class="fixed-width-table">
-                <tr class="slds-theme_shade">
-                    <th>Shipment Line Item</th>
-                    <th>Prod Mth</th>
-                    <th>Variant</th>
-                    <th>Color</th>
-                    <th>Trim</th>
-                    <th>Engine No</th>
-                    <th>Chassis No</th>
-                    <th>Manufacturer Ref No</th>
-                    <th>Stock Vehicle Master</th>
-                    <th>Stock Vehicle Status</th>
-                    <th>Action</th>
-                </tr>
-                <template for:each={shipmentLineItems} for:item="item">
-                    <tr key={item.id}>
-                        <td>{item.Name}</td>
-                        <td>{item.Production_Month__c}</td>
-                        <td>{item.Model__c}</td>
-                        <td>{item.Colour_Code__c}</td>
-                        <td>{item.Trim__c}</td>
-                        <td>{item.Engine_No__c}</td>
-                        <td>{item.Chassis_No__c}</td>
-                        <td>{item.Manufacturer_Ref_No__c}</td>
-                        <td>
-                            <a href={item.matchStockUrl_} target="_blank">{item.matchStockName_}</a>
-                        </td>
-                        <td>{item.matchStockStatus_}</td>
-                        <td>
-                            <template if:true={item.matched_}>
-                                <lightning-button variant="netral" label="Re-Assign" onclick={beginManualAssign} data-line-item-id={item.Id}></lightning-button>
-                            </template>
-                            <template if:false={item.matched_}>
-                                &nbsp;
-                                <lightning-button variant="brand" label="Manual Assign" onclick={beginManualAssign} data-line-item-id={item.Id}></lightning-button>
-                            </template>
-                        </td>
-                    </tr>
-                </template>
-            </table> -->
+            
             <div class="slds-align_absolute-center slds-var-p-top_x-large slds-var-p-bottom_x-large">
                 <lightning-button variant="neutral" label="Quit" onclick={quitMatching} class="slds-var-p-around_medium"></lightning-button>
                 <lightning-button variant="brand" label="Auto Matching" onclick={doAutoMatching} class="slds-var-p-around_medium" disabled={disableAutoAssignButton}></lightning-button>
