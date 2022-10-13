@@ -295,6 +295,45 @@ public inherited sharing class VehicleShipmentServices
 
     /**
      * ============================================================================================
+     * Unmatch a shipment line item from stock vehicle master and revert the post matching logic
+     * @param shipmentLineItemId: shipment line item id for unmatching
+     * @param stockVehicleMasterId: stockv vehicle id for unmatching
+     * History
+     *          DATE::                              BY::                                CHANGELOG
+     *          13 Oct 2022                         dangphap.mai@aodigy.com             init
+     * ============================================================================================
+     */
+    public static void shipmentUnmatchingById(String shipmentLineItemId, String stockVehicleMasterId)
+    {
+        Shipment_Line_Item__c shipmentLineItem = [  SELECT  Name, Model__c, Colour_Code__c, Trim__c, Manufacturer_Ref_No__c, Production_Month__c, Vehicle_Shipment__c,
+                                                            FOB_Amount__c, FOB_Amount_Currency_Code__c, Franchise_Code__c, Freight_Charges__c, Freight_Charges_Currency_Code__c,
+                                                            Insurance_Charges__c, Insurance_Charges_Currency_Code__c, Ex_Factory_Charges__c, Ex_Factory_Charges_Currency_Code__c,
+                                                            Transport_Charges__c, Transport_Charges_Currency_Code__c, Other_Charges__c, Other_Charges_Currency_Code__c,
+                                                            TN_HS_Code__c, Product_Code_Description__c, Engine_No__c, Chassis_No__c, Invoice_No__c, Vessel_Name__c, Invoice_No__r.Invoice_No__c
+                                                    FROM Shipment_Line_Item__c
+                                                    WHERE Id =:shipmentLineItemId
+                                                ];
+
+        List<Vehicle_Master2__c> matchedStocks = [  SELECT  Id, Model_Code__c, Color_Code__c, Trim_Code__c, Production_Month__c, Shipment_Line_Item__c, Vehicle_Shipment__c,
+                                                            Vehicle_Purchase_Status__c, Purchase_Order_Status__c, Vehicle_Status__c, CreatedDate, Reservation_Start_Date__c,
+                                                            Model_Code__r.Name, Color_Code__r.ColorCode__c, Trim_Code__r.Name, Manufacturer_Ref_No__c,
+                                                            FOB_Amount__c, FOB_Amount_Currency_Code__c, Franchise_Code__c, Freight_Charges__c, Freight_Charges_Currency_Code__c,
+                                                            Insurance_Charges__c, Insurance_Charges_Currency_Code__c, Ex_Factory_Charges__c, Ex_Factory_Charges_Currency_Code__c,
+                                                            Transport_Charges__c, Transport_Charges_Currency_Code__c, Other_Charges__c, Other_Charges_Currency_Code__c
+                                                    FROM Vehicle_Master2__c
+                                                    WHERE Id =:stockVehicleMasterId
+                                                ];
+
+        if (matchedStocks.size() > 0)
+        {
+            beginShipmentUnmatching(matchedStocks, shipmentLineItem);
+
+            update matchedStocks;
+        }
+    }
+
+    /**
+     * ============================================================================================
      * Check if stock vehicle master is tier 1 for matching
      * @param stock: stock vehicle master for checking
      * History
@@ -626,7 +665,6 @@ public inherited sharing class VehicleShipmentServices
      *       27 Aug 2022                         phan.thu@aodigy.com                       init
      * ============================================================================================
     */
-
     public static Vehicle_Shipment__c getByIdWithInvoicesAndLineItemsAndSVMs (String Id, Boolean withInvoices, Boolean withLineItems, Boolean withSVMs)
     {
         return sel.selectByIdWithInvoicesAndLineItemsAndSVMs(Id, withInvoices, withLineItems, withSVMs);

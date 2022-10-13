@@ -4,7 +4,8 @@
  * Create Date: Aug 2022
  * History
  *          DATE::                              BY::                                TICKET::                                            CHANGELOG
- *          18 Aug 2022                         dangphap.mai@aodigy.com             US-Ship-000008                                       init
+ *          18 Aug 2022                         dangphap.mai@aodigy.com             US-Ship-000008                                      init
+ *          13 Oct 2022                         dangphap.mai@aodigy.com             LOG-0018                                            added shipmentUnmatchingById
  * ========================================================================================================================================================================== 
  */
 public with sharing class ShipmentLineItemsMatchingController
@@ -79,7 +80,31 @@ public with sharing class ShipmentLineItemsMatchingController
             System.debug('ShipmentLineItemsMatchingController :: shipmentManualMatchById :: Exception Stack Trace > ' + e.getStackTraceString());
             throw new AuraHandledException(e.getMessage());
         }
-        
+    }
+
+    /**
+     * ============================================================================================
+     * Unmatch a shipment line item from stock vehicle master and revert the post matching logic
+     * @param shipmentLineItemId: shipment line item id for unmatching
+     * @param stockVehicleMasterId: stockv vehicle id for unmatching
+     * History
+     *          DATE::                              BY::                                CHANGELOG
+     *          13 Oct 2022                         dangphap.mai@aodigy.com             init
+     * ============================================================================================
+     */
+    @AuraEnabled
+    public static void shipmentUnmatchingById(String shipmentLineItemId, String stockVehicleMasterId)
+    {
+        try
+        {
+            VehicleShipmentServices.shipmentUnmatchingById(shipmentLineItemId, stockVehicleMasterId);
+        }
+        catch (Exception e)
+        {
+            System.debug('ShipmentLineItemsMatchingController :: shipmentUnmatchingById :: Exception Message > ' + e.getMessage());
+            System.debug('ShipmentLineItemsMatchingController :: shipmentUnmatchingById :: Exception Stack Trace > ' + e.getStackTraceString());
+            throw new AuraHandledException(e.getMessage());
+        }
     }
 
     /**
