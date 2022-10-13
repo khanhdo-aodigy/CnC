@@ -49,7 +49,8 @@ public inherited sharing class VehicleShipmentServices
                                                                     FOB_Amount__c, FOB_Amount_Currency_Code__c, Franchise_Code__c, Freight_Charges__c, Freight_Charges_Currency_Code__c,
                                                                     Insurance_Charges__c, Insurance_Charges_Currency_Code__c, Ex_Factory_Charges__c, Ex_Factory_Charges_Currency_Code__c,
                                                                     Transport_Charges__c, Transport_Charges_Currency_Code__c, Other_Charges__c, Other_Charges_Currency_Code__c,
-                                                                    TN_HS_Code__c, Product_Code_Description__c, Engine_No__c, Chassis_No__c, Invoice_No__c, Vessel_Name__c, Invoice_No__r.Invoice_No__c
+                                                                    TN_HS_Code__c, Product_Code_Description__c, Engine_No__c, Chassis_No__c, Invoice_No__c, Vessel_Name__c, Invoice_No__r.Invoice_No__c,
+                                                                    Vehicle_Shipment__r.Vessel_Name__c, Vehicle_Shipment__r.Vessel_Code__c, Vehicle_Shipment__r.B_L_No__c, Vehicle_Shipment__r.ETA__c
                                                             FROM Shipment_Line_Item__c
                                                             WHERE Vehicle_Shipment__c IN :shipmentIds
                                                             AND Id NOT IN :matchedShipmentLineItemIds
@@ -68,7 +69,8 @@ public inherited sharing class VehicleShipmentServices
                                                                         FOB_Amount__c, FOB_Amount_Currency_Code__c, Franchise_Code__c, Freight_Charges__c, Freight_Charges_Currency_Code__c,
                                                                         Insurance_Charges__c, Insurance_Charges_Currency_Code__c, Ex_Factory_Charges__c, Ex_Factory_Charges_Currency_Code__c,
                                                                         Transport_Charges__c, Transport_Charges_Currency_Code__c, Other_Charges__c, Other_Charges_Currency_Code__c, Vehicle_Purchase_Order_Line_Items__c,
-                                                                        TN_HS_Code__c, Product_Code__c, Engine_No__c, Chassis__c, Invoice_No__c, Inward_Declaration_Invoice__c, Vessel_Name__c
+                                                                        TN_HS_Code__c, Product_Code__c, Engine_No__c, Chassis__c, Invoice_No__c, Inward_Declaration_Invoice__c,
+                                                                        Vessel_Name__c, Vessel_Code__c, BL_No__c, ETA_Date__c
                                                                 FROM Vehicle_Master2__c
                                                                 WHERE Shipment_Line_Item__c = NULL
                                                                 AND (
@@ -146,17 +148,6 @@ public inherited sharing class VehicleShipmentServices
                 Boolean matchTrim               = stock.Trim_Code__r.Name == shipmentLineItem.Trim__c;
                 Boolean matchProductionMonth    = stock.Production_Month__c == shipmentLineItem.Production_Month__c;
 
-                // if (stock.Id == 'a0K0T000005WPiaUAG')
-                // {
-                //     System.debug(shipmentLineItem.Name);
-                //     System.debug('matchRefNo :: ' + matchRefNo);
-                //     System.debug('matchModel :: ' + matchModel);
-                //     System.debug('matchColor :: ' + matchColor);
-                //     System.debug('matchTrim :: ' + matchTrim);
-                //     System.debug('matchProductionMonth :: ' + matchProductionMonth);
-                // }
-                
-
                 // if manufacturer ref no is matched can ignore other matching conditions
                 if (matchRefNo)
                 {
@@ -185,12 +176,6 @@ public inherited sharing class VehicleShipmentServices
                     
                 }
             }
-
-            // after matching, check if shipment line item is matched
-            // if (!matchedShipmentLineItems.keySet().contains(shipmentLineItem.Id))
-            // {
-            //     unmatchedShipmentLineItems.put(shipmentLineItem.Id, shipmentLineItem);
-            // }
         }
 
 
@@ -242,7 +227,8 @@ public inherited sharing class VehicleShipmentServices
                                                                 FOB_Amount__c, FOB_Amount_Currency_Code__c, Franchise_Code__c, Freight_Charges__c, Freight_Charges_Currency_Code__c,
                                                                 Insurance_Charges__c, Insurance_Charges_Currency_Code__c, Ex_Factory_Charges__c, Ex_Factory_Charges_Currency_Code__c,
                                                                 Transport_Charges__c, Transport_Charges_Currency_Code__c, Other_Charges__c, Other_Charges_Currency_Code__c,
-                                                                TN_HS_Code__c, Product_Code_Description__c, Engine_No__c, Chassis_No__c, Invoice_No__c, Vessel_Name__c, Invoice_No__r.Invoice_No__c
+                                                                TN_HS_Code__c, Product_Code_Description__c, Engine_No__c, Chassis_No__c, Invoice_No__c, Vessel_Name__c, Invoice_No__r.Invoice_No__c,
+                                                                Vehicle_Shipment__r.Vessel_Name__c, Vehicle_Shipment__r.Vessel_Code__c, Vehicle_Shipment__r.B_L_No__c, Vehicle_Shipment__r.ETA__c
                                                         FROM Shipment_Line_Item__c
                                                         WHERE Id =:shipmentLineItemId
                                                     ];
@@ -254,7 +240,8 @@ public inherited sharing class VehicleShipmentServices
                                                         FOB_Amount__c, FOB_Amount_Currency_Code__c, Franchise_Code__c, Freight_Charges__c, Freight_Charges_Currency_Code__c,
                                                         Insurance_Charges__c, Insurance_Charges_Currency_Code__c, Ex_Factory_Charges__c, Ex_Factory_Charges_Currency_Code__c,
                                                         Transport_Charges__c, Transport_Charges_Currency_Code__c, Other_Charges__c, Other_Charges_Currency_Code__c,
-                                                        TN_HS_Code__c, Product_Code__c, Engine_No__c, Chassis__c, Invoice_No__c, Inward_Declaration_Invoice__c, Vessel_Name__c
+                                                        TN_HS_Code__c, Product_Code__c, Engine_No__c, Chassis__c, Invoice_No__c, Inward_Declaration_Invoice__c,
+                                                        Vessel_Name__c, Vessel_Code__c, BL_No__c, ETA_Date__c
                                                 FROM Vehicle_Master2__c
                                                 WHERE Id =:stockVehicleMasterId
                                                 ];
@@ -265,7 +252,8 @@ public inherited sharing class VehicleShipmentServices
                                                                 Model_Code__r.Name, Color_Code__r.ColorCode__c, Trim_Code__r.Name, Manufacturer_Ref_No__c,
                                                                 FOB_Amount__c, FOB_Amount_Currency_Code__c, Franchise_Code__c, Freight_Charges__c, Freight_Charges_Currency_Code__c,
                                                                 Insurance_Charges__c, Insurance_Charges_Currency_Code__c, Ex_Factory_Charges__c, Ex_Factory_Charges_Currency_Code__c,
-                                                                Transport_Charges__c, Transport_Charges_Currency_Code__c, Other_Charges__c, Other_Charges_Currency_Code__c
+                                                                Transport_Charges__c, Transport_Charges_Currency_Code__c, Other_Charges__c, Other_Charges_Currency_Code__c,
+                                                                Vessel_Name__c, Vessel_Code__c, BL_No__c, ETA_Date__c
                                                         FROM Vehicle_Master2__c
                                                         WHERE Shipment_Line_Item__c =:shipmentLineItem.Id
                                                     ];
@@ -309,7 +297,8 @@ public inherited sharing class VehicleShipmentServices
                                                             FOB_Amount__c, FOB_Amount_Currency_Code__c, Franchise_Code__c, Freight_Charges__c, Freight_Charges_Currency_Code__c,
                                                             Insurance_Charges__c, Insurance_Charges_Currency_Code__c, Ex_Factory_Charges__c, Ex_Factory_Charges_Currency_Code__c,
                                                             Transport_Charges__c, Transport_Charges_Currency_Code__c, Other_Charges__c, Other_Charges_Currency_Code__c,
-                                                            TN_HS_Code__c, Product_Code_Description__c, Engine_No__c, Chassis_No__c, Invoice_No__c, Vessel_Name__c, Invoice_No__r.Invoice_No__c
+                                                            TN_HS_Code__c, Product_Code_Description__c, Engine_No__c, Chassis_No__c, Invoice_No__c, Vessel_Name__c, Invoice_No__r.Invoice_No__c,
+                                                            Vehicle_Shipment__r.Vessel_Name__c, Vehicle_Shipment__r.Vessel_Code__c, Vehicle_Shipment__r.B_L_No__c, Vehicle_Shipment__r.ETA__c
                                                     FROM Shipment_Line_Item__c
                                                     WHERE Id =:shipmentLineItemId
                                                 ];
@@ -319,7 +308,8 @@ public inherited sharing class VehicleShipmentServices
                                                             Model_Code__r.Name, Color_Code__r.ColorCode__c, Trim_Code__r.Name, Manufacturer_Ref_No__c,
                                                             FOB_Amount__c, FOB_Amount_Currency_Code__c, Franchise_Code__c, Freight_Charges__c, Freight_Charges_Currency_Code__c,
                                                             Insurance_Charges__c, Insurance_Charges_Currency_Code__c, Ex_Factory_Charges__c, Ex_Factory_Charges_Currency_Code__c,
-                                                            Transport_Charges__c, Transport_Charges_Currency_Code__c, Other_Charges__c, Other_Charges_Currency_Code__c
+                                                            Transport_Charges__c, Transport_Charges_Currency_Code__c, Other_Charges__c, Other_Charges_Currency_Code__c,
+                                                            Vessel_Name__c, Vessel_Code__c, BL_No__c, ETA_Date__c
                                                     FROM Vehicle_Master2__c
                                                     WHERE Id =:stockVehicleMasterId
                                                 ];
@@ -575,7 +565,14 @@ public inherited sharing class VehicleShipmentServices
         // invoice information
         stock.Inward_Declaration_Invoice__c = shipmentLineItem.Invoice_No__c;
         stock.Invoice_No__c                 = shipmentLineItem.Invoice_No__r.Invoice_No__c;
-        stock.Vessel_Name__c                = shipmentLineItem.Vessel_Name__c;
+
+        // copy vessel name, vessel code and BL no
+        stock.Vessel_Name__c                = shipmentLineItem.Vehicle_Shipment__r.Vessel_Name__c;
+        stock.Vessel_Code__c                = shipmentLineItem.Vehicle_Shipment__r.Vessel_Code__c;
+        stock.BL_No__c                      = shipmentLineItem.Vehicle_Shipment__r.B_L_No__c;
+
+        // copy ETA date
+        stock.ETA_Date__c                   = shipmentLineItem.Vehicle_Shipment__r.ETA__c;
     }
 
     /**
@@ -591,48 +588,55 @@ public inherited sharing class VehicleShipmentServices
     private static void postUnmatching(Vehicle_Master2__c matchedStock, Shipment_Line_Item__c shipmentLineItem)
     {
         // reset franchise code
-        matchedStock.Franchise_Code__c = null;
+        matchedStock.Franchise_Code__c                      = null;
 
         // reset ex-factory charges
-        matchedStock.Ex_Factory_Charges__c = null;
-        matchedStock.Ex_Factory_Charges_Currency_Code__c = null;
+        matchedStock.Ex_Factory_Charges__c                  = null;
+        matchedStock.Ex_Factory_Charges_Currency_Code__c    = null;
 
         // reset transport charges
         matchedStock.Transport_Charges__c = null;
-        matchedStock.Transport_Charges_Currency_Code__c = null;
+        matchedStock.Transport_Charges_Currency_Code__c     = null;
 
         // reset FOB price
         matchedStock.FOB_Amount__c = null;
-        matchedStock.FOB_Amount_Currency_Code__c = null;
+        matchedStock.FOB_Amount_Currency_Code__c            = null;
         
         // reset freight charges
         matchedStock.Freight_Charges__c = null;
-        matchedStock.Freight_Charges_Currency_Code__c = null;
+        matchedStock.Freight_Charges_Currency_Code__c       = null;
 
         // reset insurance charges
         matchedStock.Insurance_Charges__c = null;
-        matchedStock.Insurance_Charges_Currency_Code__c = null;
+        matchedStock.Insurance_Charges_Currency_Code__c     = null;
 
         // reset other charges
         matchedStock.Other_Charges__c = null;
-        matchedStock.Other_Charges_Currency_Code__c = null;
+        matchedStock.Other_Charges_Currency_Code__c         = null;
 
         // reset HS code
-        matchedStock.TN_HS_Code__c = null;
+        matchedStock.TN_HS_Code__c                          = null;
 
         // reset production code
-        matchedStock.Product_Code__c = null;
+        matchedStock.Product_Code__c                        = null;
 
         // reset engine number
-        matchedStock.Engine_No__c = null;
+        matchedStock.Engine_No__c                           = null;
 
         // reset chassis number
-        matchedStock.Chassis__c = null;
+        matchedStock.Chassis__c                             = null;
 
         // reset invoice information
-        matchedStock.Invoice_No__c = null;
-        matchedStock.Inward_Declaration_Invoice__c = null;
-        matchedStock.Vessel_Name__c = null;
+        matchedStock.Invoice_No__c                          = null;
+        matchedStock.Inward_Declaration_Invoice__c          = null;
+
+        // reset vessel name, vessel code and BL no
+        matchedStock.Vessel_Name__c                         = null;
+        matchedStock.Vessel_Code__c                         = null;
+        matchedStock.BL_No__c                               = null;
+
+        // reset ETA date
+        matchedStock.ETA_Date__c                            = null;
     }
 
     private static VehicleShipmentSelector sel = new VehicleShipmentSelector();
