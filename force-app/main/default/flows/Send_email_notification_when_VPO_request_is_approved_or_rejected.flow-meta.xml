@@ -60,8 +60,8 @@
     <actionCalls>
         <name>Send_email_rejection</name>
         <label>Send email rejection</label>
-        <locationX>314</locationX>
-        <locationY>935</locationY>
+        <locationX>578</locationX>
+        <locationY>1175</locationY>
         <actionName>Vehicle_Purchase_Order__c.Send_rejection_email_to_Sales_Admin_Royston_Dawn</actionName>
         <actionType>emailAlert</actionType>
         <connector>
@@ -78,8 +78,8 @@
     <actionCalls>
         <name>Send_Rejection_Notification</name>
         <label>Send Rejection Notification</label>
-        <locationX>314</locationX>
-        <locationY>1055</locationY>
+        <locationX>578</locationX>
+        <locationY>1295</locationY>
         <actionName>customNotificationAction</actionName>
         <actionType>customNotificationAction</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -118,7 +118,7 @@
     <assignments>
         <name>Assign_Recipients_0</name>
         <label>Assign Recipients</label>
-        <locationX>248</locationX>
+        <locationX>347</locationX>
         <locationY>575</locationY>
         <assignmentItems>
             <assignToReference>RecipientIds</assignToReference>
@@ -139,9 +139,31 @@
         </connector>
     </assignments>
     <decisions>
+        <name>Is_Recalled</name>
+        <label>Is Recalled?</label>
+        <locationX>446</locationX>
+        <locationY>1055</locationY>
+        <defaultConnector>
+            <targetReference>Send_email_rejection</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Approval_History.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Removed</stringValue>
+                </rightValue>
+            </conditions>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Is_VPO_approved</name>
         <label>Is VPO approved?</label>
-        <locationX>248</locationX>
+        <locationX>347</locationX>
         <locationY>695</locationY>
         <defaultConnector>
             <targetReference>Is_VPO_rejected</targetReference>
@@ -173,7 +195,7 @@
     <decisions>
         <name>Is_VPO_rejected</name>
         <label>Is VPO rejected?</label>
-        <locationX>446</locationX>
+        <locationX>644</locationX>
         <locationY>815</locationY>
         <defaultConnectorLabel>False</defaultConnectorLabel>
         <rules>
@@ -194,7 +216,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Send_email_rejection</targetReference>
+                <targetReference>Get_Approval_History</targetReference>
             </connector>
             <label>True</label>
         </rules>
@@ -242,9 +264,34 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <recordLookups>
+        <name>Get_Approval_History</name>
+        <label>Get Approval History</label>
+        <locationX>446</locationX>
+        <locationY>935</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Is_Recalled</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>TargetObjectId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>ProcessInstance</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Status</queriedFields>
+        <sortField>CompletedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>Get_Genenic_Notification_Id_0</name>
         <label>Get Genenic Notification Id</label>
-        <locationX>248</locationX>
+        <locationX>347</locationX>
         <locationY>335</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -266,7 +313,7 @@
     <recordLookups>
         <name>Get_Vehicle_Purchase_Order_Group_Id_0</name>
         <label>Get Vehicle Purchase Order Group Id</label>
-        <locationX>248</locationX>
+        <locationX>347</locationX>
         <locationY>455</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -286,7 +333,7 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <start>
-        <locationX>122</locationX>
+        <locationX>221</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Get_Genenic_Notification_Id_0</targetReference>
