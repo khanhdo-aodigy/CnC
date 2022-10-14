@@ -253,8 +253,6 @@ export default class Vpo_createVPOLIDetails extends LightningElement
                 this.isError      = false;
                 this.errorMessage = '';
 
-                this.invokePrimaryRecords( result );
-
                 this.refreshAllValues();
                 
                 this.showNotification('Success!', 'New Vehicle Purchase Order Line Item has been successfully created!', 'success', 'dismissible');
