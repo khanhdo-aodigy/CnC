@@ -127,20 +127,6 @@ public without sharing class PaymentReceiptController {
                 }
             }
             
-            // List<Debtor_Ledger__c> debtorLedgers = [    SELECT Id, Name 
-            //                                             FROM Debtor_Ledger__c
-            //                                             WHERE Account__c = :paymentReceipt.Bill_To__c
-            //                                             LIMIT 1
-            //                                         ];
-            // Debtor_Ledger__c debtorLedger;
-            // if(debtorLedgers.size() < 1) {
-            //     AuraHandledException ex =  new AuraHandledException('');
-            //     ex.setMessage('No Debtor Ledger found for this Customer');
-            //     throw ex;
-            // } else {
-            //     debtorLedger = debtorLedgers[0];
-            // }
-
             System.debug('paymentReceipt = ' + paymentReceipt);
             
               
@@ -158,7 +144,7 @@ public without sharing class PaymentReceiptController {
                 prli.Sales_Invoice__c   = item.salesInvoiceId;
                 prli.Document_Type__c   = 'Credit';
                 prli.DB_CR__c           = 'CR';
-                prli.Document_Amount__c = item.documentAmount;
+                prli.Document_Amount__c = paymentReceipt.Receipt_Amount__c;
                 prli.Payment_Type__c    = paymentReceipt.Type__c;
                 prli.Status__c          = 'Posted';
                 prli.GST_Percentage__c  = paymentReceipt.GST_Percentage__c;
@@ -168,11 +154,11 @@ public without sharing class PaymentReceiptController {
                 Debtor_Transaction__c debtorTran  = new Debtor_Transaction__c();
                 debtorTran.Franchise_Code__c      = paymentReceipt.Franchise_Code__c;
                 debtorTran.Billing_Account__c     = paymentReceipt.Bill_To__c;
-                //debtorTran.Transaction_Type__c    = paymentReceipt.Type__c;
+                debtorTran.Transaction_Type__c    = paymentReceipt.Type__c;
                 debtorTran.Date__c                = paymentReceipt.Receipt_Date__c;
                 debtorTran.Due_Date__c            = null;
                 debtorTran.Credit_Debit__c        = 'Credit';
-                debtorTran.Document_Amount__c     = item.documentAmount;
+                debtorTran.Document_Amount__c     = paymentReceipt.Receipt_Amount__c;
                 debtorTran.Amount__c              = item.paymentAmount;
                 //debtorTran.Matched_Amount__c      = item.paymentAmount;
                 debtorTran.Payment_Receipt__c     = paymentReceipt.Id;

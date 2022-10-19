@@ -5,7 +5,7 @@ const columns = [
     { label: 'Sales Agreement', fieldName: 'salesAgreementName'},
     { label: 'Sales Invoice', fieldName: 'salesInvoiceName'},
     { label: 'Document Amount', fieldName: 'documentAmount'},
-    { label: 'Outtanding Amount', fieldName: 'outstandingAmount' },
+    { label: 'Outstanding Amount', fieldName: 'outstandingAmount' },
     { label: 'Payment Amount', fieldName: 'paymentAmount' },
 ];
 
