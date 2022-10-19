@@ -168,7 +168,7 @@ public without sharing class PaymentReceiptController {
                 Debtor_Transaction__c debtorTran  = new Debtor_Transaction__c();
                 debtorTran.Franchise_Code__c      = paymentReceipt.Franchise_Code__c;
                 debtorTran.Billing_Account__c     = paymentReceipt.Bill_To__c;
-                debtorTran.Transaction_Type__c    = prli.Payment_Type__c;
+                //debtorTran.Transaction_Type__c    = paymentReceipt.Type__c;
                 debtorTran.Date__c                = paymentReceipt.Receipt_Date__c;
                 debtorTran.Due_Date__c            = null;
                 debtorTran.Credit_Debit__c        = 'Credit';
