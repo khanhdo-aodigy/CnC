@@ -355,7 +355,7 @@
             <inputParameters>
                 <name>accept</name>
                 <value>
-                    <stringValue>.pdf</stringValue>
+                    <stringValue>.pdf,.xls</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
