@@ -41,17 +41,32 @@ public without sharing class PaymentReceiptController {
     }
 
     private static Sales_Agreement__c getSAById(String saId) {
+        Set<String> excludingInvoiceStatus = new Set<String>{'Draft', 'Cancelled', 'Reversed'};
         List<Sales_Agreement__c> saList = [ SELECT  Id, Name, FranchiseCode__c,
-                                                    Account__c, Account__r.Name, Account__r.RecordType.DeveloperName,
+                                                    Account__c, Bill_To__c, Bill_To__r.Name, Bill_To__r.RecordType.Name,
                                                     Vehicle_Purchase_Price__c, BalancePayment__c,
                                                     (
                                                         SELECT Id, Name, Invoice_Value__c, CreatedDate
                                                         FROM Sales_Invoices__r
+                                                        WHERE Status__c NOT IN :excludingInvoiceStatus
                                                     )
                                             FROM Sales_Agreement__c
                                             WHERE Id = :saId
                                         ];
         return saList.size() > 0 ? saList[0] : null;
+    }
+
+    @AuraEnabled
+    public static Account getAccountInfo(String accountId){
+        try {
+            List<Account> accList = [  SELECT Id, Name, RecordType.Name
+                                        FROM Account
+                                        WHERE Id = :accountId
+                                    ];
+            return accList.size() > 0 ? accList[0] : null;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
     }
 
     @AuraEnabled(cacheable=true)
@@ -91,7 +106,7 @@ public without sharing class PaymentReceiptController {
 
     public class ReceiptDetail
     {
-        @AuraEnabled public String keyField { get; set; }
+        @AuraEnabled public String key { get; set; }
         @AuraEnabled public String salesAgreementId { get; set; }
         @AuraEnabled public String salesAgreementName { get; set; }
         @AuraEnabled public String salesInvoiceId { get; set; }
@@ -104,11 +119,49 @@ public without sharing class PaymentReceiptController {
     }
 
     @AuraEnabled
-    public static Map<String, List<SObject>> createPaymentReceipt(Payment_Receipt__c receipt, List<ReceiptDetail> receiptDetails){
+    public static List<ReceiptDetail> getReceiptDetails(String accountId, String franchiseCode){
+        try {
+                List<ReceiptDetail> receiptDetails = new List<ReceiptDetail>();
+                if(String.isNotBlank(accountId)) {
+                    DebtorTxnSelector dtSelector = new DebtorTxnSelector();
+                    List<Debtor_Transaction__c> debtorTrans = dtSelector.selectByBillToAndFranchise(
+                                                                    new Set<Id>{accountId},
+                                                                    new Set<String>{franchiseCode},
+                                                                    new Set<String>{'Debit'},
+                                                                    null,
+                                                                    true,
+                                                                    true
+                                                                );
+                    
+                    System.debug('debtorTrans = ' + debtorTrans);
+                    for(Debtor_Transaction__c dt: debtorTrans) {
+                        ReceiptDetail detailRow      = new ReceiptDetail();
+                        detailRow.salesAgreementId   = dt.Sales_Agreement__c;
+                        detailRow.salesAgreementName = dt.Sales_Agreement__r.Name;
+                        detailRow.salesInvoiceId     = dt.Sales_Invoice__c;
+                        detailRow.salesInvoiceName   = dt.Sales_Invoice__r.Name;
+                        detailRow.documentAmount     = dt.Document_Amount__c;
+                        detailRow.outstandingAmount  = dt.Outstanding_Amount__c;
+                        detailRow.key                = dt.Id;
+
+                        receiptDetails.add(detailRow);
+                    }
+                }
+            
+                return receiptDetails;
+                                            
+        } catch (Exception e) {
+            System.debug('exception = ' + e.getMessage());
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+
+
+    @AuraEnabled
+    public static void createPaymentReceipt(Payment_Receipt__c receipt, List<ReceiptDetail> receiptDetails, Boolean isFinanceSettlement){
         Savepoint sp = Database.setSavepoint();  
         try {
-            Map<String, List<SObject>> mapResults = new Map<String, List<SObject>>();
-
             System.debug('receipt = ' + receipt);
             Map<String, Object> fieldsToValue = receipt.getPopulatedFieldsAsMap();
             System.debug('fieldsToValue = ' + fieldsToValue);
@@ -137,6 +190,8 @@ public without sharing class PaymentReceiptController {
 
             List<Payment_Receipt_Line_Item__c> prliList = new List<Payment_Receipt_Line_Item__c>();
             List<Debtor_Transaction__c> debtorTransList = new List<Debtor_Transaction__c>();
+            Set<String> setCompositeKey = new Set<String>();
+
             for(ReceiptDetail item: receiptDetails) {
                 Payment_Receipt_Line_Item__c prli = new Payment_Receipt_Line_Item__c();
                 prli.Payment_Receipt__c = paymentReceipt.Id;
@@ -158,87 +213,36 @@ public without sharing class PaymentReceiptController {
                 debtorTran.Date__c                = paymentReceipt.Receipt_Date__c;
                 debtorTran.Due_Date__c            = null;
                 debtorTran.Credit_Debit__c        = 'Credit';
-                debtorTran.Document_Amount__c     = paymentReceipt.Receipt_Amount__c;
+                debtorTran.Document_Amount__c     = item.paymentAmount;
                 debtorTran.Amount__c              = item.paymentAmount;
-                //debtorTran.Matched_Amount__c      = item.paymentAmount;
                 debtorTran.Payment_Receipt__c     = paymentReceipt.Id;
                 debtorTran.Sales_Agreement__c     = item.salesAgreementId;
-                debtorTran.Sales_Invoice__c     = item.salesInvoiceId;
+                debtorTran.Sales_Invoice__c       = item.salesInvoiceId;
                 debtorTransList.add(debtorTran);
+
+                if(isFinanceSettlement) {
+                    setCompositeKey.add(debtorTran.Billing_Account__c + '-' + debtorTran.Franchise_Code__c + '-' + debtorTran.Sales_Invoice__c); //Account Id (18chars) + '-' + Franchise Code + '-' + Sales Invoice Id (18chars)
+                }
             }
   
             insert prliList;
             insert debtorTransList;
-
-            prliList = [ SELECT Id, Document_Type__c, Sales_Agreement__c, Sales_Agreement__r.Name,
-                                Payment_Receipt__r.Name, Document_Amount__c, DB_CR__c, GST_Percentage__c,
-                                Payment_Type__c
-                         FROM Payment_Receipt_Line_Item__c
-                         WHERE Payment_Receipt__c = :paymentReceipt.Id
-            ];
-
-            debtorTransList = [ SELECT Id, Name, Billing_Account__c, Credit_Debit__c, Date__c,
-                                        Document_Amount__c, Franchise_Code__c,
-                                        Matched_Amount__c, Transaction_Type__c, Payment_Receipt__c,
-                                        Sales_Agreement__c
-                                FROM Debtor_Transaction__c
-                                WHERE Payment_Receipt__c = :paymentReceipt.Id            
-            ];
-
                       
             paymentReceipt.Bypass_Status_Validation__c = false;
             update paymentReceipt;
-            System.debug('paymentReceipt'+ paymentReceipt);  
-            System.debug('prliList'+ prliList);  
-            System.debug('debtorTransList'+ debtorTransList);  
-                        
-            mapResults.put('Payment_Receipt__c', new List<SObject>{paymentReceipt});
-            mapResults.put('Payment_Receipt_Line_Item__c', prliList);
-            mapResults.put('Debtor_Transaction__c', debtorTransList);
-            return mapResults;
 
+            if(isFinanceSettlement) {
+                Date matchDate = Date.Today();
+                DebtorTxnMatchService.doAutoMatch( setCompositeKey, matchDate, true );
+            }
             
         } catch (Exception e) {
             Database.rollback( sp );
             System.debug(e.getMessage()+ ', Cause: ' + e.getCause() + '. At line: ' + e.getLineNumber());
             throw new AuraHandledException(e.getMessage());
         }
-    }
-
-    @AuraEnabled
-    public static Account getAccountInfo(String accountId){
-        try {
-            List<Account> accList = [  SELECT Id, Name, RecordType.DeveloperName
-                                        FROM Account
-                                        WHERE Id = :accountId
-                                    ];
-            return accList.size() > 0 ? accList[0] : null;
-        } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
-        }
-    }
-
-    @AuraEnabled
-    public static List<Sales_Invoice__c> getRelatedSIs(String accountId){
-        try {
-            List<Sales_Invoice__c> siList = new List<Sales_Invoice__c>();
-            if(String.isNotBlank(accountId)) {
-                siList = [   SELECT Id, Name, Sales_Agreement__c, Bill_To__c,
-                                    Sales_Agreement__r.Bill_To__c,
-                                    Sales_Agreement__r.Name,
-                                    // Sales_Agreement__r.Account__c, Sales_Agreement__r.Account__r.Name,
-                                    Sales_Agreement__r.Vehicle_Purchase_Price__c, Sales_Agreement__r.Balance_Payment__c
-                            FROM Sales_Invoice__c
-                            WHERE Bill_To__c = :accountId
-                        ];
-
-                                            
-            }
-            return siList;
-        } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
-        }
-    }
+    }    
+    
 
     /*@testVisible
     private static Boolean isDuplicatedPR(String saId) {

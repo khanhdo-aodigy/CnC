@@ -9,7 +9,7 @@
     <height>600</height>
     <isResizable>true</isResizable>
     <linkType>page</linkType>
-    <masterLabel>Create Payment Receipt</masterLabel>
+    <masterLabel>Generate Payment Receipt</masterLabel>
     <openType>newWindow</openType>
     <page>PR_CreatePaymentReceiptWrapper</page>
     <position>none</position>

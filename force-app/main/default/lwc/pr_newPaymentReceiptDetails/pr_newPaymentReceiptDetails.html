@@ -16,9 +16,9 @@
                         
                     </thead>
                     <tbody>
-                        <template for:each={tableData} for:item="record">
-                            <tr class="slds-hint-parent" key={record.key}>
-                                <template for:each={record.props} for:item="field">
+                        <template for:each={tableData} for:item="row">
+                            <tr class="slds-hint-parent" key={row.key}>
+                                <template for:each={row.props} for:item="field">
                                     <td key={field.fieldName}>
                                         <div class="slds-truncate">
                                             {field.fieldValue}                                        
@@ -27,7 +27,7 @@
                                 </template>
                                 <td>
                                     <template if:true={allowEdit}>
-                                        <lightning-input data-key={record.key} name="paymentAmt" type="number" onchange={onValueChanged}>
+                                        <lightning-input data-key={row.key} name="paymentAmt" type="number" onchange={onValueChanged}>
     
                                         </lightning-input>
                                     </template>

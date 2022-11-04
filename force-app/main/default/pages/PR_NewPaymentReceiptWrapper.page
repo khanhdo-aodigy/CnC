@@ -28,10 +28,6 @@
             showToast(event.detail);
         });
 
-        document.addEventListener("back", function (event) {
-            window.history.back();
-        });
-
         function showToast(notification) {
             sforce.one.showToast({
                 "title": notification.title,

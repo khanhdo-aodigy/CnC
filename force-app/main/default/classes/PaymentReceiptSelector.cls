@@ -29,6 +29,7 @@ public inherited sharing class PaymentReceiptSelector extends ADGLIB_SObjectSele
         Boolean includeSelectorFields = true;   // include fields from getSObjectFieldList()
 
         ADGLIB_QueryFactory paymentReceiptQueryFactory = this.newQueryFactory(assertCRUD, enforceFLS, includeSelectorFields).setCondition('Id =: recordId');
+        paymentReceiptQueryFactory.selectField('Sales_Agreement__r.FranchiseCode__c');
 
 
         if(withLineItems)

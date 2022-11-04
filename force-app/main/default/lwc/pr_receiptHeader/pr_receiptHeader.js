@@ -55,11 +55,11 @@ export default class Pr_receiptHeader extends LightningElement {
         const _receipt = {};
         _receipt.Sales_Agreement__c = sa.Id;
         _receipt.Status__c = 'Posted';
-        _receipt.Bill_To__c = sa.Account__c;
-        _receipt.Registered_Party__c = sa.Account__c;
-        _receipt.Received_From__c = sa.Account__r.Name;
+        _receipt.Bill_To__c = sa.Bill_To__c;
+        _receipt.Registered_Party__c = sa.Bill_To__c;
+        _receipt.Received_From__c = sa.Bill_To__r.Name;
         _receipt.Franchise_Code__c = sa.FranchiseCode__c;
-        _receipt.Bill_To_Type__c = sa.Account__r.RecordType.DeveloperName;
+        _receipt.Bill_To_Type__c = sa.Bill_To__r.RecordType.Name;
         this.receipt = _receipt;
         // console.log('receipt', this.receipt);
 
@@ -111,7 +111,6 @@ export default class Pr_receiptHeader extends LightningElement {
             }
         }
 
-        // console.log('receipt', this.receipt);
     }
 
     async calculateGST() {
@@ -159,46 +158,36 @@ export default class Pr_receiptHeader extends LightningElement {
 
     saveAndPost() {
         console.log('receipt', this.receipt);
-        let inputFields = this.template.querySelectorAll('lightning-input-field');
-        let buttons = this.template.querySelectorAll('button');
+        let saveButton = this.template.querySelector('button[name="save"]');
+        this.spinner = true;
+        saveButton.disabled = true;
         try {
-            if (this.isInputValid()) {
-                inputFields.forEach(input => {
-                    input.disabled = true;
-                });
-
-                buttons.forEach(button => {
-                    button.disabled = true;
-                });
-
-                
-                this.template.querySelector('c-pr_receipt-details').createReceiptDetails();
-                
+            if (this.isInputValid()) {                
+                this.template.querySelector('c-pr_receipt-details').createReceiptDetails();                
+            } else {
+                this.showNotification('Error!', 'Please fill in all required fields', 'error', 'dismissable');    
+                this.spinner = false;
+                saveButton.disabled = false;
             }
+
         } catch (e) {
             console.error(e);
             this.showNotification('Error!', e.body.message, 'error', 'dismissable');
-            buttons.forEach(button => {
-                button.disabled = false;
-            });
-
-            // inputFields.forEach(input => {
-            //     input.disabled = false;
-            // });
+            this.spinner = false;
+            saveButton.disabled = false;
         }
     }
 
     async createPaymentReceipt(receiptDetails) {
-        let inputFields = this.template.querySelectorAll('lightning-input-field');
         let saveButton = this.template.querySelector('button[name="save"]');
         this.spinner = true;
+        saveButton.disabled = true;
         try{
-            
-            saveButton.disabled = true;
             console.log('createPaymentReceipt.receiptDetails', receiptDetails);
             const result = await createReceipt({
                 receipt: this.receipt,
-                receiptDetails: receiptDetails
+                receiptDetails: receiptDetails,
+                isFinanceSettlement: false
             });
             console.log('result', result);
 
@@ -210,16 +199,16 @@ export default class Pr_receiptHeader extends LightningElement {
         } catch(e) {
             console.error(e);
             this.showNotification('Error!', e.body.message, 'error', 'dismissable');
-            
-            saveButton.disabled = false;
-        }
+        }        
         this.spinner = false;
+        saveButton.disabled = false;
         
     }
 
     cancelReceiptCreation() {
         let saveButton = this.template.querySelector('button[name="save"]');
         saveButton.disabled = false;
+        this.spinner = false;
     }
 
     showNotification(title, message, type, mode) {

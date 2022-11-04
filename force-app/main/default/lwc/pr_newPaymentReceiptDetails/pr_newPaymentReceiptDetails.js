@@ -5,7 +5,7 @@ const columns = [
     { label: 'Sales Agreement', fieldName: 'salesAgreementName'},
     { label: 'Sales Invoice', fieldName: 'salesInvoiceName'},
     { label: 'Document Amount', fieldName: 'documentAmount'},
-    { label: 'Outtanding Amount', fieldName: 'outstandingAmount' },
+    { label: 'Outstanding Amount', fieldName: 'outstandingAmount' },
     { label: 'Payment Amount', fieldName: 'paymentAmount' },
 ];
 
@@ -43,64 +43,48 @@ export default class Pr_receiptDetails extends LightningElement {
         return this.tableData;
     }
 
-    set rawData(siList) {
-        if(siList && siList.length > 0) {
-            siList.forEach(si => {
+    set rawData(receiptDetails) {
+        if(receiptDetails && receiptDetails.length > 0) {
+            receiptDetails.forEach(row => {
                 const props = [
                     {
                         fieldName: 'salesAgreementName',
-                        fieldValue: si.Sales_Agreement__c ? si.Sales_Agreement__r.Name : '',
+                        fieldValue: row.salesAgreementName,
                         editable: false
                     },
                     {
                         fieldName: 'salesInvoiceName',
-                        fieldValue: si.Name,
+                        fieldValue: row.salesInvoiceName,
                         editable: false
                     },
                     {
                         fieldName: 'documentAmount',
-                        fieldValue: si.Sales_Agreement__c ? si.Sales_Agreement__r.Vehicle_Purchase_Price__c : 10000,
+                        fieldValue: row.documentAmount,
                         editable: false
                     },
                     {
                         fieldName: 'outstandingAmount',
-                        fieldValue: si.Invoice_Value__c,
+                        fieldValue: row.outstandingAmount,
                         editable: false
                     }
                 ]
-
                                     
                 this.tableData.push({
-                    key: si.Id,
+                    key: row.key,
                     props: props
                 });
             });
-            
-            this.receiptDetails = siList.map(si => (
-                {
-                    salesAgreementId   : si.Sales_Agreement__c,
-                    salesInvoiceId     : si.Id,
-                    documentAmount     : 10000,//si.Vehicle_Purchase_Price__c,
-                    outstandingAmount  : si.Invoice_Value__c,
-                    key                : si.Id,
-                }
-            ));
 
+            this.receiptDetails = deepClone(receiptDetails);
             this.receiptDetails.push(
                 {
                     key: "unallocated",
                     salesAgreementId   : null,
                     salesInvoiceId     : null
                 }
-                )
+            )
             
         }     
-    }
-
-    renderedCallback() {        
-        // this.template.querySelector('div[data-id="result"]').scrollIntoView();
-
-        
     }
 
     onValueChanged(event){
@@ -108,7 +92,8 @@ export default class Pr_receiptDetails extends LightningElement {
             this.showErrorNotification('Allocated Amount should not be greater than Receipt Amount');
         }
 
-        if(event.target.name == 'paymentAmt' || event.target.name == 'unallocatedAmt'){
+        console.log(deepClone(this.receiptDetails));
+        if(event.target.name === 'paymentAmt' || event.target.name === 'unallocatedAmt'){
             let recordKey = event.target.dataset.key;
             let recordIdx = this.receiptDetails.findIndex((obj => obj.key == recordKey));
             this.receiptDetails[recordIdx].paymentAmount = event.target.value;
@@ -147,11 +132,13 @@ export default class Pr_receiptDetails extends LightningElement {
     @api
     createReceiptDetails() { 
         this.isError = false;
-        
-        let unallocatedAmount = parseFloat(this.receiptDetails[this.receiptDetails.length - 1].paymentAmount);
-        if(isNaN(unallocatedAmount)) {
-            this.receiptDetails.pop();
-        };
+        let infoToSubmit = [];
+
+        this.receiptDetails.forEach(row => {
+            if(!isNaN( parseFloat(row.paymentAmount) )) {
+                infoToSubmit.push(row);
+            };
+        })
 
         if(this.totalAmt === 0) {
             this.showErrorNotification('Please enter Payment Amount to be allocated');
@@ -162,8 +149,8 @@ export default class Pr_receiptDetails extends LightningElement {
         }
 
         if(!this.isError) {
-            console.log('before submit', this.receiptDetails);
-            this.bubbleEvent('receiptDetailsReady', this.receiptDetails);
+            console.log('before submit', infoToSubmit);
+            this.bubbleEvent('receiptDetailsReady', infoToSubmit);
         }
     }
     

@@ -20,18 +20,17 @@
                         <lightning-input-field field-name="Franchise_Code__c" value={receipt.Franchise_Code__c}
                             onchange={handleOnChange}>
                         </lightning-input-field>
-                        <lightning-input-field field-name="Registered_Party__c" onchange={handleOnChange}
-                            value={receipt.Registered_Party__c}>
+                        <lightning-input-field field-name="Registered_Party__c" value={receipt.Registered_Party__c} onchange={handleOnChange}> 
                         </lightning-input-field>
-                        <lightning-input-field field-name="Bill_To__c" value={receipt.Bill_To__c}
-                            onchange={handleOnChange} required> 
+                        <lightning-input-field id="bill-to" field-name="Bill_To__c" value={receipt.Bill_To__c}
+                            onchange={handleOnChange} required >
                         </lightning-input-field>
                         <lightning-input-field label="Bill To Type" field-name="Bill_To_Type__c" value={receipt.Bill_To_Type__c}
                             disabled>
                         </lightning-input-field>
                         <lightning-input-field data-id="receipt-date" field-name="Receipt_Date__c" value={receipt.Receipt_Date__c} onchange={handleOnChange} disabled>
                         </lightning-input-field>
-                        <lightning-input-field field-name="Type__c" onchange={handleOnChange} required>
+                        <lightning-input-field field-name="Type__c"  value={receipt.Type__c} onchange={handleOnChange} required disabled>
                         </lightning-input-field>
                         <lightning-input-field field-name="Received_From__c" onchange={handleOnChange}
                             value={receipt.Received_From__c}>
@@ -69,15 +68,6 @@
                         <lightning-input-field label="BT/CC Commission Amount" field-name="CC_Commission_Amount__c"
                             value={receipt.CC_Commission_Amount__c} disabled>
                         </lightning-input-field>
-                        <lightning-input-field field-name="GST_Percentage__c" value={receipt.GST_Percentage__c}
-                            disabled>
-                        </lightning-input-field>
-                        <lightning-input-field label="Receipt GST Amount" field-name="Receipt_GST_Amount__c"
-                            value={receipt.Receipt_GST_Amount__c} disabled>
-                        </lightning-input-field>
-                        <lightning-input-field label="Receipt Amount excl. GST" field-name="Receipt_Amount_excl_GST__c"
-                            value={receipt.Receipt_Amount_excl_GST__c} disabled>
-                        </lightning-input-field>
                     </div>
                 </div>
             </lightning-record-edit-form>
@@ -85,10 +75,11 @@
         
         <template if:true={showReceiptDetails}>
             <div class="slds-card">
-                <c-pr_new-payment-receipt-details raw-data={relatedSIs} receipt-amount={receipt.Receipt_Amount__c} ></c-pr_new-payment-receipt-details>
+                <c-pr_new-payment-receipt-details raw-data={receiptDetails} receipt-amount={receipt.Receipt_Amount__c} ></c-pr_new-payment-receipt-details>
 
             </div>
         </template>
+
         <div class="slds-grid slds-gutters slds-p-vertical_x-large slds-p-horizontal_large">
             <div class="slds-col slds-size_1-of-2">
                 <button class="slds-button slds-button_stretch slds-button_outline-brand" onclick={cancel}>
@@ -96,9 +87,17 @@
                 </button>
             </div>
             <div class="slds-col slds-size_1-of-2">
-                <button class="slds-button slds-button_stretch slds-button_brand" type="submit" onclick={saveAndPost}>
-                    Save &amp; Post
-                </button>
+                <template if:true={showReceiptDetails}>
+                    <button class="slds-button slds-button_stretch slds-button_brand" name="save" type="submit" onclick={saveAndPost}>
+                        Save &amp; Post
+                    </button>
+                </template>
+                <template if:false={showReceiptDetails}>
+                    <button class="slds-button slds-button_stretch slds-button_brand" name="save" type="submit" disabled>
+                        Save &amp; Post
+                    </button>
+                </template>
+                
             </div>
 
         </div>

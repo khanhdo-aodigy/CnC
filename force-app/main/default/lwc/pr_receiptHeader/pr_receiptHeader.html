@@ -29,7 +29,7 @@
                 <div class="slds-form__row">
                     <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
                         <lightning-input-field field-name="Registered_Party__c" onchange={handleOnChange}
-                            value={receipt.Registered_Party__c} disabled> </lightning-input-field>
+                            value={receipt.Registered_Party__c} disabled required> </lightning-input-field>
                     </div>
                     <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
                         <lightning-input-field field-name="Deposit_Bank__c" onchange={handleOnChange} required>
@@ -40,7 +40,7 @@
                 <div class="slds-form__row">
                     <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
                         <lightning-input-field field-name="Bill_To__c" value={receipt.Bill_To__c}
-                            onchange={handleOnChange} disabled> </lightning-input-field>
+                            onchange={handleOnChange} disabled required> </lightning-input-field>
                     </div>
                     <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
                         <lightning-input-field field-name="Bank_Charges__c" onchange={handleOnChange}>
