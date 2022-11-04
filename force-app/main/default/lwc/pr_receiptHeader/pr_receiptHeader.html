@@ -1,0 +1,196 @@
+<template>
+    <template if:true={spinner}>
+        <lightning-spinner alternative-text="Loading" style="height: 300%;"></lightning-spinner>
+    </template>
+    <div class="slds-card slds-m-vertical_large">
+        <div class="slds-modal__header">
+            <div>
+                <lightning-button-icon class="slds-float_right" icon-name="utility:close" alternative-text="Close"
+                    title="Close" onclick={cancel}></lightning-button-icon>
+            </div>
+            <div class="slds-text-heading_large slds-text-align_center">
+                Create Payment Receipt
+            </div>
+        </div>
+        <div class="slds-modal__content slds-p-around_large">
+            <lightning-record-edit-form object-api-name="Payment_Receipt__c" record-id={receipt.Id}>
+                <div class="slds-form__row">
+                    <div class="slds-col slds-size_1-of-2 slds-var-p-horizontal_small">
+                        <lightning-input-field field-name="Franchise_Code__c" value={receipt.Franchise_Code__c}
+                            onchange={handleOnChange} disabled>
+                        </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-var-p-horizontal_small">
+                        <lightning-input-field field-name="Receipt_Amount__c" onchange={handleOnChange} required>
+                        </lightning-input-field>
+                    </div>
+                </div>
+
+                <div class="slds-form__row">
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <lightning-input-field field-name="Registered_Party__c" onchange={handleOnChange}
+                            value={receipt.Registered_Party__c} disabled required> </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <lightning-input-field field-name="Deposit_Bank__c" onchange={handleOnChange} required>
+                        </lightning-input-field>
+                    </div>
+                </div>
+
+                <div class="slds-form__row">
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <lightning-input-field field-name="Bill_To__c" value={receipt.Bill_To__c}
+                            onchange={handleOnChange} disabled required> </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <lightning-input-field field-name="Bank_Charges__c" onchange={handleOnChange}>
+                        </lightning-input-field>
+                    </div>
+                </div>
+
+                <div class="slds-form__row">
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <lightning-input-field label="Bill To Type" field-name="Bill_To_Type__c" value={receipt.Bill_To_Type__c}
+                            disabled> </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <lightning-input-field field-name="Payment_Mode__c" onchange={handleOnChange}>
+                        </lightning-input-field>
+                    </div>
+                </div>
+
+                <div class="slds-form__row">
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <lightning-input-field data-id="receipt-date" field-name="Receipt_Date__c" value={receipt.Receipt_Date__c} onchange={handleOnChange} disabled>
+                        </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <lightning-input-field field-name="Ref_No__c" onchange={handleOnChange}>
+                        </lightning-input-field>
+                    </div>
+                </div>
+
+                <div class="slds-form__row">
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <lightning-input-field field-name="Type__c" onchange={handleOnChange} required>
+                        </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <lightning-input-field data-id="cheque" field-name="Cheque_Bank_Name__c"
+                            onchange={handleOnChange} disabled>
+                        </lightning-input-field>
+                    </div>
+                </div>
+
+                <div class="slds-form__row">
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <lightning-input-field field-name="Received_From__c" onchange={handleOnChange}
+                            value={receipt.Received_From__c}> </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <lightning-input-field data-id="cheque" field-name="Cheque_Bank_Name_Others__c"
+                            onchange={handleOnChange} disabled> </lightning-input-field>
+                    </div>
+                </div>
+
+                <div class="slds-form__row">
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <lightning-input-field field-name="Remarks__c" onchange={handleOnChange}>
+                        </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <lightning-input-field data-id="cheque" field-name="Cheque_No__c" onchange={handleOnChange} disabled>
+                        </lightning-input-field>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <lightning-input-field data-id="cheque" field-name="Cheque_Date__c" onchange={handleOnChange} disabled>
+                        </lightning-input-field>
+                    </div>
+                </div>
+
+                <div class="slds-form__row">
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <lightning-input-field data-id="creditCard" field-name="Credit_Card_Type__c"
+                            onchange={handleOnChange}> </lightning-input-field>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <lightning-input-field label="BT/CC Commission %" field-name="CC_Commission__c"
+                            value={receipt.CC_Commission__c} disabled> </lightning-input-field>
+                    </div>
+
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <lightning-input-field label="BT/CC Commission Amount" field-name="CC_Commission_Amount__c"
+                            value={receipt.CC_Commission_Amount__c} disabled> </lightning-input-field>
+                    </div>
+                </div>
+
+                <div class="slds-form__row">
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <lightning-input-field field-name="GST_Percentage__c" value={receipt.GST_Percentage__c}
+                            disabled> </lightning-input-field>
+                    </div>
+                </div>
+
+                <div class="slds-form__row">
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <lightning-input-field label="Receipt GST Amount" field-name="Receipt_GST_Amount__c"
+                            value={receipt.Receipt_GST_Amount__c} disabled> </lightning-input-field>
+                    </div>
+                </div>
+
+                <div class="slds-form__row">
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <lightning-input-field label="Receipt Amount excl. GST" field-name="Receipt_Amount_excl_GST__c"
+                            value={receipt.Receipt_Amount_excl_GST__c} disabled> </lightning-input-field>
+                    </div>
+                </div>
+            </lightning-record-edit-form>
+        </div>
+
+        <div class="slds-card">
+            <c-pr_receipt-details raw-data={salesAgreement} receipt-amount={receipt.Receipt_Amount__c} receipt-date={receipt.Receipt_Date__c}>
+            </c-pr_receipt-details>
+        </div>
+
+        <div class="slds-grid slds-gutters slds-p-vertical_x-large slds-p-horizontal_large">
+            <div class="slds-col slds-size_1-of-2">
+                <button class="slds-button slds-button_stretch slds-button_outline-brand" name="cancel" onclick={cancel}>
+                    Cancel
+                </button>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <button class="slds-button slds-button_stretch slds-button_brand" type="submit" name="save" onclick={saveAndPost}>
+                    Save &amp; Post
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+
+</template>

@@ -1,0 +1,46 @@
+<apex:page standardController="Sales_Agreement__c" lightningStylesheets="true">
+    <apex:includeLightning />
+    <html>
+        <head>
+            <style>
+                lightning-helptext {
+                    display: none;
+                }
+
+            </style>
+        </head>
+        <body>
+            <div id="receiptHeaderCmp" />
+        </body>
+    </html>
+    <script>
+        $Lightning.use("c:PR_LightningApp", function () {
+            $Lightning.createComponent(
+                "c:pr_receiptHeader",
+                {
+                    recordId: "{!$CurrentPage.parameters.id}"
+                },
+                "receiptHeaderCmp",
+                function (component) { });
+        });
+
+        document.addEventListener("showNotification", function (event) {
+            showToast(event.detail);
+        });
+
+        document.addEventListener("back", function (event) {
+            window.history.back();
+        });
+
+        function showToast(notification) {
+            sforce.one.showToast({
+                "title": notification.title,
+                "message": notification.message,
+                "type": notification.type,
+                "mode": notification.mode
+            });
+            
+        }
+
+    </script>
+</apex:page>

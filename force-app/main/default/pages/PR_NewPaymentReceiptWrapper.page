@@ -1,0 +1,42 @@
+<apex:page standardController="Payment_Receipt__c"  recordSetVar="receipts" lightningStylesheets="true">
+    <apex:includeLightning />
+    <html>
+        <head>
+            <style>
+                lightning-helptext {
+                    display: none;
+                }
+
+            </style>
+        </head>
+        <body>
+            <div id="receiptHeaderCmp" />
+        </body>
+    </html>
+    <script>
+        $Lightning.use("c:PR_LightningApp", function () {
+            $Lightning.createComponent(
+                "c:pr_newPaymentReceipt",
+                {
+                    recordId: "{!$CurrentPage.parameters.id}"
+                },
+                "receiptHeaderCmp",
+                function (component) { });
+        });
+
+        document.addEventListener("showNotification", function (event) {
+            showToast(event.detail);
+        });
+
+        function showToast(notification) {
+            sforce.one.showToast({
+                "title": notification.title,
+                "message": notification.message,
+                "type": notification.type,
+                "mode": notification.mode
+            });
+            
+        }
+
+    </script>
+</apex:page>
